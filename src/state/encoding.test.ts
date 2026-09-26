@@ -6,6 +6,7 @@ import type { RegionIds } from "./encoding";
 const ids: RegionIds = {
   president: ["01", "02", "04"],
   senate: ["01", "02"],
+  governor: ["04", "06"],
   house: ["0101", "0102", "0200"],
 };
 
@@ -39,15 +40,17 @@ describe("encodeHash / decodeHash", () => {
   const assignments: Assignments = {
     president: { "01": "D" },
     senate: { "02": "TOSS" },
+    governor: { "04": "LEAN_R" },
     house: { "0101": "R" },
   };
 
-  it("round-trips all three maps and the mode", () => {
+  it("round-trips every map and the mode", () => {
     const hash = encodeHash(assignments, ids, "house");
     const decoded = decodeHash(hash, ids);
     expect(decoded.mode).toBe("house");
     expect(decoded.assignments.president).toEqual({ "01": "D" });
     expect(decoded.assignments.senate).toEqual({ "02": "TOSS" });
+    expect(decoded.assignments.governor).toEqual({ "04": "LEAN_R" });
     expect(decoded.assignments.house).toEqual({ "0101": "R" });
   });
 
@@ -58,7 +61,7 @@ describe("encodeHash / decodeHash", () => {
   });
 
   it("returns a null mode for an unknown mode value", () => {
-    const decoded = decodeHash("#m=governor", ids);
+    const decoded = decodeHash("#m=mayor", ids);
     expect(decoded.mode).toBeNull();
   });
 });

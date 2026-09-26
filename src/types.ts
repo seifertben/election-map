@@ -16,7 +16,7 @@ export type RaceRating =
 
 export type Assignment = Party | RaceRating | null;
 
-export type Mode = "president" | "senate" | "house";
+export type Mode = "president" | "senate" | "house" | "governor";
 
 export type Assignments = Record<Mode, Record<string, Assignment>>;
 

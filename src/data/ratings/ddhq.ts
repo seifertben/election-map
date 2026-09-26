@@ -492,3 +492,47 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "5508": "LIKELY_R",
   "5600": "SOLID_R",
 };
+
+/**
+ * 2026 Governor race ratings for the 36 states on the ballot, as of September
+ * 23, 2026, compiled from the Wikipedia "2026 United States gubernatorial
+ * elections" predictions table. Keyed by state FIPS.
+ */
+export const DDHQ_GOVERNOR_RATINGS: Record<string, RaceRating> = {
+  "01": "SOLID_R",
+  "02": "TOSS",
+  "04": "LEAN_D",
+  "05": "SOLID_R",
+  "06": "SOLID_D",
+  "08": "LIKELY_D",
+  "09": "LIKELY_D",
+  "12": "TOSS",
+  "13": "LEAN_D",
+  "15": "SOLID_D",
+  "16": "SOLID_R",
+  "17": "LIKELY_D",
+  "19": "LEAN_D",
+  "20": "LEAN_R",
+  "23": "LIKELY_D",
+  "24": "SOLID_D",
+  "25": "SOLID_D",
+  "26": "LEAN_D",
+  "27": "LIKELY_D",
+  "31": "LIKELY_R",
+  "32": "TOSS",
+  "33": "LEAN_R",
+  "35": "LIKELY_D",
+  "36": "LIKELY_D",
+  "39": "TOSS",
+  "40": "SOLID_R",
+  "41": "LIKELY_D",
+  "42": "LIKELY_D",
+  "44": "SOLID_D",
+  "45": "LIKELY_R",
+  "46": "SOLID_R",
+  "47": "LIKELY_R",
+  "48": "LEAN_R",
+  "50": "SOLID_R",
+  "55": "LEAN_D",
+  "56": "SOLID_R",
+};

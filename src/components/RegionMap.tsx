@@ -1,18 +1,42 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type {
   MouseEvent,
   MutableRefObject,
   PointerEvent as ReactPointerEvent,
   Ref,
 } from "react";
-import { ASSIGNMENT_LABEL, BORDER_COLOR, pickupStripe, regionColor } from "../data/parties";
+import {
+  ASSIGNMENT_LABEL,
+  BORDER_COLOR,
+  pickupStripe,
+  pickupStripeFor,
+  regionColor,
+} from "../data/parties";
+import type { StripeSpec } from "../data/parties";
+import { describeSummary } from "../lib/polling";
+import type { PollOverlay } from "../lib/polling";
 import { MAP_HEIGHT, MAP_WIDTH, projectFeatures } from "../lib/projection";
 import type { Assignment, RegionFeature } from "../types";
 
 /** Diagonally striped pattern geometry, in user-space units. */
-const STRIPE_SIZE = 6;
-const STRIPE_SOLID = 2;
-const STRIPE_CONFIDENCE = STRIPE_SIZE - STRIPE_SOLID;
+const STRIPE_SIZE = 8;
+/** The narrower, lighter partner band. */
+const STRIPE_PARTNER = 2;
+/** The wider confidence band (a 3:1 ratio with the partner band). */
+const STRIPE_CONFIDENCE = STRIPE_SIZE - STRIPE_PARTNER;
+
+/**
+ * Pattern id for a poll-projected pickup. It has to fold in the poll shade
+ * (the fill that becomes the confidence band) so pickups that share parties
+ * but not a shade don't dedupe onto one `<pattern>`.
+ */
+function pollStripeId(
+  target: string,
+  incumbent: string | null,
+  fill: string,
+): string {
+  return `pickup-poll-${target}${incumbent}-${fill.replace(/[^0-9a-z]/gi, "")}`;
+}
 
 export interface RegionMapProps {
   features: RegionFeature[];
@@ -28,11 +52,19 @@ export interface RegionMapProps {
   /**
    * When on, regions whose projected party differs from their incumbent party
    * are filled with a diagonal stripe pattern (two blues for a D pickup, two
-   * reds for an R pickup) instead of a solid color.
+   * reds for an R pickup) instead of a solid color. In polling view the
+   * unpainted projection is the poll leader (with the poll shade as the wider
+   * band); painted states project from their paint.
    */
   stripePickups?: boolean;
   /** Incumbent/holding party ("D" | "R" | "I") for a region id, if any. */
   getIncumbent?: (id: string) => string | null;
+  /**
+   * When set, states are filled from polling (by margin) instead of their
+   * assignment, and the tooltip shows the poll aggregate. Painting still edits
+   * the underlying map, so callers usually exit the overlay on a click.
+   */
+  poll?: PollOverlay | null;
 }
 
 interface HoverState {
@@ -81,6 +113,7 @@ export function RegionMap({
   svgRef,
   stripePickups = false,
   getIncumbent,
+  poll,
 }: RegionMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerSvgRef = useRef<SVGSVGElement | null>(null);
@@ -110,51 +143,70 @@ export function RegionMap({
     [features, ds, getId, getLabel],
   );
 
-  // Which districts are party flips (projected party != holding party), and
-  // the stripe pattern mixes two shades of the projected party's color.
-  const stripeDefs = useMemo(() => {
-    const byId = new Map<string, ReturnType<typeof pickupStripe> & object>();
-    if (!stripePickups || !getIncumbent) return byId;
-    for (const shape of shapes) {
-      const stripe = pickupStripe(
-        assignments[shape.id] ?? null,
-        getIncumbent(shape.id),
-      );
-      if (stripe && !byId.has(stripe.id)) byId.set(stripe.id, stripe);
-    }
-    return byId;
-  }, [shapes, assignments, stripePickups, getIncumbent]);
+  // The stripe pattern to draw for a region, if it is a party flip. The
+  // projected party is the poll leader while a poll overlay is up (unless the
+  // state was painted over), otherwise the region's assignment. The confidence
+  // band is whatever color the region would show without the stripe, so a
+  // poll-projected pickup keeps its poll shade and adds the dark pickup band.
+  const stripeFor = useCallback(
+    (id: string, assignment: Assignment): StripeSpec | null => {
+      if (!stripePickups || !getIncumbent) return null;
+      if (poll && !poll.isPainted(id)) {
+        // Unpainted states project from the poll leader.
+        const summary = poll.summaryFor(id);
+        const fill = poll.fills[id];
+        const incumbent = getIncumbent(id);
+        if (!summary || !fill || summary.margin === 0) return null;
+        return pickupStripeFor(
+          summary.leader,
+          fill,
+          incumbent,
+          pollStripeId(summary.leader, incumbent, fill),
+        );
+      }
+      // Painted states (in or out of the poll view) project from their paint.
+      return pickupStripe(assignment, getIncumbent(id));
+    },
+    [stripePickups, getIncumbent, poll],
+  );
 
-  const regions = useMemo(
-    () =>
-      shapes.map((shape) => {
-        const active = isActive(shape.id);
-        const assignment = assignments[shape.id] ?? null;
-        const stripe =
-          stripePickups && getIncumbent
-            ? pickupStripe(assignment, getIncumbent(shape.id))
-            : null;
-        return (
-          <path
-            key={shape.id}
-            data-id={shape.id}
-            data-active={active ? "1" : "0"}
-            data-label={shape.label}
-            d={shape.d}
-            fill={
-              stripe
+  // The stripe defs (deduped by id) and the region paths, built together so
+  // each region's flip is computed once.
+  const { regions, stripeDefs } = useMemo(() => {
+    const byId = new Map<string, StripeSpec>();
+    const elements = shapes.map((shape) => {
+      const active = isActive(shape.id);
+      const assignment = assignments[shape.id] ?? null;
+      // In polling view a manually painted state shows its own paint color
+      // and label; everything else keeps its poll margin shade.
+      const painted = poll ? poll.isPainted(shape.id) : false;
+      const stripe = stripeFor(shape.id, assignment);
+      if (stripe && !byId.has(stripe.id)) byId.set(stripe.id, stripe);
+      return (
+        <path
+          key={shape.id}
+          data-id={shape.id}
+          data-active={active ? "1" : "0"}
+          data-label={shape.label}
+          d={shape.d}
+          fill={
+            poll && !painted
+              ? stripe
+                ? `url(#${stripe.id})`
+                : poll.fills[shape.id] ?? regionColor(null, active)
+              : stripe
                 ? `url(#${stripe.id})`
                 : regionColor(assignment, active)
-            }
-            stroke={BORDER_COLOR}
-            strokeWidth={0.6}
-            className={active ? "region region--active" : "region"}
-            vectorEffect="non-scaling-stroke"
-          />
-        );
-      }),
-    [shapes, assignments, isActive, stripePickups, getIncumbent],
-  );
+          }
+          stroke={BORDER_COLOR}
+          strokeWidth={0.6}
+          className={active ? "region region--active" : "region"}
+          vectorEffect="non-scaling-stroke"
+        />
+      );
+    });
+    return { regions: elements, stripeDefs: byId };
+  }, [shapes, assignments, isActive, poll, stripeFor]);
 
   const setSvgRefs = (el: SVGSVGElement | null) => {
     innerSvgRef.current = el;
@@ -346,14 +398,25 @@ export function RegionMap({
       const assignment = assignments[id];
       const base = el.dataset.label ?? "";
       let label = base;
-      if (assignment) {
+      if (poll) {
+        // A painted state shows its own paint; everything else shows the
+        // poll aggregate it is colored by.
+        if (poll.isPainted(id)) {
+          label += assignment ? ` · ${ASSIGNMENT_LABEL[assignment]}` : "";
+        } else if (poll.describe) {
+          const detail = poll.describe(id);
+          label += detail ? ` · ${detail}` : " · no market";
+        } else {
+          const summary = poll.summaryFor(id);
+          label += summary
+            ? ` · ${describeSummary(summary, poll.optionLabel)}`
+            : " · no polls";
+        }
+      } else if (assignment) {
         label += ` · ${ASSIGNMENT_LABEL[assignment]}`;
-        const stripe =
-          stripePickups && getIncumbent
-            ? pickupStripe(assignment, getIncumbent(id))
-            : null;
-        if (stripe) label += ` · ${stripe.pickup} pickup`;
       }
+      const stripe = stripeFor(id, assignment ?? null);
+      if (stripe) label += ` · ${stripe.pickup} pickup`;
       setHover({ id, label });
     }
   };
@@ -407,7 +470,7 @@ export function RegionMap({
               />
               <rect
                 x={STRIPE_CONFIDENCE}
-                width={STRIPE_SOLID}
+                width={STRIPE_PARTNER}
                 height={STRIPE_SIZE}
                 fill={stripe.colorB}
               />

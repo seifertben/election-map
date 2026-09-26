@@ -67,7 +67,7 @@ describe("reducer", () => {
     expect(state.assignments.senate).toEqual({});
     expect(state.assignments.house).toEqual({ "0101": "D" });
     state = reducer(state, { type: "resetAll" });
-    expect(state.assignments).toEqual({ president: {}, senate: {}, house: {} });
+    expect(state.assignments).toEqual({ president: {}, senate: {}, governor: {}, house: {} });
   });
 
   it("loads a ratings map for a mode and records history", () => {
@@ -99,7 +99,7 @@ describe("reducer", () => {
     state = reducer(state, {
       type: "hydrate",
       mode: "house",
-      assignments: { president: { "48": "R" }, senate: {}, house: {} },
+      assignments: { president: { "48": "R" }, senate: {}, governor: {}, house: {} },
     });
     expect(state.mode).toBe("house");
     expect(state.history).toEqual([]);

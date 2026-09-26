@@ -10,7 +10,7 @@ export interface AppState {
 }
 
 export function emptyAssignments(): Assignments {
-  return { president: {}, senate: {}, house: {} };
+  return { president: {}, senate: {}, house: {}, governor: {} };
 }
 
 export function createInitialState(mode: Mode = "president"): AppState {
@@ -97,7 +97,8 @@ export function reducer(state: AppState, action: Action): AppState {
       if (
         isEmpty(state.assignments.president) &&
         isEmpty(state.assignments.senate) &&
-        isEmpty(state.assignments.house)
+        isEmpty(state.assignments.house) &&
+        isEmpty(state.assignments.governor)
       ) {
         return state;
       }

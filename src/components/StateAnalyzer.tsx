@@ -1,0 +1,825 @@
+import { useCallback, useMemo, useState } from "react";
+import type { Ref } from "react";
+import { GOVERNOR_RACE_BY_FIPS } from "../data/governor2026";
+import { HOUSE_2026_HOLDER } from "../data/house2026Holder";
+import { SENATE_RACE_BY_FIPS } from "../data/senate2026";
+import { STATE_BY_FIPS } from "../data/states";
+import { ANALYZER_POLLS, ANALYZER_POLL_BY_ID } from "../data/analyzerPolls";
+import type { AnalyzerPoll } from "../data/analyzerPolls";
+import { colorForStrength, formatMargin } from "../lib/polling";
+import type { PollOverlay, PollSummary } from "../lib/polling";
+import {
+  DIMENSIONS,
+  DIMENSION_BY_ID,
+  adjustComposition,
+  analyze,
+  compositionMap,
+  initialSplits,
+  marginStrength,
+  scenarioFromComposition,
+  winnerOf,
+} from "../lib/analyzer";
+import { splitsFromCrosstab, compositionFromCrosstab } from "../lib/analyzerPolls";
+import type {
+  AnalyzerResult,
+  CompositionMap,
+  DemographicsData,
+  DimensionId,
+  GeographyComposition,
+  Splits,
+} from "../lib/analyzer";
+import type { RegionFeature } from "../types";
+import { RegionMap } from "./RegionMap";
+
+export type AnalyzerElection = "senate" | "house" | "governor";
+
+const ELECTION_LABEL: Record<AnalyzerElection, string> = {
+  senate: "Senate (2026)",
+  governor: "Governor (2026)",
+  house: "House (2026)",
+};
+
+export interface StateAnalyzerProps {
+  states: RegionFeature[];
+  districts: RegionFeature[];
+  demographics: DemographicsData | null;
+  /** State FIPS with a 2026 Senate race. */
+  senateFips: Set<string>;
+  /** State FIPS with a 2026 Governor race. */
+  governorFips: Set<string>;
+  svgRef?: Ref<SVGSVGElement>;
+}
+
+function fipsOf(feature: RegionFeature): string {
+  return String(feature.properties.fips ?? "");
+}
+
+function geoidOf(feature: RegionFeature): string {
+  return String(feature.properties.geoid ?? "");
+}
+
+function districtLabel(feature: RegionFeature): string {
+  const abbr = STATE_BY_FIPS[String(feature.properties.state)]?.abbr ?? "??";
+  const code = String(feature.properties.district);
+  return code === "00" || code === "98"
+    ? `${abbr} (at-large)`
+    : `${abbr}-${Number.parseInt(code, 10)}`;
+}
+
+function uniformComposition(): GeographyComposition {
+  const shares = (ids: string[]) =>
+    Object.fromEntries(ids.map((id) => [id, 1 / ids.length]));
+  const sex = shares(["male", "female"]);
+  const age = shares(["18-29", "30-44", "45-64", "65+"]);
+  const race = shares(["white", "black", "hispanic", "asian", "other"]);
+  const education = shares(["no-hs", "hs", "some-college", "bachelors-plus"]);
+  return {
+    population: 1,
+    votingAgePopulation: 1,
+    sex,
+    age,
+    race,
+    education,
+  };
+}
+
+const FALLBACK = uniformComposition();
+
+/** Which 2026 elections the selected state can hold. */
+function electionsFor(
+  fips: string,
+  hasDistricts: boolean,
+  senateFips: Set<string>,
+  governorFips: Set<string>,
+): AnalyzerElection[] {
+  const list: AnalyzerElection[] = [];
+  if (senateFips.has(fips)) list.push("senate");
+  if (governorFips.has(fips)) list.push("governor");
+  if (hasDistricts) list.push("house");
+  return list;
+}
+
+/** Whether a poll has crosstabs for the state, regardless of the race. */
+function pollCoversState(id: string, fips: string): boolean {
+  const poll = ANALYZER_POLL_BY_ID[id];
+  return Boolean(poll && poll.states[fips]);
+}
+
+export function StateAnalyzer({
+  states,
+  districts,
+  demographics,
+  senateFips,
+  governorFips,
+  svgRef,
+}: StateAnalyzerProps) {
+  const stateFeatures = useMemo(
+    () =>
+      [...states].sort((a, b) =>
+        String(a.properties.name).localeCompare(String(b.properties.name)),
+      ),
+    [states],
+  );
+  const districtFips = useMemo(
+    () => new Set(districts.map((d) => String(d.properties.state))),
+    [districts],
+  );
+  // The analyzer models 2026 races only, so states without one are not offered.
+  const availableStates = useMemo(
+    () =>
+      stateFeatures.filter(
+        (f) =>
+          electionsFor(
+            fipsOf(f),
+            districtFips.has(fipsOf(f)),
+            senateFips,
+            governorFips,
+          ).length > 0,
+      ),
+    [stateFeatures, districtFips, senateFips, governorFips],
+  );
+  const initialFips = availableStates.some((f) => fipsOf(f) === "06")
+    ? "06"
+    : availableStates[0]
+      ? fipsOf(availableStates[0])
+      : "";
+  const [stateFips, setStateFips] = useState<string>(initialFips);
+  const [election, setElection] = useState<AnalyzerElection>(() => {
+    const options = electionsFor(
+      initialFips,
+      districtFips.has(initialFips),
+      senateFips,
+      governorFips,
+    );
+    return options.includes("house") ? "house" : options[0] ?? "house";
+  });
+  // Category partisanship persists across states and elections; the composition
+  // scenario is seeded from the active state's census, or from a loaded poll's
+  // own electorate when one covers the race.
+  const [splits, setSplits] = useState<Splits>(() => initialSplits());
+  const [scenario, setScenario] = useState<CompositionMap>(() =>
+    scenarioFromComposition(
+      demographics?.states[initialFips] ?? FALLBACK,
+    ),
+  );
+  // Which crosstab poll seeded the current splits and composition, or "" for
+  // the random/census baseline. Cleared when it no longer covers the race.
+  const [pollId, setPollId] = useState("");
+  const [seed, setSeed] = useState(0);
+  // Off by default: the analyzer shows plain projections until the user asks
+  // to stripe the regions whose projected party flips the incumbent's.
+  const [showFlips, setShowFlips] = useState(false);
+
+  const censusFor = (fips: string) =>
+    demographics?.states[fips] ?? FALLBACK;
+
+  const handleStateChange = (fips: string) => {
+    setStateFips(fips);
+    const nextOptions = electionsFor(
+      fips,
+      districtFips.has(fips),
+      senateFips,
+      governorFips,
+    );
+    const nextElection = nextOptions.includes(election)
+      ? election
+      : nextOptions.includes("house")
+        ? "house"
+        : nextOptions[0];
+    if (nextElection !== election) {
+      setElection(nextElection);
+    }
+    const covers = pollId !== "" && pollCoversState(pollId, fips);
+    const census = censusFor(fips);
+    setScenario(
+      covers
+        ? compositionFromCrosstab(
+            ANALYZER_POLL_BY_ID[pollId].states[fips].composition,
+            census,
+          )
+        : scenarioFromComposition(census),
+    );
+    if (pollId !== "" && !covers) {
+      setPollId("");
+      setSplits(initialSplits());
+    }
+  };
+
+  const handleElectionChange = (next: AnalyzerElection) => {
+    setElection(next);
+    const covers = pollId !== "" && pollCoversState(pollId, stateFips);
+    const census = censusFor(stateFips);
+    setScenario(
+      covers
+        ? compositionFromCrosstab(
+            ANALYZER_POLL_BY_ID[pollId].states[stateFips].composition,
+            census,
+          )
+        : scenarioFromComposition(census),
+    );
+    if (pollId !== "" && !covers) {
+      setPollId("");
+      setSplits(initialSplits());
+    }
+  };
+
+  const handlePollChange = (id: string) => {
+    setPollId(id);
+    const crosstab = ANALYZER_POLL_BY_ID[id]?.states[stateFips] ?? null;
+    const census = censusFor(stateFips);
+    setSplits(crosstab ? splitsFromCrosstab(crosstab) : initialSplits());
+    setScenario(
+      crosstab
+        ? compositionFromCrosstab(crosstab.composition, census)
+        : scenarioFromComposition(census),
+    );
+  };
+
+  const stateFeature = availableStates.find((f) => fipsOf(f) === stateFips);
+  if (!stateFeature) {
+    return <div className="loading">No 2026 races for this state.</div>;
+  }
+  const options = electionsFor(
+    stateFips,
+    districtFips.has(stateFips),
+    senateFips,
+    governorFips,
+  );
+  const activeElection = options.includes(election) ? election : options[0];
+  // Any poll with crosstabs for this state can seed the race; polls fielded for
+  // the active race come first, and applying the others is flagged as an
+  // extrapolation.
+  const polls = ANALYZER_POLLS.filter((poll) => poll.states[stateFips]).sort(
+    (a, b) =>
+      Number(a.election !== activeElection) -
+      Number(b.election !== activeElection),
+  );
+
+  return (
+    <main className="layout">
+      <StateAnalysis
+        key={stateFips}
+        stateFeature={stateFeature}
+        districts={districts}
+        demographics={demographics}
+        stateFeatures={availableStates}
+        election={activeElection}
+        electionOptions={options}
+        onStateChange={handleStateChange}
+        onElectionChange={handleElectionChange}
+        splits={splits}
+        onSplitsChange={setSplits}
+        scenario={scenario}
+        onScenarioChange={setScenario}
+        polls={polls}
+        pollId={pollId}
+        onPollChange={handlePollChange}
+        onRandomize={() => {
+          setSplits(initialSplits(`state-analyzer-${seed + 1}`));
+          setSeed(seed + 1);
+          setPollId("");
+        }}
+        showFlips={showFlips}
+        onShowFlipsChange={setShowFlips}
+        svgRef={svgRef}
+      />
+    </main>
+  );
+}
+
+interface StateAnalysisProps {
+  stateFeature: RegionFeature;
+  stateFeatures: RegionFeature[];
+  districts: RegionFeature[];
+  demographics: DemographicsData | null;
+  election: AnalyzerElection;
+  electionOptions: AnalyzerElection[];
+  onStateChange: (fips: string) => void;
+  onElectionChange: (election: AnalyzerElection) => void;
+  splits: Splits;
+  onSplitsChange: (splits: Splits) => void;
+  /** Composition scenario (share of the electorate by category). */
+  scenario: CompositionMap;
+  onScenarioChange: (scenario: CompositionMap) => void;
+  /** Crosstab polls available for the active state's race. */
+  polls: AnalyzerPoll[];
+  /** Selected poll id, or "" for the random baseline. */
+  pollId: string;
+  onPollChange: (id: string) => void;
+  onRandomize: () => void;
+  /** Whether projected party flips are striped. */
+  showFlips: boolean;
+  onShowFlipsChange: (enabled: boolean) => void;
+  svgRef?: Ref<SVGSVGElement>;
+}
+
+function StateAnalysis({
+  stateFeature,
+  stateFeatures,
+  districts,
+  demographics,
+  election,
+  electionOptions,
+  onStateChange,
+  onElectionChange,
+  splits,
+  onSplitsChange,
+  scenario,
+  onScenarioChange,
+  polls,
+  pollId,
+  onPollChange,
+  onRandomize,
+  showFlips,
+  onShowFlipsChange,
+  svgRef,
+}: StateAnalysisProps) {
+  const stateFips = fipsOf(stateFeature);
+  const stateName = STATE_BY_FIPS[stateFips]?.name ?? stateFips;
+  const [activeDimension, setActiveDimension] = useState<DimensionId>("race");
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const selectedPoll = ANALYZER_POLL_BY_ID[pollId] ?? null;
+  const selectedPollExtrapolated = Boolean(
+    selectedPoll && selectedPoll.election !== election,
+  );
+
+  const baseComposition = demographics?.states[stateFips] ?? FALLBACK;
+  const baseMap = useMemo(
+    () => compositionMap(baseComposition),
+    [baseComposition],
+  );
+
+  const features = useMemo(
+    () =>
+      election === "house"
+        ? districts.filter((d) => String(d.properties.state) === stateFips)
+        : stateFeatures.filter((f) => fipsOf(f) === stateFips),
+    [election, districts, stateFeatures, stateFips],
+  );
+
+  // A potential result per region on the map (House districts, or the single
+  // state for statewide races).
+  const regionResults = useMemo(() => {
+    const results = new Map<string, AnalyzerResult>();
+    if (election === "house") {
+      for (const feature of features) {
+        const geoid = geoidOf(feature);
+        const comp = demographics?.districts[geoid] ?? baseComposition;
+        const map = adjustComposition(compositionMap(comp), baseMap, scenario);
+        results.set(geoid, analyze(map, [activeDimension], splits));
+      }
+    } else {
+      results.set(stateFips, analyze(scenario, [activeDimension], splits));
+    }
+    return results;
+  }, [
+    election,
+    features,
+    demographics,
+    baseComposition,
+    baseMap,
+    scenario,
+    activeDimension,
+    splits,
+    stateFips,
+  ]);
+
+  // Statewide result: a population-weighted roll-up of the districts, or the
+  // state's own projection for statewide races.
+  const statewide = useMemo<AnalyzerResult>(() => {
+    if (election !== "house") {
+      return (
+        regionResults.get(stateFips) ?? analyze(scenario, [activeDimension], splits)
+      );
+    }
+    let d = 0;
+    let r = 0;
+    let weight = 0;
+    for (const feature of features) {
+      const geoid = geoidOf(feature);
+      const result = regionResults.get(geoid);
+      if (!result) continue;
+      const w = demographics?.districts[geoid]?.votingAgePopulation ?? 1;
+      d += result.d * w;
+      r += result.r * w;
+      weight += w;
+    }
+    if (weight === 0) return { d: 50, r: 50, margin: 0, winner: "TOSS", segments: [] };
+    const dd = d / weight;
+    const rr = r / weight;
+    return {
+      d: dd,
+      r: rr,
+      margin: dd - rr,
+      winner: winnerOf(dd, rr),
+      segments: [],
+    };
+  }, [
+    election,
+    regionResults,
+    features,
+    demographics,
+    stateFips,
+    scenario,
+    activeDimension,
+    splits,
+  ]);
+
+  const districtTally = useMemo(() => {
+    const tally = { D: 0, R: 0, TOSS: 0 };
+    if (election !== "house") return tally;
+    for (const feature of features) {
+      const result = regionResults.get(geoidOf(feature));
+      if (result) tally[result.winner] += 1;
+    }
+    return tally;
+  }, [election, features, regionResults]);
+
+  // The party currently holding a region, for the flip stripes. House races
+  // key off the district geoid; statewide races have a single holder per state.
+  const getIncumbent = useCallback(
+    (id: string): string | null => {
+      if (election === "house") return HOUSE_2026_HOLDER[id] ?? null;
+      if (election === "governor") {
+        return GOVERNOR_RACE_BY_FIPS[id]?.incumbentParty ?? null;
+      }
+      return SENATE_RACE_BY_FIPS[id]?.incumbentParty ?? null;
+    },
+    [election],
+  );
+
+  const overlay = useMemo<PollOverlay>(
+    () => ({
+      fills: Object.fromEntries(
+        [...regionResults.entries()].map(([id, result]) => [
+          id,
+          colorForStrength(marginStrength(result.margin)),
+        ]),
+      ),
+      // RegionMap reads this to stripe flips: the projected leader becomes the
+      // pickup party and the fill (already in `fills`) its confidence band.
+      summaryFor: (id): PollSummary | null => {
+        const result = regionResults.get(id);
+        if (!result || result.winner === "TOSS") return null;
+        return {
+          d: result.d,
+          r: result.r,
+          margin: result.margin,
+          leader: result.winner,
+          polls: 0,
+          latest: "",
+        };
+      },
+      optionLabel: "Demographic model",
+      isPainted: () => false,
+      describe: (id) => {
+        const result = regionResults.get(id);
+        if (!result) return null;
+        return `D ${result.d.toFixed(1)} / R ${result.r.toFixed(1)} · ${formatMargin(
+          result.margin,
+        )}`;
+      },
+    }),
+    [regionResults],
+  );
+
+  // Shares are independent fixed values; setting one never moves another. They
+  // are normalized only when the projection is computed.
+  const updateShare = (dimension: DimensionId, category: string, pct: number) => {
+    onScenarioChange({
+      ...scenario,
+      [dimension]: { ...scenario[dimension], [category]: pct / 100 },
+    });
+  };
+
+  const updateSplit = (dimension: DimensionId, category: string, d: number) => {
+    onSplitsChange({
+      ...splits,
+      [dimension]: {
+        ...splits[dimension],
+        [category]: { d, r: 100 - d },
+      },
+    });
+  };
+
+  const resetScenario = () => onScenarioChange(scenarioFromComposition(baseComposition));
+
+  const selectedResult = selectedRegion
+    ? regionResults.get(selectedRegion)
+    : undefined;
+  const activeDimensionDef = DIMENSION_BY_ID[activeDimension];
+  const shareTotal = Object.values(scenario[activeDimension] ?? {}).reduce(
+    (sum, value) => sum + value,
+    0,
+  );
+  const shareTotalPct = shareTotal * 100;
+  const shareComplete = Math.abs(shareTotalPct - 100) < 0.5;
+
+  return (
+    <>
+      <section className="map-panel">
+        <RegionMap
+          key={`${stateFips}:${election}`}
+          features={features}
+          getId={election === "house" ? geoidOf : fipsOf}
+          getLabel={
+            election === "house"
+              ? districtLabel
+              : () => `${stateName} · ${ELECTION_LABEL[election]}`
+          }
+          isActive={() => true}
+          assignments={{}}
+          onRegionClick={(id) => {
+            if (election === "house") setSelectedRegion(id);
+          }}
+          svgRef={svgRef}
+          stripePickups={showFlips}
+          getIncumbent={getIncumbent}
+          poll={overlay}
+        />
+      </section>
+
+      <aside className="side">
+        <section className="panel panel--active">
+          <h2 className="panel__title">State Analyzer</h2>
+          <label className="ratings__label" htmlFor="analyzer-state">
+            State
+          </label>
+          <select
+            id="analyzer-state"
+            className="ratings__select"
+            value={stateFips}
+            onChange={(event) => onStateChange(event.target.value)}
+          >
+            {stateFeatures.map((feature) => (
+              <option key={fipsOf(feature)} value={fipsOf(feature)}>
+                {STATE_BY_FIPS[fipsOf(feature)]?.name ?? fipsOf(feature)}
+              </option>
+            ))}
+          </select>
+
+          <label className="ratings__label" htmlFor="analyzer-election">
+            Election
+          </label>
+          <select
+            id="analyzer-election"
+            className="ratings__select"
+            value={election}
+            onChange={(event) =>
+              onElectionChange(event.target.value as AnalyzerElection)
+            }
+          >
+            {electionOptions.map((option) => (
+              <option key={option} value={option}>
+                {ELECTION_LABEL[option]}
+              </option>
+            ))}
+          </select>
+
+          <label className="ratings__label" htmlFor="analyzer-poll">
+            Poll
+          </label>
+          <select
+            id="analyzer-poll"
+            className="ratings__select"
+            value={pollId}
+            onChange={(event) => onPollChange(event.target.value)}
+          >
+            <option value="">No poll loaded</option>
+            {polls.map((poll) => (
+              <option key={poll.id} value={poll.id}>
+                {poll.label}
+              </option>
+            ))}
+          </select>
+          {selectedPoll ? (
+            <p className="ratings__note">
+              Loaded {selectedPoll.label} ({selectedPoll.pollster}). Each group's
+              share of the electorate and vote split start from the poll's
+              crosstabs — drag either slider to model a different result.{" "}
+              <a
+                href={selectedPoll.source}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Source
+              </a>
+              {selectedPollExtrapolated ? (
+                <>
+                  {" "}
+                  <strong>Extrapolation:</strong> this is a{" "}
+                  {ELECTION_LABEL[selectedPoll.election]} poll applied to the{" "}
+                  {ELECTION_LABEL[election]} race. Its crosstabs were not
+                  published for this race, so the result is a proxy.
+                </>
+              ) : null}
+            </p>
+          ) : (
+            <p className="ratings__note">
+              {polls.length
+                ? "Load a poll to set each group's share of the electorate and vote split from its published crosstabs. Polls fielded for another race in this state can be extrapolated. Otherwise shares come from the census and splits are random."
+                : "No crosstab poll is available for this state yet, so shares come from the census and vote splits are random."}
+            </p>
+          )}
+        </section>
+
+        <section className="panel panel--active">
+          <h2 className="panel__title">{stateName} projection</h2>
+          <ResultSummary
+            result={statewide}
+            tally={election === "house" ? districtTally : null}
+            regionCount={election === "house" ? features.length : 1}
+          />
+          {election === "house" && selectedRegion && selectedResult ? (
+            <p className="ratings__note">
+              Selected {districtLabel(
+                features.find((f) => geoidOf(f) === selectedRegion) as RegionFeature,
+              )}
+              : D {selectedResult.d.toFixed(1)} / R{" "}
+              {selectedResult.r.toFixed(1)} ({formatMargin(selectedResult.margin)}
+              ).
+            </p>
+          ) : null}
+        </section>
+
+        <section className="panel panel--active">
+          <h2 className="panel__title">Pickups</h2>
+          <label className="ratings__toggle">
+            <input
+              type="checkbox"
+              checked={showFlips}
+              onChange={(event) => onShowFlipsChange(event.target.checked)}
+            />
+            Stripe party flips
+          </label>
+          <p className="ratings__note">
+            Regions whose projected party differs from the incumbent are
+            striped: the wider band is the projected shade, the narrower one a
+            lighter tint.
+          </p>
+        </section>
+
+        <section className="panel panel--active">
+          <h2 className="panel__title">Demographic lens</h2>
+          <div
+            className="analyzer__dimensions"
+            role="radiogroup"
+            aria-label="Demographic dimension"
+          >
+            {DIMENSIONS.map((dimension) => (
+              <label
+                key={dimension.id}
+                className={
+                  activeDimension === dimension.id
+                    ? "analyzer__dimension analyzer__dimension--active"
+                    : "analyzer__dimension"
+                }
+              >
+                <input
+                  type="radio"
+                  name="analyzer-dimension"
+                  checked={activeDimension === dimension.id}
+                  onChange={() => setActiveDimension(dimension.id)}
+                />
+                {dimension.label}
+              </label>
+            ))}
+          </div>
+          <p className="ratings__note">
+            Only the selected group drives the map and the roll-up. Composition
+            comes from the census, or from a loaded poll's electorate; drag a
+            share to model a different electorate, or a split to change how that
+            group votes.
+          </p>
+        </section>
+
+        <section className="panel panel--active" key={activeDimension}>
+          <h2 className="panel__title">{activeDimensionDef.label}</h2>
+          <div className="analyzer__total">
+            <span>Total</span>
+            <span
+              className={
+                shareComplete
+                  ? "analyzer__total-value analyzer__total-value--ok"
+                  : "analyzer__total-value analyzer__total-value--off"
+              }
+            >
+              {shareTotalPct.toFixed(0)}%
+            </span>
+          </div>
+          <p className="analyzer__hint">
+            Each share is fixed — moving one doesn't change the others. Shares
+            are normalized to 100% for the projection.
+          </p>
+          <ul
+            className={
+              shareComplete
+                ? "analyzer__rows analyzer__rows--complete"
+                : "analyzer__rows"
+            }
+          >
+            {activeDimensionDef.categories.map((category) => {
+              const share = scenario[activeDimension]?.[category.id] ?? 0;
+              const split = splits[activeDimension]?.[category.id] ?? {
+                d: 50,
+                r: 50,
+              };
+              return (
+                <li key={category.id} className="analyzer__row">
+                  <div className="analyzer__row-head">
+                    <span>{category.label}</span>
+                    <span className="analyzer__pct">
+                      {(share * 100).toFixed(0)}% of electorate
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={Math.round(share * 100)}
+                    aria-label={`${category.label} share of electorate`}
+                    onChange={(event) =>
+                      updateShare(
+                        activeDimension,
+                        category.id,
+                        Number(event.target.value),
+                      )
+                    }
+                  />
+                  <div className="analyzer__row-head">
+                    <span className="analyzer__splitlabel">
+                      D {split.d.toFixed(0)} / R {split.r.toFixed(0)}
+                    </span>
+                    <span className="analyzer__pct">vote split</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={Math.round(split.d)}
+                    aria-label={`${category.label} Democratic vote share`}
+                    onChange={(event) =>
+                      updateSplit(
+                        activeDimension,
+                        category.id,
+                        Number(event.target.value),
+                      )
+                    }
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <section className="panel actions">
+          <button type="button" onClick={onRandomize}>
+            Randomize splits
+          </button>
+          <button type="button" onClick={resetScenario}>
+            Reset shares
+          </button>
+        </section>
+      </aside>
+    </>
+  );
+}
+
+interface ResultSummaryProps {
+  result: AnalyzerResult;
+  tally: { D: number; R: number; TOSS: number } | null;
+  regionCount: number;
+}
+
+function ResultSummary({ result, tally, regionCount }: ResultSummaryProps) {
+  const winnerLabel =
+    result.winner === "D" ? "Democrats" : result.winner === "R" ? "Republicans" : "Tossup";
+  return (
+    <div className="analyzer__result">
+      <div className="analyzer__result-headline">
+        <span className="analyzer__result-d">{result.d.toFixed(1)}%</span>
+        <span className="analyzer__result-mid">
+          <strong>{winnerLabel}</strong>
+          <span>{formatMargin(result.margin)}</span>
+        </span>
+        <span className="analyzer__result-r">{result.r.toFixed(1)}%</span>
+      </div>
+      <div className="analyzer__result-bar" role="img" aria-label="Two-party split">
+        <div
+          className="analyzer__result-fill analyzer__result-fill--d"
+          style={{ width: `${result.d}%` }}
+        />
+        <div
+          className="analyzer__result-fill analyzer__result-fill--r"
+          style={{ width: `${result.r}%` }}
+        />
+      </div>
+      {tally ? (
+        <div className="analyzer__tally">
+          {regionCount} districts · D {tally.D} / R {tally.R}
+          {tally.TOSS ? ` / Tossup ${tally.TOSS}` : ""}
+        </div>
+      ) : null}
+    </div>
+  );
+}

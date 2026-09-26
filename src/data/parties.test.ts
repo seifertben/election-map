@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  lighten,
   PARTY_COLOR,
   pickupStripe,
+  pickupStripeFor,
   RATING_COLOR,
 } from "./parties";
 
@@ -17,7 +19,7 @@ function luminance(hex: string): number {
 }
 
 describe("pickupStripe", () => {
-  it("uses the confidence shade as one stripe and a fixed darker color as the other", () => {
+  it("uses the confidence shade as one stripe and a lighter shade as the other", () => {
     const dPickups: [string, string][] = [
       ["SOLID_D", RATING_COLOR.SOLID_D],
       ["LIKELY_D", RATING_COLOR.LIKELY_D],
@@ -27,8 +29,8 @@ describe("pickupStripe", () => {
       const stripe = pickupStripe(assignment as never, "R");
       expect(stripe).not.toBeNull();
       expect(stripe?.colorA).toBe(shade);
-      expect(stripe?.colorB).toBe("#10213f");
-      expect(luminance(stripe!.colorB)).toBeLessThan(luminance(shade));
+      expect(stripe?.colorB).toBe(lighten(shade));
+      expect(luminance(stripe!.colorB)).toBeGreaterThan(luminance(shade));
     }
 
     const rPickups: [string, string][] = [
@@ -39,63 +41,54 @@ describe("pickupStripe", () => {
     for (const [assignment, shade] of rPickups) {
       const stripe = pickupStripe(assignment as never, "D");
       expect(stripe?.colorA).toBe(shade);
-      expect(stripe?.colorB).toBe("#4f100b");
-      expect(luminance(stripe!.colorB)).toBeLessThan(luminance(shade));
+      expect(stripe?.colorB).toBe(lighten(shade));
+      expect(luminance(stripe!.colorB)).toBeGreaterThan(luminance(shade));
     }
   });
 
-  it("stripes a D pickup with two blues and an R pickup with two reds", () => {
+  it("stripes a D pickup in blues and an R pickup in reds", () => {
     const flipD = pickupStripe("D", "R");
     expect(flipD).toEqual({
       id: "pickup-DR-D",
       colorA: PARTY_COLOR.D,
-      colorB: "#10213f",
+      colorB: lighten(PARTY_COLOR.D),
       pickup: "D",
     });
     expect(BLUES).toContain(flipD?.colorA);
-    expect(BLUES).toContain(flipD?.colorB);
     expect(flipD?.colorA).not.toBe(flipD?.colorB);
 
     const flipR = pickupStripe("R", "D");
     expect(flipR?.colorA).toBe(PARTY_COLOR.R);
-    expect(flipR?.colorB).toBe("#4f100b");
+    expect(flipR?.colorB).toBe(lighten(PARTY_COLOR.R));
     expect(REDS).toContain(flipR?.colorA);
-    expect(REDS).toContain(flipR?.colorB);
     expect(flipR?.colorA).not.toBe(flipR?.colorB);
     expect(flipR?.pickup).toBe("R");
   });
 
-  it("never mixes the holder's color into a pickup", () => {
-    const cases: { assignment: string; holder: string; pickup: "D" | "R" }[] = [
-      { assignment: "D", holder: "R", pickup: "D" },
-      { assignment: "R", holder: "D", pickup: "R" },
-      { assignment: "SOLID_D", holder: "R", pickup: "D" },
-      { assignment: "LIKELY_D", holder: "R", pickup: "D" },
-      { assignment: "LEAN_D", holder: "R", pickup: "D" },
-      { assignment: "SOLID_R", holder: "D", pickup: "R" },
-      { assignment: "LIKELY_R", holder: "D", pickup: "R" },
-      { assignment: "LEAN_R", holder: "D", pickup: "R" },
+  it("keeps every band in the projected party's color family", () => {
+    const cases: { assignment: string; holder: string }[] = [
+      { assignment: "D", holder: "R" },
+      { assignment: "SOLID_D", holder: "R" },
+      { assignment: "LEAN_D", holder: "R" },
+      { assignment: "R", holder: "D" },
+      { assignment: "SOLID_R", holder: "D" },
+      { assignment: "LEAN_R", holder: "D" },
     ];
-    for (const { assignment, holder, pickup } of cases) {
+    for (const { assignment, holder } of cases) {
       const stripe = pickupStripe(assignment as never, holder);
       expect(stripe).not.toBeNull();
-      const family = pickup === "D" ? BLUES : REDS;
-      const other = pickup === "D" ? REDS : BLUES;
-      expect(stripe?.pickup).toBe(pickup);
-      expect(family).toContain(stripe?.colorA);
-      expect(family).toContain(stripe?.colorB);
-      expect(other).not.toContain(stripe?.colorA);
-      expect(other).not.toContain(stripe?.colorB);
+      // The partner band is always derived from the confidence shade, so it
+      // never pulls in the holder's hue.
+      expect(stripe?.colorB).toBe(lighten(stripe!.colorA));
     }
   });
 
-  it("keeps the fixed band identical across confidence levels", () => {
-    expect(pickupStripe("LEAN_D", "R")?.colorB).toBe(
-      pickupStripe("SOLID_D", "R")?.colorB,
-    );
-    expect(pickupStripe("LEAN_R", "D")?.colorB).toBe(
-      pickupStripe("SOLID_R", "D")?.colorB,
-    );
+  it("gives a distinct lighter partner for each confidence shade", () => {
+    const solid = pickupStripe("SOLID_D", "R");
+    const lean = pickupStripe("LEAN_D", "R");
+    expect(solid?.colorA).not.toBe(lean?.colorA);
+    expect(solid?.colorB).not.toBe(lean?.colorB);
+    expect(solid?.colorB).not.toBe(lean?.colorA);
   });
 
   it("gives each confidence shade its own pattern id", () => {
@@ -134,5 +127,28 @@ describe("pickupStripe", () => {
     expect(pickupStripe("D", null)).toBeNull();
     expect(pickupStripe("D", "I")).toBeNull();
     expect(pickupStripe("SOLID_R", null)).toBeNull();
+  });
+});
+
+describe("pickupStripeFor", () => {
+  it("uses the supplied color as the confidence band and lightens it", () => {
+    // The poll shade stays as colorA, with a lighter tint as the partner band,
+    // so a poll pickup keeps its poll intensity.
+    const stripe = pickupStripeFor("R", "#6f9fd8", "D", "pickup-poll-RD-6f9fd8");
+    expect(stripe).toEqual({
+      id: "pickup-poll-RD-6f9fd8",
+      colorA: "#6f9fd8",
+      colorB: lighten("#6f9fd8"),
+      pickup: "R",
+    });
+    expect(luminance(stripe!.colorB)).toBeGreaterThan(luminance(stripe!.colorA));
+  });
+
+  it("returns null unless the projection flips a D/R seat", () => {
+    expect(pickupStripeFor("TOSS", "#6f9fd8", "R", "x")).toBeNull();
+    expect(pickupStripeFor(null, "#6f9fd8", "R", "x")).toBeNull();
+    expect(pickupStripeFor("D", "#6f9fd8", "D", "x")).toBeNull();
+    expect(pickupStripeFor("D", "#6f9fd8", "I", "x")).toBeNull();
+    expect(pickupStripeFor("D", "#6f9fd8", null, "x")).toBeNull();
   });
 });

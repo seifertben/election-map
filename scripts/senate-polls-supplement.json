@@ -1,0 +1,67 @@
+{
+  "note": "General-election head-to-head Senate polls compiled from Wikipedia's per-state '2026 United States Senate election in ...' pages, used to cover states with no nonpartisan polls in the electoral-vote.com source. Each poll: { pollster, date (ISO), d (Dem), r (Rep), sample, population }. Independent candidates are omitted from d/r.",
+  "21": [
+    {
+      "pollster": "Global Strategy Group (D)",
+      "date": "2026-08-27",
+      "d": 40,
+      "r": 49,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
+      "pollster": "Public Policy Polling (D)",
+      "date": "2025-12-19",
+      "d": 38,
+      "r": 49,
+      "sample": 650,
+      "population": "V"
+    }
+  ],
+  "16": [
+    {
+      "pollster": "Change Research (I)",
+      "date": "2026-07-30",
+      "d": 13,
+      "r": 43,
+      "sample": 1213,
+      "population": "LV"
+    },
+    {
+      "pollster": "Peak Insights (R)",
+      "date": "2026-06-07",
+      "d": 15,
+      "r": 55,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
+      "pollster": "The Bullfinch Group",
+      "date": "2026-06-01",
+      "d": 33,
+      "r": 50,
+      "sample": 774,
+      "population": "RV"
+    }
+  ],
+  "40": [
+    {
+      "pollster": "CHS & Associates",
+      "date": "2026-08-06",
+      "d": 25,
+      "r": 49,
+      "sample": 500,
+      "population": "RV"
+    }
+  ],
+  "47": [
+    {
+      "pollster": "Targoz Market Research",
+      "date": "2026-08-26",
+      "d": 31,
+      "r": 51,
+      "sample": 1157,
+      "population": "RV"
+    }
+  ]
+}

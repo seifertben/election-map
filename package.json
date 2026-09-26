@@ -8,6 +8,10 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "build:geo": "node scripts/build-geo.mjs",
+    "build:polls": "node scripts/build-polls.mjs",
+    "build:gov-polls": "node scripts/build-gov-polls.mjs",
+    "build:demographics": "node scripts/fetch-demographics.mjs",
+    "fetch:polls": "node scripts/fetch-wiki-polls.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -b"

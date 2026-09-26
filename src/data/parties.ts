@@ -108,53 +108,82 @@ export interface StripeSpec {
   /** Pattern id, referenced from a region fill as url(#id). */
   id: string;
   /**
-   * The confidence stripe: the projected party's rating shade (Lean light,
-   * Likely mid, Solid dark) or the flat party color.
+   * The wider confidence stripe: the projected party's rating shade (Lean
+   * light, Likely mid, Solid dark), flat party color, or poll margin shade.
    */
   colorA: string;
   /**
-   * A single fixed shade of the same hue, darker than every confidence shade
-   * (Lean light, Likely mid, Solid dark), shared by every pickup of that
-   * party regardless of confidence so the other stripe never changes.
+   * The narrower partner stripe: exactly one shade lighter than {@link colorA},
+   * so the two bands read as the same party without mixing in the holder's
+   * color.
    */
   colorB: string;
   /** The party projected to pick the seat up. */
   pickup: Party;
 }
 
-// A fixed shade of the same hue that is darker than the darkest confidence
-// shade (SOLID), so the bands are distinct at every confidence level.
-const PICKUP_PARTNER: Record<Party, string> = {
-  D: "#10213f",
-  R: "#4f100b",
-  TOSS: "#8e8e93",
-};
+/** Mix a hex color toward white by `amount` (0..1). */
+export function lighten(hex: string, amount = 0.25): string {
+  const value = Number.parseInt(hex.slice(1), 16);
+  const mix = (channel: number) => Math.round(channel + (255 - channel) * amount);
+  const r = mix((value >> 16) & 255);
+  const g = mix((value >> 8) & 255);
+  const b = mix(value & 255);
+  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+}
+
+/**
+ * The stripe pattern for a region whose projected party differs from its
+ * incumbent party, given the projected party and the color to draw as its
+ * confidence band. `colorA` is the shade that would otherwise fill the region
+ * (a rating/party color, or a poll margin shade); the other band is one shade
+ * lighter than it. `id` distinguishes patterns that share a projected party
+ * but draw a different `colorA`, since the `<pattern>` defs are deduped by id.
+ *
+ * Returns null for regions that are not a flip: no projection, a Toss Up, a
+ * seat held by an independent, a new seat with no incumbent, or a projection
+ * that keeps the incumbent's party.
+ */
+export function pickupStripeFor(
+  projected: Party | null | undefined,
+  colorA: string,
+  incumbentParty: string | null,
+  id: string,
+): StripeSpec | null {
+  if (projected !== "D" && projected !== "R") return null;
+  const incumbent =
+    incumbentParty === "D" || incumbentParty === "R" ? incumbentParty : null;
+  if (!incumbent || projected === incumbent) return null;
+  return {
+    id,
+    colorA,
+    colorB: lighten(colorA),
+    pickup: projected,
+  };
+}
 
 /**
  * The stripe pattern to draw for a region whose projected party differs from
- * its incumbent party. One stripe is always the projected party's confidence
- * shade; the other is the same fixed darker blue/red for every pickup of that
- * party. Returns null for regions that are not a flip: no assignment, a Toss
- * Up, a seat held by an independent, a new seat with no incumbent, or an
- * assignment that keeps the incumbent's party.
+ * its incumbent party. The wider band is the projected party's confidence
+ * shade; the narrower one is a lighter shade of it. Returns null for regions
+ * that are not a flip: no assignment, a Toss Up, a seat held by an independent,
+ * a new seat with no incumbent, or an assignment that keeps the incumbent's
+ * party.
  */
 export function pickupStripe(
   assignment: Assignment,
   incumbentParty: string | null,
 ): StripeSpec | null {
   if (!assignment) return null;
-  const incumbent =
-    incumbentParty === "D" || incumbentParty === "R" ? incumbentParty : null;
-  if (!incumbent) return null;
   const target = baseParty(assignment);
-  if (!target || target === "TOSS" || target === incumbent) return null;
+  if (!target) return null;
   // The id must encode the confidence shade as well as the parties, since a
   // shared <pattern> def (deduped by id) would otherwise render every pickup
   // of that party with whichever district's shade came first.
-  return {
-    id: `pickup-${target}${incumbent}-${assignment}`,
-    colorA: ASSIGNMENT_COLOR[assignment],
-    colorB: PICKUP_PARTNER[target],
-    pickup: target,
-  };
+  return pickupStripeFor(
+    target,
+    ASSIGNMENT_COLOR[assignment],
+    incumbentParty,
+    `pickup-${target}${incumbentParty}-${assignment}`,
+  );
 }

@@ -1,12 +1,22 @@
-import type { ScoreModel } from "../lib/scoreboard";
+import type { ScoreModel, Seat } from "../lib/scoreboard";
+import { SeatArc } from "./SeatArc";
 
 export interface ScoreboardProps {
   score: ScoreModel;
+  /** Chamber seats to draw as a semicircle, or null for non-chamber modes. */
+  seats?: Seat[] | null;
 }
 
-export function Scoreboard({ score }: ScoreboardProps) {
+export function Scoreboard({ score, seats }: ScoreboardProps) {
   return (
     <div className="scoreboard">
+      {seats && seats.length > 0 ? (
+        <SeatArc
+          seats={seats}
+          counts={{ D: score.headline.D, R: score.headline.R }}
+          label={`${score.caption}: ${score.headline.D} Democrat, ${score.headline.R} Republican`}
+        />
+      ) : null}
       <div className="scoreboard__headline">
         <div className="scoreboard__number scoreboard__number--d">
           {score.headline.D}

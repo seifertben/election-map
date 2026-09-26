@@ -1,34 +1,38 @@
 import {
-  RATINGS_SOURCES,
+  sourcesForMode,
   sourceAsOf,
 } from "../data/ratingsSources";
 
 export interface RatingsPanelProps {
-  mode: "senate" | "house";
+  mode: "senate" | "house" | "governor";
   /** Currently selected ratings source id. */
   sourceId: string;
   /** True when the map no longer matches the selected source (user edited it). */
   isCustom: boolean;
+  /** True when ratings are the overlay currently controlling the map. */
+  active: boolean;
   /** Called when the user picks a source (or re-applies the current one). */
   onChange: (sourceId: string) => void;
-  /** Whether party flips (projected party != incumbent party) are striped. */
-  stripePickups: boolean;
-  onStripeChange: (enabled: boolean) => void;
 }
+
+const MODE_LABEL: Record<"senate" | "house" | "governor", string> = {
+  senate: "Senate",
+  governor: "Governor",
+  house: "House",
+};
 
 export function RatingsPanel({
   mode,
   sourceId,
   isCustom,
+  active,
   onChange,
-  stripePickups,
-  onStripeChange,
 }: RatingsPanelProps) {
-  const source =
-    RATINGS_SOURCES.find((s) => s.id === sourceId) ?? RATINGS_SOURCES[0];
-  const modeLabel = mode === "senate" ? "Senate" : "House";
+  const modeLabel = MODE_LABEL[mode];
+  const sources = sourcesForMode(mode);
+  const source = sources.find((s) => s.id === sourceId);
   return (
-    <section className="panel">
+    <section className={`panel${active ? " panel--active" : ""}`}>
       <h2 className="panel__title">Ratings</h2>
       <label className="ratings__label" htmlFor={`ratings-${mode}`}>
         Display {modeLabel} ratings from
@@ -39,21 +43,20 @@ export function RatingsPanel({
         value={sourceId}
         onChange={(event) => onChange(event.target.value)}
       >
-        {RATINGS_SOURCES.map((s) => (
+        {source ? null : (
+          <option value="">Select a ratings source…</option>
+        )}
+        {sources.map((s) => (
           <option key={s.id} value={s.id}>
             {s.label}
           </option>
         ))}
       </select>
-      <label className="ratings__toggle">
-        <input
-          type="checkbox"
-          checked={stripePickups}
-          onChange={(event) => onStripeChange(event.target.checked)}
-        />
-        Stripe party pickups
-      </label>
-      {isCustom ? (
+      {!source ? (
+        <p className="ratings__note">
+          Pick a ratings source to color the {modeLabel.toLowerCase()} map.
+        </p>
+      ) : isCustom ? (
         <p className="ratings__note">
           You've customized this map.{" "}
           <button

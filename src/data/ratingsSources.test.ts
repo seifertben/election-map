@@ -9,6 +9,7 @@ import {
   RATINGS_SOURCES,
   sourceAsOf,
 } from "./ratingsSources";
+import { GOVERNOR_2026_FIPS } from "./governor2026";
 import { SENATE_2026_FIPS } from "./senate2026";
 
 const districtIds = (
@@ -37,7 +38,7 @@ describe("RATINGS_SOURCES", () => {
       expect(source.houseAsOf).toMatch(/^\w+ \d+, 2026$/);
     }
     expect(DEFAULT_RATINGS_SOURCE).toBe("cook");
-    expect(RATING_MODES).toEqual(["senate", "house"]);
+    expect(RATING_MODES).toEqual(["senate", "house", "governor"]);
   });
 
   it("maps every registered source id back to its entry", () => {
@@ -57,11 +58,23 @@ describe("RATINGS_SOURCES", () => {
     }
   });
 
+  it("rates the same 36 Governor states in every source that rates governors", () => {
+    expect(GOVERNOR_2026_FIPS).toHaveLength(36);
+    const withGovernor = RATINGS_SOURCES.filter((s) => s.governor != null);
+    // Split Ticket does not publish 2026 governor ratings.
+    expect(withGovernor.length).toBeGreaterThanOrEqual(5);
+    for (const source of withGovernor) {
+      const keys = Object.keys(source.governor!).sort();
+      expect(keys).toEqual([...GOVERNOR_2026_FIPS].sort());
+    }
+  });
+
   it("uses only valid rating values", () => {
     for (const source of RATINGS_SOURCES) {
       for (const value of [
         ...Object.values(source.senate),
         ...Object.values(source.house),
+        ...Object.values(source.governor ?? {}),
       ]) {
         expect(RATINGS).toContain(value);
       }
@@ -91,6 +104,9 @@ describe("RATINGS_SOURCES", () => {
     for (const source of RATINGS_SOURCES) {
       expect(sourceAsOf(source, "senate")).toBe(source.senateAsOf);
       expect(sourceAsOf(source, "house")).toBe(source.houseAsOf);
+      if (source.governor) {
+        expect(sourceAsOf(source, "governor")).toBe(source.governorAsOf);
+      }
     }
   });
 });

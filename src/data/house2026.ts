@@ -452,3 +452,6 @@ export const HOUSE_2026_RATINGS: Record<string, RaceRating> = {
   "5508": "SOLID_R",
   "5600": "SOLID_R",
 };
+
+/** Every 2026 House region id (district geoid), one per voting seat. */
+export const HOUSE_2026_FIPS: string[] = Object.keys(HOUSE_2026_RATINGS);

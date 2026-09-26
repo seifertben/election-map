@@ -64,6 +64,7 @@ export function encodeHash(
   params.set("p", encodeRegions(ids.president, assignments.president));
   params.set("s", encodeRegions(ids.senate, assignments.senate));
   params.set("h", encodeRegions(ids.house, assignments.house));
+  params.set("g", encodeRegions(ids.governor, assignments.governor));
   return `#${params.toString()}`;
 }
 
@@ -77,12 +78,23 @@ export function decodeHash(hash: string, ids: RegionIds): DecodedHash {
   const params = new URLSearchParams(hash.replace(/^#/, ""));
   const modeParam = params.get("m");
   const mode: Mode | null =
-    modeParam === "president" || modeParam === "senate" || modeParam === "house"
+    modeParam === "president" ||
+    modeParam === "senate" ||
+    modeParam === "house" ||
+    modeParam === "governor"
       ? modeParam
       : null;
 
   const read = (key: keyof RegionIds): Record<string, Assignment> => {
-    const raw = params.get(key === "president" ? "p" : key === "senate" ? "s" : "h");
+    const raw = params.get(
+      key === "president"
+        ? "p"
+        : key === "senate"
+          ? "s"
+          : key === "house"
+            ? "h"
+            : "g",
+    );
     if (!raw || raw.length !== ids[key].length) return {};
     return decodeRegions(ids[key], raw);
   };
@@ -93,6 +105,7 @@ export function decodeHash(hash: string, ids: RegionIds): DecodedHash {
       president: read("president"),
       senate: read("senate"),
       house: read("house"),
+      governor: read("governor"),
     },
   };
 }

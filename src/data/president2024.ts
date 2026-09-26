@@ -1,0 +1,62 @@
+import type { Party } from "../types";
+
+/**
+ * Winner of the 2024 United States presidential election, by state FIPS code.
+ * State-level winner-take-all results (the Maine and Nebraska congressional
+ * district splits are not broken out). Used to seed the President map, since
+ * there is no presidential election in 2026.
+ * See https://en.wikipedia.org/wiki/2024_United_States_presidential_election
+ */
+export const PRESIDENT_2024_RESULTS: Record<string, Party> = {
+  "01": "R",
+  "02": "R",
+  "04": "R",
+  "05": "R",
+  "06": "D",
+  "08": "D",
+  "09": "D",
+  "10": "D",
+  "11": "D",
+  "12": "R",
+  "13": "R",
+  "15": "D",
+  "16": "R",
+  "17": "D",
+  "18": "R",
+  "19": "R",
+  "20": "R",
+  "21": "R",
+  "22": "R",
+  "23": "D",
+  "24": "D",
+  "25": "D",
+  "26": "R",
+  "27": "D",
+  "28": "R",
+  "29": "R",
+  "30": "R",
+  "31": "R",
+  "32": "R",
+  "33": "D",
+  "34": "D",
+  "35": "D",
+  "36": "D",
+  "37": "R",
+  "38": "R",
+  "39": "R",
+  "40": "R",
+  "41": "D",
+  "42": "R",
+  "44": "D",
+  "45": "R",
+  "46": "R",
+  "47": "R",
+  "48": "R",
+  "49": "R",
+  "50": "D",
+  "51": "D",
+  "53": "D",
+  "54": "R",
+  "55": "R",
+  "56": "R",
+};
