@@ -138,6 +138,11 @@ export interface PollOverlay {
    * markets). Returning null means "no data" for that region.
    */
   describe?: (id: string) => string | null;
+  /**
+   * Optional second tooltip line under the main label, e.g. the demographic
+   * composition a projection is built from. Returning null hides the line.
+   */
+  breakdown?: (id: string) => string | null;
 }
 
 /**

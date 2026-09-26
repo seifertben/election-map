@@ -76,6 +76,8 @@ npm run build      # type-check + production bundle into dist/
 npm run preview    # serve the production build
 npm test           # vitest (codec, reducer, ratings data, scoreboard, geography)
 npm run build:geo  # regenerate public/data from Census geography sources
+npm run build:demographics  # fetch ACS demographics into public/data/demographics.json
+npm run build:party  # merge CES 2024 party composition into demographics.json
 npm run build:polls  # regenerate the committed 2026 Senate polling snapshot
 npm run build:gov-polls  # regenerate the committed 2026 Governor polling snapshot
 npm run fetch:polls  # re-scrape the Wikipedia polling tables (scripts/*-polls-wiki.json)
@@ -197,6 +199,27 @@ Re-run it when the Census publishes updated boundaries.
   «Democratic Party» / «Republican Party» markets); the lone exception —
   California's 40th, offered only as an "(Individual)" market — gets a
   per-district candidate→party entry in `src/lib/markets.ts`.
+
+- The State Analyzer's **Party ID** lens has no Census counterpart, so
+  `public/data/demographics.json` gains a per-district party composition from
+  two real sources (`npm run build:party`, run after `build:demographics`): the
+  Cooperative Election Study 2024 common content (Dem/Rep identification with
+  leaners, per district) and The Downballot's 2024 presidential results by
+  district. Each district's Democratic-minus-Republican identification gap is
+  kept as reported once it has 120 CES respondents; below that it is shrunk
+  toward its 2024 two-party presidential share shifted by the national move to
+  the 2026 generic congressional ballot (Silver Bulletin's D+7.5 as of
+  2026-09-21, about +4.5 points to the Democrat). Only the noisy tail is
+  anchored, so the well-measured districts do not inherit the presidential vote.
+  The Independent share is the state CES estimate. CES reports districts on the
+  119th-Congress lines, so the ten mid-decade-redistricted states are
+  approximate. The poll crosstab books
+  supply the vote-by-party splits the analyzer projects with; the YouGov books
+  do not cross party with the vote, so their Party ID lens falls back to the
+  topline split over the district's (real) party composition.
+- `scripts/party/ces2024_party.json` is the committed CES aggregate;
+  `scripts/party/aggregate-ces.py` regenerates it from the 184 MB CES download
+  (not committed).
 
 ## Deployment
 

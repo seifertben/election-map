@@ -73,6 +73,7 @@ function uniformComposition(): GeographyComposition {
   const age = shares(["18-29", "30-44", "45-64", "65+"]);
   const race = shares(["white", "black", "hispanic", "asian", "other"]);
   const education = shares(["no-hs", "hs", "some-college", "bachelors-plus"]);
+  const party = shares(["democrat", "republican", "independent"]);
   return {
     population: 1,
     votingAgePopulation: 1,
@@ -80,6 +81,7 @@ function uniformComposition(): GeographyComposition {
     age,
     race,
     education,
+    party,
   };
 }
 
@@ -169,6 +171,9 @@ export function StateAnalyzer({
   // Off by default: the analyzer shows plain projections until the user asks
   // to stripe the regions whose projected party flips the incumbent's.
   const [showFlips, setShowFlips] = useState(false);
+  // True once a manual slider move has diverged from the loaded poll's
+  // crosstabs, which enables resetting the sliders back to that poll.
+  const [pollDirty, setPollDirty] = useState(false);
 
   const censusFor = (fips: string) =>
     demographics?.states[fips] ?? FALLBACK;
@@ -203,6 +208,7 @@ export function StateAnalyzer({
       setPollId("");
       setSplits(initialSplits());
     }
+    setPollDirty(false);
   };
 
   const handleElectionChange = (next: AnalyzerElection) => {
@@ -221,6 +227,7 @@ export function StateAnalyzer({
       setPollId("");
       setSplits(initialSplits());
     }
+    setPollDirty(false);
   };
 
   const handlePollChange = (id: string) => {
@@ -233,6 +240,21 @@ export function StateAnalyzer({
         ? compositionFromCrosstab(crosstab.composition, census)
         : scenarioFromComposition(census),
     );
+    setPollDirty(false);
+  };
+
+  // Sliders write through these so any manual move can flag the loaded poll as
+  // edited; the reset button restores the poll's published crosstabs.
+  const handleSplitsChange = (next: Splits) => {
+    setSplits(next);
+    if (pollId) setPollDirty(true);
+  };
+  const handleScenarioChange = (next: CompositionMap) => {
+    setScenario(next);
+    if (pollId) setPollDirty(true);
+  };
+  const handleResetPoll = () => {
+    if (pollId) handlePollChange(pollId);
   };
 
   const stateFeature = availableStates.find((f) => fipsOf(f) === stateFips);
@@ -268,16 +290,19 @@ export function StateAnalyzer({
         onStateChange={handleStateChange}
         onElectionChange={handleElectionChange}
         splits={splits}
-        onSplitsChange={setSplits}
+        onSplitsChange={handleSplitsChange}
         scenario={scenario}
-        onScenarioChange={setScenario}
+        onScenarioChange={handleScenarioChange}
         polls={polls}
         pollId={pollId}
         onPollChange={handlePollChange}
+        pollDirty={pollDirty}
+        onResetPoll={handleResetPoll}
         onRandomize={() => {
           setSplits(initialSplits(`state-analyzer-${seed + 1}`));
           setSeed(seed + 1);
           setPollId("");
+          setPollDirty(false);
         }}
         showFlips={showFlips}
         onShowFlipsChange={setShowFlips}
@@ -306,6 +331,9 @@ interface StateAnalysisProps {
   /** Selected poll id, or "" for the random baseline. */
   pollId: string;
   onPollChange: (id: string) => void;
+  /** Whether the loaded poll's sliders have been edited since it was seeded. */
+  pollDirty: boolean;
+  onResetPoll: () => void;
   onRandomize: () => void;
   /** Whether projected party flips are striped. */
   showFlips: boolean;
@@ -329,6 +357,8 @@ function StateAnalysis({
   polls,
   pollId,
   onPollChange,
+  pollDirty,
+  onResetPoll,
   onRandomize,
   showFlips,
   onShowFlipsChange,
@@ -357,21 +387,24 @@ function StateAnalysis({
     [election, districts, stateFeatures, stateFips],
   );
 
-  // A potential result per region on the map (House districts, or the single
-  // state for statewide races).
-  const regionResults = useMemo(() => {
-    const results = new Map<string, AnalyzerResult>();
+  // The composition each region is projected from: a district's own census
+  // scaled by the statewide scenario, or the scenario itself for statewide
+  // races. Also feeds the hover breakdown so it matches the projection.
+  const regionCompositions = useMemo(() => {
+    const comps = new Map<string, CompositionMap>();
     if (election === "house") {
       for (const feature of features) {
         const geoid = geoidOf(feature);
         const comp = demographics?.districts[geoid] ?? baseComposition;
-        const map = adjustComposition(compositionMap(comp), baseMap, scenario);
-        results.set(geoid, analyze(map, [activeDimension], splits));
+        comps.set(
+          geoid,
+          adjustComposition(compositionMap(comp), baseMap, scenario),
+        );
       }
     } else {
-      results.set(stateFips, analyze(scenario, [activeDimension], splits));
+      comps.set(stateFips, scenario);
     }
-    return results;
+    return comps;
   }, [
     election,
     features,
@@ -379,10 +412,18 @@ function StateAnalysis({
     baseComposition,
     baseMap,
     scenario,
-    activeDimension,
-    splits,
     stateFips,
   ]);
+
+  // A potential result per region on the map (House districts, or the single
+  // state for statewide races).
+  const regionResults = useMemo(() => {
+    const results = new Map<string, AnalyzerResult>();
+    for (const [id, comp] of regionCompositions) {
+      results.set(id, analyze(comp, [activeDimension], splits));
+    }
+    return results;
+  }, [regionCompositions, activeDimension, splits]);
 
   // Statewide result: a population-weighted roll-up of the districts, or the
   // state's own projection for statewide races.
@@ -394,6 +435,7 @@ function StateAnalysis({
     }
     let d = 0;
     let r = 0;
+    let o = 0;
     let weight = 0;
     for (const feature of features) {
       const geoid = geoidOf(feature);
@@ -402,14 +444,18 @@ function StateAnalysis({
       const w = demographics?.districts[geoid]?.votingAgePopulation ?? 1;
       d += result.d * w;
       r += result.r * w;
+      o += result.o * w;
       weight += w;
     }
-    if (weight === 0) return { d: 50, r: 50, margin: 0, winner: "TOSS", segments: [] };
+    if (weight === 0) {
+      return { d: 50, r: 50, o: 0, margin: 0, winner: "TOSS", segments: [] };
+    }
     const dd = d / weight;
     const rr = r / weight;
     return {
       d: dd,
       r: rr,
+      o: o / weight,
       margin: dd - rr,
       winner: winnerOf(dd, rr),
       segments: [],
@@ -475,12 +521,28 @@ function StateAnalysis({
       describe: (id) => {
         const result = regionResults.get(id);
         if (!result) return null;
-        return `D ${result.d.toFixed(1)} / R ${result.r.toFixed(1)} · ${formatMargin(
+        const other = result.o > 0.05 ? ` / O ${result.o.toFixed(1)}` : "";
+        return `D ${result.d.toFixed(1)} / R ${result.r.toFixed(1)}${other} · ${formatMargin(
           result.margin,
         )}`;
       },
+      // The active lens's composition for the region, i.e. the breakdown the
+      // projection is built from.
+      breakdown: (id) => {
+        const comp = regionCompositions.get(id);
+        if (!comp) return null;
+        const dimension = DIMENSION_BY_ID[activeDimension];
+        const shares = comp[activeDimension] ?? {};
+        const parts = dimension.categories
+          .map((category) => {
+            const share = Math.round((shares[category.id] ?? 0) * 100);
+            return `${category.short} ${share}%`;
+          })
+          .join(" · ");
+        return `${dimension.label}: ${parts}`;
+      },
     }),
-    [regionResults],
+    [regionResults, regionCompositions, activeDimension],
   );
 
   // Shares are independent fixed values; setting one never moves another. They
@@ -492,12 +554,33 @@ function StateAnalysis({
     });
   };
 
+  // The split is a single track with two knobs: the left sets the Democratic
+  // share of the D/R portion, the right marks where R ends and Other begins.
+  // D/R is therefore whatever portion the Other knob leaves behind.
   const updateSplit = (dimension: DimensionId, category: string, d: number) => {
+    const split = splits[dimension]?.[category] ?? { d: 50, r: 50, o: 0 };
+    const dd = Math.max(0, Math.min(d, 100 - split.o));
     onSplitsChange({
       ...splits,
       [dimension]: {
         ...splits[dimension],
-        [category]: { d, r: 100 - d },
+        [category]: { d: dd, r: 100 - dd - split.o, o: split.o },
+      },
+    });
+  };
+
+  const updateOther = (dimension: DimensionId, category: string, o: number) => {
+    const split = splits[dimension]?.[category] ?? { d: 50, r: 50, o: 0 };
+    const other = Math.max(0, Math.min(o, 100 - split.d));
+    onSplitsChange({
+      ...splits,
+      [dimension]: {
+        ...splits[dimension],
+        [category]: {
+          d: split.d,
+          r: 100 - split.d - other,
+          o: other,
+        },
       },
     });
   };
@@ -723,6 +806,7 @@ function StateAnalysis({
               const split = splits[activeDimension]?.[category.id] ?? {
                 d: 50,
                 r: 50,
+                o: 0,
               };
               return (
                 <li key={category.id} className="analyzer__row">
@@ -749,23 +833,56 @@ function StateAnalysis({
                   <div className="analyzer__row-head">
                     <span className="analyzer__splitlabel">
                       D {split.d.toFixed(0)} / R {split.r.toFixed(0)}
+                      {split.o > 0.05 ? ` / O ${split.o.toFixed(0)}` : ""}
                     </span>
                     <span className="analyzer__pct">vote split</span>
                   </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={Math.round(split.d)}
-                    aria-label={`${category.label} Democratic vote share`}
-                    onChange={(event) =>
-                      updateSplit(
-                        activeDimension,
-                        category.id,
-                        Number(event.target.value),
-                      )
-                    }
-                  />
+                  <div className="analyzer__split">
+                    <div className="analyzer__split-track" aria-hidden="true">
+                      <span
+                        className="analyzer__split-seg analyzer__split-seg--d"
+                        style={{ width: `${split.d}%` }}
+                      />
+                      <span
+                        className="analyzer__split-seg analyzer__split-seg--r"
+                        style={{ width: `${split.r}%` }}
+                      />
+                      <span
+                        className="analyzer__split-seg analyzer__split-seg--o"
+                        style={{ width: `${split.o}%` }}
+                      />
+                    </div>
+                    <input
+                      type="range"
+                      className="analyzer__split-knob"
+                      min={0}
+                      max={100}
+                      value={Math.round(split.d)}
+                      aria-label={`${category.label} Democratic vote share`}
+                      onChange={(event) =>
+                        updateSplit(
+                          activeDimension,
+                          category.id,
+                          Number(event.target.value),
+                        )
+                      }
+                    />
+                    <input
+                      type="range"
+                      className="analyzer__split-knob"
+                      min={0}
+                      max={100}
+                      value={100 - Math.round(split.o)}
+                      aria-label={`${category.label} other vote share`}
+                      onChange={(event) =>
+                        updateOther(
+                          activeDimension,
+                          category.id,
+                          100 - Number(event.target.value),
+                        )
+                      }
+                    />
+                  </div>
                 </li>
               );
             })}
@@ -779,6 +896,16 @@ function StateAnalysis({
           <button type="button" onClick={resetScenario}>
             Reset shares
           </button>
+          {selectedPoll ? (
+            <button
+              type="button"
+              onClick={onResetPoll}
+              disabled={!pollDirty}
+              title="Restore the sliders to this poll's published crosstabs"
+            >
+              Reset poll
+            </button>
+          ) : null}
         </section>
       </aside>
     </>
@@ -804,7 +931,7 @@ function ResultSummary({ result, tally, regionCount }: ResultSummaryProps) {
         </span>
         <span className="analyzer__result-r">{result.r.toFixed(1)}%</span>
       </div>
-      <div className="analyzer__result-bar" role="img" aria-label="Two-party split">
+      <div className="analyzer__result-bar" role="img" aria-label="Vote split">
         <div
           className="analyzer__result-fill analyzer__result-fill--d"
           style={{ width: `${result.d}%` }}
@@ -813,7 +940,14 @@ function ResultSummary({ result, tally, regionCount }: ResultSummaryProps) {
           className="analyzer__result-fill analyzer__result-fill--r"
           style={{ width: `${result.r}%` }}
         />
+        <div
+          className="analyzer__result-fill analyzer__result-fill--o"
+          style={{ width: `${result.o}%` }}
+        />
       </div>
+      {result.o > 0.05 ? (
+        <div className="analyzer__tally">Other {result.o.toFixed(1)}%</div>
+      ) : null}
       {tally ? (
         <div className="analyzer__tally">
           {regionCount} districts · D {tally.D} / R {tally.R}

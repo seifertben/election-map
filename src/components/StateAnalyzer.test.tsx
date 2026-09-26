@@ -42,11 +42,6 @@ const OHIO: RegionFeature = squareFeature(
   -83,
   40,
 );
-const MICHIGAN: RegionFeature = squareFeature(
-  { fips: "26", abbr: "MI", name: "Michigan" },
-  -85,
-  44,
-);
 const DISTRICTS: RegionFeature[] = [
   squareFeature(
     { geoid: "0601", state: "06", district: "01", name: "CA-01" },
@@ -78,6 +73,7 @@ function composition(
     age,
     race: { white: 1 },
     education: { hs: 1 },
+    party: { democrat: 0.4, republican: 0.35, independent: 0.25 },
   };
 }
 
@@ -159,11 +155,11 @@ async function renderAnalyzerWithGovernorPoll() {
   await act(async () => {
     root?.render(
       <StateAnalyzer
-        states={[MICHIGAN]}
+        states={[OHIO]}
         districts={[]}
         demographics={DEMOGRAPHICS}
         senateFips={new Set()}
-        governorFips={new Set(["26"])}
+        governorFips={new Set(["39"])}
       />,
     );
   });
@@ -214,8 +210,8 @@ describe("StateAnalyzer", () => {
 
   it("shows only one dimension's controls and swaps them on selection", async () => {
     await renderAnalyzer();
-    // Race is the default lens: 5 categories x (share + split) = 10 sliders.
-    expect(container?.querySelectorAll('input[type="range"]')).toHaveLength(10);
+    // Race is the default lens: 5 categories x (share + split + other) = 15.
+    expect(container?.querySelectorAll('input[type="range"]')).toHaveLength(15);
     const sexRadio = [...container!.querySelectorAll<HTMLInputElement>(
       'input[type="radio"]',
     )].find((input) => input.closest("label")?.textContent === "Sex");
@@ -223,8 +219,38 @@ describe("StateAnalyzer", () => {
     await act(async () => {
       sexRadio!.click();
     });
-    // Sex has 2 categories x (share + split) = 4 sliders.
-    expect(container?.querySelectorAll('input[type="range"]')).toHaveLength(4);
+    // Sex has 2 categories x (share + split + other) = 6 sliders.
+    expect(container?.querySelectorAll('input[type="range"]')).toHaveLength(6);
+  });
+
+  it("shows the active lens's district breakdown on hover", async () => {
+    await renderAnalyzer();
+    const district = container!.querySelector(
+      'path[data-id="0601"]',
+    ) as SVGPathElement;
+    act(() => {
+      district.dispatchEvent(
+        new MouseEvent("pointermove", {
+          clientX: 10,
+          clientY: 10,
+          bubbles: true,
+        }),
+      );
+    });
+    expect(
+      container!.querySelector(".tooltip__breakdown")?.textContent,
+    ).toContain("Race / ethnicity: White 100%");
+
+    // Switching the lens swaps the hover breakdown to that dimension.
+    const sexRadio = [...container!.querySelectorAll<HTMLInputElement>(
+      'input[type="radio"]',
+    )].find((input) => input.closest("label")?.textContent === "Sex");
+    await act(async () => {
+      sexRadio!.click();
+    });
+    expect(
+      container!.querySelector(".tooltip__breakdown")?.textContent,
+    ).toContain("Sex: Men 70% · Women 30%");
   });
 
   it("sets a share without moving the other shares", async () => {
@@ -232,9 +258,10 @@ describe("StateAnalyzer", () => {
     const ranges = [...container!.querySelectorAll<HTMLInputElement>(
       'input[type="range"]',
     )];
-    // Even indices are the share sliders (odd are vote splits).
+    // Each category has three sliders (share, D/R split, other), so shares sit
+    // at indices 0, 3, 6, …
     const firstShare = ranges[0];
-    const secondShare = ranges[2];
+    const secondShare = ranges[3];
     const secondBefore = secondShare.value;
     // Census shares total 100%, so the total is flagged complete (green).
     expect(container?.querySelector(".analyzer__total-value--ok")).not.toBeNull();
@@ -243,6 +270,29 @@ describe("StateAnalyzer", () => {
     expect(secondShare.value).toBe(secondBefore);
     // Dropping a share off 100% flips the indicator out of its complete state.
     expect(container?.querySelector(".analyzer__total-value--off")).not.toBeNull();
+  });
+
+  it("moves the two split knobs independently", async () => {
+    await renderAnalyzer();
+    const split = container?.querySelector<HTMLInputElement>(
+      'input[aria-label="White (non-Hispanic) Democratic vote share"]',
+    );
+    const other = container?.querySelector<HTMLInputElement>(
+      'input[aria-label="White (non-Hispanic) other vote share"]',
+    );
+    expect(other).not.toBeNull();
+    // The right knob marks where R ends and Other begins, so it starts at 100.
+    expect(other!.value).toBe("100");
+    const dBefore = split!.value;
+    // Drag the right knob left: Other grows and the Democratic share holds.
+    setRangeValue(other as HTMLInputElement, "80");
+    expect(split!.value).toBe(dBefore);
+    expect(other!.value).toBe("80");
+    expect(container?.textContent).toContain("Other 20");
+    // Drag the left knob: Other holds and the Democratic share moves.
+    setRangeValue(split as HTMLInputElement, "10");
+    expect(other!.value).toBe("80");
+    expect(split!.value).toBe("10");
   });
 
   it("defaults flip striping off and toggles it on", async () => {
@@ -277,17 +327,48 @@ describe("StateAnalyzer", () => {
     const values = [...poll!.querySelectorAll("option")].map((o) => o.value);
     expect(values).toContain("nyt-siena-2026-06-29");
     setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-06-29");
-    // Race is the default lens. Even indices are share sliders, odd are
-    // Democratic splits: White share 77 / split D 41, then Black 11 / D 90.
+    // Race is the default lens. Each category is a block of three sliders
+    // (share, D/R split, other): White share 77 / split D 41, then Black 11 / D 90.
     const ranges = [...container!.querySelectorAll<HTMLInputElement>(
       'input[type="range"]',
     )];
     expect(ranges[0].value).toBe("77");
     expect(ranges[1].value).toBe("41");
-    expect(ranges[2].value).toBe("11");
-    expect(ranges[3].value).toBe("90");
+    expect(ranges[3].value).toBe("11");
+    expect(ranges[4].value).toBe("90");
     // The panel reports the loaded poll's crosstab source.
     expect(container?.textContent).toContain("NYT/Siena");
+  });
+
+  it("resets a loaded poll's edited sliders back to its crosstabs", async () => {
+    await renderAnalyzerWithPoll();
+    const poll = container?.querySelector<HTMLSelectElement>("#analyzer-poll");
+    setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-06-29");
+    const resetButton = () =>
+      [...container!.querySelectorAll<HTMLButtonElement>(".actions button")].find(
+        (button) => button.textContent === "Reset poll",
+      );
+    // Freshly loaded poll: nothing to reset.
+    expect(resetButton()?.disabled).toBe(true);
+    // Move both a share and a vote-split slider away from the poll's White row
+    // (share 77, split D 41).
+    const ranges = [...container!.querySelectorAll<HTMLInputElement>(
+      'input[type="range"]',
+    )];
+    setRangeValue(ranges[0], "50");
+    setRangeValue(ranges[1], "10");
+    expect(ranges[0].value).toBe("50");
+    expect(ranges[1].value).toBe("10");
+    expect(resetButton()?.disabled).toBe(false);
+    await act(async () => {
+      resetButton()?.click();
+    });
+    const restored = [...container!.querySelectorAll<HTMLInputElement>(
+      'input[type="range"]',
+    )];
+    expect(restored[0].value).toBe("77");
+    expect(restored[1].value).toBe("41");
+    expect(resetButton()?.disabled).toBe(true);
   });
 
   it("offers a senate poll to a house race and flags it as an extrapolation", async () => {
@@ -332,17 +413,17 @@ describe("StateAnalyzer", () => {
     expect(election?.value).toBe("governor");
     const poll = container?.querySelector<HTMLSelectElement>("#analyzer-poll");
     const values = [...poll!.querySelectorAll("option")].map((o) => o.value);
-    expect(values).toContain("nyt-siena-2026-09-22");
-    setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-09-22");
-    // Race is the default lens. Michigan's governor crosstab: White share 76 /
-    // split D 45, then Black 10 / D 92.
+    expect(values).toContain("nyt-siena-2026-06-29-gov");
+    setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-06-29-gov");
+    // Race is the default lens. Ohio's June governor crosstab: White share 77 /
+    // split D 41, then Black 11 / D 89.
     const ranges = [...container!.querySelectorAll<HTMLInputElement>(
       'input[type="range"]',
     )];
-    expect(ranges[0].value).toBe("76");
-    expect(ranges[1].value).toBe("45");
-    expect(ranges[2].value).toBe("10");
-    expect(ranges[3].value).toBe("92");
+    expect(ranges[0].value).toBe("77");
+    expect(ranges[1].value).toBe("41");
+    expect(ranges[3].value).toBe("11");
+    expect(ranges[4].value).toBe("89");
     expect(container?.textContent).not.toContain("Extrapolation");
   });
 });

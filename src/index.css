@@ -226,6 +226,14 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
+.tooltip__breakdown {
+  margin-top: 3px;
+  max-width: 260px;
+  white-space: normal;
+  font-weight: 500;
+  color: #d1d5db;
+}
+
 .side {
   display: flex;
   flex-direction: column;
@@ -612,7 +620,7 @@ body {
   font-weight: 600;
 }
 
-.analyzer__row input[type="range"] {
+.analyzer__row input[type="range"]:not(.analyzer__split-knob) {
   width: 100%;
   margin: 6px 0;
   accent-color: var(--accent);
@@ -620,6 +628,93 @@ body {
 
 .analyzer__rows--complete .analyzer__row input[type="range"] {
   accent-color: #2f9e44;
+}
+
+/* Dual-knob vote split: the track shows D / R / Other and the two range
+   inputs are overlaid so each knob drags independently. */
+.analyzer__split {
+  position: relative;
+  height: 24px;
+  margin: 6px 0;
+}
+
+.analyzer__split-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 8px;
+  transform: translateY(-50%);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.analyzer__split-seg {
+  height: 100%;
+}
+
+.analyzer__split-seg--d {
+  background: #1b3a78;
+}
+
+.analyzer__split-seg--r {
+  background: #8f1d14;
+}
+
+.analyzer__split-seg--o {
+  background: #8a8f98;
+}
+
+.analyzer__row .analyzer__split-knob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Match the native track to the 8px custom bar (the browser centers it in the
+   24px input) and center the 16px thumb on that track. */
+.analyzer__row .analyzer__split-knob::-webkit-slider-runnable-track {
+  height: 8px;
+  background: transparent;
+}
+
+.analyzer__row .analyzer__split-knob::-moz-range-track {
+  height: 8px;
+  background: transparent;
+}
+
+.analyzer__row .analyzer__split-knob::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  margin-top: -4px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
+}
+
+.analyzer__row .analyzer__split-knob::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
 }
 
 .analyzer__result-headline {
@@ -670,6 +765,10 @@ body {
 
 .analyzer__result-fill--r {
   background: #8f1d14;
+}
+
+.analyzer__result-fill--o {
+  background: #8a8f98;
 }
 
 .analyzer__tally {

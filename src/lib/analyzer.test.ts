@@ -29,28 +29,34 @@ const COMPOSITION: GeographyComposition = {
     "some-college": 0.25,
     "bachelors-plus": 0.25,
   },
+  party: { democrat: 0.4, republican: 0.35, independent: 0.25 },
 };
 
 const SPLITS: Splits = {
-  sex: { male: { d: 60, r: 40 }, female: { d: 40, r: 60 } },
+  sex: { male: { d: 60, r: 40, o: 0 }, female: { d: 40, r: 60, o: 0 } },
   age: {
-    "18-29": { d: 65, r: 35 },
-    "30-44": { d: 55, r: 45 },
-    "45-64": { d: 45, r: 55 },
-    "65+": { d: 35, r: 65 },
+    "18-29": { d: 65, r: 35, o: 0 },
+    "30-44": { d: 55, r: 45, o: 0 },
+    "45-64": { d: 45, r: 55, o: 0 },
+    "65+": { d: 35, r: 65, o: 0 },
   },
   race: {
-    white: { d: 40, r: 60 },
-    black: { d: 80, r: 20 },
-    hispanic: { d: 60, r: 40 },
-    asian: { d: 55, r: 45 },
-    other: { d: 50, r: 50 },
+    white: { d: 40, r: 60, o: 0 },
+    black: { d: 80, r: 20, o: 0 },
+    hispanic: { d: 60, r: 40, o: 0 },
+    asian: { d: 55, r: 45, o: 0 },
+    other: { d: 50, r: 50, o: 0 },
   },
   education: {
-    "no-hs": { d: 55, r: 45 },
-    hs: { d: 45, r: 55 },
-    "some-college": { d: 50, r: 50 },
-    "bachelors-plus": { d: 60, r: 40 },
+    "no-hs": { d: 55, r: 45, o: 0 },
+    hs: { d: 45, r: 55, o: 0 },
+    "some-college": { d: 50, r: 50, o: 0 },
+    "bachelors-plus": { d: 60, r: 40, o: 0 },
+  },
+  party: {
+    democrat: { d: 80, r: 20, o: 0 },
+    republican: { d: 20, r: 80, o: 0 },
+    independent: { d: 50, r: 50, o: 0 },
   },
 };
 
@@ -81,7 +87,8 @@ describe("initialSplits", () => {
       for (const split of Object.values(dimension)) {
         expect(split.d).toBeGreaterThanOrEqual(30);
         expect(split.d).toBeLessThanOrEqual(70);
-        expect(split.d + split.r).toBeCloseTo(100);
+        expect(split.o).toBe(0);
+        expect(split.d + split.r + split.o).toBeCloseTo(100);
       }
     }
   });
@@ -103,12 +110,29 @@ describe("analyze", () => {
     expect(combined.d).toBeCloseTo((sex.d + age.d) / 2);
   });
 
+  it("carries a third-party share through the projection", () => {
+    const splits: Splits = {
+      ...SPLITS,
+      sex: {
+        male: { d: 40, r: 30, o: 30 },
+        female: { d: 40, r: 30, o: 30 },
+      },
+    };
+    const result = analyze(compositionMap(COMPOSITION), ["sex"], splits);
+    expect(result.d).toBeCloseTo(40);
+    expect(result.r).toBeCloseTo(30);
+    expect(result.o).toBeCloseTo(30);
+    expect(result.d + result.r + result.o).toBeCloseTo(100);
+    expect(result.margin).toBeCloseTo(10);
+  });
+
   it("normalizes shares that don't total 100%", () => {
     const comp: CompositionMap = {
       sex: { male: 0.6, female: 0.2 },
       age: { "18-29": 1 },
       race: { white: 1 },
       education: { hs: 1 },
+      party: { democrat: 1 },
     };
     // Male 0.6 and female 0.2 normalize to 0.75 / 0.25.
     const result = analyze(comp, ["sex"], SPLITS);
@@ -143,18 +167,21 @@ describe("scenarioFromComposition and adjustComposition", () => {
       age: { "18-29": 1 },
       race: { white: 1 },
       education: { "no-hs": 1 },
+      party: { democrat: 1 },
     };
     const scenario: CompositionMap = {
       sex: { male: 0.6, female: 0.4 },
       age: { "18-29": 1 },
       race: { white: 1 },
       education: { "no-hs": 1 },
+      party: { democrat: 1 },
     };
     const district: CompositionMap = {
       sex: { male: 0.5, female: 0.5 },
       age: { "18-29": 1 },
       race: { white: 1 },
       education: { "no-hs": 1 },
+      party: { democrat: 1 },
     };
     const adjusted = adjustComposition(district, base, scenario);
     expect(adjusted.sex.male).toBeCloseTo(0.6);

@@ -69,7 +69,6 @@ export interface RegionMapProps {
 
 interface HoverState {
   id: string;
-  label: string;
 }
 
 /** Pan/zoom transform: screen = viewBox coords * k + (x, y). */
@@ -379,6 +378,37 @@ export function RegionMap({
     return el;
   };
 
+  // Build the tooltip text for a region at render time so it stays in step
+  // with the current overlay and paint state.
+  const describeRegion = (
+    id: string,
+  ): { label: string; breakdown: string | null } => {
+    const base = shapes.find((shape) => shape.id === id)?.label ?? "";
+    const assignment = assignments[id];
+    let label = base;
+    if (poll) {
+      // A painted state shows its own paint; everything else shows the
+      // poll aggregate it is colored by.
+      if (poll.isPainted(id)) {
+        label += assignment ? ` · ${ASSIGNMENT_LABEL[assignment]}` : "";
+      } else if (poll.describe) {
+        const detail = poll.describe(id);
+        label += detail ? ` · ${detail}` : " · no market";
+      } else {
+        const summary = poll.summaryFor(id);
+        label += summary
+          ? ` · ${describeSummary(summary, poll.optionLabel)}`
+          : " · no polls";
+      }
+    } else if (assignment) {
+      label += ` · ${ASSIGNMENT_LABEL[assignment]}`;
+    }
+    const stripe = stripeFor(id, assignment ?? null);
+    if (stripe) label += ` · ${stripe.pickup} pickup`;
+    return { label, breakdown: poll?.breakdown?.(id) ?? null };
+  };
+  const hoverInfo = hover ? describeRegion(hover.id) : null;
+
   const handlePointerMove = (event: MouseEvent<SVGSVGElement>) => {
     const el = targetFromEvent(event);
     if (!el) {
@@ -394,30 +424,7 @@ export function RegionMap({
       tip.style.top = `${event.clientY - rect.top}px`;
     }
     if (el.dataset.id !== hover?.id) {
-      const id = el.dataset.id ?? "";
-      const assignment = assignments[id];
-      const base = el.dataset.label ?? "";
-      let label = base;
-      if (poll) {
-        // A painted state shows its own paint; everything else shows the
-        // poll aggregate it is colored by.
-        if (poll.isPainted(id)) {
-          label += assignment ? ` · ${ASSIGNMENT_LABEL[assignment]}` : "";
-        } else if (poll.describe) {
-          const detail = poll.describe(id);
-          label += detail ? ` · ${detail}` : " · no market";
-        } else {
-          const summary = poll.summaryFor(id);
-          label += summary
-            ? ` · ${describeSummary(summary, poll.optionLabel)}`
-            : " · no polls";
-        }
-      } else if (assignment) {
-        label += ` · ${ASSIGNMENT_LABEL[assignment]}`;
-      }
-      const stripe = stripeFor(id, assignment ?? null);
-      if (stripe) label += ` · ${stripe.pickup} pickup`;
-      setHover({ id, label });
+      setHover({ id: el.dataset.id ?? "" });
     }
   };
 
@@ -520,7 +527,10 @@ export function RegionMap({
           display: hover ? undefined : "none",
         }}
       >
-        {hover?.label}
+        {hoverInfo?.label}
+        {hoverInfo?.breakdown ? (
+          <div className="tooltip__breakdown">{hoverInfo.breakdown}</div>
+        ) : null}
       </div>
     </div>
   );

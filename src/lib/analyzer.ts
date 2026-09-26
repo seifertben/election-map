@@ -10,7 +10,7 @@
  * independent), and a segment's vote is the mean of its categories' splits.
  */
 
-export type DimensionId = "sex" | "age" | "race" | "education";
+export type DimensionId = "sex" | "age" | "race" | "education" | "party";
 
 export interface DemographicCategory {
   id: string;
@@ -69,6 +69,15 @@ export const DIMENSIONS: DemographicDimension[] = [
       },
     ],
   },
+  {
+    id: "party",
+    label: "Party ID",
+    categories: [
+      { id: "democrat", label: "Democrat", short: "Dem" },
+      { id: "republican", label: "Republican", short: "Rep" },
+      { id: "independent", label: "Independent / other", short: "Ind" },
+    ],
+  },
 ];
 
 export const DIMENSION_BY_ID: Record<DimensionId, DemographicDimension> =
@@ -85,6 +94,8 @@ export interface GeographyComposition {
   age: Record<string, number>;
   race: Record<string, number>;
   education: Record<string, number>;
+  /** Party identification (Democrat/Republican/Independent), from the CES. */
+  party: Record<string, number>;
 }
 
 export interface DemographicsData {
@@ -103,6 +114,8 @@ export interface Split {
   d: number;
   /** Republican share of the group, percent. */
   r: number;
+  /** Third-party / other share of the group, percent. d + r + o = 100. */
+  o: number;
 }
 
 export type Splits = Record<DimensionId, Record<string, Split>>;
@@ -115,11 +128,14 @@ export interface Segment {
   share: number;
   d: number;
   r: number;
+  o: number;
 }
 
 export interface AnalyzerResult {
   d: number;
   r: number;
+  /** Third-party / other share, percent. */
+  o: number;
   margin: number;
   winner: "D" | "R" | "TOSS";
   segments: Segment[];
@@ -131,6 +147,7 @@ export function compositionMap(comp: GeographyComposition): CompositionMap {
     age: comp.age,
     race: comp.race,
     education: comp.education,
+    party: comp.party ?? {},
   };
 }
 
@@ -189,6 +206,7 @@ export function initialSplits(
       result[dimension.id][category.id] = {
         d: Math.round(d * 10) / 10,
         r: Math.round((100 - d) * 10) / 10,
+        o: 0,
       };
     }
   }
@@ -251,7 +269,7 @@ export function analyze(
 ): AnalyzerResult {
   const dimensions = enabled.filter((id) => composition[id]);
   if (dimensions.length === 0) {
-    return { d: 50, r: 50, margin: 0, winner: "TOSS", segments: [] };
+    return { d: 50, r: 50, o: 0, margin: 0, winner: "TOSS", segments: [] };
   }
 
   interface Working {
@@ -285,22 +303,27 @@ export function analyze(
     const count = segment.parts.length || 1;
     let d = 0;
     let r = 0;
+    let o = 0;
     for (const part of segment.parts) {
       d += splits[part.dimension]?.[part.category]?.d ?? 50;
       r += splits[part.dimension]?.[part.category]?.r ?? 50;
+      o += splits[part.dimension]?.[part.category]?.o ?? 0;
     }
-    return { ...segment, d: d / count, r: r / count };
+    return { ...segment, d: d / count, r: r / count, o: o / count };
   });
 
   let d = 0;
   let r = 0;
+  let o = 0;
   for (const segment of segments) {
     d += segment.share * segment.d;
     r += segment.share * segment.r;
+    o += segment.share * segment.o;
   }
   return {
     d,
     r,
+    o,
     margin: d - r,
     winner: winnerOf(d, r),
     segments,
