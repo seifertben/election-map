@@ -13,7 +13,7 @@ export function emptyAssignments(): Assignments {
   return { president: {}, senate: {}, house: {}, governor: {} };
 }
 
-export function createInitialState(mode: Mode = "president"): AppState {
+export function createInitialState(mode: Mode = "senate"): AppState {
   return { mode, assignments: emptyAssignments(), history: [] };
 }
 
