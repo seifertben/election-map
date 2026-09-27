@@ -41,7 +41,8 @@
 // VAP-weighted mean of the fitted state result equals the state's actual 2024
 // two-party share. The state top-line is very well measured; the fit only
 // reallocates *within* the state, and this pins the level to real votes. The
-// 2026 environment shift is applied later by the app, exactly as before.
+// 2026 environment shift is applied later by the app, per subgroup
+// (src/data/nationalSwing.ts).
 //
 // Caveat. The composition is a voting-age *population* share while the exit-poll
 // prior is among *voters*, so the regression absorbs some turnout difference
@@ -291,7 +292,7 @@ async function main() {
  * exit-poll group splits and recentered so the VAP-weighted state result
  * matches the state's actual 2024 vote. Party ID is absent by design; it keeps
  * the shifted national baseline. Each value is a 2024 result; the app applies
- * the 2026 environment shift.
+ * the 2026 environment shift, by subgroup (src/data/nationalSwing.ts).
  */
 export const STATE_SPLITS: Record<
   string,

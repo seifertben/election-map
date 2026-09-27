@@ -1061,9 +1061,14 @@ function AnalyzerHelp({ onClose }: { onClose: () => void }) {
               split shifted by the state's 2024 presidential lean (the state's
               Democratic two-party share minus the national 49.25%, built from
               The Downballot's results by district and weighted by voting-age
-              population). Every dimension then gets the national move into the
-              2026 environment (+4.5 points to the Democrat, the same shift the
-              party-ID model uses).
+              population). Each group is then moved into the 2026 environment by
+              its own swing: the 2026 national generic-ballot crosstab
+              (USPollingData, April 2026) is compared with the 2024 exit poll per
+              group, so Democrats recover among Hispanic and Asian voters while
+              slipping among seniors and men under the same national top line.
+              Party ID keeps the uniform environment shift (+4.5 points to the
+              Democrat, the same shift the party-ID model uses) because a party
+              crosstab and the exit poll's party vote measure different things.
             </li>
             <li>
               <strong>Randomize splits</strong> replaces the splits with

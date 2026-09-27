@@ -58,6 +58,8 @@ export const PRES_2024_NATIONAL_D = 0.4925;
  * Silver Bulletin's 2026 generic congressional ballot average, D+7.5 as of
  * 2026-09-21, i.e. a 53.75% Democratic two-party share. The baseline is a 2024
  * result shown in a 2026 race, so the same national environment shift applied
- * to party ID in build-party.mjs is applied here.
+ * to party ID in build-party.mjs anchors the no-poll baseline here. Sex, age,
+ * race and education move by their own subgroup swings around this topline
+ * (`nationalSwing.ts`); Party ID keeps the uniform shift.
  */
 export const GENERIC_2026_D = 0.5375;

@@ -13,28 +13,34 @@
  * Party ID is not fit: the map has no independent measure of how
  * party-identified groups voted, and the national party-vote split is stable, so
  * it keeps the national exit-poll split shifted by the state's 2024 presidential
- * lean. Every dimension then gets the national move into the 2026 environment.
+ * lean. The 2024 result is then moved into the 2026 environment by a
+ * subgroup-level swing: sex, age, race and education each get the differential
+ * move from the 2026 national generic-ballot crosstab (`nationalSwing.ts`), while
+ * Party ID keeps the uniform environment shift.
  *
  * This seeds the sliders for a state with no crosstab poll (or before one is
  * loaded). Loading a poll still overrides it.
  */
 
+import { NATIONAL_EXIT_SPLITS } from "../data/nationalDemographics";
 import {
-  GENERIC_2026_D,
-  NATIONAL_EXIT_SPLITS,
-  PRES_2024_NATIONAL_D,
-} from "../data/nationalDemographics";
+  NATIONAL_ENV_SHIFT,
+  NATIONAL_SWING_2026,
+} from "../data/nationalSwing";
 import { STATE_LEAN } from "../data/stateLean";
 import { STATE_SPLITS } from "../data/stateSplits";
 import { DIMENSIONS } from "./analyzer";
-import type { Split, Splits } from "./analyzer";
+import type { DimensionId, Split, Splits } from "./analyzer";
 
 /**
- * National 2024-to-2026 environment shift, in percentage points. The baseline
- * is a 2024 vote result shown in a 2026 race; this matches the generic-ballot
- * move build-party.mjs applies to party ID.
+ * The 2026 environment swing for one category, in percentage points toward the
+ * Democrats. Sex, age, race and education use the subgroup-level swing from the
+ * national crosstab comparison; Party ID and any un-measured category keep the
+ * uniform national shift.
  */
-const ENV_SHIFT = (GENERIC_2026_D - PRES_2024_NATIONAL_D) * 100;
+export function swingFor(dimension: DimensionId, category: string): number {
+  return NATIONAL_SWING_2026[dimension]?.[category] ?? NATIONAL_ENV_SHIFT;
+}
 
 /** A category's national two-way D/R split, percent, with no other share. */
 function nationalSplit(d: number, r: number): Split {
@@ -78,9 +84,10 @@ export function nationalBaselineSplits(): Splits {
 /**
  * The baseline splits for a state. Sex, age, race and education use the fitted
  * per-state group shares when available (a 2024 result), shifted into the 2026
- * environment; every other dimension, including Party ID, uses the national
- * exit-poll split shifted by the state's 2024 presidential lean and the same
- * environment move. An unknown state falls back to the plain national baseline.
+ * environment by that category's subgroup swing; every other dimension,
+ * including Party ID, uses the national exit-poll split shifted by the state's
+ * 2024 presidential lean and the same category's environment move. An unknown
+ * state falls back to the plain national baseline.
  */
 export function baselineSplitsForState(fips: string): Splits {
   const lean = STATE_LEAN[fips] ?? 0;
@@ -90,6 +97,7 @@ export function baselineSplitsForState(fips: string): Splits {
   for (const dimension of DIMENSIONS) {
     result[dimension.id] = {};
     for (const category of dimension.categories) {
+      const swing = swingFor(dimension.id, category.id);
       const modeled = stateSplits?.[dimension.id]?.[category.id];
       if (modeled !== undefined) {
         // The fitted share already carries the state's lean, so it only needs
@@ -99,14 +107,14 @@ export function baselineSplitsForState(fips: string): Splits {
           r: (1 - modeled) * 100,
           o: 0,
         };
-        result[dimension.id][category.id] = shiftSplit(split, ENV_SHIFT);
+        result[dimension.id][category.id] = shiftSplit(split, swing);
         continue;
       }
       const split = base[dimension.id]?.[category.id];
       if (split) {
         result[dimension.id][category.id] = shiftSplit(
           split,
-          lean * 100 + ENV_SHIFT,
+          lean * 100 + swing,
         );
       }
     }

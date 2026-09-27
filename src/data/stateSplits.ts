@@ -8,7 +8,7 @@
  * exit-poll group splits and recentered so the VAP-weighted state result
  * matches the state's actual 2024 vote. Party ID is absent by design; it keeps
  * the shifted national baseline. Each value is a 2024 result; the app applies
- * the 2026 environment shift.
+ * the 2026 environment shift, by subgroup (src/data/nationalSwing.ts).
  */
 export const STATE_SPLITS: Record<
   string,

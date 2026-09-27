@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { DIMENSIONS } from "./analyzer";
-import { baselineSplitsForState, nationalBaselineSplits } from "./analyzerBaseline";
-import { GENERIC_2026_D, PRES_2024_NATIONAL_D } from "../data/nationalDemographics";
+import {
+  baselineSplitsForState,
+  nationalBaselineSplits,
+  swingFor,
+} from "./analyzerBaseline";
+import { NATIONAL_ENV_SHIFT } from "../data/nationalSwing";
 import { STATE_SPLITS } from "../data/stateSplits";
 import { STATE_LEAN } from "../data/stateLean";
-
-const ENV_SHIFT = (GENERIC_2026_D - PRES_2024_NATIONAL_D) * 100;
 
 describe("nationalBaselineSplits", () => {
   it("gives every category a valid two-way split", () => {
@@ -20,6 +22,20 @@ describe("nationalBaselineSplits", () => {
         expect(split.d + split.r).toBeCloseTo(100);
       }
     }
+  });
+});
+
+describe("swingFor", () => {
+  it("varies the demographic swing by subgroup", () => {
+    const hispanic = swingFor("race", "hispanic");
+    const white = swingFor("race", "white");
+    expect(hispanic).not.toBe(white);
+    expect(hispanic).toBeGreaterThan(white);
+  });
+
+  it("keeps Party ID and un-measured categories on the uniform shift", () => {
+    expect(swingFor("party", "independent")).toBeCloseTo(NATIONAL_ENV_SHIFT, 5);
+    expect(swingFor("race", "other")).toBeCloseTo(NATIONAL_ENV_SHIFT, 5);
   });
 });
 
@@ -41,10 +57,13 @@ describe("baselineSplitsForState", () => {
     expect(california.race.white.d).toBeGreaterThan(wyoming.race.white.d);
   });
 
-  it("uses the fitted per-state group split, moved only by the environment", () => {
+  it("moves each fitted group by its own subgroup swing", () => {
     const splits = baselineSplitsForState("06");
     const fitted = STATE_SPLITS["06"].race.hispanic * 100;
-    expect(splits.race.hispanic.d).toBeCloseTo(fitted + ENV_SHIFT, 5);
+    expect(splits.race.hispanic.d).toBeCloseTo(
+      fitted + swingFor("race", "hispanic"),
+      5,
+    );
   });
 
   it("gives modeled groups a non-uniform spread across states", () => {
@@ -60,7 +79,7 @@ describe("baselineSplitsForState", () => {
     const national = nationalBaselineSplits();
     const lean = STATE_LEAN["56"] * 100;
     expect(splits.party.independent.d).toBeCloseTo(
-      national.party.independent.d + lean + ENV_SHIFT,
+      national.party.independent.d + lean + NATIONAL_ENV_SHIFT,
       1,
     );
   });
@@ -68,6 +87,8 @@ describe("baselineSplitsForState", () => {
   it("falls back to the national baseline for an unknown state", () => {
     const national = nationalBaselineSplits();
     const unknown = baselineSplitsForState("99");
-    expect(unknown.race.white.d).toBeCloseTo(national.race.white.d + ENV_SHIFT);
+    expect(unknown.race.white.d).toBeCloseTo(
+      national.race.white.d + swingFor("race", "white"),
+    );
   });
 });
