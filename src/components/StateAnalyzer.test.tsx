@@ -202,6 +202,28 @@ describe("StateAnalyzer", () => {
     expect(container?.querySelectorAll("path.region")).toHaveLength(2);
   });
 
+  it("opens and closes the how-it-works popup", async () => {
+    await renderAnalyzer();
+    expect(container?.querySelector('[role="dialog"]')).toBeNull();
+    const button = [...container!.querySelectorAll<HTMLButtonElement>("button")].find(
+      (b) => b.textContent === "How it works",
+    );
+    expect(button).toBeDefined();
+    await act(async () => {
+      button!.click();
+    });
+    const dialog = container?.querySelector('[role="dialog"]');
+    expect(dialog).not.toBeNull();
+    expect(dialog?.textContent).toContain("Partisan splits");
+    expect(dialog?.textContent).toContain("exit-poll");
+    await act(async () => {
+      container
+        ?.querySelector<HTMLButtonElement>(".analyzer__help-close")
+        ?.click();
+    });
+    expect(container?.querySelector('[role="dialog"]')).toBeNull();
+  });
+
   it("collapses to a single region when a statewide election is chosen", async () => {
     await renderAnalyzer();
     const election = container?.querySelector<HTMLSelectElement>(

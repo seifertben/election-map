@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Ref } from "react";
 import { GOVERNOR_RACE_BY_FIPS } from "../data/governor2026";
 import { HOUSE_2026_HOLDER } from "../data/house2026Holder";
@@ -374,6 +374,15 @@ function StateAnalysis({
   const stateName = STATE_BY_FIPS[stateFips]?.name ?? stateFips;
   const [activeDimension, setActiveDimension] = useState<DimensionId>("race");
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [showHelp, setShowHelp] = useState(false);
+  useEffect(() => {
+    if (!showHelp) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowHelp(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showHelp]);
   const selectedPoll = ANALYZER_POLL_BY_ID[pollId] ?? null;
   const selectedPollExtrapolated = Boolean(
     selectedPoll && selectedPoll.election !== election,
@@ -645,7 +654,16 @@ function StateAnalysis({
 
       <aside className="side">
         <section className="panel panel--active">
-          <h2 className="panel__title">State Analyzer</h2>
+          <div className="panel__head">
+            <h2 className="panel__title">State Analyzer</h2>
+            <button
+              type="button"
+              className="analyzer__help-button"
+              onClick={() => setShowHelp(true)}
+            >
+              How it works
+            </button>
+          </div>
           <label className="ratings__label" htmlFor="analyzer-state">
             State
           </label>
@@ -936,7 +954,196 @@ function StateAnalysis({
           ) : null}
         </section>
       </aside>
+      {showHelp ? <AnalyzerHelp onClose={() => setShowHelp(false)} /> : null}
     </>
+  );
+}
+
+function AnalyzerHelp({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="analyzer__help"
+      role="dialog"
+      aria-modal="true"
+      aria-label="How the State Analyzer works"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div className="analyzer__help-card">
+        <div className="analyzer__help-head">
+          <h2>How the State Analyzer works</h2>
+          <button
+            type="button"
+            className="analyzer__help-close"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div className="analyzer__help-body">
+          <p>
+            The analyzer is not a poll average. It projects a race from two
+            inputs: <strong>who is in the electorate</strong> (each group's
+            share of voters) and <strong>how each group votes</strong> (its
+            Democratic / Republican / Other split). Drag any slider to model a
+            different electorate or a different result.
+          </p>
+
+          <h3>1. Composition — who votes</h3>
+          <ul>
+            <li>
+              <strong>Statewide races</strong> start from the American Community
+              Survey (ACS) 5-year composition for the state: sex, age,
+              race/ethnicity and education.
+            </li>
+            <li>
+              <strong>House races</strong> use each district's own ACS
+              composition, scaled so that a change to the statewide scenario
+              flows through the district proportionally, then renormalized. The
+              statewide figure is a voting-age-population-weighted roll-up of
+              the districts.
+            </li>
+            <li>
+              <strong>Party ID</strong> has no census field, so it comes from the
+              2024 Cooperative Election Study (party ID with leaners counted as
+              partisans) modelled against The Downballot's 2024 presidential
+              results by district, with redistricted states estimated from the
+              2024 vote and state party ID. The whole map is shifted to the 2026
+              generic-ballot environment (Silver Bulletin D+7.5).
+            </li>
+            <li>
+              <strong>Loading a poll</strong> replaces the census composition
+              with the poll's own "percentage of total electorate" rows.
+              Aggregates the poll only reports in total (a single "No B.A." or
+              "Non-white") are split across the finer bands in proportion to the
+              census.
+            </li>
+          </ul>
+
+          <h3>2. Partisan splits — how each group votes</h3>
+          <p>
+            This is the heart of the model. Each category carries a Democratic,
+            Republican and Other share that always total 100. There are three
+            sources, in priority order:
+          </p>
+          <ul>
+            <li>
+              <strong>A loaded poll.</strong> The vote splits are transcribed
+              from the poll's published crosstabs. If the poll reports a group it
+              did not break out by vote, that group inherits the poll's overall
+              result. If the poll's rounded shares fall short of 100, the
+              remainder becomes the Other share. If the poll never crossed a
+              whole dimension with the vote (for example, education in the
+              InsiderAdvantage and YouGov books), every category in that
+              dimension falls back to the poll's overall result and the panel
+              flags it.
+            </li>
+            <li>
+              <strong>No poll loaded.</strong> The baseline is a national 2024
+              exit-poll table (Roper Center / CBS News–Edison) giving each
+              demographic group's Democratic and Republican vote, normalized to
+              a two-way split. It is then shifted in two steps: by the state's
+              2024 presidential lean (the state's Democratic two-party share
+              minus the national 49.25%, built from The Downballot's results by
+              district and weighted by voting-age population), and by the
+              national move into the 2026 environment (+4.5 points to the
+              Democrat, the same shift the party-ID model uses). A state that
+              voted five points more Democratic than the country therefore
+              starts five points more Democratic in every group.
+            </li>
+            <li>
+              <strong>Randomize splits</strong> replaces the splits with
+              seeded pseudo-random values between 30 and 70, stable for a given
+              seed, as a neutral "what if there were no real signal" baseline.
+            </li>
+          </ul>
+          <p>
+            The vote-split slider has two knobs on one track: the left knob sets
+            the Democratic share within the two-party portion, and the right knob
+            marks where the Republican share ends and Other begins. Democratic
+            and Republican therefore always split whatever the Other knob leaves
+            behind.
+          </p>
+
+          <h3>3. The projection math</h3>
+          <ul>
+            <li>
+              Only the <strong>selected lens</strong> drives the map and the
+              statewide number. Each category is weighted by its share of the
+              electorate, and the projection is the composition-weighted average
+              of the category splits. The dimensions are treated as independent;
+              a segment's vote is the mean of its categories' splits.
+            </li>
+            <li>
+              Shares are <strong>independent fixed values</strong>. Moving one
+              share never moves another; they are normalized to 100% only when
+              the projection is computed. The "Total" indicator shows whether the
+              active lens sums to 100.
+            </li>
+            <li>
+              Margins are mapped onto a confidence scale capped at 15 points, and
+              a race within 0.05 points is a tossup.
+            </li>
+          </ul>
+
+          <h3>4. Map, pickups and extrapolation</h3>
+          <ul>
+            <li>
+              <strong>Stripe party flips</strong> marks regions whose projected
+              party differs from the current holder: the Senate or governor
+              incumbent's party, or the 2026 House seat holder. The wider band is
+              the projected shade, the narrower one a lighter tint.
+            </li>
+            <li>
+              A poll fielded for one race can seed another race in the same
+              state. The panel labels that an <strong>extrapolation</strong>,
+              since no crosstab was published for the active race.
+            </li>
+            <li>
+              Hovering a region shows the active lens's breakdown, and flags a
+              House district's Party ID as estimated when it was modelled from
+              the 2024 vote rather than measured directly.
+            </li>
+          </ul>
+
+          <h3>5. Assumptions and caveats</h3>
+          <ul>
+            <li>
+              Demographic dimensions are modelled as <strong>independent</strong>
+              — the analyzer does not capture interactions such as young Black
+              men or non-college white women as their own groups.
+            </li>
+            <li>
+              Census composition is a <strong>population</strong> share, not a
+              turnout or likely-voter model, so it can differ from an actual
+              electorate.
+            </li>
+            <li>
+              The no-poll baseline is a <strong>2024 result</strong> (exit poll
+              plus 2024 state lean) adjusted by a single national 2026
+              environment shift; it is not a 2026 poll and carries no
+              state-specific 2026 information.
+            </li>
+            <li>
+              Education is usually a <strong>binary</strong> college /
+              non-college split; the three non-college census bands inherit the
+              same result.
+            </li>
+            <li>
+              Race groups a poll did not break out inherit its broadest
+              non-white column, so <strong>Asian and Other are approximate</strong>
+              outside the states that report them.
+            </li>
+            <li>
+              Poll shares are rounded and omit third-party and undecided voters,
+              which are folded into <strong>Other</strong>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
 

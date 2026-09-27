@@ -778,6 +778,125 @@ body {
   color: var(--ink-soft);
 }
 
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel__head .panel__title {
+  margin: 0;
+}
+
+.analyzer__help-button {
+  appearance: none;
+  flex: none;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.analyzer__help-button:hover {
+  background: #f3f4f6;
+  color: var(--ink);
+}
+
+.analyzer__help {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  background: rgba(15, 23, 42, 0.45);
+  overflow-y: auto;
+}
+
+.analyzer__help-card {
+  width: min(680px, 100%);
+  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.28);
+}
+
+.analyzer__help-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.analyzer__help-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.analyzer__help-close {
+  appearance: none;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.analyzer__help-close:hover {
+  background: #f3f4f6;
+  color: var(--ink);
+}
+
+.analyzer__help-body {
+  padding: 16px 20px 22px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.analyzer__help-body p {
+  margin: 0 0 12px;
+}
+
+.analyzer__help-body h3 {
+  margin: 18px 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.analyzer__help-body ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+
+.analyzer__help-body li {
+  margin-bottom: 6px;
+}
+
+.analyzer__help-body strong {
+  color: var(--ink);
+}
+
 .footer {
   margin-top: 20px;
   font-size: 12px;
