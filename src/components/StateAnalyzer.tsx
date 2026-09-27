@@ -372,6 +372,13 @@ function StateAnalysis({
   const selectedPollExtrapolated = Boolean(
     selectedPoll && selectedPoll.election !== election,
   );
+  // A poll that did not crosstab the active dimension by vote leaves its
+  // categories inheriting the poll's overall split, which the sliders flag.
+  const pollCrosstab = selectedPoll?.states[stateFips] ?? null;
+  const pollMissingDimension = Boolean(
+    pollCrosstab &&
+      Object.keys(pollCrosstab[activeDimension] ?? {}).length === 0,
+  );
 
   const baseComposition = demographics?.states[stateFips] ?? FALLBACK;
   const baseMap = useMemo(
@@ -539,10 +546,18 @@ function StateAnalysis({
             return `${category.short} ${share}%`;
           })
           .join(" · ");
-        return `${dimension.label}: ${parts}`;
+        // House district party ID is modeled from the 2024 presidential vote
+        // where CES had too little data; flag those breakdowns on hover.
+        const estimated =
+          election === "house" &&
+          activeDimension === "party" &&
+          demographics?.districts[id]?.partyEstimated;
+        return `${dimension.label}: ${parts}${
+          estimated ? " (estimated from the 2024 vote)" : ""
+        }`;
       },
     }),
-    [regionResults, regionCompositions, activeDimension],
+    [regionResults, regionCompositions, activeDimension, election, demographics],
   );
 
   // Shares are independent fixed values; setting one never moves another. They
@@ -794,6 +809,13 @@ function StateAnalysis({
             Each share is fixed — moving one doesn't change the others. Shares
             are normalized to 100% for the projection.
           </p>
+          {pollMissingDimension ? (
+            <p className="ratings__note">
+              {selectedPoll?.pollster} did not report vote splits for{" "}
+              {activeDimensionDef.label.toLowerCase()}, so each group falls back
+              to the poll's overall result.
+            </p>
+          ) : null}
           <ul
             className={
               shareComplete

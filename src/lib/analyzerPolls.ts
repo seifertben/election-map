@@ -143,7 +143,10 @@ export function compositionFromCrosstab(
   if (age4064 > 0) age["45-64"] = (age["45-64"] ?? 0) + age4064;
 
   const missingRace = RACE_ORDER.filter((id) => !(id in race));
-  if (missingRace.length) {
+  // Only spread a reported non-white total. When the poll carried no race
+  // rows at all the remainder is 0 and the dimension must stay empty so the
+  // census fallback below still applies.
+  if (missingRace.length && (raceTotalNonWhite > 0 || raceOtherNonWhite > 0)) {
     const explicitNonWhite = ["black", "hispanic", "asian", "other"].reduce(
       (sum, id) => sum + (race[id] ?? 0),
       0,
@@ -154,7 +157,9 @@ export function compositionFromCrosstab(
   }
 
   const missingEducation = NON_COLLEGE.filter((id) => !(id in education));
-  if (missingEducation.length) {
+  // As with race, a poll with no education rows leaves noB.A. at 0; skip the
+  // spread so the census fallback still applies.
+  if (missingEducation.length && noBa > 0) {
     Object.assign(
       education,
       distribute(missingEducation, noBa, census.education),

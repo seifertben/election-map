@@ -204,19 +204,30 @@ Re-run it when the Census publishes updated boundaries.
   `public/data/demographics.json` gains a per-district party composition from
   two real sources (`npm run build:party`, run after `build:demographics`): the
   Cooperative Election Study 2024 common content (Dem/Rep identification with
-  leaners, per district) and The Downballot's 2024 presidential results by
-  district. Each district's Democratic-minus-Republican identification gap is
-  kept as reported once it has 120 CES respondents; below that it is shrunk
-  toward its 2024 two-party presidential share shifted by the national move to
-  the 2026 generic congressional ballot (Silver Bulletin's D+7.5 as of
-  2026-09-21, about +4.5 points to the Democrat). Only the noisy tail is
-  anchored, so the well-measured districts do not inherit the presidential vote.
-  The Independent share is the state CES estimate. CES reports districts on the
-  119th-Congress lines, so the ten mid-decade-redistricted states are
-  approximate. The poll crosstab books
+  leaners, per district) and The Downballot's 2024 and 2020 presidential results
+  by district. Each district's partisan gap `(D−R)/(D+R)` and nonpartisan share
+  `Independent+Other` are modelled as a state-anchored hierarchy: the well-
+  measured state CES estimate sets the level, the district's within-state
+  presidential lean sets the spread (fit as `gap = 1.66·(lean) + 0.997·stateGap`
+  on districts whose CES geography is trustworthy), and the direct CES district
+  observation is combined with that prior by empirical-Bayes partial pooling
+  (its multinomial sampling variance, inflated by a 1.5 design effect, is
+  weighed against the fitted prior variance). Each state's districts are then
+  recentered so their voting-age-population-weighted mean matches the state CES
+  estimate, preserving the within-state spread while pinning the level to real
+  data. The whole map is shifted by the national move from the 2024 presidential
+  result to the 2026 generic congressional ballot (Silver Bulletin's D+7.5 as of
+  2026-09-21, about +4.5 points to the Democrat, at `PARTY_ID_RESPONSE = 1`).
+  CES reports districts on the 119th-Congress lines, so for the ten mid-decade-
+  redistricted states (Alabama, California, Florida, Louisiana, Missouri, North
+  Carolina, Ohio, Tennessee, Texas, Utah) the district CES is dropped and the
+  estimate is entirely model-driven. Districts the model had to estimate rather
+  than measure are tagged `partyEstimated` so the map tooltip flags their Party
+  ID breakdown as estimated from the 2024 vote. The poll crosstab books
   supply the vote-by-party splits the analyzer projects with; the YouGov books
   do not cross party with the vote, so their Party ID lens falls back to the
-  topline split over the district's (real) party composition.
+  topline split over the district's party composition, which the slider
+  panel flags as a poll without that breakdown.
 - `scripts/party/ces2024_party.json` is the committed CES aggregate;
   `scripts/party/aggregate-ces.py` regenerates it from the 184 MB CES download
   (not committed).

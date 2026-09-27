@@ -96,6 +96,13 @@ export interface GeographyComposition {
   education: Record<string, number>;
   /** Party identification (Democrat/Republican/Independent), from the CES. */
   party: Record<string, number>;
+  /**
+   * True when a district's party came from the model rather than a direct CES
+   * district measurement: a mid-decade-redistricted state (CES lines do not
+   * match the map), a missing sample, or a sample too small to carry half the
+   * posterior weight. Absent on states.
+   */
+  partyEstimated?: boolean;
 }
 
 export interface DemographicsData {

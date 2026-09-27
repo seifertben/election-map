@@ -83,7 +83,10 @@ const DEMOGRAPHICS: DemographicsData = {
   fetched: "2026-01-01",
   states: { "06": composition({ male: 0.6, female: 0.4 }, { "18-29": 1 }) },
   districts: {
-    "0601": composition({ male: 0.7, female: 0.3 }, { "18-29": 1 }),
+    "0601": {
+      ...composition({ male: 0.7, female: 0.3 }, { "18-29": 1 }),
+      partyEstimated: true,
+    },
     "0602": composition({ male: 0.5, female: 0.5 }, { "18-29": 1 }),
   },
 };
@@ -338,6 +341,70 @@ describe("StateAnalyzer", () => {
     expect(ranges[4].value).toBe("90");
     // The panel reports the loaded poll's crosstab source.
     expect(container?.textContent).toContain("NYT/Siena");
+  });
+
+  it("flags a dimension the loaded poll does not break out by vote", async () => {
+    await renderAnalyzerWithPoll();
+    const poll = container?.querySelector<HTMLSelectElement>("#analyzer-poll");
+    setSelectValue(poll as HTMLSelectElement, "insideradvantage-2026-09-09");
+    // The default race lens is reported, so no fallback note yet.
+    expect(container?.textContent).not.toContain("did not report vote splits");
+    const educationRadio = [
+      ...container!.querySelectorAll<HTMLInputElement>('input[type="radio"]'),
+    ].find((input) => input.closest("label")?.textContent === "Education");
+    await act(async () => {
+      educationRadio!.click();
+    });
+    // InsiderAdvantage does not cross education with the vote, so the panel
+    // says the splits fall back to the poll's overall result.
+    expect(container?.textContent).toContain(
+      "did not report vote splits for education",
+    );
+    // A poll that does break education out shows no such note.
+    setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-06-29");
+    expect(container?.textContent).not.toContain("did not report vote splits");
+  });
+
+  it("flags a house district's party breakdown estimated from the 2024 vote", async () => {
+    await renderAnalyzer();
+    const partyRadio = [
+      ...container!.querySelectorAll<HTMLInputElement>('input[type="radio"]'),
+    ].find((input) => input.closest("label")?.textContent === "Party ID");
+    await act(async () => {
+      partyRadio!.click();
+    });
+    const district = container!.querySelector(
+      'path[data-id="0601"]',
+    ) as SVGPathElement;
+    act(() => {
+      district.dispatchEvent(
+        new MouseEvent("pointermove", {
+          clientX: 10,
+          clientY: 10,
+          bubbles: true,
+        }),
+      );
+    });
+    expect(
+      container!.querySelector(".tooltip__breakdown")?.textContent,
+    ).toContain("(estimated from the 2024 vote)");
+
+    // A district with its own CES party ID carries no estimate note.
+    const other = container!.querySelector(
+      'path[data-id="0602"]',
+    ) as SVGPathElement;
+    act(() => {
+      other.dispatchEvent(
+        new MouseEvent("pointermove", {
+          clientX: 10,
+          clientY: 10,
+          bubbles: true,
+        }),
+      );
+    });
+    expect(
+      container!.querySelector(".tooltip__breakdown")?.textContent,
+    ).not.toContain("estimated from the 2024 vote");
   });
 
   it("resets a loaded poll's edited sliders back to its crosstabs", async () => {

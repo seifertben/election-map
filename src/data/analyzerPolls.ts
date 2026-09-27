@@ -13,9 +13,12 @@
  *     Battleground Senate Races" (times-siena-{alaska,iowa,north-carolina,ohio,
  *     texas}-poll-crosstabs.html) and the Times/Portland Press Herald/Siena
  *     Maine page (times-pph-siena-maine-poll-crosstabs.html). Each page's
- *     "Combined Senate ballot" and governor ballot tables were read, along with
- *     the "Percentage of total electorate" row. Field dates: AK/IA/NC/TX Jun
- *     15-27/29, ME Jun 19-26, OH Jun 15-28.
+ *     "Combined Senate ballot", "Combined Congressional ballot" and governor
+ *     ballot tables were read, along with the "Percentage of total electorate"
+ *     row. Field dates: AK/IA/NC/TX Jun 15-27/29, ME Jun 19-26, OH Jun 15-28.
+ *   - A generic/House ballot entry is included for every poll whose source
+ *     prints one, tagged `house` (the June NYT/Siena book, the Siena New York
+ *     book, and the PA/WI/TX polls below).
  *   - InsiderAdvantage Senate surveys (michigan.jpg, nh_senate.jpg,
  *     north_carolina.jpg, ohio.jpg, texas.jpg, IA_FLPOLL_SEP21-1-2048x1539.jpg
  *     — the latter is actually Florida). Gender / Race / Age / Party tables,
@@ -25,6 +28,23 @@
  *     (Georgia also has a governor ballot). The Iowa book
  *     (iowa_election_20260903.pdf) is a toplines-only document with no
  *     vote-by-demographic table, so it is not represented here.
+ *   - NYT/Philadelphia Inquirer/Siena Pennsylvania page
+ *     (times-inquirer-siena-pa-poll-rv-crosstabs.html), Sept 15-22, 2026: the
+ *     "Combined governor ballot" (Shapiro/Garrity) and "Combined congressional
+ *     ballot" tables.
+ *   - Marquette Law School Wisconsin page (wiconsin_crosstab.html), Sept 2-9,
+ *     2026: the generic congressional ballot table.
+ *   - Berkeley IGS California release (ACFrOgBZ...pdf), Sept 15-20, 2026:
+ *     Table 1's governor preference by subgroup.
+ *   - Siena College New York release (SNY0426-Release-Crosstabs.pdf), April
+ *     27-30, 2026: the Hochul/Blakeman general-election table and the generic
+ *     congressional ballot (the Democrat/the Republican).
+ *   - Public Policy Polling topline books for North Carolina
+ *     (NorthCarolinaPollJuly2026.pdf, July 10-11, 2026) and Texas
+ *     (TexasResultsMarch2026.pdf, March 4-5, 2026), including the generic
+ *     congressional ballot. The Arizona toplines-only book
+ *     (ECP_AZ_11.14.25.xlsm - Topline Results.pdf) has no vote-by-demographic
+ *     table, so like the Iowa book it is not represented here.
  *
  * Caveats:
  *   - Polls report a binary education split (B.A.+ / No B.A.); the three
@@ -120,11 +140,21 @@ const age3 = (
 
 const NYT_SIENA_ID = "nyt-siena-2026-06-29";
 const NYT_SIENA_GOV_ID = "nyt-siena-2026-06-29-gov";
+const NYT_SIENA_HOUSE_ID = "nyt-siena-2026-06-29-house";
 const INSIDER_EARLY_ID = "insideradvantage-2026-09-09";
 const INSIDER_MID_ID = "insideradvantage-2026-09-17";
 const INSIDER_LATE_ID = "insideradvantage-2026-09-21";
 const YOUGOV_ID = "yougov-2026-09-18";
 const YOUGOV_GOV_ID = "yougov-2026-09-18-gov";
+const PA_SIENA_GOV_ID = "times-inquirer-siena-2026-09-22-gov";
+const PA_SIENA_HOUSE_ID = "times-inquirer-siena-2026-09-22-house";
+const MARQUETTE_ID = "marquette-2026-09-09";
+const BERKELEY_IGS_ID = "berkeley-igs-2026-09-20";
+const SIENA_NY_GOV_ID = "siena-2026-04-30-gov";
+const SIENA_NY_HOUSE_ID = "siena-2026-04-30-house";
+const PPP_NC_ID = "ppp-2026-07-11";
+const PPP_TX_ID = "ppp-2026-03-05";
+const PPP_TX_HOUSE_ID = "ppp-2026-03-05-house";
 
 /** The June NYT/Siena "Percentage of total electorate" rows shared by a state's
  *  Senate and governor tables. */
@@ -790,6 +820,547 @@ export const ANALYZER_POLLS: AnalyzerPoll[] = [
           { group: "race", label: "Hispanic", pct: 5 },
           { group: "race", label: "Other", pct: 6 },
         ],
+      },
+    },
+  },
+  {
+    id: PA_SIENA_GOV_ID,
+    label: "NYT/Inquirer/Siena — Sept 15–22, 2026 (Governor)",
+    pollster: "New York Times/Philadelphia Inquirer/Siena College",
+    date: "2026-09-22",
+    source:
+      "https://www.nytimes.com/interactive/2026/09/27/polls/times-inquirer-siena-pa-poll-rv-crosstabs.html",
+    election: "governor",
+    states: {
+      // Pennsylvania — Shapiro (D) 57 / Garrity (R) 38 (combined governor
+      // ballot, includes leaners).
+      "42": {
+        overall: s(57, 38),
+        sex: { male: s(51, 44), female: s(62, 32) },
+        age: {
+          "18-29": s(63, 28),
+          "30-44": s(52, 40),
+          "45-64": s(56, 41),
+          "65+": s(61, 38),
+        },
+        // Race curve: White, Black, Other non-white.
+        race: {
+          white: s(56, 40),
+          black: s(77, 17),
+          hispanic: s(58, 31),
+          asian: s(58, 31),
+          other: s(58, 31),
+        },
+        education: edu(63, 34, 54, 39),
+        party: { democrat: s(95, 2), republican: s(18, 79), independent: s(51, 40) },
+        composition: [
+          { group: "sex", label: "Men", pct: 47 },
+          { group: "sex", label: "Women", pct: 53 },
+          { group: "age", label: "18-29", pct: 15 },
+          { group: "age", label: "30-44", pct: 23 },
+          { group: "age", label: "45-64", pct: 30 },
+          { group: "age", label: "65+", pct: 29 },
+          { group: "race", label: "White", pct: 77 },
+          { group: "race", label: "Black", pct: 9 },
+          { group: "race", label: "Other non-white", pct: 10 },
+          { group: "education", label: "B.A.+", pct: 39 },
+          { group: "education", label: "No B.A.", pct: 60 },
+          { group: "party", label: "Democrat", pct: 40 },
+          { group: "party", label: "Republican", pct: 34 },
+          { group: "party", label: "Independent", pct: 22 },
+        ],
+      },
+    },
+  },
+  {
+    id: PA_SIENA_HOUSE_ID,
+    label: "NYT/Inquirer/Siena — Sept 15–22, 2026 (House)",
+    pollster: "New York Times/Philadelphia Inquirer/Siena College",
+    date: "2026-09-22",
+    source:
+      "https://www.nytimes.com/interactive/2026/09/27/polls/times-inquirer-siena-pa-poll-rv-crosstabs.html",
+    election: "house",
+    states: {
+      // Pennsylvania — Democratic candidate 52 / Republican candidate 44
+      // (combined congressional ballot, includes leaners).
+      "42": {
+        overall: s(52, 44),
+        sex: { male: s(43, 52), female: s(60, 37) },
+        age: {
+          "18-29": s(61, 34),
+          "30-44": s(54, 40),
+          "45-64": s(49, 49),
+          "65+": s(51, 48),
+        },
+        race: {
+          white: s(48, 48),
+          black: s(80, 17),
+          hispanic: s(66, 29),
+          asian: s(66, 29),
+          other: s(66, 29),
+        },
+        education: edu(58, 37, 49, 47),
+        party: { democrat: s(95, 4), republican: s(6, 92), independent: s(48, 45) },
+        composition: [
+          { group: "sex", label: "Men", pct: 47 },
+          { group: "sex", label: "Women", pct: 53 },
+          { group: "age", label: "18-29", pct: 15 },
+          { group: "age", label: "30-44", pct: 23 },
+          { group: "age", label: "45-64", pct: 30 },
+          { group: "age", label: "65+", pct: 29 },
+          { group: "race", label: "White", pct: 77 },
+          { group: "race", label: "Black", pct: 9 },
+          { group: "race", label: "Other non-white", pct: 10 },
+          { group: "education", label: "B.A.+", pct: 39 },
+          { group: "education", label: "No B.A.", pct: 60 },
+          { group: "party", label: "Democrat", pct: 40 },
+          { group: "party", label: "Republican", pct: 34 },
+          { group: "party", label: "Independent", pct: 22 },
+        ],
+      },
+    },
+  },
+  {
+    id: MARQUETTE_ID,
+    label: "Marquette Law School — Sept 2–9, 2026 (House)",
+    pollster: "Marquette Law School Poll",
+    date: "2026-09-09",
+    source: "https://law.marquette.edu/poll/",
+    election: "house",
+    states: {
+      // Wisconsin — generic congressional ballot, Democratic candidate 54 /
+      // Republican candidate 41.
+      "55": {
+        overall: s(54, 41),
+        sex: { male: s(49, 46), female: s(58, 38) },
+        age: {
+          "18-29": s(77, 18),
+          "30-44": s(58, 37),
+          "45-64": s(42, 51),
+          "65+": s(54, 44),
+        },
+        race: {
+          white: s(46, 50),
+          black: s(80, 9),
+          hispanic: s(65, 28),
+          asian: s(63, 35),
+          other: s(63, 35),
+        },
+        // Five education bands collapsed onto the analyzer's four; the
+        // bachelor's and post-graduate results are averaged into B.A.+.
+        education: {
+          "no-hs": s(52, 45),
+          hs: s(48, 47),
+          "some-college": s(52, 43),
+          "bachelors-plus": s(59, 38),
+        },
+        // Party ID with leaners counted as partisans.
+        party: { democrat: s(97, 1), republican: s(4, 93), independent: s(49, 9) },
+        // Shares are the survey's unweighted subgroup counts (n = 583).
+        composition: [
+          { group: "sex", label: "Men", pct: 49 },
+          { group: "sex", label: "Women", pct: 50 },
+          { group: "age", label: "18-29", pct: 10 },
+          { group: "age", label: "30-44", pct: 22 },
+          { group: "age", label: "45-64", pct: 24 },
+          { group: "age", label: "65+", pct: 43 },
+          { group: "race", label: "White", pct: 68 },
+          { group: "race", label: "Black", pct: 10 },
+          { group: "race", label: "Hispanic", pct: 13 },
+          { group: "race", label: "Other", pct: 8 },
+          { group: "education", label: "B.A.+", pct: 43 },
+          { group: "education", label: "No B.A.", pct: 57 },
+          { group: "party", label: "Democrat", pct: 50 },
+          { group: "party", label: "Republican", pct: 43 },
+          { group: "party", label: "Independent", pct: 7 },
+        ],
+      },
+    },
+  },
+  {
+    id: BERKELEY_IGS_ID,
+    label: "Berkeley IGS — Sept 15–20, 2026 (Governor)",
+    pollster: "UC Berkeley Institute of Governmental Studies",
+    date: "2026-09-20",
+    source: "https://escholarship.org/uc/item/08s5x10r",
+    election: "governor",
+    states: {
+      // California — Becerra (D) 58 / Hilton (R) 33. The poll reports the age
+      // bands 30-39 / 40-49 / 50-64; 30-39 fills 30-44 and 45-64 is the mean
+      // of 40-49 and 50-64. It breaks education out of the vote not at all and
+      // prints no electorate composition, so both fall back to the census.
+      "06": {
+        overall: s(58, 33),
+        sex: { male: s(54, 37), female: s(62, 30) },
+        age: {
+          "18-29": s(68, 19),
+          "30-44": s(59, 29),
+          "45-64": s(56, 37),
+          "65+": s(58, 36),
+        },
+        race: {
+          white: s(58, 36),
+          black: s(70, 15),
+          hispanic: s(58, 32),
+          asian: s(57, 29),
+          other: s(57, 29),
+        },
+        education: {},
+        party: { democrat: s(90, 3), republican: s(4, 90), independent: s(56, 30) },
+        composition: [],
+      },
+    },
+  },
+  {
+    id: SIENA_NY_GOV_ID,
+    label: "Siena College — April 27–30, 2026 (Governor)",
+    pollster: "Siena College Research Institute",
+    date: "2026-04-30",
+    source: "https://scri.siena.edu/",
+    election: "governor",
+    states: {
+      // New York — Hochul (D) 49 / Blakeman (R) 33. The poll reports age as
+      // 18-34 / 35-54 / 55+; 18-34 fills both 18-29 and 30-44, and 35-54 fills
+      // 45-64. No vote-by-education crosstab or electorate composition is
+      // printed, so both fall back to the census.
+      "36": {
+        overall: s(49, 33),
+        sex: { male: s(45, 42), female: s(53, 26) },
+        age: {
+          "18-29": s(50, 21),
+          "30-44": s(50, 21),
+          "45-64": s(47, 34),
+          "65+": s(51, 38),
+        },
+        race: {
+          white: s(43, 40),
+          black: s(80, 6),
+          hispanic: s(49, 22),
+        },
+        education: {},
+        party: { democrat: s(76, 11), republican: s(15, 75), independent: s(33, 35) },
+        composition: [],
+      },
+    },
+  },
+  {
+    id: PPP_NC_ID,
+    label: "Public Policy Polling — July 10–11, 2026 (Senate)",
+    pollster: "Public Policy Polling",
+    date: "2026-07-11",
+    source: "https://www.publicpolicypolling.com/",
+    election: "senate",
+    states: {
+      // North Carolina — Cooper (D) 48 / Whatley (R) 44. The poll reports age
+      // as 18-45 / 46-65 / 65+, so 18-45 fills both 18-29 and 30-44. Education
+      // has five bands; the two non-college intermediate bands are averaged
+      // into some-college and 4-year + post-graduate into B.A.+.
+      "37": {
+        overall: s(48, 44),
+        sex: { male: s(46, 46), female: s(51, 41) },
+        age: age3(58, 29, 43, 49, 45, 53),
+        // Race curve: Hispanic, White, African-American, Other.
+        race: {
+          white: s(44, 51),
+          black: s(65, 20),
+          hispanic: s(35, 57),
+          asian: s(56, 26),
+          other: s(56, 26),
+        },
+        education: {
+          "no-hs": s(40, 46),
+          hs: s(40, 46),
+          "some-college": s(39, 53),
+          "bachelors-plus": s(61, 34),
+        },
+        party: { democrat: s(89, 9), republican: s(9, 79), independent: s(48, 44) },
+        composition: [
+          { group: "sex", label: "Men", pct: 46 },
+          { group: "sex", label: "Women", pct: 52 },
+          { group: "age", label: "18-29", pct: 15 },
+          { group: "age", label: "30-44", pct: 15 },
+          { group: "age", label: "45-64", pct: 45 },
+          { group: "age", label: "65+", pct: 25 },
+          { group: "race", label: "White", pct: 70 },
+          { group: "race", label: "Black", pct: 20 },
+          { group: "race", label: "Hispanic", pct: 5 },
+          { group: "race", label: "Other", pct: 5 },
+          { group: "education", label: "B.A.+", pct: 43 },
+          { group: "education", label: "No B.A.", pct: 57 },
+          { group: "party", label: "Democrat", pct: 30 },
+          { group: "party", label: "Republican", pct: 31 },
+          { group: "party", label: "Independent", pct: 39 },
+        ],
+      },
+    },
+  },
+  {
+    id: PPP_TX_ID,
+    label: "Public Policy Polling — March 4–5, 2026 (Senate)",
+    pollster: "Public Policy Polling",
+    date: "2026-03-05",
+    source: "https://www.publicpolicypolling.com/",
+    election: "senate",
+    states: {
+      // Texas — Talarico (D) 47 / Paxton (R) 45. The poll also tests
+      // Talarico/Cornyn (44/43); the Paxton matchup is recorded. Age is
+      // 18-45 / 46-65 / 65+, so 18-45 fills both younger bands.
+      "48": {
+        overall: s(47, 45),
+        sex: { male: s(49, 42), female: s(45, 49) },
+        age: age3(60, 31, 43, 52, 34, 56),
+        race: {
+          white: s(39, 53),
+          black: s(80, 11),
+          hispanic: s(49, 44),
+          asian: s(61, 32),
+          other: s(61, 32),
+        },
+        education: {
+          "no-hs": s(48, 45),
+          hs: s(48, 45),
+          "some-college": s(38, 52),
+          "bachelors-plus": s(57, 37),
+        },
+        party: { democrat: s(94, 2), republican: s(9, 84), independent: s(52, 36) },
+        composition: [
+          { group: "sex", label: "Men", pct: 46 },
+          { group: "sex", label: "Women", pct: 52 },
+          { group: "age", label: "18-29", pct: 18 },
+          { group: "age", label: "30-44", pct: 18 },
+          { group: "age", label: "45-64", pct: 42 },
+          { group: "age", label: "65+", pct: 22 },
+          { group: "race", label: "White", pct: 60 },
+          { group: "race", label: "Black", pct: 11 },
+          { group: "race", label: "Hispanic", pct: 23 },
+          { group: "race", label: "Other", pct: 6 },
+          { group: "education", label: "B.A.+", pct: 42 },
+          { group: "education", label: "No B.A.", pct: 58 },
+          { group: "party", label: "Democrat", pct: 30 },
+          { group: "party", label: "Republican", pct: 41 },
+          { group: "party", label: "Independent", pct: 30 },
+        ],
+      },
+    },
+  },
+  {
+    id: PPP_TX_HOUSE_ID,
+    label: "Public Policy Polling — March 4–5, 2026 (House)",
+    pollster: "Public Policy Polling",
+    date: "2026-03-05",
+    source: "https://www.publicpolicypolling.com/",
+    election: "house",
+    states: {
+      // Texas — generic congressional ballot, Democratic candidate 41 /
+      // Republican candidate 49.
+      "48": {
+        overall: s(41, 49),
+        sex: { male: s(42, 48), female: s(39, 51) },
+        age: age3(53, 36, 36, 54, 30, 61),
+        race: {
+          white: s(32, 58),
+          black: s(81, 11),
+          hispanic: s(46, 49),
+          asian: s(40, 34),
+          other: s(40, 34),
+        },
+        education: {
+          "no-hs": s(53, 46),
+          hs: s(53, 46),
+          "some-college": s(30, 59),
+          "bachelors-plus": s(47, 41),
+        },
+        party: { democrat: s(97, 2), republican: s(2, 90), independent: s(38, 41) },
+        composition: [
+          { group: "sex", label: "Men", pct: 46 },
+          { group: "sex", label: "Women", pct: 52 },
+          { group: "age", label: "18-29", pct: 18 },
+          { group: "age", label: "30-44", pct: 18 },
+          { group: "age", label: "45-64", pct: 42 },
+          { group: "age", label: "65+", pct: 22 },
+          { group: "race", label: "White", pct: 60 },
+          { group: "race", label: "Black", pct: 11 },
+          { group: "race", label: "Hispanic", pct: 23 },
+          { group: "race", label: "Other", pct: 6 },
+          { group: "education", label: "B.A.+", pct: 42 },
+          { group: "education", label: "No B.A.", pct: 58 },
+          { group: "party", label: "Democrat", pct: 30 },
+          { group: "party", label: "Republican", pct: 41 },
+          { group: "party", label: "Independent", pct: 30 },
+        ],
+      },
+    },
+  },
+  {
+    id: NYT_SIENA_HOUSE_ID,
+    label: "NYT/Siena — June 15–29, 2026 (House)",
+    pollster: "New York Times/Siena College",
+    date: "2026-06-29",
+    source:
+      "https://www.nytimes.com/interactive/2026/07/01/polls/times-siena-battleground-poll-crosstabs.html",
+    election: "house",
+    states: {
+      // Alaska — Schultz (D) 39 / Begich (R) 51. The poll's race curve is
+      // White, Alaska Native/Native American, Other non-white; the native
+      // group also fills the analyzer's Black/Hispanic/Asian categories.
+      "02": {
+        overall: s(39, 51),
+        sex: { male: s(30, 60), female: s(48, 43) },
+        age: {
+          "18-29": s(36, 55),
+          "30-44": s(43, 42),
+          "45-64": s(38, 57),
+          "65+": s(39, 52),
+        },
+        race: {
+          white: s(40, 52),
+          black: s(47, 43),
+          hispanic: s(47, 43),
+          asian: s(47, 43),
+          other: s(36, 49),
+        },
+        education: edu(49, 39, 33, 59),
+        party: { democrat: s(86, 10), republican: s(2, 96), independent: s(49, 39) },
+        composition: NYT_COMPOSITION["02"],
+      },
+      // Iowa — Democratic candidate 44 / Republican candidate 49.
+      "19": {
+        overall: s(44, 49),
+        sex: { male: s(36, 57), female: s(51, 42) },
+        age: {
+          "18-29": s(54, 33),
+          "30-44": s(42, 50),
+          "45-64": s(41, 54),
+          "65+": s(44, 52),
+        },
+        race: {
+          white: s(43, 50),
+          black: s(66, 30),
+          hispanic: s(66, 30),
+          asian: s(66, 30),
+          other: s(66, 30),
+        },
+        education: edu(53, 39, 39, 55),
+        party: { democrat: s(98, 2), republican: s(2, 95), independent: s(44, 44) },
+        composition: NYT_COMPOSITION["19"],
+      },
+      // Maine — Democratic candidate 53 / Republican candidate 42.
+      "23": {
+        overall: s(53, 42),
+        sex: { male: s(46, 49), female: s(59, 36) },
+        age: {
+          "18-29": s(57, 28),
+          "30-44": s(58, 34),
+          "45-64": s(47, 48),
+          "65+": s(55, 42),
+        },
+        race: {
+          white: s(53, 43),
+          black: s(60, 27),
+          hispanic: s(60, 27),
+          asian: s(60, 27),
+          other: s(60, 27),
+        },
+        education: edu(67, 27, 43, 52),
+        party: { democrat: s(99, 0), republican: s(2, 98), independent: s(51, 38) },
+        composition: NYT_COMPOSITION["23"],
+      },
+      // North Carolina — Democratic candidate 49 / Republican candidate 44.
+      "37": {
+        overall: s(49, 44),
+        sex: { male: s(44, 49), female: s(54, 41) },
+        age: {
+          "18-29": s(66, 25),
+          "30-44": s(55, 41),
+          "45-64": s(45, 47),
+          "65+": s(44, 51),
+        },
+        race: {
+          white: s(39, 55),
+          black: s(92, 5),
+          hispanic: s(46, 39),
+          asian: s(46, 39),
+          other: s(46, 39),
+        },
+        education: edu(56, 36, 45, 51),
+        party: { democrat: s(98, 0.5), republican: s(2, 96), independent: s(49, 38) },
+        composition: NYT_COMPOSITION["37"],
+      },
+      // Ohio — Democratic candidate 45 / Republican candidate 51.
+      "39": {
+        overall: s(45, 51),
+        sex: { male: s(37, 58), female: s(53, 45) },
+        age: {
+          "18-29": s(60, 38),
+          "30-44": s(49, 46),
+          "45-64": s(37, 58),
+          "65+": s(48, 50),
+        },
+        race: {
+          white: s(39, 58),
+          black: s(85, 12),
+          hispanic: s(61, 33),
+          asian: s(61, 33),
+          other: s(61, 33),
+        },
+        education: edu(52, 41, 40, 58),
+        party: { democrat: s(95, 2), republican: s(4, 95), independent: s(55, 38) },
+        composition: NYT_COMPOSITION["39"],
+      },
+      // Texas — Democratic candidate 45 / Republican candidate 51.
+      "48": {
+        overall: s(45, 51),
+        sex: { male: s(34, 62), female: s(55, 42) },
+        age: {
+          "18-29": s(61, 37),
+          "30-44": s(49, 43),
+          "45-64": s(42, 55),
+          "65+": s(41, 58),
+        },
+        // Race curve: White, Black, Hispanic, Non-white. Asian and Other
+        // inherit the Non-white column.
+        race: {
+          white: s(34, 64),
+          black: s(83, 12),
+          hispanic: s(58, 39),
+          asian: s(64, 32),
+          other: s(64, 32),
+        },
+        education: edu(51, 46, 41, 55),
+        party: { democrat: s(97, 2), republican: s(5, 95), independent: s(48, 43) },
+        composition: NYT_COMPOSITION["48"],
+      },
+    },
+  },
+  {
+    id: SIENA_NY_HOUSE_ID,
+    label: "Siena College — April 27–30, 2026 (House)",
+    pollster: "Siena College Research Institute",
+    date: "2026-04-30",
+    source: "https://scri.siena.edu/",
+    election: "house",
+    states: {
+      // New York — generic congressional ballot, the Democrat 52 / the
+      // Republican 33. Age is 18-34 / 35-54 / 55+; 18-34 fills both younger
+      // bands and 35-54 fills 45-64. No education crosstab or composition, so
+      // both fall back to the census.
+      "36": {
+        overall: s(52, 33),
+        sex: { male: s(45, 42), female: s(58, 26) },
+        age: {
+          "18-29": s(56, 34),
+          "30-44": s(56, 34),
+          "45-64": s(53, 37),
+          "65+": s(50, 45),
+        },
+        race: {
+          white: s(46, 39),
+          black: s(75, 10),
+          hispanic: s(64, 23),
+        },
+        education: {},
+        party: { democrat: s(85, 10), republican: s(10, 74), independent: s(30, 39) },
+        composition: [],
       },
     },
   },
