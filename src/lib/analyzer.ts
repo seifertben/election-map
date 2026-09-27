@@ -197,8 +197,9 @@ function mulberry32(seed: number): () => number {
 }
 
 /**
- * Random per-category vote splits, stable for a given seed. This stands in for
- * a loaded poll's crosstabs until poll loading is wired up.
+ * Random per-category vote splits, stable for a given seed. Used by the
+ * analyzer's "Randomize splits" button; the no-poll baseline comes from
+ * `baselineSplitsForState` instead.
  */
 export function initialSplits(
   seed = "state-analyzer",

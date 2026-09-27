@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import type { Root } from "react-dom/client";
 import { afterEach, describe, expect, it } from "vitest";
 import { StateAnalyzer } from "./StateAnalyzer";
+import { baselineSplitsForState } from "../lib/analyzerBaseline";
 import type { DemographicsData, GeographyComposition } from "../lib/analyzer";
 import type { RegionFeature } from "../types";
 
@@ -273,6 +274,15 @@ describe("StateAnalyzer", () => {
     expect(secondShare.value).toBe(secondBefore);
     // Dropping a share off 100% flips the indicator out of its complete state.
     expect(container?.querySelector(".analyzer__total-value--off")).not.toBeNull();
+  });
+
+  it("seeds the no-poll splits from the state's exit-poll baseline", async () => {
+    await renderAnalyzer();
+    const expected = baselineSplitsForState("06");
+    const white = container?.querySelector<HTMLInputElement>(
+      'input[aria-label="White (non-Hispanic) Democratic vote share"]',
+    );
+    expect(white?.value).toBe(String(Math.round(expected.race.white.d)));
   });
 
   it("moves the two split knobs independently", async () => {

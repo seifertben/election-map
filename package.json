@@ -12,6 +12,7 @@
     "build:gov-polls": "node scripts/build-gov-polls.mjs",
     "build:demographics": "node scripts/fetch-demographics.mjs",
     "build:party": "node scripts/build-party.mjs",
+    "build:state-lean": "node scripts/build-state-lean.mjs",
     "fetch:polls": "node scripts/fetch-wiki-polls.mjs",
     "test": "vitest run",
     "test:watch": "vitest",

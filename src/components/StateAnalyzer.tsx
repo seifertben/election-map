@@ -20,6 +20,7 @@ import {
   winnerOf,
 } from "../lib/analyzer";
 import { splitsFromCrosstab, compositionFromCrosstab } from "../lib/analyzerPolls";
+import { baselineSplitsForState } from "../lib/analyzerBaseline";
 import type {
   AnalyzerResult,
   CompositionMap,
@@ -155,10 +156,13 @@ export function StateAnalyzer({
     );
     return options.includes("house") ? "house" : options[0] ?? "house";
   });
-  // Category partisanship persists across states and elections; the composition
-  // scenario is seeded from the active state's census, or from a loaded poll's
-  // own electorate when one covers the race.
-  const [splits, setSplits] = useState<Splits>(() => initialSplits());
+  // Category partisanship is re-seeded for the active state from the national
+  // exit-poll baseline shifted by its 2024 presidential lean, or from a loaded
+  // poll's own crosstabs when one covers the race. The composition scenario is
+  // seeded from the active state's census, or from that poll's electorate.
+  const [splits, setSplits] = useState<Splits>(() =>
+    baselineSplitsForState(initialFips),
+  );
   const [scenario, setScenario] = useState<CompositionMap>(() =>
     scenarioFromComposition(
       demographics?.states[initialFips] ?? FALLBACK,
@@ -204,9 +208,9 @@ export function StateAnalyzer({
           )
         : scenarioFromComposition(census),
     );
-    if (pollId !== "" && !covers) {
-      setPollId("");
-      setSplits(initialSplits());
+    if (!covers) {
+      if (pollId !== "") setPollId("");
+      setSplits(baselineSplitsForState(fips));
     }
     setPollDirty(false);
   };
@@ -225,7 +229,7 @@ export function StateAnalyzer({
     );
     if (pollId !== "" && !covers) {
       setPollId("");
-      setSplits(initialSplits());
+      setSplits(baselineSplitsForState(stateFips));
     }
     setPollDirty(false);
   };
@@ -234,7 +238,9 @@ export function StateAnalyzer({
     setPollId(id);
     const crosstab = ANALYZER_POLL_BY_ID[id]?.states[stateFips] ?? null;
     const census = censusFor(stateFips);
-    setSplits(crosstab ? splitsFromCrosstab(crosstab) : initialSplits());
+    setSplits(
+      crosstab ? splitsFromCrosstab(crosstab) : baselineSplitsForState(stateFips),
+    );
     setScenario(
       crosstab
         ? compositionFromCrosstab(crosstab.composition, census)
@@ -715,8 +721,8 @@ function StateAnalysis({
           ) : (
             <p className="ratings__note">
               {polls.length
-                ? "Load a poll to set each group's share of the electorate and vote split from its published crosstabs. Polls fielded for another race in this state can be extrapolated. Otherwise shares come from the census and splits are random."
-                : "No crosstab poll is available for this state yet, so shares come from the census and vote splits are random."}
+                ? "Load a poll to set each group's share of the electorate and vote split from its published crosstabs. Polls fielded for another race in this state can be extrapolated. Otherwise shares come from the census and vote splits start from a national exit-poll baseline shifted by the state's lean."
+                : "No crosstab poll is available for this state yet, so shares come from the census and vote splits start from a national exit-poll baseline shifted by the state's lean."}
             </p>
           )}
         </section>
