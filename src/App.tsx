@@ -18,6 +18,7 @@ import { RatingsPanel } from "./components/RatingsPanel";
 import { RegionMap } from "./components/RegionMap";
 import { Scoreboard } from "./components/Scoreboard";
 import { StateAnalyzer } from "./components/StateAnalyzer";
+import { SwingPanel } from "./components/SwingPanel";
 import {
   GOVERNOR_2026_FIPS,
   GOVERNOR_2026_RATINGS,
@@ -38,6 +39,7 @@ import {
 } from "./data/ratingsSources";
 import type { DemographicsData } from "./lib/analyzer";
 import { exportSvgAsPng } from "./lib/exportPng";
+import { houseSwingOverlay, swingSeatCounts } from "./lib/houseSwing";
 import {
   MARKET_NONE_ID,
   MARKET_REFRESH_MS,
@@ -159,6 +161,9 @@ export default function App() {
     house: DEFAULT_RATINGS_SOURCE,
   });
   const [stripePickups, setStripePickups] = useState(true);
+  // The House map's optional 2024-baseline / uniform-swing view.
+  const [swingOn, setSwingOn] = useState(false);
+  const [swing, setSwing] = useState(0);
   const [pollOptionByMode, setPollOptionByMode] = useState<
     Record<RaceMode, string>
   >({
@@ -438,15 +443,34 @@ export default function App() {
     state.assignments,
   ]);
 
-  // While a poll or market overlay is up, the scoreboard and seat dots follow
-  // the colors on the map: unpainted regions count for the overlay's projected
-  // leader (or as uncalled when it has no call), painted regions keep their own
-  // assignment.
+  // The House map's 2024-presidential baseline, shifted by a uniform national
+  // swing. It behaves like a poll/market overlay: it colors every district from
+  // the baseline (no region is "painted") while the underlying assignments are
+  // left untouched.
+  const swingOverlay = useMemo(
+    () => (state.mode === "house" && swingOn ? houseSwingOverlay(swing) : null),
+    [state.mode, swingOn, swing],
+  );
+
+  // While an overlay is up, the scoreboard and seat dots follow the colors on
+  // the map: unpainted regions count for the overlay's projected leader (or as
+  // uncalled when it has no call), painted regions keep their own assignment.
   const projected = useMemo<Record<string, Assignment>>(() => {
     const base = state.assignments[state.mode];
-    const overlay = marketOverlay ?? pollOverlay;
+    const overlay = marketOverlay ?? pollOverlay ?? swingOverlay;
     return overlay ? projectedAssignments(base, overlay) : base;
-  }, [state.assignments, state.mode, marketOverlay, pollOverlay]);
+  }, [state.assignments, state.mode, marketOverlay, pollOverlay, swingOverlay]);
+
+  const swingSeats = useMemo(
+    () =>
+      swingOn && state.mode === "house" && districts
+        ? swingSeatCounts(
+            swing,
+            districts.map((f) => featureId(f, "geoid")),
+          )
+        : { d: 0, r: 0, even: 0 },
+    [swingOn, state.mode, swing, districts],
+  );
 
   // Setting either dropdown selector starts the active race map fresh from the
   // ratings source it is shown over, so selecting or switching a poll wipes any
@@ -533,6 +557,8 @@ export default function App() {
 
   const handleRegionClick = useCallback(
     (id: string) => {
+      // The 2024-swing view is a read-only projection of the baseline.
+      if (state.mode === "house" && swingOn) return;
       if (brush === "CYCLE") {
         dispatch({ type: "cycle", mode: state.mode, id });
       } else if (brush === "CLEAR") {
@@ -541,7 +567,7 @@ export default function App() {
         dispatch({ type: "set", mode: state.mode, id, party: brush });
       }
     },
-    [brush, state.mode],
+    [brush, state.mode, swingOn],
   );
 
   const score = useMemo(() => {
@@ -608,6 +634,7 @@ export default function App() {
         setMarketSourceByMode((prev) => ({ ...prev, [mode]: MARKET_NONE_ID }));
         marketBaselineRef.current[mode] = null;
       }
+      if (mode === "house") setSwingOn(false);
       setSourceByMode((prev) => ({ ...prev, [mode]: sourceId }));
       dispatch({ type: "loadRatings", mode, assignments: ratings });
     },
@@ -633,6 +660,10 @@ export default function App() {
   const handleMarketChange = useCallback(
     (sourceId: string) => {
       if (!marketMode) return;
+      // A market and the 2024-swing view are mutually exclusive House overlays.
+      if (marketMode === "house" && sourceId !== MARKET_NONE_ID) {
+        setSwingOn(false);
+      }
       setMarketSourceByMode((prev) => ({ ...prev, [marketMode]: sourceId }));
       // A market and polling never coexist on the same map (House has no
       // polling, so only Senate/Governor can carry both).
@@ -645,6 +676,20 @@ export default function App() {
       }
     },
     [marketMode],
+  );
+
+  // Turning on the 2024-swing view drops any House market overlay (ratings,
+  // polls, and markets are mutually exclusive), and vice versa is handled in
+  // the source/market handlers above.
+  const handleSwingToggle = useCallback(
+    (on: boolean) => {
+      setSwingOn(on);
+      if (on && state.mode === "house") {
+        setMarketSourceByMode((prev) => ({ ...prev, house: MARKET_NONE_ID }));
+        marketBaselineRef.current.house = null;
+      }
+    },
+    [state.mode],
   );
 
   // Undo and reset change the map out from under any poll, market, or ratings
@@ -660,6 +705,7 @@ export default function App() {
       setMarketSourceByMode((prev) => ({ ...prev, [mode]: MARKET_NONE_ID }));
       marketBaselineRef.current[mode] = null;
     }
+    if (mode === "house") setSwingOn(false);
     if (mode !== "president") {
       setSourceByMode((prev) => ({ ...prev, [mode]: "" }));
     }
@@ -690,13 +736,16 @@ export default function App() {
     raceMode != null && pollOptionByMode[raceMode] !== POLL_NONE_OPTION_ID;
   const marketsOn =
     marketMode != null && marketSourceByMode[marketMode] !== MARKET_NONE_ID;
-  const ratingsSelectId = pollingOn || marketsOn ? "" : selectedSourceId;
+  const swingActive = state.mode === "house" && swingOn;
+  const ratingsSelectId =
+    pollingOn || marketsOn || swingActive ? "" : selectedSourceId;
   const selectedSourceRatings = ratingMode
     ? RATINGS_SOURCE_BY_ID[selectedSourceId]?.[ratingMode]
     : undefined;
   const ratingsCustom =
     !pollingOn &&
     !marketsOn &&
+    !swingActive &&
     ratingMode != null &&
     selectedSourceRatings != null &&
     state.assignments[ratingMode] !== selectedSourceRatings;
@@ -778,7 +827,7 @@ export default function App() {
               svgRef={svgRef}
               stripePickups={stripePickups}
               getIncumbent={getIncumbent}
-              poll={marketOverlay ?? pollOverlay}
+              poll={marketOverlay ?? pollOverlay ?? swingOverlay}
             />
           )}
         </section>
@@ -796,6 +845,17 @@ export default function App() {
               isCustom={ratingsCustom}
               active={ratingsSelectId !== ""}
               onChange={(sourceId) => handleSourceChange(ratingMode, sourceId)}
+            />
+          ) : null}
+
+          {state.mode === "house" && districts ? (
+            <SwingPanel
+              enabled={swingActive}
+              swing={swing}
+              onToggle={handleSwingToggle}
+              onSwingChange={setSwing}
+              seats={swingSeats}
+              districtCount={districts.length}
             />
           ) : null}
 

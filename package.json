@@ -12,6 +12,7 @@
     "build:gov-polls": "node scripts/build-gov-polls.mjs",
     "build:demographics": "node scripts/fetch-demographics.mjs",
     "build:party": "node scripts/build-party.mjs",
+    "build:house-2024": "node scripts/build-house-2024.mjs",
     "build:state-lean": "node scripts/build-state-lean.mjs",
     "build:state-splits": "node scripts/build-state-splits.mjs",
     "fetch:polls": "node scripts/fetch-wiki-polls.mjs",

@@ -158,7 +158,10 @@ export function projectedAssignments(
   overlay: PollOverlay,
 ): Record<string, Assignment> {
   const result: Record<string, Assignment> = { ...base };
-  for (const id of Object.keys(result)) {
+  // Include regions the overlay colors even when the underlying map has no
+  // entry for them (e.g. a cleared district under a full-coverage overlay).
+  const ids = new Set([...Object.keys(result), ...Object.keys(overlay.fills)]);
+  for (const id of ids) {
     if (overlay.isPainted(id)) continue;
     const summary = overlay.summaryFor(id);
     result[id] =

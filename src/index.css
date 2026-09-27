@@ -497,6 +497,49 @@ body {
   cursor: pointer;
 }
 
+.swing__control {
+  margin-top: 14px;
+}
+
+.swing__control:first-of-type {
+  margin-top: 12px;
+}
+
+.swing__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.swing__label {
+  color: var(--ink-soft);
+}
+
+.swing__value {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.swing__range {
+  width: 100%;
+  margin: 6px 0;
+  accent-color: var(--accent);
+}
+
+.swing__range:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.swing__ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
 .polling__legend {
   margin-top: 14px;
 }

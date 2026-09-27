@@ -7,6 +7,7 @@ import { RATING_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
 import { SENATE_2026_RATINGS } from "./data/senate2026";
+import { swingColor } from "./lib/houseSwing";
 import App from "./App";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT =
@@ -75,6 +76,18 @@ function setSelectValue(select: HTMLSelectElement, value: string) {
   act(() => {
     setter?.call(select, value);
     select.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+}
+
+function setRangeValue(input: HTMLInputElement, value: string) {
+  const setter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value",
+  )?.set;
+  act(() => {
+    setter?.call(input, value);
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
   });
 }
 
@@ -573,6 +586,79 @@ describe("App house market integration", () => {
       .querySelector('path[data-id="4805"]')
       ?.getAttribute("fill");
     expect(texas).not.toBeNull();
+
+    globalThis.fetch = originalFetch;
+    act(() => root.unmount());
+  });
+});
+
+describe("App house 2024 swing integration", () => {
+  it("starts the house map from the 2024 result and applies a uniform swing", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = fetchMock as typeof fetch;
+    window.location.hash = "";
+
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    act(() => root.render(<App />));
+
+    await waitForStateFlush();
+    const houseTab = Array.from(container.querySelectorAll("button")).find(
+      (b) => b.textContent === "House",
+    )!;
+    act(() => houseTab.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await waitForStateFlush();
+    await waitForStateFlush();
+
+    const panel = Array.from(container.querySelectorAll(".panel")).find(
+      (p) => p.querySelector(".panel__title")?.textContent === "2024 Baseline",
+    );
+    expect(panel).not.toBeUndefined();
+
+    const toggle = panel!.querySelector(
+      'input[type="checkbox"]',
+    ) as HTMLInputElement;
+    const slider = panel!.querySelector("#house-swing") as HTMLInputElement;
+    expect(toggle.checked).toBe(false);
+    expect(slider.disabled).toBe(true);
+
+    const fill = (id: string) =>
+      container?.querySelector(`path[data-id="${id}"]`)?.getAttribute("fill") ??
+      null;
+    const dCount = () =>
+      Number(
+        container?.querySelector(
+          ".scoreboard__headline .scoreboard__number--d",
+        )?.textContent,
+      );
+
+    // Enabling the baseline colors every district from its 2024 presidential
+    // margin and deselects the ratings dropdown.
+    act(() => toggle.click());
+    await waitForStateFlush();
+    expect(toggle.checked).toBe(true);
+    expect(slider.disabled).toBe(false);
+    expect(fill("0101")).toBe(swingColor(-36));
+    const ratingsSelect = container.querySelector(
+      "#ratings-house",
+    ) as HTMLSelectElement;
+    expect(ratingsSelect.value).toBe("");
+
+    // A uniform Democratic swing flips seats, growing the scoreboard's D count.
+    const dAtZero = dCount();
+    setRangeValue(slider, "20");
+    await waitForStateFlush();
+    expect(Number(slider.value)).toBe(20);
+    expect(dCount()).toBeGreaterThan(dAtZero);
+
+    // Choosing a market drops the swing view.
+    const marketSelect = container.querySelector(
+      "#market-source",
+    ) as HTMLSelectElement;
+    setSelectValue(marketSelect, "polymarket");
+    await waitForStateFlush();
+    expect(toggle.checked).toBe(false);
 
     globalThis.fetch = originalFetch;
     act(() => root.unmount());
