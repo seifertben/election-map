@@ -692,6 +692,13 @@ body {
   background: transparent;
 }
 
+/* When there is no Other share, the D and Other thumbs coincide at the right
+   end. The Other knob is painted last and would cover the D knob, but at o=0 it
+   has no room to move, so the D knob must sit on top to be draggable. */
+.analyzer__row .analyzer__split-knob--front {
+  z-index: 2;
+}
+
 .analyzer__row .analyzer__split-knob::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

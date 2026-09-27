@@ -307,6 +307,32 @@ describe("StateAnalyzer", () => {
     expect(white?.value).toBe(String(Math.round(expected.race.white.d)));
   });
 
+  it("raises the Democratic knob when a row's Other share is zero", async () => {
+    await renderAnalyzerWithPoll();
+    const poll = container?.querySelector<HTMLSelectElement>("#analyzer-poll");
+    setSelectValue(poll as HTMLSelectElement, "nyt-siena-2026-06-29");
+    const dLabel = "White (non-Hispanic) Democratic vote share";
+    const oLabel = "White (non-Hispanic) other vote share";
+    // The poll's White row carries a non-zero Other share, so the Other knob
+    // stays in front.
+    expect(
+      container!
+        .querySelector<HTMLInputElement>(`input[aria-label="${dLabel}"]`)
+        ?.classList.contains("analyzer__split-knob--front"),
+    ).toBe(false);
+    // Dragging Other to zero puts both knobs at the right end; the Democratic
+    // knob must come to the front so it stays draggable.
+    setRangeValue(
+      container!.querySelector<HTMLInputElement>(`input[aria-label="${oLabel}"]`)!,
+      "100",
+    );
+    expect(
+      container!
+        .querySelector<HTMLInputElement>(`input[aria-label="${dLabel}"]`)
+        ?.classList.contains("analyzer__split-knob--front"),
+    ).toBe(true);
+  });
+
   it("moves the two split knobs independently", async () => {
     await renderAnalyzer();
     const split = container?.querySelector<HTMLInputElement>(

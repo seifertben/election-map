@@ -900,7 +900,11 @@ function StateAnalysis({
                     </div>
                     <input
                       type="range"
-                      className="analyzer__split-knob"
+                      className={
+                        split.o <= 0
+                          ? "analyzer__split-knob analyzer__split-knob--front"
+                          : "analyzer__split-knob"
+                      }
                       min={0}
                       max={100}
                       value={Math.round(split.d)}
