@@ -1,11 +1,22 @@
 /**
- * The State Analyzer's no-poll baseline: a national 2024 exit-poll vote split
- * for each demographic category, shifted by the active state's 2024
- * presidential lean and by the national move into the 2026 environment.
+ * The State Analyzer's no-poll baseline.
+ *
+ * For sex, age, race and education the baseline is a per-state estimate: each
+ * group's Democratic two-party 2024 share is fit by ridge ecological regression
+ * of the state's district-level presidential results on its ACS composition,
+ * partially pooled toward the national exit-poll pattern and recentered so the
+ * state result matches its actual 2024 vote (scripts/build-state-splits.mjs).
+ * This replaces the older one-parameter model, which translated the national
+ * exit-poll split for every group by the same state lean and so could only ever
+ * reproduce the state top-line, never the within-state spread.
+ *
+ * Party ID is not fit: the map has no independent measure of how
+ * party-identified groups voted, and the national party-vote split is stable, so
+ * it keeps the national exit-poll split shifted by the state's 2024 presidential
+ * lean. Every dimension then gets the national move into the 2026 environment.
  *
  * This seeds the sliders for a state with no crosstab poll (or before one is
- * loaded), replacing the random placeholder so the projection starts from a
- * plausible result rather than noise. Loading a poll still overrides it.
+ * loaded). Loading a poll still overrides it.
  */
 
 import {
@@ -14,6 +25,7 @@ import {
   PRES_2024_NATIONAL_D,
 } from "../data/nationalDemographics";
 import { STATE_LEAN } from "../data/stateLean";
+import { STATE_SPLITS } from "../data/stateSplits";
 import { DIMENSIONS } from "./analyzer";
 import type { Split, Splits } from "./analyzer";
 
@@ -33,8 +45,8 @@ function nationalSplit(d: number, r: number): Split {
 
 /** Shift a split by `points` toward the Democrats, clamping and keeping o=0. */
 function shiftSplit(split: Split, points: number): Split {
-  const d = Math.max(0, Math.min(100, split.d + points));
-  return { d: Math.round(d * 10) / 10, r: Math.round((100 - d) * 10) / 10, o: 0 };
+  const d = Math.round(Math.max(0, Math.min(100, split.d + points)) * 10) / 10;
+  return { d, r: Math.round((100 - d) * 10) / 10, o: 0 };
 }
 
 /** Every category split shifted by the same number of points. */
@@ -43,7 +55,7 @@ function shiftSplits(base: Splits, points: number): Splits {
   for (const dimension of DIMENSIONS) {
     result[dimension.id] = {};
     for (const category of dimension.categories) {
-      const split = base[dimension.id][category.id];
+      const split = base[dimension.id]?.[category.id];
       if (split) result[dimension.id][category.id] = shiftSplit(split, points);
     }
   }
@@ -64,12 +76,40 @@ export function nationalBaselineSplits(): Splits {
 }
 
 /**
- * The baseline splits for a state: the national exit-poll splits shifted by the
- * state's 2024 presidential lean (relative to the nation) and the national move
- * to the 2026 environment. An unknown state falls back to the plain national
- * baseline.
+ * The baseline splits for a state. Sex, age, race and education use the fitted
+ * per-state group shares when available (a 2024 result), shifted into the 2026
+ * environment; every other dimension, including Party ID, uses the national
+ * exit-poll split shifted by the state's 2024 presidential lean and the same
+ * environment move. An unknown state falls back to the plain national baseline.
  */
 export function baselineSplitsForState(fips: string): Splits {
   const lean = STATE_LEAN[fips] ?? 0;
-  return shiftSplits(nationalBaselineSplits(), lean * 100 + ENV_SHIFT);
+  const base = nationalBaselineSplits();
+  const stateSplits = STATE_SPLITS[fips];
+  const result = {} as Splits;
+  for (const dimension of DIMENSIONS) {
+    result[dimension.id] = {};
+    for (const category of dimension.categories) {
+      const modeled = stateSplits?.[dimension.id]?.[category.id];
+      if (modeled !== undefined) {
+        // The fitted share already carries the state's lean, so it only needs
+        // the national environment move.
+        const split: Split = {
+          d: modeled * 100,
+          r: (1 - modeled) * 100,
+          o: 0,
+        };
+        result[dimension.id][category.id] = shiftSplit(split, ENV_SHIFT);
+        continue;
+      }
+      const split = base[dimension.id]?.[category.id];
+      if (split) {
+        result[dimension.id][category.id] = shiftSplit(
+          split,
+          lean * 100 + ENV_SHIFT,
+        );
+      }
+    }
+  }
+  return result;
 }

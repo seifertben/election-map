@@ -156,10 +156,11 @@ export function StateAnalyzer({
     );
     return options.includes("house") ? "house" : options[0] ?? "house";
   });
-  // Category partisanship is re-seeded for the active state from the national
-  // exit-poll baseline shifted by its 2024 presidential lean, or from a loaded
-  // poll's own crosstabs when one covers the race. The composition scenario is
-  // seeded from the active state's census, or from that poll's electorate.
+  // Category partisanship is re-seeded for the active state from the per-state
+  // baseline (district ecological regression, Party ID from the national exit
+  // poll shifted by state lean), or from a loaded poll's own crosstabs when one
+  // covers the race. The composition scenario is seeded from the active state's
+  // census, or from that poll's electorate.
   const [splits, setSplits] = useState<Splits>(() =>
     baselineSplitsForState(initialFips),
   );
@@ -739,8 +740,8 @@ function StateAnalysis({
           ) : (
             <p className="ratings__note">
               {polls.length
-                ? "Load a poll to set each group's share of the electorate and vote split from its published crosstabs. Polls fielded for another race in this state can be extrapolated. Otherwise shares come from the census and vote splits start from a national exit-poll baseline shifted by the state's lean."
-                : "No crosstab poll is available for this state yet, so shares come from the census and vote splits start from a national exit-poll baseline shifted by the state's lean."}
+                ? "Load a poll to set each group's share of the electorate and vote split from its published crosstabs. Polls fielded for another race in this state can be extrapolated. Otherwise shares come from the census and vote splits are estimated for this state from its district results, with Party ID from the national exit poll shifted by the state's lean."
+                : "No crosstab poll is available for this state yet, so shares come from the census and vote splits are estimated for this state from its district results, with Party ID from the national exit poll shifted by the state's lean."}
             </p>
           )}
         </section>
@@ -1045,17 +1046,24 @@ function AnalyzerHelp({ onClose }: { onClose: () => void }) {
               flags it.
             </li>
             <li>
-              <strong>No poll loaded.</strong> The baseline is a national 2024
-              exit-poll table (Roper Center / CBS News–Edison) giving each
-              demographic group's Democratic and Republican vote, normalized to
-              a two-way split. It is then shifted in two steps: by the state's
-              2024 presidential lean (the state's Democratic two-party share
-              minus the national 49.25%, built from The Downballot's results by
-              district and weighted by voting-age population), and by the
-              national move into the 2026 environment (+4.5 points to the
-              Democrat, the same shift the party-ID model uses). A state that
-              voted five points more Democratic than the country therefore
-              starts five points more Democratic in every group.
+              <strong>No poll loaded.</strong> For sex, age, race and
+              education, each group's 2024 vote is estimated for that state by{" "}
+              <strong>ecological regression</strong>: the state's district-level
+              presidential results (The Downballot) are fit against each
+              district's ACS composition, so a group's split reflects how it
+              actually voted in that state rather than the national pattern. The
+              fit is ridge-regularized toward the national 2024 exit-poll table
+              (Roper Center / CBS News–Edison), then recentered so the state's
+              overall result matches its real 2024 vote — a state with few or
+              unrepresentative districts stays near the national pattern, a
+              state with many districts is driven by its own votes. Party ID has
+              no independent vote measure, so it keeps the national exit-poll
+              split shifted by the state's 2024 presidential lean (the state's
+              Democratic two-party share minus the national 49.25%, built from
+              The Downballot's results by district and weighted by voting-age
+              population). Every dimension then gets the national move into the
+              2026 environment (+4.5 points to the Democrat, the same shift the
+              party-ID model uses).
             </li>
             <li>
               <strong>Randomize splits</strong> replaces the splits with
@@ -1125,10 +1133,16 @@ function AnalyzerHelp({ onClose }: { onClose: () => void }) {
               electorate.
             </li>
             <li>
-              The no-poll baseline is a <strong>2024 result</strong> (exit poll
-              plus 2024 state lean) adjusted by a single national 2026
+              The no-poll baseline is a <strong>2024 result</strong> (district
+              ecological regression plus, for Party ID, the national exit poll
+              and 2024 state lean) adjusted by a single national 2026
               environment shift; it is not a 2026 poll and carries no
-              state-specific 2026 information.
+              state-specific 2026 information. Inferring group behavior from
+              geography can be <strong>biased</strong> where a group is
+              concentrated in otherwise unrepresentative districts, and the
+              composition is a voting-age population share while the exit-poll
+              prior is among voters, so some turnout difference is absorbed into
+              the estimates.
             </li>
             <li>
               Education is usually a <strong>binary</strong> college /
