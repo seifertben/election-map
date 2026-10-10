@@ -1,17 +1,19 @@
 import type { RaceRating } from "../../types";
 
 /**
- * 2026 race ratings from Inside Elections with Nathan L. Gonzales
+ * 2026 race ratings from Inside Elections
  * Source: https://insideelections.com/ratings
  *
- * - Senate ratings as of September 17, 2026 (35 seats on the 2026 ballot), compiled from the
- *   Wikipedia "2026 United States Senate elections" predictions table.
- * - House ratings as of September 17, 2026 (all 435 districts), compiled from the
- *   Wikipedia "2026 United States House of Representatives election ratings"
- *   page. Districts not listed as competitive there are rated Safe/Solid, so
- *   this file shades them Solid for the party currently holding the seat.
+ * - Senate ratings as of October 1, 2026 (35 seats on the 2026 ballot),
+ *   compiled from the Wikipedia "2026 United States Senate elections"
+ *   predictions table.
+ * - House ratings as of October 1, 2026 (all 435 districts), compiled from
+ *   the Wikipedia "2026 United States House of Representatives election
+ *   ratings" page. Districts not listed as competitive there are rated
+ *   Safe/Solid, so this file shades them Solid for the party currently
+ *   holding the seat.
  *
- *   Inside Elections' "Tilt" ratings are shown as Lean.
+ *   Solid/Safe reads as Solid; a "flip" rating is kept as the party it favors.
  *
  * Each Solid/Likely/Lean tone maps to the app's race-rating colors.
  * Keyed by state FIPS (senate) / district GEOID (house).
@@ -19,7 +21,7 @@ import type { RaceRating } from "../../types";
 
 export const INSIDEELECTIONS_SENATE_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
-  "02": "LEAN_R",
+  "02": "TOSS",
   "05": "SOLID_R",
   "08": "SOLID_D",
   "10": "SOLID_D",
@@ -33,11 +35,11 @@ export const INSIDEELECTIONS_SENATE_RATINGS: Record<string, RaceRating> = {
   "22": "SOLID_R",
   "23": "TOSS",
   "25": "SOLID_D",
-  "26": "TOSS",
-  "27": "LIKELY_D",
+  "26": "LEAN_D",
+  "27": "LEAN_D",
   "28": "SOLID_R",
   "30": "SOLID_R",
-  "31": "LIKELY_R",
+  "31": "LEAN_R",
   "33": "TOSS",
   "34": "SOLID_D",
   "35": "SOLID_D",
@@ -98,7 +100,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "0619": "SOLID_D",
   "0620": "SOLID_R",
   "0621": "SOLID_D",
-  "0622": "LEAN_R",
+  "0622": "TOSS",
   "0623": "SOLID_R",
   "0624": "SOLID_D",
   "0625": "SOLID_D",
@@ -121,7 +123,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "0642": "SOLID_D",
   "0643": "SOLID_D",
   "0644": "SOLID_D",
-  "0645": "LEAN_D",
+  "0645": "LIKELY_D",
   "0646": "SOLID_D",
   "0647": "SOLID_D",
   "0648": "LEAN_D",
@@ -155,7 +157,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1210": "SOLID_D",
   "1211": "SOLID_R",
   "1212": "SOLID_R",
-  "1213": "LIKELY_R",
+  "1213": "LEAN_R",
   "1214": "TOSS",
   "1215": "SOLID_R",
   "1216": "LIKELY_R",
@@ -215,9 +217,9 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1807": "SOLID_D",
   "1808": "SOLID_R",
   "1809": "SOLID_R",
-  "1901": "TOSS",
+  "1901": "LEAN_D",
   "1902": "LEAN_R",
-  "1903": "TOSS",
+  "1903": "LEAN_D",
   "1904": "SOLID_R",
   "2001": "SOLID_R",
   "2002": "SOLID_R",
@@ -228,7 +230,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2103": "SOLID_D",
   "2104": "SOLID_R",
   "2105": "SOLID_R",
-  "2106": "LIKELY_R",
+  "2106": "LEAN_R",
   "2201": "SOLID_R",
   "2202": "SOLID_D",
   "2203": "SOLID_R",
@@ -287,7 +289,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2906": "SOLID_R",
   "2907": "SOLID_R",
   "2908": "SOLID_R",
-  "3001": "LIKELY_R",
+  "3001": "LEAN_R",
   "3002": "SOLID_R",
   "3101": "SOLID_R",
   "3102": "LEAN_D",
@@ -333,7 +335,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "3618": "SOLID_D",
   "3619": "LIKELY_D",
   "3620": "SOLID_D",
-  "3621": "SOLID_R",
+  "3621": "LIKELY_R",
   "3622": "SOLID_D",
   "3623": "SOLID_R",
   "3624": "SOLID_R",
@@ -368,7 +370,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "3912": "SOLID_R",
   "3913": "SOLID_D",
   "3914": "SOLID_R",
-  "3915": "SOLID_R",
+  "3915": "LIKELY_R",
   "4001": "SOLID_R",
   "4002": "SOLID_R",
   "4003": "SOLID_R",
@@ -463,7 +465,7 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
   "5102": "TOSS",
   "5103": "SOLID_D",
   "5104": "SOLID_D",
-  "5105": "SOLID_R",
+  "5105": "LIKELY_R",
   "5106": "SOLID_R",
   "5107": "LIKELY_D",
   "5108": "SOLID_D",
@@ -494,14 +496,13 @@ export const INSIDEELECTIONS_HOUSE_RATINGS: Record<string, RaceRating> = {
 };
 
 /**
- * 2026 Governor race ratings for the 36 states on the ballot, as of September
- * 17, 2026, compiled from the Wikipedia "2026 United States gubernatorial
- * elections" predictions table. Inside Elections' "Tilt" ratings are shown as
- * Lean. Keyed by state FIPS.
+ * 2026 Governor race ratings for the 36 states on the ballot, as of
+ * October 1, 2026, compiled from the Wikipedia "2026 United States
+ * gubernatorial elections" predictions table. Keyed by state FIPS.
  */
 export const INSIDEELECTIONS_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
-  "02": "LEAN_R",
+  "02": "TOSS",
   "04": "LEAN_D",
   "05": "SOLID_R",
   "06": "SOLID_D",
@@ -524,8 +525,8 @@ export const INSIDEELECTIONS_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "33": "SOLID_R",
   "35": "LIKELY_D",
   "36": "LIKELY_D",
-  "39": "LEAN_R",
-  "40": "SOLID_R",
+  "39": "TOSS",
+  "40": "LIKELY_R",
   "41": "LEAN_D",
   "42": "SOLID_D",
   "44": "SOLID_D",

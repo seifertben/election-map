@@ -1,15 +1,17 @@
 import type { RaceRating } from "../../types";
 
 /**
- * 2026 race ratings from Sabato's Crystal Ball (UVA Center for Politics)
+ * 2026 race ratings from Sabato's Crystal Ball
  * Source: https://centerforpolitics.org/crystalball/
  *
- * - Senate ratings as of September 22, 2026 (35 seats on the 2026 ballot), compiled from the
- *   Wikipedia "2026 United States Senate elections" predictions table.
- * - House ratings as of September 22, 2026 (all 435 districts), compiled from the
- *   Wikipedia "2026 United States House of Representatives election ratings"
- *   page. Districts not listed as competitive there are rated Safe/Solid, so
- *   this file shades them Solid for the party currently holding the seat.
+ * - Senate ratings as of October 6, 2026 (35 seats on the 2026 ballot),
+ *   compiled from the Wikipedia "2026 United States Senate elections"
+ *   predictions table.
+ * - House ratings as of October 8, 2026 (all 435 districts), compiled from
+ *   the Wikipedia "2026 United States House of Representatives election
+ *   ratings" page. Districts not listed as competitive there are rated
+ *   Safe/Solid, so this file shades them Solid for the party currently
+ *   holding the seat.
  *
  *   Solid/Safe reads as Solid; a "flip" rating is kept as the party it favors.
  *
@@ -19,7 +21,7 @@ import type { RaceRating } from "../../types";
 
 export const SABATO_SENATE_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
-  "02": "TOSS",
+  "02": "LEAN_D",
   "05": "SOLID_R",
   "08": "SOLID_D",
   "10": "SOLID_D",
@@ -46,7 +48,7 @@ export const SABATO_SENATE_RATINGS: Record<string, RaceRating> = {
   "40": "SOLID_R",
   "41": "SOLID_D",
   "44": "SOLID_D",
-  "45": "SOLID_R",
+  "45": "LIKELY_R",
   "46": "SOLID_R",
   "47": "SOLID_R",
   "48": "TOSS",
@@ -121,7 +123,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "0642": "SOLID_D",
   "0643": "SOLID_D",
   "0644": "SOLID_D",
-  "0645": "LEAN_D",
+  "0645": "LIKELY_D",
   "0646": "SOLID_D",
   "0647": "SOLID_D",
   "0648": "LEAN_D",
@@ -164,10 +166,10 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1219": "SOLID_R",
   "1220": "SOLID_D",
   "1221": "SOLID_R",
-  "1222": "LEAN_R",
+  "1222": "TOSS",
   "1223": "SOLID_D",
   "1224": "SOLID_D",
-  "1225": "TOSS",
+  "1225": "LEAN_D",
   "1226": "SOLID_R",
   "1227": "LEAN_R",
   "1228": "SOLID_R",
@@ -228,7 +230,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2103": "SOLID_D",
   "2104": "SOLID_R",
   "2105": "SOLID_R",
-  "2106": "LIKELY_R",
+  "2106": "LEAN_R",
   "2201": "SOLID_R",
   "2202": "SOLID_D",
   "2203": "SOLID_R",
@@ -236,7 +238,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2205": "SOLID_R",
   "2206": "SOLID_R",
   "2301": "SOLID_D",
-  "2302": "LIKELY_R",
+  "2302": "LEAN_R",
   "2401": "SOLID_R",
   "2402": "SOLID_D",
   "2403": "SOLID_D",
@@ -280,17 +282,17 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2803": "SOLID_R",
   "2804": "SOLID_R",
   "2901": "SOLID_D",
-  "2902": "LIKELY_R",
+  "2902": "LEAN_R",
   "2903": "SOLID_R",
   "2904": "SOLID_R",
   "2905": "SOLID_D",
   "2906": "SOLID_R",
   "2907": "SOLID_R",
   "2908": "SOLID_R",
-  "3001": "LIKELY_R",
+  "3001": "LEAN_R",
   "3002": "SOLID_R",
   "3101": "SOLID_R",
-  "3102": "LEAN_D",
+  "3102": "LIKELY_D",
   "3103": "SOLID_R",
   "3201": "LIKELY_D",
   "3202": "LIKELY_R",
@@ -341,7 +343,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "3626": "SOLID_D",
   "3701": "TOSS",
   "3702": "SOLID_D",
-  "3703": "SOLID_R",
+  "3703": "LIKELY_R",
   "3704": "SOLID_D",
   "3705": "SOLID_R",
   "3706": "SOLID_R",
@@ -368,7 +370,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "3912": "SOLID_R",
   "3913": "LIKELY_D",
   "3914": "SOLID_R",
-  "3915": "SOLID_R",
+  "3915": "LIKELY_R",
   "4001": "SOLID_R",
   "4002": "SOLID_R",
   "4003": "SOLID_R",
@@ -386,7 +388,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4204": "SOLID_D",
   "4205": "SOLID_D",
   "4206": "SOLID_D",
-  "4207": "TOSS",
+  "4207": "LEAN_D",
   "4208": "TOSS",
   "4209": "SOLID_R",
   "4210": "TOSS",
@@ -459,11 +461,11 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4903": "SOLID_R",
   "4904": "SOLID_R",
   "5000": "SOLID_D",
-  "5101": "LEAN_R",
-  "5102": "TOSS",
+  "5101": "TOSS",
+  "5102": "LEAN_D",
   "5103": "SOLID_D",
   "5104": "SOLID_D",
-  "5105": "LIKELY_R",
+  "5105": "LEAN_R",
   "5106": "SOLID_R",
   "5107": "LIKELY_D",
   "5108": "SOLID_D",
@@ -482,7 +484,7 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
   "5310": "SOLID_D",
   "5401": "SOLID_R",
   "5402": "SOLID_R",
-  "5501": "LIKELY_R",
+  "5501": "LEAN_R",
   "5502": "SOLID_D",
   "5503": "TOSS",
   "5504": "SOLID_D",
@@ -494,13 +496,13 @@ export const SABATO_HOUSE_RATINGS: Record<string, RaceRating> = {
 };
 
 /**
- * 2026 Governor race ratings for the 36 states on the ballot, as of September
- * 22, 2026, compiled from the Wikipedia "2026 United States gubernatorial
- * elections" predictions table. Keyed by state FIPS.
+ * 2026 Governor race ratings for the 36 states on the ballot, as of
+ * October 6, 2026, compiled from the Wikipedia "2026 United States
+ * gubernatorial elections" predictions table. Keyed by state FIPS.
  */
 export const SABATO_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
-  "02": "TOSS",
+  "02": "LEAN_D",
   "04": "LEAN_D",
   "05": "SOLID_R",
   "06": "SOLID_D",
@@ -518,21 +520,21 @@ export const SABATO_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "25": "SOLID_D",
   "26": "LEAN_D",
   "27": "SOLID_D",
-  "31": "SOLID_R",
+  "31": "LIKELY_R",
   "32": "TOSS",
   "33": "LIKELY_R",
   "35": "SOLID_D",
   "36": "SOLID_D",
   "39": "TOSS",
   "40": "SOLID_R",
-  "41": "LIKELY_D",
+  "41": "LEAN_D",
   "42": "SOLID_D",
   "44": "SOLID_D",
   "45": "SOLID_R",
   "46": "SOLID_R",
   "47": "SOLID_R",
   "48": "LEAN_R",
-  "50": "SOLID_R",
+  "50": "LIKELY_R",
   "55": "LEAN_D",
   "56": "SOLID_R",
 };

@@ -4,12 +4,14 @@ import type { RaceRating } from "../../types";
  * 2026 race ratings from Fox News Power Rankings
  * Source: https://www.foxnews.com/elections/
  *
- * - Senate ratings as of September 22, 2026 (35 seats on the 2026 ballot), compiled from the
- *   Wikipedia "2026 United States Senate elections" predictions table.
- * - House ratings as of September 22, 2026 (all 435 districts), compiled from the
- *   Wikipedia "2026 United States House of Representatives election ratings"
- *   page. Districts not listed as competitive there are rated Safe/Solid, so
- *   this file shades them Solid for the party currently holding the seat.
+ * - Senate ratings as of October 6, 2026 (35 seats on the 2026 ballot),
+ *   compiled from the Wikipedia "2026 United States Senate elections"
+ *   predictions table.
+ * - House ratings as of September 22, 2026 (all 435 districts), compiled from
+ *   the Wikipedia "2026 United States House of Representatives election
+ *   ratings" page. Districts not listed as competitive there are rated
+ *   Safe/Solid, so this file shades them Solid for the party currently
+ *   holding the seat.
  *
  *   Solid/Safe reads as Solid; a "flip" rating is kept as the party it favors.
  *
@@ -41,12 +43,12 @@ export const FOX_SENATE_RATINGS: Record<string, RaceRating> = {
   "33": "LEAN_D",
   "34": "SOLID_D",
   "35": "SOLID_D",
-  "37": "LEAN_D",
+  "37": "LIKELY_D",
   "39": "TOSS",
   "40": "SOLID_R",
   "41": "SOLID_D",
   "44": "SOLID_D",
-  "45": "SOLID_R",
+  "45": "LIKELY_R",
   "46": "SOLID_R",
   "47": "SOLID_R",
   "48": "TOSS",
@@ -494,9 +496,9 @@ export const FOX_HOUSE_RATINGS: Record<string, RaceRating> = {
 };
 
 /**
- * 2026 Governor race ratings for the 36 states on the ballot, as of September
- * 22, 2026, compiled from the Wikipedia "2026 United States gubernatorial
- * elections" predictions table. Keyed by state FIPS.
+ * 2026 Governor race ratings for the 36 states on the ballot, as of
+ * October 6, 2026, compiled from the Wikipedia "2026 United States
+ * gubernatorial elections" predictions table. Keyed by state FIPS.
  */
 export const FOX_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
@@ -506,7 +508,7 @@ export const FOX_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "06": "SOLID_D",
   "08": "SOLID_D",
   "09": "SOLID_D",
-  "12": "SOLID_R",
+  "12": "LIKELY_R",
   "13": "TOSS",
   "15": "SOLID_D",
   "16": "SOLID_R",
@@ -525,14 +527,14 @@ export const FOX_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "36": "SOLID_D",
   "39": "TOSS",
   "40": "SOLID_R",
-  "41": "LIKELY_D",
+  "41": "LEAN_D",
   "42": "SOLID_D",
   "44": "SOLID_D",
   "45": "SOLID_R",
   "46": "SOLID_R",
   "47": "SOLID_R",
   "48": "LEAN_R",
-  "50": "SOLID_R",
+  "50": "LIKELY_R",
   "55": "TOSS",
   "56": "SOLID_R",
 };

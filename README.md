@@ -84,6 +84,7 @@ npm run build:state-lean  # regenerate src/data/stateLean.ts from pres_by_cd.csv
 npm run build:state-splits  # regenerate src/data/stateSplits.ts from the district ecological regression
 npm run build:polls  # regenerate the committed 2026 Senate polling snapshot
 npm run build:gov-polls  # regenerate the committed 2026 Governor polling snapshot
+npm run build:ratings  # recompile the committed 2026 race ratings from Wikipedia
 npm run fetch:polls  # re-scrape the Wikipedia polling tables (scripts/*-polls-wiki.json)
 ```
 
@@ -101,6 +102,7 @@ scripts/build-geo.mjs     fetch + generalize Census geography -> public/data/
 scripts/fetch-wiki-polls.mjs  scrape Wikipedia per-race polling -> scripts/*-polls-wiki.json
 scripts/build-polls.mjs   compile 2026 Senate polling -> src/data/polling/
 scripts/build-gov-polls.mjs  compile 2026 Governor polling -> src/data/polling/
+scripts/build-ratings.mjs  compile 2026 race ratings from Wikipedia -> src/data/ratings/
 public/data/              committed states.json + cd120.json
 src/data/                 parties, states + electoral votes, 2026 Senate/Governor races
 src/data/ratings/         per-outlet 2026 House + Senate + Governor race ratings
@@ -150,14 +152,16 @@ Re-run it when the Census publishes updated boundaries.
   party (`src/data/house2026Holder.ts`, and the Senate race list's
   `incumbentParty`). Toss Ups, independent-held seats, and the eight new 2026
   seats with no incumbent are never striped.
-- The non-Cook ratings are compiled from the Wikipedia «2026 United States
-  Senate elections» and «2026 United States House of Representatives election
-  ratings» pages on the dates noted in `src/data/ratings/*.ts`. A district
-  absent from Wikipedia's competitive-seats list is shaded Solid for the party
-  holding the seat, except six seats every outlet rates Safe for the opposite
-  party (four new 2026 seats and the California 1 / Louisiana 6 redistricting
-  flips); see the generator's comments in `scripts/` history and the per-file
-  headers. Inside Elections' "Tilt" ratings are shown as Lean.
+- The non-Cook ratings are compiled by `scripts/build-ratings.mjs` (`npm run
+  build:ratings`) from the Wikipedia «2026 United States Senate elections»,
+  «2026 United States House of Representatives election ratings», and «2026
+  United States gubernatorial elections» predictions tables; the committed
+  files note each outlet's as-of date. A district absent from Wikipedia's
+  competitive-seats list is shaded Solid for the party holding the seat, except
+  six seats every outlet rates Safe for the opposite party (four new 2026 seats
+  and the California 1 / Louisiana 6 redistricting flips); see the generator's
+  `SAFE_OVERRIDES` map and the per-file headers. Inside Elections' "Tilt"
+  ratings are shown as Lean, and a "flip" note is kept as the party it favors.
 - The Senate polling snapshot in `src/data/polling/senate2026.ts` is committed
   so the app stays hermetic. Its **primary source is Wikipedia**: each of the
   35 seats' articles is scraped for the general-election polling table of the
