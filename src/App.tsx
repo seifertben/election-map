@@ -26,6 +26,7 @@ import {
 } from "./data/governor2026";
 import { HOUSE_2026_FIPS, HOUSE_2026_RATINGS } from "./data/house2026";
 import { HOUSE_2026_HOLDER } from "./data/house2026Holder";
+import { PARTY_COLOR } from "./data/parties";
 import { PRESIDENT_2024_RESULTS } from "./data/president2024";
 import {
   SENATE_2026_FIPS,
@@ -386,14 +387,24 @@ export default function App() {
     const polls = POLL_DATASETS[raceMode].polls;
     const summaries = new Map<string, PollSummary>();
     const fills: Record<string, string> = {};
+    const defaults = new Map<string, "D" | "R">();
     for (const fips of config.fips) {
-      const summary = summarizePolls(polls[fips] ?? [], pollOption);
+      const statePolls = polls[fips] ?? [];
+      const summary = summarizePolls(statePolls, pollOption);
       if (summary) {
         summaries.set(fips, summary);
         fills[fips] = pollMarginColor(summary);
+      } else if (statePolls.length === 0) {
+        // No public polling for this seat: default it to the current holder's
+        // party, in the flat party color, so it is still called.
+        const party = config.incumbentByFips[fips]?.incumbentParty;
+        if (party === "D" || party === "R") {
+          defaults.set(fips, party);
+          fills[fips] = PARTY_COLOR[party];
+        }
       }
     }
-    return { fills, summaries, optionLabel: pollOption.label };
+    return { fills, summaries, defaults, optionLabel: pollOption.label };
   }, [raceMode, pollOption]);
 
   const pollOverlay = useMemo<PollOverlay | null>(() => {
@@ -406,11 +417,18 @@ export default function App() {
       config.defaultRatings;
     const isPainted = (id: string) =>
       (state.assignments[raceMode][id] ?? null) !== (source[id] ?? null);
+    const holder = raceMode === "senate" ? "senator" : "governor";
     return {
       fills: pollData.fills,
       summaryFor: (id) => pollData.summaries.get(id) ?? null,
       optionLabel: pollData.optionLabel,
       isPainted,
+      defaultFor: (id) => {
+        const party = pollData.defaults.get(id);
+        if (!party) return null;
+        const name = party === "D" ? "Democratic" : "Republican";
+        return { party, label: `no poll · ${name} ${holder}` };
+      },
     };
   }, [raceMode, pollData, sourceByMode, state.assignments]);
 

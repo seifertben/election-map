@@ -97,7 +97,7 @@ export function PollingPanel({
       ) : (
         <p className="ratings__note">
           {overlayOn
-            ? "States with no matching poll stay grey. A state whose poll leader differs from the incumbent is striped as a pickup (toggle it in Pickups). Selecting or changing a poll wipes your paints; so does choosing a ratings source."
+            ? "States with no public poll default to their current senator/governor's party (flat color); a state with no poll from the selected pollster stays grey. A state whose poll leader differs from the incumbent is striped as a pickup (toggle it in Pickups). Selecting or changing a poll wipes your paints; so does choosing a ratings source."
             : `Pick a pollster or a rolling average to color the ${raceCount} ${raceLabel} states by polling margin. Polls through ${asOf}.`}
         </p>
       )}

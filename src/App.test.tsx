@@ -502,11 +502,19 @@ describe("App scoreboard projection", () => {
     ) as HTMLSelectElement;
     setSelectValue(pollSelect, "avg-10");
 
-    // The scoreboard now follows the poll colors: un-polled states fall to
-    // uncalled, so at least one headline number moves off the ratings totals.
+    // The scoreboard now follows the poll colors (no-poll seats default to
+    // their holders), so at least one headline number moves off the ratings
+    // totals.
     expect(headline(container, "d") !== ratingsD || headline(container, "r") !== ratingsR).toBe(
       true,
     );
+
+    // Every Senate seat is on the ballot and now called: the polled seats from
+    // their leader, the no-poll seats from their current holder's party.
+    const uncalled = Array.from(
+      container.querySelectorAll(".scoreboard__legend li"),
+    ).find((li) => li.textContent?.startsWith("Uncalled"));
+    expect(uncalled?.textContent).toBe("Uncalled0");
 
     globalThis.fetch = originalFetch;
     act(() => root.unmount());

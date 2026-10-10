@@ -133,6 +133,12 @@ export interface PollOverlay {
    */
   isPainted: (id: string) => boolean;
   /**
+   * A fallback projection for a region with no matching poll: the party it
+   * defaults to (the seat's current holder) and the tooltip label explaining
+   * that. Regions absent here stay uncalled when they have no poll.
+   */
+  defaultFor?: (id: string) => { party: "D" | "R"; label: string } | null;
+  /**
    * Optional custom tooltip detail for an unpainted region, overriding the
    * poll aggregate text. Used by non-poll color overlays (e.g. betting
    * markets). Returning null means "no data" for that region.
@@ -148,10 +154,11 @@ export interface PollOverlay {
 /**
  * The assignment map a color overlay projects onto the scoreboard. Regions the
  * user painted keep their own assignment; every other region becomes the
- * overlay's projected leader — the poll leader or the market favorite — or
- * uncalled when the overlay has no call on it (no matching poll/quote, or an
- * even margin). This keeps the scoreboard and seat dots in step with the
- * colors the map is showing.
+ * overlay's projected leader — the poll leader or the market favorite — or,
+ * when the overlay has no call on it, the overlay's fallback party (a no-poll
+ * seat's current holder), or uncalled when it has neither. An even margin is
+ * uncalled too. This keeps the scoreboard and seat dots in step with the colors
+ * the map is showing.
  */
 export function projectedAssignments(
   base: Record<string, Assignment>,
@@ -164,12 +171,12 @@ export function projectedAssignments(
   for (const id of ids) {
     if (overlay.isPainted(id)) continue;
     const summary = overlay.summaryFor(id);
-    result[id] =
-      summary && summary.margin !== 0
-        ? summary.leader === "D"
-          ? "D"
-          : "R"
-        : null;
+    if (summary) {
+      result[id] =
+        summary.margin !== 0 ? (summary.leader === "D" ? "D" : "R") : null;
+    } else {
+      result[id] = overlay.defaultFor?.(id)?.party ?? null;
+    }
   }
   return result;
 }

@@ -248,6 +248,28 @@ describe("projectedAssignments", () => {
     );
     expect(result).toEqual({ "13": null, "48": null, "06": "D" });
   });
+
+  it("defaults a region with no poll to the overlay's fallback party", () => {
+    const base: Record<string, Assignment> = {
+      "06": "SOLID_D",
+      "48": "SOLID_R",
+    };
+    const result = projectedAssignments(base, {
+      ...overlay({ "48": summary(46, 48, "R") }),
+      defaultFor: (id) =>
+        id === "06" ? { party: "D", label: "no poll" } : null,
+    });
+    expect(result).toEqual({ "06": "D", "48": "R" });
+  });
+
+  it("leaves an even poll uncalled even when a fallback exists", () => {
+    const base: Record<string, Assignment> = { "13": "LEAN_D" };
+    const result = projectedAssignments(base, {
+      ...overlay({ "13": summary(47, 47, "D") }),
+      defaultFor: () => ({ party: "R", label: "no poll" }),
+    });
+    expect(result).toEqual({ "13": null });
+  });
 });
 
 describe("POLL_OPTIONS", () => {

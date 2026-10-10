@@ -23,9 +23,11 @@ PNG.
   and red (plus Toss Up). Hover a region to see its rating.
 - A **Polling** panel on the Senate and Governor maps colors the contested
   states by 2026 polling margin on a diverging blue-to-red scale. Pick a single
-  pollster or a rolling average (last 5, last 10, or all polls); states with no
-  matching poll stay grey and the hover tooltip shows the aggregate (plus the
-  poll date when a single pollster is selected). You can paint over
+  pollster or a rolling average (last 5, last 10, or all polls); a state with
+  no public poll defaults to its current senator/governor's party (drawn in the
+  flat party color) so it still counts as called, while a state with no poll
+  from the selected pollster stays grey. The hover tooltip shows the aggregate
+  (plus the poll date when a single pollster is selected). You can paint over
   individual states while the poll view is up, but those paints are ephemeral:
   setting either sidebar dropdown — selecting or changing the poll option, or
   choosing a ratings source — resets the map to that source and clears every
@@ -166,8 +168,10 @@ Re-run it when the Census publishes updated boundaries.
   Wikipedia has no general-election polls for — Alaska and Minnesota. Each seat
   is taken from a single source so the head-to-head is never blended across
   candidate matchups. States with no public polling (CO, DE, NJ, OR, WV,
-  WY) are omitted and render grey. Nebraska's `d` column is the independent
-  challenger Dan Osborn — the state has no Democratic nominee.
+  WY) are omitted from the snapshot; the polling view defaults them to their
+  current senator's party so they still count as called. Nebraska's `d` column
+  is the independent challenger Dan Osborn — the state has no Democratic
+  nominee.
   `npm run fetch:polls` re-scrapes Wikipedia (the committed HTML responses are
   cached under `/tmp/opencode/wiki-polls`); `npm run build:polls` regenerates
   the module, and `--evp` re-compiles the fallback base from a fresh
@@ -180,8 +184,9 @@ Re-run it when the Census publishes updated boundaries.
   (`node scripts/fetch-wiki-polls.mjs --governor` →
   `scripts/governor-polls-wiki.json`), then `npm run build:gov-polls` compiles
   it. Alaska, Colorado, Hawaii, Minnesota, Oklahoma, South Dakota and Wyoming
-  have no public 2026 general-election polling and render grey; the other 29
-  states are shaded.
+  have no public 2026 general-election polling and are omitted from the
+  snapshot; the polling view defaults them to their current governor's party so
+  they still count as called. The other 29 states are shaded.
 - The Governor ratings in `src/data/ratings/*.ts` come from the Wikipedia
   «2026 United States gubernatorial elections» predictions table for Cook,
   Inside Elections, Sabato, Decision Desk HQ and Fox News (as of the dates noted

@@ -396,9 +396,12 @@ export function RegionMap({
         label += detail ? ` · ${detail}` : " · no market";
       } else {
         const summary = poll.summaryFor(id);
-        label += summary
-          ? ` · ${describeSummary(summary, poll.optionLabel)}`
-          : " · no polls";
+        if (summary) {
+          label += ` · ${describeSummary(summary, poll.optionLabel)}`;
+        } else {
+          const fallback = poll.defaultFor?.(id);
+          label += fallback ? ` · ${fallback.label}` : " · no polls";
+        }
       }
     } else if (assignment) {
       label += ` · ${ASSIGNMENT_LABEL[assignment]}`;

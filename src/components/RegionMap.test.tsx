@@ -353,6 +353,73 @@ describe("RegionMap", () => {
     act(() => root.unmount());
   });
 
+  it("defaults a no-poll state to its fallback party and labels the tooltip", () => {
+    const features = loadStates();
+    container = document.createElement("div");
+    document.body.appendChild(container);
+
+    const root = createRoot(container);
+    act(() => {
+      root.render(
+        <RegionMap
+          features={features}
+          getId={(f) => String(f.properties.fips)}
+          getLabel={(f) => String(f.properties.name)}
+          isActive={() => true}
+          assignments={{ "06": "SOLID_R" } as Record<string, Assignment>}
+          onRegionClick={() => {}}
+          stripePickups
+          getIncumbent={() => "D"}
+          poll={{
+            fills: { "06": "#1b3a78", "10": "#1b3a78" },
+            summaryFor: (id) =>
+              id === "06"
+                ? {
+                    d: 52,
+                    r: 46,
+                    margin: 6,
+                    leader: "D" as const,
+                    polls: 3,
+                    latest: "2026-09-20",
+                  }
+                : null,
+            optionLabel: "Average of last 10 polls",
+            isPainted: () => false,
+            defaultFor: (id) =>
+              id === "10"
+                ? { party: "D", label: "no poll · Democratic senator" }
+                : null,
+          }}
+        />,
+      );
+    });
+
+    // A no-poll state fills with its fallback party's flat color, matching its
+    // holder, so no pickup stripe is drawn.
+    expect(
+      container.querySelector('path[data-id="10"]')?.getAttribute("fill"),
+    ).toBe("#1b3a78");
+    expect(container.querySelector("pattern")).toBeNull();
+
+    const delaware = container.querySelector(
+      'path[data-id="10"]',
+    ) as SVGPathElement;
+    act(() => {
+      delaware.dispatchEvent(
+        new MouseEvent("pointermove", {
+          clientX: 10,
+          clientY: 10,
+          bubbles: true,
+        }),
+      );
+    });
+    expect(container.querySelector(".tooltip")?.textContent).toContain(
+      "no poll · Democratic senator",
+    );
+
+    act(() => root.unmount());
+  });
+
   it("stripes a poll-projected pickup with its poll shade", () => {
     const features = loadStates();
     container = document.createElement("div");
