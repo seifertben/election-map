@@ -934,6 +934,8 @@ export default function App() {
               Reset {MODE_LABEL[state.mode]}
             </button>
           </section>
+
+          <SiteAd />
         </aside>
       </main>
       )}
@@ -944,8 +946,6 @@ export default function App() {
         contested in 2026 and the Governor map the 36 governorships on the
         ballot; all other states are grey.
       </footer>
-
-      <SiteAd />
     </div>
   );
 }
