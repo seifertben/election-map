@@ -209,7 +209,7 @@ function nomineeSurnames(doc) {
   if (!infobox) return names;
   for (const row of infobox.querySelectorAll("tr")) {
     const th = row.querySelector("th");
-    if (!th || !/^nominee/i.test(cleanText(th.textContent))) continue;
+    if (!th || !/^(?:nominee|candidate)/i.test(cleanText(th.textContent))) continue;
     for (const cell of row.querySelectorAll("td")) {
       for (const link of cell.querySelectorAll("a")) {
         const text = cleanText(link.textContent);
@@ -280,7 +280,7 @@ function generalPollTables(doc) {
     const node = nodes[i];
     if (node.tagName === "H2") break;
     if (node.tagName === "H3") {
-      inPolling = /^polling/i.test(cleanText(node.textContent));
+      inPolling = /polling/i.test(cleanText(node.textContent));
       continue;
     }
     if (node.tagName === "H4" || node.tagName === "H5") {

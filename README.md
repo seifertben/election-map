@@ -165,7 +165,7 @@ Re-run it when the Census publishes updated boundaries.
   Wikipedia rows for Kentucky, Idaho, Oklahoma and Tennessee, fills the seats
   Wikipedia has no general-election polls for — Alaska and Minnesota. Each seat
   is taken from a single source so the head-to-head is never blended across
-  candidate matchups. States with no public polling (CO, DE, IL, NJ, OR, WV,
+  candidate matchups. States with no public polling (CO, DE, NJ, OR, WV,
   WY) are omitted and render grey. Nebraska's `d` column is the independent
   challenger Dan Osborn — the state has no Democratic nominee.
   `npm run fetch:polls` re-scrapes Wikipedia (the committed HTML responses are

@@ -24,7 +24,7 @@ describe("SENATE_2026_POLLS", () => {
     // electoral-vote.com + Wikipedia turn up nothing for these safe seats.
     expect(SENATE_2026_FIPS).toHaveLength(35);
     const unpolled = SENATE_2026_FIPS.filter((f) => !SENATE_2026_POLLS[f]);
-    expect(unpolled.sort()).toEqual(["08", "10", "17", "34", "41", "54", "56"]);
+    expect(unpolled.sort()).toEqual(["08", "10", "34", "41", "54", "56"]);
   });
 
   it("has well-formed polls with shares that do not exceed 100", () => {

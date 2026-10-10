@@ -1,6 +1,46 @@
 {
   "12": [
     {
+      "pollster": "St. Pete Polls",
+      "date": "2026-10-07",
+      "d": 45,
+      "r": 45,
+      "sample": 836,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-05",
+      "d": 45,
+      "r": 47,
+      "sample": 3813,
+      "population": "LV"
+    },
+    {
+      "pollster": "James Madison Institute",
+      "date": "2026-10-04",
+      "d": 42,
+      "r": 52,
+      "sample": 1174,
+      "population": "LV"
+    },
+    {
+      "pollster": "Mason-Dixon",
+      "date": "2026-10-01",
+      "d": 41,
+      "r": 48,
+      "sample": 625,
+      "population": "LV"
+    },
+    {
+      "pollster": "Change Research (D)",
+      "date": "2026-09-27",
+      "d": 48,
+      "r": 46,
+      "sample": 1063,
+      "population": "LV"
+    },
+    {
       "pollster": "Stetson University",
       "date": "2026-09-21",
       "d": 39,
@@ -163,6 +203,14 @@
   ],
   "13": [
     {
+      "pollster": "Wedgewood Polls",
+      "date": "2026-10-03",
+      "d": 49,
+      "r": 51,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
       "pollster": "InsiderAdvantage (R)",
       "date": "2026-09-23",
       "d": 46,
@@ -175,8 +223,8 @@
       "date": "2026-09-23",
       "d": 50,
       "r": 50,
-      "sample": 678,
-      "population": "LV"
+      "sample": 712,
+      "population": "RV"
     },
     {
       "pollster": "YouGov",
@@ -279,6 +327,14 @@
   ],
   "17": [
     {
+      "pollster": "Public Policy Polling (D)",
+      "date": "2026-10-01",
+      "d": 54,
+      "r": 34,
+      "sample": 569,
+      "population": "LV"
+    },
+    {
       "pollster": "Victory Research",
       "date": "2025-11-24",
       "d": 54,
@@ -289,7 +345,47 @@
   ],
   "19": [
     {
-      "pollster": "Marist College",
+      "pollster": "Emerson College",
+      "date": "2026-10-06",
+      "d": 49,
+      "r": 45,
+      "sample": 650,
+      "population": "LV"
+    },
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-05",
+      "d": 51,
+      "r": 42,
+      "sample": 801,
+      "population": "LV"
+    },
+    {
+      "pollster": "Suffolk University",
+      "date": "2026-10-04",
+      "d": 55,
+      "r": 43,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-01",
+      "d": 52,
+      "r": 41,
+      "sample": 606,
+      "population": "LV"
+    },
+    {
+      "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+      "date": "2026-09-28",
+      "d": 53,
+      "r": 44,
+      "sample": 1008,
+      "population": "LV"
+    },
+    {
+      "pollster": "Marist University",
       "date": "2026-09-20",
       "d": 54,
       "r": 42,
@@ -379,6 +475,22 @@
   ],
   "20": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-04",
+      "d": 44,
+      "r": 47,
+      "sample": 2255,
+      "population": "LV"
+    },
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-09-30",
+      "d": 44,
+      "r": 49,
+      "sample": 605,
+      "population": "LV"
+    },
+    {
       "pollster": "Wedgewood Polls",
       "date": "2026-09-24",
       "d": 48,
@@ -392,6 +504,14 @@
       "d": 44,
       "r": 51,
       "sample": 750,
+      "population": "LV"
+    },
+    {
+      "pollster": "Global Strategy Group (D)",
+      "date": "2026-09-16",
+      "d": 49,
+      "r": 46,
+      "sample": 800,
       "population": "LV"
     },
     {
@@ -412,6 +532,46 @@
     }
   ],
   "23": [
+    {
+      "pollster": "The Washington Post/SSPG",
+      "date": "2026-10-05",
+      "d": 49,
+      "r": 36,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
+      "pollster": "Marist University",
+      "date": "2026-10-04",
+      "d": 52,
+      "r": 40,
+      "sample": 1505,
+      "population": "RV"
+    },
+    {
+      "pollster": "CBS/YouGov",
+      "date": "2026-10-01",
+      "d": 56,
+      "r": 44,
+      "sample": 1133,
+      "population": "LV"
+    },
+    {
+      "pollster": "co/efficient (R)",
+      "date": "2026-09-30",
+      "d": 47,
+      "r": 38,
+      "sample": 1240,
+      "population": "LV"
+    },
+    {
+      "pollster": "Fabrizio Ward (R)/Impact Research (D)",
+      "date": "2026-09-22",
+      "d": 52,
+      "r": 39,
+      "sample": 982,
+      "population": "LV"
+    },
     {
       "pollster": "New York Times/Portland Press Herald/Siena University",
       "date": "2026-09-22",
@@ -487,6 +647,14 @@
   ],
   "24": [
     {
+      "pollster": "University of Maryland, Baltimore County",
+      "date": "2026-09-22",
+      "d": 51,
+      "r": 24,
+      "sample": 776,
+      "population": "LV"
+    },
+    {
       "pollster": "Zenith Research",
       "date": "2026-08-03",
       "d": 58,
@@ -496,6 +664,14 @@
     }
   ],
   "25": [
+    {
+      "pollster": "MassINC Polling Group",
+      "date": "2026-09-22",
+      "d": 51,
+      "r": 30,
+      "sample": 800,
+      "population": "LV"
+    },
     {
       "pollster": "University of New Hampshire",
       "date": "2026-09-21",
@@ -571,6 +747,62 @@
   ],
   "26": [
     {
+      "pollster": "Wedgewood Polls",
+      "date": "2026-10-09",
+      "d": 55,
+      "r": 45,
+      "sample": 607,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-04",
+      "d": 48,
+      "r": 45,
+      "sample": 3949,
+      "population": "LV"
+    },
+    {
+      "pollster": "Mitchell Research & Communications",
+      "date": "2026-10-01",
+      "d": 46,
+      "r": 39,
+      "sample": 682,
+      "population": "LV"
+    },
+    {
+      "pollster": "Z to A Research (D)",
+      "date": "2026-10-01",
+      "d": 50,
+      "r": 40,
+      "sample": 483,
+      "population": "LV"
+    },
+    {
+      "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+      "date": "2026-09-28",
+      "d": 54,
+      "r": 45,
+      "sample": 1203,
+      "population": "RV"
+    },
+    {
+      "pollster": "Marist University",
+      "date": "2026-09-27",
+      "d": 53,
+      "r": 41,
+      "sample": 1235,
+      "population": "RV"
+    },
+    {
+      "pollster": "Guidant Polling & Strategy",
+      "date": "2026-09-27",
+      "d": 50,
+      "r": 45,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
       "pollster": "co/efficient (R)",
       "date": "2026-09-23",
       "d": 47,
@@ -579,11 +811,35 @@
       "population": "LV"
     },
     {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-09-22",
+      "d": 48,
+      "r": 43,
+      "sample": 605,
+      "population": "LV"
+    },
+    {
+      "pollster": "Beacon Research (D)/Cygnal (R)",
+      "date": "2026-09-21",
+      "d": 45,
+      "r": 38,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
       "pollster": "Suffolk University",
       "date": "2026-09-20",
       "d": 51,
       "r": 34,
       "sample": 500,
+      "population": "LV"
+    },
+    {
+      "pollster": "Torchlight Strategies (R)",
+      "date": "2026-09-19",
+      "d": 42,
+      "r": 41,
+      "sample": 643,
       "population": "LV"
     },
     {
@@ -667,7 +923,7 @@
       "population": "LV"
     },
     {
-      "pollster": "Mitchell Research",
+      "pollster": "Mitchell Research & Communications",
       "date": "2026-07-29",
       "d": 46,
       "r": 44,
@@ -683,7 +939,7 @@
       "population": "LV"
     },
     {
-      "pollster": "Mitchell Research",
+      "pollster": "Mitchell Research & Communications",
       "date": "2026-06-13",
       "d": 51,
       "r": 40,
@@ -716,12 +972,35 @@
   ],
   "31": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-03",
+      "d": 43,
+      "r": 44,
+      "sample": 1809,
+      "population": "LV"
+    },
+    {
+      "pollster": "co/efficient (R)",
+      "date": "2026-09-30",
+      "d": 38,
+      "r": 43,
+      "sample": 1113,
+      "population": "LV"
+    },
+    {
       "pollster": "Wedgewood Polls",
       "date": "2026-09-16",
       "d": 36,
       "r": 53,
       "sample": 500,
       "population": "LV"
+    },
+    {
+      "pollster": "Lake Research Partners (D)",
+      "date": "2026-09-14",
+      "d": 40,
+      "r": 40,
+      "population": "RV"
     },
     {
       "pollster": "SurveyUSA",
@@ -773,6 +1052,14 @@
     }
   ],
   "32": [
+    {
+      "pollster": "Noble Predictive Insights",
+      "date": "2026-09-26",
+      "d": 37,
+      "r": 38,
+      "sample": 800,
+      "population": "RV"
+    },
     {
       "pollster": "Emerson College",
       "date": "2026-09-08",
@@ -869,6 +1156,30 @@
   ],
   "33": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-05",
+      "d": 40,
+      "r": 49,
+      "sample": 1520,
+      "population": "LV"
+    },
+    {
+      "pollster": "Saint Anselm College",
+      "date": "2026-09-29",
+      "d": 45,
+      "r": 52,
+      "sample": 1042,
+      "population": "LV"
+    },
+    {
+      "pollster": "The New York Times/Siena University",
+      "date": "2026-09-22",
+      "d": 41,
+      "r": 52,
+      "sample": 613,
+      "population": "LV"
+    },
+    {
       "pollster": "University of New Hampshire",
       "date": "2026-09-21",
       "d": 43,
@@ -935,6 +1246,14 @@
   ],
   "35": [
     {
+      "pollster": "SurveyUSA",
+      "date": "2026-09-30",
+      "d": 47,
+      "r": 41,
+      "sample": 567,
+      "population": "LV"
+    },
+    {
       "pollster": "Research & Polling Inc.",
       "date": "2026-08-28",
       "d": 49,
@@ -960,6 +1279,30 @@
     }
   ],
   "36": [
+    {
+      "pollster": "Emerson College",
+      "date": "2026-10-05",
+      "d": 52,
+      "r": 40,
+      "sample": 900,
+      "population": "LV"
+    },
+    {
+      "pollster": "Marist University",
+      "date": "2026-10-04",
+      "d": 53,
+      "r": 42,
+      "sample": 1361,
+      "population": "RV"
+    },
+    {
+      "pollster": "co/efficient (R)",
+      "date": "2026-09-25",
+      "d": 48,
+      "r": 41,
+      "sample": 1046,
+      "population": "LV"
+    },
     {
       "pollster": "Quinnipiac University",
       "date": "2026-09-20",
@@ -1147,6 +1490,62 @@
   ],
   "39": [
     {
+      "pollster": "co/efficient (R)",
+      "date": "2026-10-06",
+      "d": 43,
+      "r": 45,
+      "sample": 925,
+      "population": "LV"
+    },
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-05",
+      "d": 50,
+      "r": 42,
+      "sample": 760,
+      "population": "LV"
+    },
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-01",
+      "d": 49,
+      "r": 45,
+      "sample": 616,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-09-30",
+      "d": 48,
+      "r": 44,
+      "sample": 3780,
+      "population": "LV"
+    },
+    {
+      "pollster": "Big Data Poll (R)",
+      "date": "2026-09-27",
+      "d": 47,
+      "r": 48,
+      "sample": 680,
+      "population": "LV"
+    },
+    {
+      "pollster": "Marist University",
+      "date": "2026-09-27",
+      "d": 50,
+      "r": 44,
+      "sample": 1298,
+      "population": "RV"
+    },
+    {
+      "pollster": "Suffolk University",
+      "date": "2026-09-27",
+      "d": 50,
+      "r": 41,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "Bowling Green State University/YouGov",
       "date": "2026-09-10",
       "d": 48,
@@ -1309,6 +1708,30 @@
   ],
   "41": [
     {
+      "pollster": "GBAO (D)",
+      "date": "2026-10-04",
+      "d": 46,
+      "r": 42,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
+      "pollster": "DHM Research",
+      "date": "2026-10-01",
+      "d": 46,
+      "r": 44,
+      "sample": 549,
+      "population": "LV"
+    },
+    {
+      "pollster": "DHM Research",
+      "date": "2026-09-27",
+      "d": 46,
+      "r": 47,
+      "sample": 915,
+      "population": "LV"
+    },
+    {
       "pollster": "DHM Research",
       "date": "2026-09-09",
       "d": 43,
@@ -1465,6 +1888,14 @@
   ],
   "44": [
     {
+      "pollster": "Opinion Diagnostics",
+      "date": "2026-09-25",
+      "d": 41,
+      "r": 19,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
       "pollster": "University of New Hampshire",
       "date": "2026-09-21",
       "d": 44,
@@ -1506,6 +1937,14 @@
     }
   ],
   "45": [
+    {
+      "pollster": "Resonance Media",
+      "date": "2026-10-03",
+      "d": 35,
+      "r": 45,
+      "sample": 638,
+      "population": "RV"
+    },
     {
       "pollster": "Hart Research (D)",
       "date": "2026-08-15",
@@ -1558,6 +1997,62 @@
     }
   ],
   "48": [
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-05",
+      "d": 48,
+      "r": 47,
+      "sample": 3625,
+      "population": "LV"
+    },
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-01",
+      "d": 49,
+      "r": 46,
+      "sample": 615,
+      "population": "LV"
+    },
+    {
+      "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
+      "date": "2026-09-28",
+      "d": 47,
+      "r": 52,
+      "sample": 1005,
+      "population": "LV"
+    },
+    {
+      "pollster": "Guidant Polling & Strategy",
+      "date": "2026-09-28",
+      "d": 44,
+      "r": 46,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
+      "pollster": "UMass Lowell/YouGov",
+      "date": "2026-09-28",
+      "d": 44,
+      "r": 48,
+      "sample": 850,
+      "population": "LV"
+    },
+    {
+      "pollster": "Big Data Poll",
+      "date": "2026-09-26",
+      "d": 44,
+      "r": 49,
+      "sample": 698,
+      "population": "LV"
+    },
+    {
+      "pollster": "Stratus Intelligence (R)",
+      "date": "2026-09-24",
+      "d": 45,
+      "r": 50,
+      "sample": 865,
+      "population": "LV"
+    },
     {
       "pollster": "Texas Public Opinion Research",
       "date": "2026-09-22",
@@ -1841,6 +2336,22 @@
   ],
   "50": [
     {
+      "pollster": "State Navigate",
+      "date": "2026-10-04",
+      "d": 43,
+      "r": 46,
+      "sample": 948,
+      "population": "LV"
+    },
+    {
+      "pollster": "Braun Research/Vermont Public",
+      "date": "2026-09-21",
+      "d": 32,
+      "r": 42,
+      "sample": 817,
+      "population": "RV"
+    },
+    {
       "pollster": "University of New Hampshire",
       "date": "2026-09-21",
       "d": 49,
@@ -1866,6 +2377,22 @@
     }
   ],
   "55": [
+    {
+      "pollster": "Z to A Research (D)",
+      "date": "2026-10-01",
+      "d": 49,
+      "r": 44,
+      "sample": 662,
+      "population": "LV"
+    },
+    {
+      "pollster": "Marquette University",
+      "date": "2026-09-23",
+      "d": 49,
+      "r": 46,
+      "sample": 692,
+      "population": "LV"
+    },
     {
       "pollster": "Marquette University",
       "date": "2026-08-20",
@@ -1916,6 +2443,14 @@
     }
   ],
   "01": [
+    {
+      "pollster": "RMG Research (R)",
+      "date": "2026-09-25",
+      "d": 37,
+      "r": 50,
+      "sample": 800,
+      "population": "RV"
+    },
     {
       "pollster": "yes. every kid.",
       "date": "2026-07-11",
@@ -2107,6 +2642,14 @@
   ],
   "06": [
     {
+      "pollster": "Independent Voter Project",
+      "date": "2026-10-02",
+      "d": 48,
+      "r": 38,
+      "sample": 2906,
+      "population": "LV"
+    },
+    {
       "pollster": "Berkeley IGS",
       "date": "2026-09-20",
       "d": 58,
@@ -2121,6 +2664,14 @@
       "r": 33,
       "sample": 742,
       "population": "LV"
+    },
+    {
+      "pollster": "UC Berkeley Citrin Center/TrueDot/Politico",
+      "date": "2026-09-14",
+      "d": 48,
+      "r": 34,
+      "sample": 2418,
+      "population": "RV"
     },
     {
       "pollster": "PPIC",

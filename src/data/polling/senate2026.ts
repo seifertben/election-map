@@ -18,8 +18,8 @@
  *     not mix candidate matchups: Wikipedia where it has polls, otherwise
  *     electoral-vote.com plus the supplement.
  *   - Only states with at least one real poll are listed; the rest render
- *     grey. Colorado, Delaware, Illinois, New Jersey, Oregon, West Virginia
- *     and Wyoming have no public 2026 general-election polling.
+ *     grey. Colorado, Delaware, New Jersey, Oregon, West Virginia and Wyoming
+ *     have no public 2026 general-election polling.
  *   - Nebraska's d column is the independent challenger Dan Osborn; the
  *     state has no Democratic nominee, so its d share is Osborn's.
  *   - electoral-vote.com rows carry no sample size; Wikipedia rows usually do.
@@ -43,7 +43,7 @@ export interface SenatePoll {
 }
 
 /** Date of the most recent poll in the committed snapshot. */
-export const SENATE_POLLS_AS_OF = "2026-09-24";
+export const SENATE_POLLS_AS_OF = "2026-10-09";
 
 export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
   "01": [
@@ -64,12 +64,18 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Alaska Survey Research", date: "2026-01-11", d: 48, r: 46 },
   ],
   "05": [
+    { pollster: "GrayHouse", date: "2026-10-04", d: 39, r: 50, sample: 550, population: "LV" },
     { pollster: "J.L. Partners", date: "2026-08-18", d: 35, r: 51, sample: 803, population: "LV" },
     { pollster: "Hendrix College", date: "2026-08-12", d: 47, r: 44, sample: 1217, population: "LV" },
     { pollster: "2040 Strategy Group", date: "2026-07-25", d: 43, r: 46, sample: 586, population: "LV" },
     { pollster: "GrayHouse", date: "2026-02-09", d: 36, r: 58, sample: 550, population: "LV" },
   ],
   "12": [
+    { pollster: "St. Pete Polls", date: "2026-10-07", d: 45, r: 47, sample: 836, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-05", d: 44, r: 49, sample: 3813, population: "LV" },
+    { pollster: "James Madison Institute", date: "2026-10-04", d: 42, r: 52, sample: 1171, population: "LV" },
+    { pollster: "Mason-Dixon", date: "2026-10-01", d: 40, r: 50, sample: 625, population: "LV" },
+    { pollster: "Change Research", date: "2026-09-27", d: 47, r: 48, sample: 1063, population: "LV" },
     { pollster: "Stetson University", date: "2026-09-21", d: 40, r: 51, sample: 830, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-09-21", d: 42, r: 49, sample: 600, population: "LV" },
     { pollster: "St. Pete Polls", date: "2026-09-17", d: 45, r: 45, sample: 913, population: "LV" },
@@ -81,7 +87,9 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "University of North Florida", date: "2026-03-02", d: 38, r: 46, sample: 786, population: "LV" },
   ],
   "13": [
+    { pollster: "Wedgewood Polls", date: "2026-10-03", d: 55, r: 45, sample: 600, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-09-23", d: 50, r: 42, sample: 1200, population: "LV" },
+    { pollster: "Big Data Poll", date: "2026-09-23", d: 51, r: 40, sample: 721, population: "RV" },
     { pollster: "YouGov", date: "2026-09-18", d: 51, r: 41, sample: 3416, population: "RV" },
     { pollster: "Quantus Insights", date: "2026-09-16", d: 48, r: 44, sample: 645, population: "LV" },
     { pollster: "Rasmussen Reports", date: "2026-09-14", d: 51, r: 42, sample: 1019, population: "LV" },
@@ -99,14 +107,26 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "WPA Intelligence", date: "2025-01-15", d: 44, r: 34, sample: 500, population: "LV" },
   ],
   "16": [
+    { pollster: "Peak Insights", date: "2026-09-30", d: 24, r: 49, sample: 500, population: "LV" },
     { pollster: "Advanced Targeting Research", date: "2026-09-16", d: 50, r: 39, sample: 700, population: "RV" },
     { pollster: "Peak Insights", date: "2026-08-13", d: 18, r: 52, sample: 500, population: "LV" },
     { pollster: "The Bullfinch Group", date: "2026-08-07", d: 38, r: 33, sample: 608, population: "LV" },
     { pollster: "The Bullfinch Group", date: "2026-06-01", d: 36, r: 40, sample: 774, population: "RV" },
     { pollster: "Public Policy Polling", date: "2026-03-17", d: 34, r: 48, sample: 639, population: "RV" },
   ],
+  "17": [
+    { pollster: "Public Policy Polling", date: "2026-10-01", d: 49, r: 36, sample: 569, population: "LV" },
+  ],
   "19": [
-    { pollster: "Marist College", date: "2026-09-20", d: 50, r: 42, sample: 1050, population: "RV" },
+    { pollster: "Emerson College", date: "2026-10-06", d: 45, r: 47, sample: 650, population: "LV" },
+    { pollster: "SSRS", date: "2026-10-05", d: 43, r: 45, sample: 801, population: "LV" },
+    { pollster: "Suffolk University", date: "2026-10-04", d: 48, r: 44, sample: 500, population: "LV" },
+    { pollster: "New York Times/Siena University", date: "2026-10-01", d: 47, r: 48, sample: 606, population: "LV" },
+    { pollster: "Rasmussen Reports", date: "2026-09-30", d: 47, r: 43, sample: 1048, population: "LV" },
+    { pollster: "Quantus Insights", date: "2026-09-29", d: 46, r: 47, sample: 738, population: "LV" },
+    { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-09-28", d: 49, r: 47, sample: 1008, population: "LV" },
+    { pollster: "InsiderAdvantage", date: "2026-09-23", d: 47, r: 46, sample: 1200, population: "LV" },
+    { pollster: "Marist University", date: "2026-09-20", d: 50, r: 42, sample: 1050, population: "RV" },
     { pollster: "Trafalgar Group", date: "2026-09-18", d: 42, r: 44, sample: 1089, population: "LV" },
     { pollster: "co/efficient", date: "2026-09-16", d: 42, r: 46, sample: 831, population: "LV" },
     { pollster: "Cygnal", date: "2026-09-11", d: 43, r: 43, sample: 500, population: "LV" },
@@ -128,8 +148,13 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Change Research", date: "2026-01-11", d: 41, r: 44, sample: 1108, population: "LV" },
   ],
   "20": [
+    { pollster: "GBAO", date: "2026-10-04", d: 46, r: 41, sample: 600, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-04", d: 48, r: 45, sample: 2255, population: "LV" },
+    { pollster: "Trafalgar Group", date: "2026-10-01", d: 44, r: 44, sample: 1095, population: "LV" },
+    { pollster: "New York Times/Siena University", date: "2026-09-30", d: 45, r: 45, sample: 605, population: "LV" },
     { pollster: "Wedgewood Polls", date: "2026-09-24", d: 50, r: 48, sample: 500, population: "LV" },
     { pollster: "Emerson College", date: "2026-09-16", d: 45, r: 43, sample: 750, population: "LV" },
+    { pollster: "Global Strategy Group", date: "2026-09-16", d: 49, r: 47, sample: 800, population: "LV" },
     { pollster: "co/efficient", date: "2026-09-10", d: 44, r: 49, sample: 915, population: "LV" },
     { pollster: "Global Strategy Group", date: "2026-08-16", d: 44, r: 43, sample: 800, population: "LV" },
     { pollster: "Public Policy Polling", date: "2026-08-08", d: 45, r: 46, sample: 569, population: "LV" },
@@ -145,6 +170,16 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Public Policy Polling", date: "2026-07-22", d: 37, r: 41, sample: 518, population: "RV" },
   ],
   "23": [
+    { pollster: "Rasmussen Reports", date: "2026-10-08", d: 49, r: 47, sample: 804, population: "LV" },
+    { pollster: "The Washington Post/SSPG", date: "2026-10-05", d: 50, r: 46, sample: 800, population: "LV" },
+    { pollster: "Marist University", date: "2026-10-04", d: 51, r: 47, sample: 1505, population: "RV" },
+    { pollster: "Trafalgar Group", date: "2026-10-01", d: 46, r: 46, sample: 1091, population: "LV" },
+    { pollster: "Wedgewood Polls", date: "2026-10-01", d: 52, r: 48, sample: 400, population: "LV" },
+    { pollster: "CBS News/YouGov", date: "2026-10-01", d: 50, r: 50, sample: 1136, population: "LV" },
+    { pollster: "co/efficient", date: "2026-09-30", d: 46, r: 48, sample: 1240, population: "LV" },
+    { pollster: "Maine People's Resource Center", date: "2026-09-29", d: 49, r: 47, sample: 684, population: "LV" },
+    { pollster: "InsiderAdvantage", date: "2026-09-23", d: 46, r: 46, sample: 1200, population: "LV" },
+    { pollster: "Fabrizio Ward (R)/Impact Research", date: "2026-09-22", d: 50, r: 47, sample: 982, population: "LV" },
     { pollster: "New York Times/Siena University", date: "2026-09-22", d: 46, r: 49, sample: 619, population: "LV" },
     { pollster: "University of New Hampshire", date: "2026-09-21", d: 51, r: 47, sample: 1312, population: "LV" },
     { pollster: "Quantus Insights", date: "2026-09-15", d: 47, r: 48, sample: 621, population: "LV" },
@@ -161,6 +196,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Wedgewood Polls", date: "2026-07-06", d: 48, r: 43, sample: 405, population: "LV" },
   ],
   "25": [
+    { pollster: "MassINC Polling Group", date: "2026-09-22", d: 52, r: 26, sample: 800, population: "LV" },
     { pollster: "University of New Hampshire", date: "2026-09-21", d: 53, r: 30, sample: 564, population: "LV" },
     { pollster: "University of New Hampshire", date: "2026-08-24", d: 49, r: 30, sample: 881, population: "LV" },
     { pollster: "UMass Amherst/YouGov", date: "2026-08-12", d: 51, r: 30, sample: 800, population: "RV" },
@@ -173,9 +209,22 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "SurveyUSA", date: "2025-03-04", d: 45, r: 26, sample: 775, population: "RV" },
   ],
   "26": [
+    { pollster: "Wedgewood Polls", date: "2026-10-09", d: 53, r: 47, sample: 607, population: "LV" },
+    { pollster: "Quantus Insights", date: "2026-10-06", d: 48, r: 47, sample: 762, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-04", d: 49, r: 48, sample: 3949, population: "LV" },
+    { pollster: "Mitchell Research & Communications", date: "2026-10-01", d: 46, r: 41, sample: 682, population: "LV" },
+    { pollster: "Z to A Research", date: "2026-10-01", d: 49, r: 42, sample: 483, population: "LV" },
+    { pollster: "Trafalgar Group", date: "2026-09-30", d: 47, r: 45, sample: 1085, population: "LV" },
+    { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-09-28", d: 50, r: 49, sample: 1028, population: "LV" },
+    { pollster: "Marist University", date: "2026-09-27", d: 51, r: 44, sample: 1235, population: "RV" },
+    { pollster: "Guidant Polling & Strategy", date: "2026-09-27", d: 48, r: 43, sample: 800, population: "LV" },
+    { pollster: "Big Data Poll", date: "2026-09-24", d: 47, r: 42, sample: 678, population: "LV" },
     { pollster: "co/efficient", date: "2026-09-23", d: 45, r: 45, sample: 843, population: "LV" },
+    { pollster: "GBAO", date: "2026-09-22", d: 48, r: 44, sample: 800, population: "LV" },
     { pollster: "New York Times/Siena University", date: "2026-09-22", d: 49, r: 44, sample: 605, population: "LV" },
+    { pollster: "Cygnal (R)/Beacon Research", date: "2026-09-21", d: 45, r: 40, sample: 600, population: "LV" },
     { pollster: "Suffolk University", date: "2026-09-20", d: 47, r: 40, sample: 500, population: "LV" },
+    { pollster: "Torchlight Strategies", date: "2026-09-19", d: 43, r: 44, sample: 643, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-09-17", d: 47, r: 45, sample: 1200, population: "LV" },
     { pollster: "Emerson College", date: "2026-09-14", d: 48, r: 46, sample: 1000, population: "LV" },
     { pollster: "The Washington Post/SSPG", date: "2026-09-14", d: 48, r: 45, sample: 803, population: "LV" },
@@ -233,6 +282,8 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Public Opinion Strategies", date: "2026-06-11", d: 25, r: 44, sample: 500, population: "LV" },
   ],
   "31": [
+    { pollster: "YouGov", date: "2026-10-03", d: 48, r: 47, sample: 1809, population: "LV" },
+    { pollster: "co/efficient", date: "2026-09-30", d: 43, r: 48, sample: 1113, population: "LV" },
     { pollster: "Wedgewood Polls", date: "2026-09-16", d: 48, r: 52, sample: 500, population: "LV" },
     { pollster: "SurveyUSA", date: "2026-09-13", d: 46, r: 42, sample: 503, population: "LV" },
     { pollster: "GBAO", date: "2026-09-08", d: 47, r: 46, sample: 800, population: "LV" },
@@ -246,6 +297,9 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Change Research", date: "2025-04-01", d: 45, r: 46, sample: 524, population: "LV" },
   ],
   "33": [
+    { pollster: "YouGov", date: "2026-10-05", d: 51, r: 43, sample: 1520, population: "LV" },
+    { pollster: "Saint Anselm College", date: "2026-09-29", d: 51, r: 44, sample: 1042, population: "LV" },
+    { pollster: "Trafalgar Group", date: "2026-09-27", d: 47, r: 41, sample: 1082, population: "LV" },
     { pollster: "New York Times/Siena University", date: "2026-09-22", d: 50, r: 45, sample: 613, population: "LV" },
     { pollster: "University of New Hampshire", date: "2026-09-21", d: 50, r: 42, sample: 1418, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-09-17", d: 48, r: 40, sample: 1200, population: "LV" },
@@ -271,14 +325,20 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "1892 Polling", date: "2025-09-04", d: 45, r: 43, sample: 500, population: "LV" },
   ],
   "35": [
+    { pollster: "SurveyUSA", date: "2026-09-30", d: 54, r: 36, sample: 567, population: "LV" },
     { pollster: "Research and Polling", date: "2026-08-28", d: 53, r: 38, sample: 516, population: "LV" },
   ],
   "37": [
+    { pollster: "East Carolina University", date: "2026-10-03", d: 50, r: 43, sample: 810, population: "LV" },
+    { pollster: "Big Data Poll", date: "2026-09-29", d: 47, r: 35, sample: 642, population: "LV" },
     { pollster: "Quantus Insights", date: "2026-09-22", d: 48, r: 43, sample: 686, population: "LV" },
+    { pollster: "Fabrizio Ward (R)/Impact Research", date: "2026-09-20", d: 53, r: 42, sample: 1806, population: "LV" },
+    { pollster: "Opinion Diagnostics", date: "2026-09-20", d: 51, r: 41, sample: 857, population: "LV" },
     { pollster: "YouGov", date: "2026-09-18", d: 52, r: 41, sample: 3864, population: "RV" },
     { pollster: "InsiderAdvantage", date: "2026-09-17", d: 48, r: 43, sample: 1200, population: "LV" },
     { pollster: "High Point University", date: "2026-09-16", d: 49, r: 39, sample: 813, population: "RV" },
     { pollster: "Harper Polling", date: "2026-09-15", d: 49, r: 34, sample: 608, population: "LV" },
+    { pollster: "Catawba College/YouGov", date: "2026-09-15", d: 47, r: 35, sample: 885, population: "LV" },
     { pollster: "The Trafalgar Group", date: "2026-09-10", d: 48, r: 42, sample: 1084, population: "LV" },
     { pollster: "East Carolina University", date: "2026-09-03", d: 46, r: 39, sample: 675, population: "LV" },
     { pollster: "Elon University/YouGov", date: "2026-08-31", d: 49, r: 38, sample: 565, population: "LV" },
@@ -346,13 +406,17 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "University of New Hampshire", date: "2026-04-20", d: 52, r: 34, sample: 556, population: "LV" },
   ],
   "45": [
+    { pollster: "InsiderAdvantage", date: "2026-09-29", d: 45, r: 46, sample: 1200, population: "LV" },
+    { pollster: "Trafalgar Group", date: "2026-09-25", d: 42, r: 43, sample: 1087, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-09-09", d: 43, r: 45, sample: 1200, population: "LV" },
     { pollster: "Abacus Data", date: "2026-08-28", d: 42, r: 55, sample: 306, population: "LV" },
     { pollster: "Impact Research", date: "2026-08-24", d: 41, r: 41, sample: 700, population: "LV" },
     { pollster: "Impact Research", date: "2026-08-22", d: 42, r: 39, sample: 900, population: "LV" },
   ],
   "46": [
+    { pollster: "Zenith Research", date: "2026-09-27", d: 47, r: 53, sample: 500, population: "LV" },
     { pollster: "Public Policy Polling", date: "2026-09-09", d: 42, r: 45, sample: 629, population: "RV" },
+    { pollster: "Lake Research Partners", date: "2026-08-30", d: 51, r: 44, sample: 500, population: "LV" },
     { pollster: "Impact Research", date: "2026-08-17", d: 44, r: 44, sample: 500, population: "LV" },
     { pollster: "Public Opinion Strategies", date: "2026-07-09", d: 33, r: 56, sample: 500, population: "LV" },
     { pollster: "Public Policy Polling", date: "2026-05-30", d: 40, r: 44, sample: 726, population: "RV" },
@@ -364,6 +428,16 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Targoz Market Research", date: "2026-08-26", d: 31, r: 51, sample: 1157, population: "RV" },
   ],
   "48": [
+    { pollster: "Trafalgar Group", date: "2026-10-08", d: 47, r: 44, sample: 1086, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-05", d: 50, r: 44, sample: 3625, population: "LV" },
+    { pollster: "New York Times/Siena University", date: "2026-09-30", d: 51, r: 45, sample: 615, population: "LV" },
+    { pollster: "Rasmussen Reports", date: "2026-09-29", d: 46, r: 45, sample: 1128, population: "LV" },
+    { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-09-28", d: 51, r: 49, sample: 881, population: "LV" },
+    { pollster: "Guidant Polling & Strategy", date: "2026-09-28", d: 47, r: 44, sample: 800, population: "LV" },
+    { pollster: "UMass Lowell/YouGov", date: "2026-09-28", d: 45, r: 45, sample: 850, population: "LV" },
+    { pollster: "Pulse Decision Science", date: "2026-09-27", d: 45, r: 48, sample: 800, population: "LV" },
+    { pollster: "Big Data Poll", date: "2026-09-26", d: 47, r: 45, sample: 698, population: "LV" },
+    { pollster: "Stratus Intelligence", date: "2026-09-24", d: 48, r: 48, sample: 856, population: "LV" },
     { pollster: "Texas Public Opinion Research", date: "2026-09-22", d: 49, r: 44, sample: 1007, population: "LV" },
     { pollster: "Marist University", date: "2026-09-20", d: 50, r: 44, sample: 1139, population: "RV" },
     { pollster: "Texas Southern University", date: "2026-09-19", d: 47, r: 46, sample: 1800, population: "LV" },
