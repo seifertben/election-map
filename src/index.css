@@ -21,6 +21,11 @@ body,
   height: 100%;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -966,18 +971,97 @@ body {
   }
 
   .map-panel {
-    min-height: 420px;
+    padding: 8px;
   }
 
+  /* Size the map from its viewBox so it keeps the correct proportions on
+     every browser (Safari does not derive height from a viewBox alone). */
   .map-wrap {
     height: auto;
+    aspect-ratio: 975 / 610;
   }
 
   .map-svg {
-    height: auto;
+    height: 100%;
   }
 
   .side {
     overflow-y: visible;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 12px 12px 20px;
+  }
+
+  .header__brand {
+    gap: 12px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .header__actions {
+    width: 100%;
+  }
+
+  .header__actions button {
+    flex: 1;
+    padding: 10px 8px;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 14px 0 12px;
+  }
+
+  .tab {
+    flex: 1 1 auto;
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .map-panel {
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  /* Give the touch targets a comfortable size on small screens. */
+  .map-controls button {
+    min-width: 42px;
+    min-height: 42px;
+    font-size: 16px;
+  }
+
+  .scoreboard__number {
+    font-size: 28px;
+  }
+
+  /* Keep form controls at 16px so iOS Safari does not zoom on focus. */
+  .ratings__select,
+  .analyzer__row input[type="range"]:not(.analyzer__split-knob) {
+    font-size: 16px;
+  }
+
+  .analyzer__help {
+    padding: 16px 10px;
+  }
+
+  .analyzer__help-card {
+    max-height: calc(100dvh - 32px);
+  }
+
+  .analyzer__help-head,
+  .analyzer__help-body {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .footer {
+    margin-top: 14px;
   }
 }
