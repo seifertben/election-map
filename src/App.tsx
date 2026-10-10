@@ -17,6 +17,7 @@ import { PollingPanel } from "./components/PollingPanel";
 import { RatingsPanel } from "./components/RatingsPanel";
 import { RegionMap } from "./components/RegionMap";
 import { Scoreboard } from "./components/Scoreboard";
+import { SiteAd } from "./components/SiteAd";
 import { StateAnalyzer } from "./components/StateAnalyzer";
 import { SwingPanel } from "./components/SwingPanel";
 import {
@@ -943,6 +944,8 @@ export default function App() {
         contested in 2026 and the Governor map the 36 governorships on the
         ballot; all other states are grey.
       </footer>
+
+      <SiteAd />
     </div>
   );
 }
