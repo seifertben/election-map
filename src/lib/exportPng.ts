@@ -5,20 +5,20 @@ export interface ExportTally {
 }
 
 /**
- * Rasterize a live SVG element to a PNG download. All colors must be set as
+ * Rasterize a live SVG element to a PNG blob. All colors must be set as
  * presentation attributes on the elements themselves (not via external CSS)
  * so the serialized clone renders correctly.
  */
-export async function exportSvgAsPng(
+export async function renderSvgAsPng(
   svg: SVGSVGElement,
-  filename: string,
   background = "#ffffff",
   title?: string,
   tallies: ExportTally[] = [],
-): Promise<void> {
+): Promise<Blob> {
   const rect = svg.getBoundingClientRect();
-  const width = Math.max(1, Math.round(rect.width));
-  const height = Math.max(1, Math.round(rect.height));
+  // Keep post images and their title/tallies legible even on a phone.
+  const width = Math.max(1000, Math.round(rect.width));
+  const height = Math.max(1, Math.round(rect.height * width / Math.max(1, rect.width)));
   const bannerHeight = 44;
   const titleHeight = title ? 64 : 0;
   const tallyHeight = tallies.length > 0 ? 52 : 0;
@@ -109,6 +109,18 @@ export async function exportSvgAsPng(
     canvas.toBlob(resolve, "image/png"),
   );
   if (!blob) throw new Error("Failed to encode PNG");
+  return blob;
+}
+
+/** Download the same PNG that native sharing attaches to a post. */
+export async function exportSvgAsPng(
+  svg: SVGSVGElement,
+  filename: string,
+  background = "#ffffff",
+  title?: string,
+  tallies: ExportTally[] = [],
+): Promise<void> {
+  const blob = await renderSvgAsPng(svg, background, title, tallies);
 
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

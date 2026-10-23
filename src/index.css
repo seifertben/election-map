@@ -81,6 +81,101 @@ body {
   cursor: default;
 }
 
+.share-map {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.25);
+  overflow-y: auto;
+}
+
+.share-map::backdrop {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.share-map__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.share-map h2,
+.share-map h3 {
+  margin: 0;
+}
+
+.share-map h2 { font-size: 22px; }
+.share-map h3 { font-size: 16px; }
+.share-map p { color: var(--ink-soft); font-size: 13px; line-height: 1.6; }
+
+.share-map button,
+.share-map__actions a,
+.share-map__sites a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.share-map button:hover,
+.share-map a:hover { background: #f3f4f6; }
+.share-map button:disabled { opacity: 0.5; cursor: default; }
+.share-map .share-map__close { font-size: 22px; padding: 0; width: 42px; }
+
+.share-map__sites {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 20px 0 12px;
+}
+
+.share-map__sites a { justify-content: space-between; }
+.share-map__sites span { color: var(--ink-soft); }
+.share-map__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.share-map__link {
+  display: block;
+  margin-top: 16px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.share-map__link input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--bg);
+  font: inherit;
+  font-weight: 400;
+}
+
+.share-map__image { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px; }
+.share-map__image img { display: block; width: 100%; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; }
+.share-map .share-map__note { font-size: 12px; }
+.share-map__status { margin-bottom: 0; }
+.share-map__status:empty { display: none; }
+
 .logo {
   display: block;
   flex: none;

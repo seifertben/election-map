@@ -6,7 +6,9 @@ import { afterEach, describe, expect, it } from "vitest";
 import { RATING_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
-import { SENATE_2026_RATINGS } from "./data/senate2026";
+import { SENATE_2026_FIPS, SENATE_2026_RATINGS } from "./data/senate2026";
+import { encodeShareHash } from "./state/encoding";
+import type { Assignment } from "./types";
 import { swingColor } from "./lib/houseSwing";
 import App from "./App";
 
@@ -96,6 +98,47 @@ async function waitForStateFlush() {
     await new Promise((r) => setTimeout(r, 0));
   });
 }
+
+describe("App social map links", () => {
+  it.each([false, true])("reopens the shared race and preserves cleared seats (fully cleared: %s)", async (cleared) => {
+    const originalFetch = globalThis.fetch;
+    const originalUrl = window.location.href;
+    globalThis.fetch = fetchMock as typeof fetch;
+    const ids = { president: [], house: [], governor: [], senate: SENATE_2026_FIPS };
+    const assignments: Record<string, Assignment> = cleared ? {} : { "13": "D", "01": "TOSS" };
+    const hash = encodeShareHash(assignments, ids, "senate");
+    window.history.replaceState(null, "", `/?${hash.slice(1)}`);
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    try {
+      act(() => root.render(<App />));
+      await waitForStateFlush();
+      await waitForStateFlush();
+      const fill = (id: string) => container!.querySelector(`path[data-id="${id}"]`)!.getAttribute("fill");
+      expect(fill("13")).toBe(cleared ? "#e4e6eb" : RATING_COLOR.SOLID_D);
+      expect(fill("23")).toBe("#e4e6eb");
+      expect(window.location.search).toBe("");
+      expect(window.location.hash).toContain("m=senate");
+      // The app rewrites the incoming query to its editable hash. A reload
+      // must keep that snapshot, including a completely unassigned race.
+      act(() => root.unmount());
+      const reloaded = createRoot(container);
+      try {
+        act(() => reloaded.render(<App />));
+        await waitForStateFlush();
+        await waitForStateFlush();
+        expect(fill("13")).toBe(cleared ? "#e4e6eb" : RATING_COLOR.SOLID_D);
+        expect(fill("23")).toBe("#e4e6eb");
+      } finally {
+        act(() => reloaded.unmount());
+      }
+    } finally {
+      globalThis.fetch = originalFetch;
+      window.history.replaceState(null, "", originalUrl);
+    }
+  }, 15000);
+});
 
 describe("App polling integration", () => {
   it("keeps the ratings and polling selects mutually exclusive", async () => {

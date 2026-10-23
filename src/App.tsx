@@ -17,6 +17,7 @@ import { PollingPanel } from "./components/PollingPanel";
 import { RatingsPanel } from "./components/RatingsPanel";
 import { RegionMap } from "./components/RegionMap";
 import { Scoreboard } from "./components/Scoreboard";
+import { ShareMap } from "./components/ShareMap";
 import { SiteAd } from "./components/SiteAd";
 import { StateAnalyzer } from "./components/StateAnalyzer";
 import { SwingPanel } from "./components/SwingPanel";
@@ -40,7 +41,7 @@ import {
   RATINGS_SOURCE_BY_ID,
 } from "./data/ratingsSources";
 import type { DemographicsData } from "./lib/analyzer";
-import { exportSvgAsPng } from "./lib/exportPng";
+import { exportSvgAsPng, renderSvgAsPng } from "./lib/exportPng";
 import { houseSwingOverlay, swingSeatCounts } from "./lib/houseSwing";
 import {
   MARKET_NONE_ID,
@@ -66,7 +67,7 @@ import {
   presidentScore,
   senateScore,
 } from "./lib/scoreboard";
-import { decodeHash, encodeHash } from "./state/encoding";
+import { decodeHash, encodeHash, encodeShareHash } from "./state/encoding";
 import type { RegionIds } from "./state/encoding";
 import { createInitialState, reducer } from "./state/reducer";
 import type { Assignment, Mode, RegionFeature } from "./types";
@@ -158,6 +159,7 @@ export default function App() {
   const [brush, setBrush] = useState<Brush>("CYCLE");
   const [hydrated, setHydrated] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const [sourceByMode, setSourceByMode] = useState<Record<RatingMode, string>>({
     senate: DEFAULT_RATINGS_SOURCE,
     governor: DEFAULT_RATINGS_SOURCE,
@@ -246,7 +248,15 @@ export default function App() {
   // Load a shared map from the URL hash once the data is ready.
   useEffect(() => {
     if (!regionIds || hydrated) return;
-    const decoded = decodeHash(window.location.hash, regionIds);
+    const decoded = decodeHash(window.location.hash || window.location.search, regionIds);
+    // Social sites retain query parameters more reliably than URL fragments.
+    // Consume the incoming snapshot so future reloads use the edited hash.
+    const incoming = new URLSearchParams(window.location.search);
+    if (incoming.has("c")) {
+      for (const key of ["m", "n", "c"]) incoming.delete(key);
+      const search = incoming.toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${search ? `?${search}` : ""}${window.location.hash}`);
+    }
     // Default the President map to the 2024 results (there is no presidential
     // election in 2026) and the race maps to the Cook 2026 ratings whenever no
     // assignments for them were decoded from the URL.
@@ -642,6 +652,23 @@ export default function App() {
     }
   }, [regionIds, state.assignments, state.mode]);
 
+  const share = useMemo(() => regionIds ? {
+    url: `${window.location.origin}${window.location.pathname}?${encodeShareHash(projected, regionIds, state.mode).slice(1)}`,
+    title: `My ${state.mode === "president" ? "2024" : "2026"} ${MODE_LABEL[state.mode]} election map`,
+  } : null, [regionIds, projected, state.mode]);
+
+  const prepareShareImage = useCallback(async () => {
+    if (!svgRef.current) throw new Error("Map unavailable");
+    const blob = await renderSvgAsPng(
+      svgRef.current,
+      "#ffffff",
+      `My ${state.mode === "president" ? "2024" : "2026"} Election Mapper ${MODE_LABEL[state.mode]} Map`,
+      score.segments.map((segment) => ({ label: segment.label, value: segment.count, color: segment.color })),
+    );
+    return new File([blob], `election-map-${state.mode}.png`, { type: "image/png" });
+  }, [state.mode, score]);
+  const closeShare = useCallback(() => setShareOpen(false), []);
+
   const handleSourceChange = useCallback(
     (mode: RatingMode, sourceId: string) => {
       const source = RATINGS_SOURCE_BY_ID[sourceId];
@@ -807,6 +834,9 @@ export default function App() {
             <h1>2026 Election Mapper</h1>
           </div>
           <div className="header__actions">
+            <button type="button" onClick={() => setShareOpen(true)} disabled={loading || analyzerOpen}>
+              Share map
+            </button>
             <button type="button" onClick={handleCopyLink} disabled={loading}>
               {copied ? "✅ Link copied!" : "🔗 Copy link"}
             </button>
@@ -816,6 +846,10 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {shareOpen && share ? (
+        <ShareMap share={share} prepareImage={prepareShareImage} onClose={closeShare} />
+      ) : null}
 
       <ModeTabs
         mode={state.mode}

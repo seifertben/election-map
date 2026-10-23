@@ -65,6 +65,11 @@ PNG.
 - Live totals bar for the active map.
 - Undo, per-map reset, reset-all.
 - Copy a shareable link (the whole map is encoded in the URL hash).
+- **Share map** opens post drafts for X, Facebook, Bluesky, Threads, Reddit,
+  LinkedIn, WhatsApp and Telegram. Compact links reopen the selected race's
+  seat calls as an editable map, including polling and market projections.
+  Download the PNG to attach the exact map colors and seat totals to a post,
+  or use native link/image sharing to other installed apps where supported.
 - Export the current map as a PNG.
 
 ## Getting started

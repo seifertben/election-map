@@ -28,6 +28,23 @@ const FROM_CHAR: Record<string, Assignment> = {
   "9": "SOLID_R",
 };
 
+const SHARE_DIGITS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+/** Compact snapshot of the active race, small enough for social post links. */
+export function encodeShareHash(
+  assignments: Record<string, Assignment>,
+  ids: RegionIds,
+  mode: Mode,
+): string {
+  let value = BigInt(encodeRegions(ids[mode], assignments) || "0");
+  let packed = "";
+  do {
+    packed = SHARE_DIGITS[Number(value & 63n)] + packed;
+    value >>= 6n;
+  } while (value > 0n);
+  return `#${new URLSearchParams({ m: mode, n: String(ids[mode].length), c: packed })}`;
+}
+
 /** Encode one mode's assignments as a fixed-width string over `ids`. */
 export function encodeRegions(
   ids: string[],
@@ -75,7 +92,7 @@ export interface DecodedHash {
 
 /** Parse a URL hash fragment back into assignments, ignoring stale lengths. */
 export function decodeHash(hash: string, ids: RegionIds): DecodedHash {
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
+  const params = new URLSearchParams(hash.replace(/^[#?]/, ""));
   const modeParam = params.get("m");
   const mode: Mode | null =
     modeParam === "president" ||
@@ -96,16 +113,33 @@ export function decodeHash(hash: string, ids: RegionIds): DecodedHash {
             : "g",
     );
     if (!raw || raw.length !== ids[key].length) return {};
+    if (/^0+$/.test(raw)) return Object.fromEntries(ids[key].map((id) => [id, null]));
     return decodeRegions(ids[key], raw);
   };
 
+  const assignments: Assignments = {
+    president: read("president"),
+    senate: read("senate"),
+    house: read("house"),
+    governor: read("governor"),
+  };
+  const compact = params.get("c");
+  if (mode && compact && params.get("n") === String(ids[mode].length) &&
+      /^[A-Za-z0-9_-]+$/.test(compact) &&
+      compact.length <= Math.ceil(ids[mode].length * Math.log2(10) / 6)) {
+    let value = 0n;
+    for (const char of compact) value = (value << 6n) + BigInt(SHARE_DIGITS.indexOf(char));
+    const digits = value.toString().padStart(ids[mode].length, "0");
+    if (digits.length === ids[mode].length) {
+      // Explicit nulls preserve cleared maps instead of restoring defaults.
+      assignments[mode] = Object.fromEntries(
+        ids[mode].map((id, index) => [id, FROM_CHAR[digits[index]]]),
+      );
+    }
+  }
+
   return {
     mode,
-    assignments: {
-      president: read("president"),
-      senate: read("senate"),
-      house: read("house"),
-      governor: read("governor"),
-    },
+    assignments,
   };
 }

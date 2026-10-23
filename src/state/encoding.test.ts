@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Assignments } from "../types";
-import { decodeHash, decodeRegions, encodeHash, encodeRegions } from "./encoding";
+import { decodeHash, decodeRegions, encodeHash, encodeRegions, encodeShareHash } from "./encoding";
 import type { RegionIds } from "./encoding";
 
 const ids: RegionIds = {
@@ -33,6 +33,45 @@ describe("encodeRegions / decodeRegions", () => {
       "01": "SOLID_D",
       "04": "LEAN_R",
     });
+  });
+});
+
+describe("compact social map links", () => {
+  it("round-trips only the selected race, including rating tones and leading clears", () => {
+    const map = { "0102": "LEAN_D", "0200": "SOLID_R" } as const;
+    const hash = encodeShareHash(map, ids, "house");
+    const result = decodeHash(hash.replace("#", "?"), ids);
+    expect(result.mode).toBe("house");
+    expect(result.assignments.house).toEqual({ "0101": null, ...map });
+    expect(result.assignments.senate).toEqual({});
+  });
+
+  it("keeps even a maximum-length 435-district URL below Bluesky's post limit", () => {
+    const districtIds = Array.from({ length: 435 }, (_, i) => String(i));
+    const houseIds = { ...ids, house: districtIds };
+    const map = Object.fromEntries(districtIds.map((id) => [id, "SOLID_R" as const]));
+    const hash = encodeShareHash(map, houseIds, "house");
+    const url = `https://www.mapelection.com/?${hash.slice(1)}`;
+    expect(url.length).toBeLessThanOrEqual(300);
+    expect(decodeHash(hash, houseIds).assignments.house).toEqual(map);
+  });
+
+  it("preserves fully cleared maps both in social links and after a reload", () => {
+    const shared = decodeHash(encodeShareHash({}, ids, "house"), ids);
+    const emptyHouse = { "0101": null, "0102": null, "0200": null };
+    expect(shared.assignments.house).toEqual(emptyHouse);
+    const reloaded = decodeHash(encodeHash(shared.assignments, ids, "house"), ids);
+    expect(reloaded.assignments.house).toEqual(emptyHouse);
+  });
+
+  it.each([
+    "?m=house&n=4&c=B",
+    "?m=house&n=3&c=%21",
+    "?m=house&n=3&c=___",
+    "?m=house&n=3&c=__",
+    "?m=house&n=3&c=",
+  ])("ignores malformed or stale snapshots: %s", (hash) => {
+    expect(decodeHash(hash, ids).assignments.house).toEqual({});
   });
 });
 
