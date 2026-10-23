@@ -105,11 +105,105 @@ describe("RegionMap", () => {
       expect(popup.querySelector("tbody")!.textContent).not.toContain("2026-10-15");
 
       hoverState("10");
+      act(() => vi.advanceTimersByTime(1000));
       expect(popup.textContent).toContain("no polls");
       expect(popup.querySelector("details")).toBeNull();
       hoverState("06");
       expect(popup.querySelector("details")!.open).toBe(false);
       act(() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })));
+      expect(popup.style.display).toBe("none");
+    } finally {
+      act(() => root.unmount());
+      vi.useRealTimers();
+    }
+  });
+
+  it("waits one second before switching polling states and cancels the switch when entering the popup", () => {
+    vi.useFakeTimers();
+    const features = loadStates().filter((feature) =>
+      ["06", "10", "48"].includes(String(feature.properties.fips)),
+    );
+    const polls: RacePoll[] = [
+      { pollster: "Alpha", date: "2026-10-22", d: 52, r: 44 },
+    ];
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    const option: PollOption = { id: "all", label: "All polls", kind: "average" };
+    act(() => root.render(
+      <RegionMap
+        features={features}
+        getId={(feature) => String(feature.properties.fips)}
+        getLabel={(feature) => String(feature.properties.name)}
+        isActive={() => true}
+        assignments={{}}
+        onRegionClick={() => {}}
+        poll={{
+          fills: {},
+          summaryFor: () => summarizePolls(polls, option),
+          pollsFor: () => polls,
+          optionLabel: option.label,
+          isPainted: () => false,
+        }}
+      />,
+    ));
+    const hoverState = (id: string, x = 150) => act(() => {
+      container!.querySelector(`path[data-id="${id}"]`)!.dispatchEvent(
+        new MouseEvent("pointermove", { clientX: x, clientY: 150, bubbles: true }),
+      );
+    });
+    const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
+    try {
+      hoverState("06");
+      const popup = container.querySelector<HTMLDivElement>(".tooltip")!;
+      const anchor = { left: popup.style.left, top: popup.style.top };
+      expect(popup.textContent).toContain("California");
+
+      hoverState("10", 250);
+      advance(700);
+      hoverState("48", 350);
+      advance(700);
+      expect(popup.textContent).toContain("California");
+      expect({ left: popup.style.left, top: popup.style.top }).toEqual(anchor);
+      // Reaching the popup cancels every pending neighboring-state update.
+      act(() => popup.dispatchEvent(new MouseEvent("pointerover", { bubbles: true })));
+      advance(1500);
+      expect(popup.textContent).toContain("California");
+      act(() => popup.querySelector("summary")!.click());
+      expect(popup.querySelector("details")!.open).toBe(true);
+
+      // A continuous one-second hover deliberately changes the state, even
+      // when the pointer keeps moving within it.
+      hoverState("10", 250);
+      advance(600);
+      hoverState("10", 270);
+      advance(399);
+      expect(popup.textContent).toContain("California");
+      advance(1);
+      expect(popup.textContent).toContain("Delaware");
+      expect(popup.querySelector("details")!.open).toBe(false);
+      expect(popup.style.left).toBe("282px");
+
+      // Returning to the original state cancels a pending switch too.
+      hoverState("48");
+      advance(500);
+      hoverState("10");
+      advance(1000);
+      expect(popup.textContent).toContain("Delaware");
+
+      // Crossing blank map space gets the same one-second grace period.
+      act(() => container!.querySelector("svg")!.dispatchEvent(
+        new MouseEvent("pointerout", { bubbles: true }),
+      ));
+      advance(999);
+      expect(popup.style.display).not.toBe("none");
+      act(() => popup.dispatchEvent(new MouseEvent("pointerover", { bubbles: true })));
+      advance(1000);
+      expect(popup.style.display).not.toBe("none");
+
+      hoverState("48");
+      act(() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })));
+      advance(1500);
       expect(popup.style.display).toBe("none");
     } finally {
       act(() => root.unmount());

@@ -92,6 +92,8 @@ const MAX_SCALE = 12;
 const DEFAULT_VIEW: ViewTransform = { k: 1, x: 0, y: 0 };
 /** Distance (px) the pointer may travel before a click counts as a drag. */
 const CLICK_TOLERANCE_PX = 5;
+/** Keep a polling popup steady while the pointer crosses neighboring states. */
+const POLL_HOVER_DELAY_MS = 1000;
 
 function clampView(view: ViewTransform): ViewTransform {
   const k = Math.min(MAX_SCALE, Math.max(MIN_SCALE, view.k));
@@ -124,6 +126,12 @@ export function RegionMap({
   const [hover, setHover] = useState<HoverState | null>(null);
   const tooltipAnchor = useRef({ x: 0, y: 0 });
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingHover = useRef<{
+    id: string;
+    x: number;
+    y: number;
+    timer: ReturnType<typeof setTimeout>;
+  } | null>(null);
   const hoverPolls = useMemo(
     () => hover ? poll?.pollsFor?.(hover.id) ?? [] : [],
     [hover?.id, poll],
@@ -135,26 +143,40 @@ export function RegionMap({
     hideTimer.current = null;
   }, []);
 
-  const hideTooltip = useCallback(() => {
+  const cancelHoverUpdate = useCallback(() => {
+    if (pendingHover.current) clearTimeout(pendingHover.current.timer);
+    pendingHover.current = null;
+  }, []);
+
+  const keepTooltip = useCallback(() => {
     cancelHideTooltip();
+    cancelHoverUpdate();
+  }, [cancelHideTooltip, cancelHoverUpdate]);
+
+  const hideTooltip = useCallback(() => {
+    keepTooltip();
     const focused = document.activeElement;
     if (focused instanceof HTMLElement && tooltipRef.current?.contains(focused)) {
       focused.blur();
     }
     setHover(null);
-  }, [cancelHideTooltip]);
+  }, [keepTooltip]);
 
   const scheduleHideTooltip = () => {
     cancelHideTooltip();
+    cancelHoverUpdate();
     if (!interactiveTooltip) {
       hideTooltip();
     } else if (!tooltipRef.current?.contains(document.activeElement)) {
-      // Leave time to cross the small gap from the state to the popup.
-      hideTimer.current = setTimeout(hideTooltip, 250);
+      // The same grace period covers blank space on the way to the popup.
+      hideTimer.current = setTimeout(hideTooltip, POLL_HOVER_DELAY_MS);
     }
   };
 
-  useEffect(() => cancelHideTooltip, [cancelHideTooltip]);
+  useEffect(() => keepTooltip, [keepTooltip]);
+  useEffect(() => {
+    cancelHoverUpdate();
+  }, [poll?.optionLabel, cancelHoverUpdate]);
 
   const positionPollTooltip = useCallback(() => {
     const tip = tooltipRef.current;
@@ -167,7 +189,18 @@ export function RegionMap({
     tip.style.top = `${Math.max(padding, top)}px`;
   }, [interactiveTooltip]);
 
-  useLayoutEffect(positionPollTooltip, [positionPollTooltip, hover?.id, poll?.optionLabel]);
+  useLayoutEffect(() => {
+    if (interactiveTooltip) {
+      positionPollTooltip();
+    } else if (hover) {
+      const rect = wrapRef.current?.getBoundingClientRect();
+      const tip = tooltipRef.current;
+      if (rect && tip) {
+        tip.style.left = `${tooltipAnchor.current.x - rect.left}px`;
+        tip.style.top = `${tooltipAnchor.current.y - rect.top}px`;
+      }
+    }
+  }, [positionPollTooltip, hover?.id, poll?.optionLabel]);
 
   useEffect(() => {
     if (!interactiveTooltip) return;
@@ -501,6 +534,31 @@ export function RegionMap({
       return;
     }
     cancelHideTooltip();
+    const id = el.dataset.id ?? "";
+    if (interactiveTooltip && id !== hover?.id) {
+      if (pendingHover.current?.id === id) {
+        // Movement within the next state updates its anchor without
+        // restarting the one-second wait.
+        pendingHover.current.x = event.clientX;
+        pendingHover.current.y = event.clientY;
+      } else {
+        cancelHoverUpdate();
+        pendingHover.current = {
+          id,
+          x: event.clientX,
+          y: event.clientY,
+          timer: setTimeout(() => {
+            const next = pendingHover.current;
+            if (!next) return;
+            pendingHover.current = null;
+            tooltipAnchor.current = { x: next.x, y: next.y };
+            setHover({ id: next.id });
+          }, POLL_HOVER_DELAY_MS),
+        };
+      }
+      return;
+    }
+    cancelHoverUpdate();
     // Move the tooltip via the DOM so mousemove doesn't re-render the map;
     // React state only changes when the hovered region changes.
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -616,9 +674,9 @@ export function RegionMap({
         className={interactiveTooltip ? "tooltip tooltip--interactive" : "tooltip"}
         role={interactiveTooltip ? "dialog" : undefined}
         aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} polling details` : undefined}
-        onPointerEnter={cancelHideTooltip}
+        onPointerEnter={keepTooltip}
         onPointerLeave={scheduleHideTooltip}
-        onFocus={cancelHideTooltip}
+        onFocus={keepTooltip}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) scheduleHideTooltip();
         }}
