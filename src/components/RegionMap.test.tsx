@@ -2,7 +2,9 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { pollsForOption, summarizePolls } from "../lib/polling";
+import type { PollOption, RacePoll } from "../lib/polling";
 import type { Assignment, RegionFeature } from "../types";
 import { RegionMap } from "./RegionMap";
 
@@ -34,6 +36,87 @@ afterEach(() => {
 });
 
 describe("RegionMap", () => {
+  it("keeps the polling popup reachable, expands every included poll, and resets on state or option changes", () => {
+    vi.useFakeTimers();
+    const features = loadStates().filter((feature) => ["06", "10"].includes(String(feature.properties.fips)));
+    const polls: RacePoll[] = [
+      { pollster: "Alpha", date: "2026-10-22", d: 52, r: 44, sample: 1200, population: "LV" },
+      { pollster: "Beta", date: "2026-10-20", d: 50, r: 45, population: "RV" },
+      { pollster: "Alpha", date: "2026-10-15", d: 48, r: 46 },
+    ];
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const clicked = vi.fn();
+    const root = createRoot(container);
+    const render = (option: PollOption) => act(() => root.render(
+      <RegionMap
+        features={features}
+        getId={(feature) => String(feature.properties.fips)}
+        getLabel={(feature) => String(feature.properties.name)}
+        isActive={() => true}
+        assignments={{}}
+        onRegionClick={clicked}
+        poll={{
+          fills: {},
+          summaryFor: (id) => id === "06" ? summarizePolls(polls, option) : null,
+          pollsFor: (id) => id === "06" ? pollsForOption(polls, option) : [],
+          optionLabel: option.label,
+          isPainted: () => false,
+        }}
+      />,
+    ));
+    const hoverState = (id: string) => act(() => {
+      container!.querySelector(`path[data-id="${id}"]`)!.dispatchEvent(
+        new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true }),
+      );
+    });
+    try {
+      render({ id: "all", label: "Average of all polls", kind: "average", window: null });
+      hoverState("06");
+      const popup = container.querySelector<HTMLDivElement>(".tooltip")!;
+      expect(popup.classList.contains("tooltip--interactive")).toBe(true);
+      const anchor = { left: popup.style.left, top: popup.style.top };
+      act(() => {
+        container!.querySelector('path[data-id="06"]')!.dispatchEvent(
+          new MouseEvent("pointermove", { clientX: 200, clientY: 200, bubbles: true }),
+        );
+      });
+      expect({ left: popup.style.left, top: popup.style.top }).toEqual(anchor);
+
+      // Cross the gap from the SVG to the popup without losing the state.
+      act(() => {
+        container!.querySelector("svg")!.dispatchEvent(new MouseEvent("pointerout", { bubbles: true }));
+        popup.dispatchEvent(new MouseEvent("pointerover", { bubbles: true }));
+        vi.advanceTimersByTime(300);
+      });
+      expect(popup.style.display).not.toBe("none");
+      act(() => popup.querySelector("summary")!.click());
+      expect(popup.querySelector("details")!.open).toBe(true);
+      const rows = popup.querySelectorAll("tbody tr");
+      expect(rows).toHaveLength(3);
+      expect(rows[0].textContent).toContain("Alpha2026-10-2252%44%D +8.01,200likely voters");
+      expect(rows[1].textContent).toContain("registered voters");
+      expect(clicked).not.toHaveBeenCalled();
+
+      render({ id: "alpha", label: "Alpha", kind: "pollster", pollster: "Alpha" });
+      expect(popup.querySelector("details")!.open).toBe(false);
+      act(() => popup.querySelector("summary")!.click());
+      expect(popup.querySelectorAll("tbody tr")).toHaveLength(1);
+      expect(popup.querySelector("tbody")!.textContent).not.toContain("2026-10-15");
+
+      hoverState("10");
+      expect(popup.textContent).toContain("no polls");
+      expect(popup.querySelector("details")).toBeNull();
+      hoverState("06");
+      expect(popup.querySelector("details")!.open).toBe(false);
+      act(() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })));
+      expect(popup.style.display).toBe("none");
+    } finally {
+      act(() => root.unmount());
+      vi.useRealTimers();
+    }
+  });
+
   it("renders one path per region and dispatches clicks by id", () => {
     const features = loadStates();
     const clicked: string[] = [];

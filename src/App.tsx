@@ -53,6 +53,7 @@ import {
   POLL_DATASETS,
   POLL_NONE_OPTION_ID,
   pollMarginColor,
+  pollsForOption,
   projectedAssignments,
   summarizePolls,
 } from "./lib/polling";
@@ -405,7 +406,11 @@ export default function App() {
         }
       }
     }
-    return { fills, summaries, defaults, optionLabel: pollOption.label };
+    return {
+      fills, summaries, defaults,
+      option: pollOption,
+      optionLabel: pollOption.label,
+    };
   }, [raceMode, pollOption]);
 
   const pollOverlay = useMemo<PollOverlay | null>(() => {
@@ -422,6 +427,8 @@ export default function App() {
     return {
       fills: pollData.fills,
       summaryFor: (id) => pollData.summaries.get(id) ?? null,
+      pollsFor: (id) =>
+        pollsForOption(POLL_DATASETS[raceMode].polls[id] ?? [], pollData.option),
       optionLabel: pollData.optionLabel,
       isPainted,
       defaultFor: (id) => {

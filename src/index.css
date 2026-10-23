@@ -239,6 +239,86 @@ body {
   color: #d1d5db;
 }
 
+.tooltip--interactive {
+  position: fixed;
+  z-index: 30;
+  pointer-events: auto;
+  width: min(560px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 12px;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.poll-details {
+  margin-top: 8px;
+  border-top: 1px solid #374151;
+  padding-top: 8px;
+}
+
+.poll-details summary {
+  cursor: pointer;
+  color: #bfdbfe;
+}
+
+.poll-details summary:hover {
+  color: #fff;
+}
+
+.poll-details summary:focus-visible,
+.poll-details__scroll:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.poll-details__scroll {
+  margin-top: 8px;
+  max-height: min(320px, 50vh);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.poll-details table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.poll-details th,
+.poll-details td {
+  padding: 7px 8px;
+  border-bottom: 1px solid #374151;
+  vertical-align: top;
+}
+
+.poll-details thead th {
+  position: sticky;
+  top: 0;
+  background: #111827;
+  color: #d1d5db;
+  white-space: nowrap;
+}
+
+.poll-details tbody th {
+  min-width: 120px;
+  font-weight: 500;
+}
+
+.poll-details td {
+  white-space: nowrap;
+}
+
+.poll-details__population {
+  display: block;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
 .side {
   display: flex;
   flex-direction: column;

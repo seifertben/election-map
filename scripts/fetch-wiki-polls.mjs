@@ -360,12 +360,14 @@ async function fetchArticle(title) {
 async function main() {
   const data = {};
   const summary = [];
+  const failures = [];
   for (const [fips, title] of Object.entries(RACES)) {
     let html;
     try {
       html = await fetchArticle(title);
     } catch (error) {
       summary.push(`  ${fips} ${title}: FETCH ERROR ${error.message}`);
+      failures.push(title);
       continue;
     }
     const polls = parseArticle(html);
@@ -389,8 +391,11 @@ async function main() {
     summary.push(`  ${fips} ${title}: ${unique.length} polls`);
     await sleep(700); // be polite to the API on cache misses
   }
-  writeFileSync(OUT, `${JSON.stringify(data, null, 2)}\n`);
   console.log(summary.join("\n"));
+  if (failures.length > 0) {
+    throw new Error(`Failed to fetch ${failures.length} race(s); existing snapshot was not changed.`);
+  }
+  writeFileSync(OUT, `${JSON.stringify(data, null, 2)}\n`);
   const total = Object.values(data).reduce((n, p) => n + p.length, 0);
   console.log(`\nWrote ${OUT} (${Object.keys(data).length} states, ${total} polls).`);
 }

@@ -394,8 +394,8 @@ function replaceRatingsBlock(source, constName, map, order) {
   return source.replace(re, `$1\n${renderRatings(map, order)}\n$2`);
 }
 
-function replaceAsOf(source, oldDate, newDate) {
-  return source.split(oldDate).join(newDate);
+function replaceAsOf(source, newDate) {
+  return source.replace(/(as of\s*(?:\*\s*)?|\(Cook, )\w+ \d{1,2}, 2026\b/, `$1${newDate}`);
 }
 
 const MONTH_NAMES = [
@@ -494,47 +494,31 @@ async function main() {
   const senateFile = resolve(ROOT, "src/data/senate2026.ts");
   let senateSrc = readFileSync(senateFile, "utf8");
   senateSrc = replaceRatingsBlock(senateSrc, "SENATE_2026_RATINGS", cookSenate, SENATE_ORDER);
-  senateSrc = replaceAsOf(senateSrc, "September 15, 2026", dates.cook.senate);
+  senateSrc = replaceAsOf(senateSrc, dates.cook.senate);
   writeFileSync(senateFile, senateSrc);
 
   const houseFile = resolve(ROOT, "src/data/house2026.ts");
   let houseSrc = readFileSync(houseFile, "utf8");
   houseSrc = replaceRatingsBlock(houseSrc, "HOUSE_2026_RATINGS", cookHouse, ALL_DISTRICTS_SORTED);
-  houseSrc = replaceAsOf(houseSrc, "September 11, 2026", dates.cook.house);
+  houseSrc = replaceAsOf(houseSrc, dates.cook.house);
   writeFileSync(houseFile, houseSrc);
 
   const governorFile = resolve(ROOT, "src/data/governor2026.ts");
   let governorSrc = readFileSync(governorFile, "utf8");
   governorSrc = replaceRatingsBlock(governorSrc, "GOVERNOR_2026_RATINGS", cookGovernor, GOVERNOR_ORDER);
-  governorSrc = replaceAsOf(governorSrc, "September 17, 2026", dates.cook.governor);
+  governorSrc = replaceAsOf(governorSrc, dates.cook.governor);
   writeFileSync(governorFile, governorSrc);
 
   // Registry dates.
   const registryFile = resolve(ROOT, "src/data/ratingsSources.ts");
   let registry = readFileSync(registryFile, "utf8");
-  const OLD_DATES = {
-    cook: { senate: "September 15, 2026", house: "September 11, 2026", governor: "September 17, 2026" },
-    insideElections: { senate: "September 17, 2026", house: "September 17, 2026", governor: "September 17, 2026" },
-    sabato: { senate: "September 22, 2026", house: "September 22, 2026", governor: "September 22, 2026" },
-    splitTicket: { senate: "September 22, 2026", house: "September 12, 2026" },
-    ddhq: { senate: "September 22, 2026", house: "September 12, 2026", governor: "September 23, 2026" },
-    fox: { senate: "September 22, 2026", house: "September 22, 2026", governor: "September 22, 2026" },
-  };
   for (const outlet of OUTLETS) {
-    const old = OLD_DATES[outlet.id];
     const next = dates[outlet.id];
-    registry = registry.replace(
-      new RegExp(`(id: "${outlet.id}"[\\s\\S]*?)senateAsOf: "${old.senate}"`),
-      `$1senateAsOf: "${next.senate}"`,
-    );
-    registry = registry.replace(
-      new RegExp(`(id: "${outlet.id}"[\\s\\S]*?)houseAsOf: "${old.house}"`),
-      `$1houseAsOf: "${next.house}"`,
-    );
-    if (old.governor && next.governor) {
+    for (const mode of ["senate", "house", "governor"]) {
+      if (!next[mode]) continue;
       registry = registry.replace(
-        new RegExp(`(id: "${outlet.id}"[\\s\\S]*?)governorAsOf: "${old.governor}"`),
-        `$1governorAsOf: "${next.governor}"`,
+        new RegExp(`(id: "${outlet.id}"[\\s\\S]*?${mode}AsOf: )"[^"]*"`),
+        `$1"${next[mode]}"`,
       );
     }
   }

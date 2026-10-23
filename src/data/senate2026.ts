@@ -65,7 +65,7 @@ export const SENATE_MAJORITY = 51;
  * 2026 Senate race ratings for the 35 seats on the ballot, from the Cook
  * Political Report's 2026 Senate Race Ratings
  * (https://www.cookpolitical.com/ratings/senate-race-ratings) as of
- * October 6, 2026. Each Solid/Likely/Lean tone is kept so the map can
+ * October 20, 2026. Each Solid/Likely/Lean tone is kept so the map can
  * shade the seat accordingly:
  *
  *   Solid/Likely/Lean Democrat  -> "SOLID_D" | "LIKELY_D" | "LEAN_D"
@@ -91,8 +91,8 @@ export const SENATE_2026_RATINGS: Record<string, RaceRating> = {
   "23": "TOSS",
   "25": "SOLID_D",
   "26": "TOSS",
-  "27": "LIKELY_D",
-  "28": "SOLID_R",
+  "27": "LEAN_D",
+  "28": "LIKELY_R",
   "30": "SOLID_R",
   "31": "LIKELY_R",
   "33": "LEAN_D",
@@ -103,7 +103,7 @@ export const SENATE_2026_RATINGS: Record<string, RaceRating> = {
   "40": "SOLID_R",
   "41": "SOLID_D",
   "44": "SOLID_D",
-  "45": "LIKELY_R",
+  "45": "LEAN_R",
   "46": "SOLID_R",
   "47": "SOLID_R",
   "48": "TOSS",

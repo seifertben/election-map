@@ -4,10 +4,10 @@ import type { RaceRating } from "../../types";
  * 2026 race ratings from Decision Desk HQ
  * Source: https://elections2026.decisiondeskhq.com/
  *
- * - Senate ratings as of October 9, 2026 (35 seats on the 2026 ballot),
+ * - Senate ratings as of October 22, 2026 (35 seats on the 2026 ballot),
  *   compiled from the Wikipedia "2026 United States Senate elections"
  *   predictions table.
- * - House ratings as of October 8, 2026 (all 435 districts), compiled from
+ * - House ratings as of October 22, 2026 (all 435 districts), compiled from
  *   the Wikipedia "2026 United States House of Representatives election
  *   ratings" page. Districts not listed as competitive there are rated
  *   Safe/Solid, so this file shades them Solid for the party currently
@@ -156,8 +156,8 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1209": "LEAN_R",
   "1210": "SOLID_D",
   "1211": "LIKELY_R",
-  "1212": "SOLID_R",
-  "1213": "LIKELY_R",
+  "1212": "LIKELY_R",
+  "1213": "LEAN_R",
   "1214": "LEAN_D",
   "1215": "LIKELY_R",
   "1216": "LIKELY_R",
@@ -166,7 +166,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1219": "SOLID_R",
   "1220": "SOLID_D",
   "1221": "LIKELY_R",
-  "1222": "LEAN_R",
+  "1222": "TOSS",
   "1223": "SOLID_D",
   "1224": "SOLID_D",
   "1225": "LEAN_D",
@@ -182,7 +182,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1307": "LIKELY_R",
   "1308": "SOLID_R",
   "1309": "SOLID_R",
-  "1310": "LIKELY_R",
+  "1310": "SOLID_R",
   "1311": "SOLID_R",
   "1312": "LIKELY_R",
   "1313": "SOLID_D",
@@ -230,7 +230,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2103": "SOLID_D",
   "2104": "SOLID_R",
   "2105": "SOLID_R",
-  "2106": "LIKELY_R",
+  "2106": "LEAN_R",
   "2201": "SOLID_R",
   "2202": "SOLID_D",
   "2203": "SOLID_R",
@@ -238,8 +238,8 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2205": "SOLID_R",
   "2206": "SOLID_R",
   "2301": "SOLID_D",
-  "2302": "LEAN_R",
-  "2401": "SOLID_R",
+  "2302": "TOSS",
+  "2401": "LIKELY_R",
   "2402": "SOLID_D",
   "2403": "SOLID_D",
   "2404": "SOLID_D",
@@ -262,14 +262,14 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2604": "LEAN_R",
   "2605": "SOLID_R",
   "2606": "SOLID_D",
-  "2607": "LEAN_D",
+  "2607": "LIKELY_D",
   "2608": "SOLID_D",
   "2609": "SOLID_R",
-  "2610": "TOSS",
+  "2610": "LEAN_D",
   "2611": "SOLID_D",
   "2612": "SOLID_D",
   "2613": "SOLID_D",
-  "2701": "LIKELY_R",
+  "2701": "LEAN_R",
   "2702": "SOLID_D",
   "2703": "SOLID_D",
   "2704": "SOLID_D",
@@ -282,7 +282,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "2803": "SOLID_R",
   "2804": "SOLID_R",
   "2901": "SOLID_D",
-  "2902": "LIKELY_R",
+  "2902": "LEAN_R",
   "2903": "SOLID_R",
   "2904": "SOLID_R",
   "2905": "SOLID_D",
@@ -295,7 +295,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "3102": "LIKELY_D",
   "3103": "SOLID_R",
   "3201": "LIKELY_D",
-  "3202": "LIKELY_R",
+  "3202": "LEAN_R",
   "3203": "LIKELY_D",
   "3204": "LIKELY_D",
   "3301": "LIKELY_D",
@@ -392,7 +392,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4208": "TOSS",
   "4209": "SOLID_R",
   "4210": "LEAN_D",
-  "4211": "LIKELY_R",
+  "4211": "SOLID_R",
   "4212": "SOLID_D",
   "4213": "SOLID_R",
   "4214": "SOLID_R",
@@ -422,7 +422,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4802": "SOLID_R",
   "4803": "SOLID_R",
   "4804": "SOLID_R",
-  "4805": "LIKELY_R",
+  "4805": "SOLID_R",
   "4806": "SOLID_R",
   "4807": "SOLID_D",
   "4808": "SOLID_R",
@@ -434,7 +434,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4814": "SOLID_R",
   "4815": "TOSS",
   "4816": "SOLID_D",
-  "4817": "LIKELY_R",
+  "4817": "SOLID_R",
   "4818": "SOLID_D",
   "4819": "SOLID_R",
   "4820": "SOLID_D",
@@ -455,7 +455,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4835": "TOSS",
   "4836": "SOLID_R",
   "4837": "SOLID_D",
-  "4838": "LIKELY_R",
+  "4838": "SOLID_R",
   "4901": "SOLID_D",
   "4902": "SOLID_R",
   "4903": "SOLID_R",
@@ -465,7 +465,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "5102": "LIKELY_D",
   "5103": "SOLID_D",
   "5104": "SOLID_D",
-  "5105": "LIKELY_R",
+  "5105": "LEAN_R",
   "5106": "SOLID_R",
   "5107": "LIKELY_D",
   "5108": "SOLID_D",
@@ -476,7 +476,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "5302": "SOLID_D",
   "5303": "LIKELY_D",
   "5304": "LIKELY_R",
-  "5305": "LIKELY_R",
+  "5305": "SOLID_R",
   "5306": "SOLID_D",
   "5307": "SOLID_D",
   "5308": "SOLID_D",
@@ -497,12 +497,12 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
 
 /**
  * 2026 Governor race ratings for the 36 states on the ballot, as of
- * October 8, 2026, compiled from the Wikipedia "2026 United States
+ * October 22, 2026, compiled from the Wikipedia "2026 United States
  * gubernatorial elections" predictions table. Keyed by state FIPS.
  */
 export const DDHQ_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "01": "LIKELY_R",
-  "02": "TOSS",
+  "02": "LEAN_D",
   "04": "LEAN_D",
   "05": "SOLID_R",
   "06": "SOLID_D",
@@ -518,7 +518,7 @@ export const DDHQ_GOVERNOR_RATINGS: Record<string, RaceRating> = {
   "23": "LIKELY_D",
   "24": "SOLID_D",
   "25": "SOLID_D",
-  "26": "LEAN_D",
+  "26": "LIKELY_D",
   "27": "LIKELY_D",
   "31": "LIKELY_R",
   "32": "TOSS",

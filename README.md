@@ -27,8 +27,11 @@ PNG.
   no public poll defaults to its current senator/governor's party (drawn in the
   flat party color) so it still counts as called, while a state with no poll
   from the selected pollster stays grey. The hover tooltip shows the aggregate
-  (plus the poll date when a single pollster is selected). You can paint over
-  individual states while the poll view is up, but those paints are ephemeral:
+  (plus the poll date when a single pollster is selected).
+  Hover a state and expand **Poll details** to see the pollster, field-end
+  date, vote shares, margin and available sample details for every poll included
+  in the selected average (or the selected pollster's latest poll).
+  You can paint over individual states while the poll view is up, but those paints are ephemeral:
   setting either sidebar dropdown — selecting or changing the poll option, or
   choosing a ratings source — resets the map to that source and clears every
   paint.
@@ -187,10 +190,10 @@ Re-run it when the Census publishes updated boundaries.
   general-election polling table of the actual nominee matchup
   (`node scripts/fetch-wiki-polls.mjs --governor` →
   `scripts/governor-polls-wiki.json`), then `npm run build:gov-polls` compiles
-  it. Alaska, Colorado, Hawaii, Minnesota, Oklahoma, South Dakota and Wyoming
+  it. Alaska, Colorado, Hawaii, Minnesota and Wyoming
   have no public 2026 general-election polling and are omitted from the
   snapshot; the polling view defaults them to their current governor's party so
-  they still count as called. The other 29 states are shaded.
+  they still count as called. The other 31 states are shaded.
 - The Governor ratings in `src/data/ratings/*.ts` come from the Wikipedia
   «2026 United States gubernatorial elections» predictions table for Cook,
   Inside Elections, Sabato, Decision Desk HQ and Fox News (as of the dates noted

@@ -24,6 +24,9 @@ export interface RacePoll {
   d: number;
   /** Republican candidate's share of the vote, percent. */
   r: number;
+  /** Respondent count and population, when reported by the source. */
+  sample?: number;
+  population?: "LV" | "RV" | "A";
 }
 
 /** How a poll option reduces a state's polls to one number. */
@@ -60,6 +63,25 @@ function mean(values: number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+/** The exact polls used by an option, ordered newest first. */
+export function pollsForOption(
+  polls: RacePoll[],
+  option: PollOption,
+): RacePoll[] {
+  const filtered =
+    option.kind === "pollster"
+      ? polls.filter((poll) => poll.pollster === option.pollster)
+      : polls;
+  const recent = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
+  // A pollster can run several polls in one state; when that pollster is
+  // selected, only their most recent poll counts. Averages keep every poll.
+  return option.kind === "pollster"
+    ? recent.slice(0, 1)
+    : option.window != null
+      ? recent.slice(0, option.window)
+      : recent;
+}
+
 /**
  * Average a state's polls (or just one pollster's) into a single margin.
  * Returns null when the option matches none of the state's polls.
@@ -68,20 +90,8 @@ export function summarizePolls(
   polls: RacePoll[],
   option: PollOption,
 ): PollSummary | null {
-  const filtered =
-    option.kind === "pollster"
-      ? polls.filter((poll) => poll.pollster === option.pollster)
-      : polls;
-  if (filtered.length === 0) return null;
-  const recent = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
-  // A pollster can run several polls in one state; when that pollster is
-  // selected, only their most recent poll counts. Averages keep every poll.
-  const chosen =
-    option.kind === "pollster"
-      ? recent.slice(0, 1)
-      : option.window != null
-        ? recent.slice(0, option.window)
-        : recent;
+  const chosen = pollsForOption(polls, option);
+  if (chosen.length === 0) return null;
   const d = mean(chosen.map((poll) => poll.d));
   const r = mean(chosen.map((poll) => poll.r));
   return {
@@ -124,6 +134,8 @@ export interface PollOverlay {
   fills: Record<string, string>;
   /** Poll summary for a region, or null when it has no matching polls. */
   summaryFor: (id: string) => PollSummary | null;
+  /** Individual polls contributing to a region's selected poll summary. */
+  pollsFor?: (id: string) => RacePoll[];
   /** Label of the selected aggregation, shown in the tooltip. */
   optionLabel: string;
   /**

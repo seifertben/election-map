@@ -257,8 +257,8 @@ const SOURCE_HEADER = [
   "    scripts/senate-polls-wiki.json.",
   "  - electoral-vote.com Senate polls",
   "    (https://electoral-vote.com/evp2026/Senate/senate_polls.html), used for",
-  "    seats Wikipedia has no general-election polls for; fetched September 24,",
-  "    2026.",
+  "    seats Wikipedia has no general-election polls for; the fetch date is",
+  "    recorded in scripts/senate-polls.json.",
   "  - Hand-checked Wikipedia polls for Kentucky, Idaho, Oklahoma and Tennessee",
   "    (scripts/senate-polls-supplement.json).",
   "",
@@ -344,7 +344,7 @@ function main() {
     validate(base);
     const json = {
       sources: [
-        "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-09-24",
+        `electoral-vote.com Senate polls (senate_polls.csv), fetched ${new Date().toISOString().slice(0, 10)}`,
         "Wikipedia general-election polling (Kentucky, Idaho, Oklahoma, Tennessee)",
       ],
       notes:

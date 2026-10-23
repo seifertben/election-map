@@ -1,11 +1,59 @@
 {
   "sources": [
-    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-09-24",
+    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-10-23",
     "Wikipedia general-election polling (Kentucky, Idaho, Oklahoma, Tennessee)"
   ],
-  "notes": "States with no public 2026 general-election polling are omitted. Nebraska's d column is the independent challenger Dan Osborn.",
+  "notes": "The electoral-vote.com + supplement base. Wikipedia polls scraped across all 35 seats (scripts/senate-polls-wiki.json) are layered on top of this at build time. States with no public 2026 general-election polling are omitted. Nebraska's d column is the independent challenger Dan Osborn.",
   "polls": {
     "12": [
+      {
+        "pollster": "University of North Florida",
+        "date": "2026-10-19",
+        "d": 45,
+        "r": 49
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-15",
+        "d": 42,
+        "r": 51
+      },
+      {
+        "pollster": "St. Pete Polls",
+        "date": "2026-10-07",
+        "d": 45,
+        "r": 47
+      },
+      {
+        "pollster": "Activote",
+        "date": "2026-10-15",
+        "d": 47,
+        "r": 53
+      },
+      {
+        "pollster": "Stetson University",
+        "date": "2026-10-09",
+        "d": 41,
+        "r": 52
+      },
+      {
+        "pollster": "Mason Dixon",
+        "date": "2026-10-01",
+        "d": 40,
+        "r": 50
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-03",
+        "d": 44,
+        "r": 49
+      },
+      {
+        "pollster": "Stetson University",
+        "date": "2026-09-21",
+        "d": 40,
+        "r": 51
+      },
       {
         "pollster": "St. Pete Polls",
         "date": "2026-09-17",
@@ -14,6 +62,18 @@
       }
     ],
     "13": [
+      {
+        "pollster": "Activote",
+        "date": "2026-10-20",
+        "d": 54,
+        "r": 46
+      },
+      {
+        "pollster": "Atlanta Journal",
+        "date": "2026-10-15",
+        "d": 48,
+        "r": 40
+      },
       {
         "pollster": "YouGov",
         "date": "2026-09-18",
@@ -77,7 +137,69 @@
         "population": "RV"
       }
     ],
+    "17": [
+      {
+        "pollster": "Activote",
+        "date": "2026-10-20",
+        "d": 58,
+        "r": 41
+      },
+      {
+        "pollster": "Public Policy Polling",
+        "date": "2026-10-01",
+        "d": 49,
+        "r": 36
+      }
+    ],
     "19": [
+      {
+        "pollster": "NPA Polling",
+        "date": "2026-10-12",
+        "d": 44,
+        "r": 47
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-11",
+        "d": 48,
+        "r": 45
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-12",
+        "d": 47,
+        "r": 46
+      },
+      {
+        "pollster": "Emerson College",
+        "date": "2026-10-06",
+        "d": 45,
+        "r": 47
+      },
+      {
+        "pollster": "Suffolk University",
+        "date": "2026-10-04",
+        "d": 48,
+        "r": 44
+      },
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-05",
+        "d": 43,
+        "r": 45
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-01",
+        "d": 47,
+        "r": 48
+      },
+      {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-09-28",
+        "d": 49,
+        "r": 47
+      },
       {
         "pollster": "Marist College",
         "date": "2026-09-20",
@@ -89,18 +211,6 @@
         "date": "2026-09-01",
         "d": 45,
         "r": 50
-      },
-      {
-        "pollster": "Wedgewood Polls",
-        "date": "2026-08-29",
-        "d": 48,
-        "r": 50
-      },
-      {
-        "pollster": "Abacus Data",
-        "date": "2026-08-28",
-        "d": 48,
-        "r": 41
       },
       {
         "pollster": "Suffolk University",
@@ -139,13 +249,25 @@
         "r": 45
       },
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-06-04",
         "d": 46,
         "r": 46
       }
     ],
     "20": [
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-04",
+        "d": 48,
+        "r": 45
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-09-30",
+        "d": 46,
+        "r": 47
+      },
       {
         "pollster": "Emerson College",
         "date": "2026-09-16",
@@ -173,13 +295,73 @@
     ],
     "22": [
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-07-22",
         "d": 37,
         "r": 41
       }
     ],
     "23": [
+      {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-10-20",
+        "d": 49,
+        "r": 49
+      },
+      {
+        "pollster": "Suffolk University",
+        "date": "2026-10-11",
+        "d": 49,
+        "r": 47
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-04",
+        "d": 51,
+        "r": 47
+      },
+      {
+        "pollster": "Washington Post",
+        "date": "2026-10-05",
+        "d": 50,
+        "r": 46
+      },
+      {
+        "pollster": "MPRC",
+        "date": "2026-09-29",
+        "d": 49,
+        "r": 47
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-01",
+        "d": 50,
+        "r": 50
+      },
+      {
+        "pollster": "Fabrizio + Anzalone",
+        "date": "2026-09-22",
+        "d": 50,
+        "r": 47
+      },
+      {
+        "pollster": "University of New Hampshire",
+        "date": "2026-09-21",
+        "d": 51,
+        "r": 47
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-09-22",
+        "d": 46,
+        "r": 49
+      },
+      {
+        "pollster": "University of Massachusetts",
+        "date": "2026-09-14",
+        "d": 48,
+        "r": 43
+      },
       {
         "pollster": "YouGov",
         "date": "2026-09-08",
@@ -191,12 +373,6 @@
         "date": "2026-09-06",
         "d": 48,
         "r": 45
-      },
-      {
-        "pollster": "Abacus Data",
-        "date": "2026-08-28",
-        "d": 50,
-        "r": 42
       },
       {
         "pollster": "Beacon + Shaw",
@@ -211,13 +387,37 @@
         "r": 46
       },
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-07-08",
         "d": 49,
         "r": 44
       }
     ],
     "25": [
+      {
+        "pollster": "Suffolk University",
+        "date": "2026-10-18",
+        "d": 60,
+        "r": 32
+      },
+      {
+        "pollster": "University of Massachusetts",
+        "date": "2026-10-12",
+        "d": 56,
+        "r": 29
+      },
+      {
+        "pollster": "University of New Hampshire",
+        "date": "2026-09-21",
+        "d": 53,
+        "r": 30
+      },
+      {
+        "pollster": "MassINC",
+        "date": "2026-09-22",
+        "d": 54,
+        "r": 28
+      },
       {
         "pollster": "University of Massachusetts",
         "date": "2026-08-12",
@@ -238,6 +438,42 @@
       }
     ],
     "26": [
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-18",
+        "d": 50,
+        "r": 48
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-05",
+        "d": 49,
+        "r": 48
+      },
+      {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-09-28",
+        "d": 50,
+        "r": 49
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-09-27",
+        "d": 51,
+        "r": 44
+      },
+      {
+        "pollster": "Beacon & Signal",
+        "date": "2026-09-21",
+        "d": 45,
+        "r": 40
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-09-22",
+        "d": 49,
+        "r": 44
+      },
       {
         "pollster": "Suffolk University",
         "date": "2026-09-20",
@@ -267,12 +503,6 @@
         "date": "2026-09-03",
         "d": 44,
         "r": 46
-      },
-      {
-        "pollster": "Abacus Data",
-        "date": "2026-08-28",
-        "d": 49,
-        "r": 45
       },
       {
         "pollster": "EPIC-MRA",
@@ -338,6 +568,24 @@
     "27": [
       {
         "pollster": "SurveyUSA",
+        "date": "2026-10-12",
+        "d": 45,
+        "r": 42
+      },
+      {
+        "pollster": "Mason Dixon",
+        "date": "2026-10-07",
+        "d": 47,
+        "r": 43
+      },
+      {
+        "pollster": "Morning Consult",
+        "date": "2026-10-06",
+        "d": 45,
+        "r": 41
+      },
+      {
+        "pollster": "SurveyUSA",
         "date": "2026-09-14",
         "d": 42,
         "r": 42
@@ -365,6 +613,12 @@
     ],
     "30": [
       {
+        "pollster": "Concord POP",
+        "date": "2026-10-08",
+        "d": 13,
+        "r": 35
+      },
+      {
         "pollster": "Rutgers-Eagleton",
         "date": "2026-09-07",
         "d": 16,
@@ -385,25 +639,61 @@
     ],
     "31": [
       {
-        "pollster": "Wedgewood Polls",
-        "date": "2026-09-16",
+        "pollster": "NPA Polling",
+        "date": "2026-10-05",
+        "d": 43,
+        "r": 46
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-03",
         "d": 48,
-        "r": 52
+        "r": 47
       },
       {
         "pollster": "SurveyUSA",
         "date": "2026-09-13",
         "d": 46,
         "r": 42
-      },
-      {
-        "pollster": "Tavern Research",
-        "date": "2026-05-11",
-        "d": 47,
-        "r": 42
       }
     ],
     "33": [
+      {
+        "pollster": "Saint Anselm College",
+        "date": "2026-10-20",
+        "d": 50,
+        "r": 43
+      },
+      {
+        "pollster": "NPA Polling",
+        "date": "2026-10-12",
+        "d": 50,
+        "r": 43
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-05",
+        "d": 51,
+        "r": 43
+      },
+      {
+        "pollster": "Saint Anselm College",
+        "date": "2026-09-29",
+        "d": 51,
+        "r": 44
+      },
+      {
+        "pollster": "University of New Hampshire",
+        "date": "2026-09-21",
+        "d": 50,
+        "r": 42
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-09-22",
+        "d": 50,
+        "r": 45
+      },
       {
         "pollster": "Peak Insights",
         "date": "2026-06-27",
@@ -443,6 +733,12 @@
     ],
     "35": [
       {
+        "pollster": "SurveyUSA",
+        "date": "2026-09-30",
+        "d": 54,
+        "r": 36
+      },
+      {
         "pollster": "Research and Polling",
         "date": "2026-08-28",
         "d": 53,
@@ -451,16 +747,52 @@
     ],
     "37": [
       {
+        "pollster": "Activote",
+        "date": "2026-10-20",
+        "d": 57,
+        "r": 43
+      },
+      {
+        "pollster": "SurveyUSA",
+        "date": "2026-10-07",
+        "d": 54,
+        "r": 40
+      },
+      {
+        "pollster": "Elon University",
+        "date": "2026-10-08",
+        "d": 52,
+        "r": 39
+      },
+      {
+        "pollster": "East Carolina University",
+        "date": "2026-10-03",
+        "d": 50,
+        "r": 43
+      },
+      {
+        "pollster": "Fabrizio + Anzalone",
+        "date": "2026-09-20",
+        "d": 53,
+        "r": 42
+      },
+      {
         "pollster": "YouGov",
         "date": "2026-09-18",
         "d": 53,
         "r": 41
       },
       {
-        "pollster": "Harper Polling",
+        "pollster": "High Point University",
+        "date": "2026-09-16",
+        "d": 50,
+        "r": 42
+      },
+      {
+        "pollster": "YouGov",
         "date": "2026-09-15",
-        "d": 49,
-        "r": 34
+        "d": 48,
+        "r": 37
       },
       {
         "pollster": "East Carolina University",
@@ -473,12 +805,6 @@
         "date": "2026-08-31",
         "d": 49,
         "r": 38
-      },
-      {
-        "pollster": "Harper Polling",
-        "date": "2026-08-10",
-        "d": 52,
-        "r": 39
       },
       {
         "pollster": "High Point University",
@@ -499,7 +825,7 @@
         "r": 44
       },
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-07-10",
         "d": 48,
         "r": 44
@@ -517,12 +843,6 @@
         "r": 34
       },
       {
-        "pollster": "Harper Polling",
-        "date": "2026-05-11",
-        "d": 50,
-        "r": 39
-      },
-      {
         "pollster": "Opinion Diagnostics",
         "date": "2026-04-24",
         "d": 50,
@@ -535,13 +855,7 @@
         "r": 42
       },
       {
-        "pollster": "Harper Polling",
-        "date": "2026-03-23",
-        "d": 49,
-        "r": 41
-      },
-      {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-03-14",
         "d": 47,
         "r": 44
@@ -555,6 +869,66 @@
     ],
     "39": [
       {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-10-19",
+        "d": 52,
+        "r": 47
+      },
+      {
+        "pollster": "On Point Polling",
+        "date": "2026-10-17",
+        "d": 47,
+        "r": 42
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-18",
+        "d": 48,
+        "r": 44
+      },
+      {
+        "pollster": "Activote",
+        "date": "2026-10-18",
+        "d": 50,
+        "r": 50
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-09",
+        "d": 48,
+        "r": 42
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-01",
+        "d": 49,
+        "r": 46
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-09-27",
+        "d": 51,
+        "r": 43
+      },
+      {
+        "pollster": "Suffolk University",
+        "date": "2026-09-27",
+        "d": 47,
+        "r": 44
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-09-30",
+        "d": 49,
+        "r": 45
+      },
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-05",
+        "d": 49,
+        "r": 43
+      },
+      {
         "pollster": "Insider Advantage",
         "date": "2026-09-09",
         "d": 47,
@@ -565,18 +939,6 @@
         "date": "2026-09-10",
         "d": 48,
         "r": 45
-      },
-      {
-        "pollster": "Abacus Data",
-        "date": "2026-08-28",
-        "d": 46,
-        "r": 41
-      },
-      {
-        "pollster": "Wedgewood Polls",
-        "date": "2026-08-13",
-        "d": 48,
-        "r": 44
       },
       {
         "pollster": "Beacon + Shaw",
@@ -627,6 +989,24 @@
     ],
     "44": [
       {
+        "pollster": "Emerson College",
+        "date": "2026-10-11",
+        "d": 59,
+        "r": 25
+      },
+      {
+        "pollster": "Salve Regina University",
+        "date": "2026-10-08",
+        "d": 55,
+        "r": 32
+      },
+      {
+        "pollster": "University of New Hampshire",
+        "date": "2026-09-21",
+        "d": 53,
+        "r": 33
+      },
+      {
         "pollster": "University of New Hampshire",
         "date": "2026-06-23",
         "d": 52,
@@ -649,7 +1029,19 @@
     ],
     "46": [
       {
-        "pollster": "PPP",
+        "pollster": "Emerson College",
+        "date": "2026-10-20",
+        "d": 42,
+        "r": 50
+      },
+      {
+        "pollster": "Mason Dixon",
+        "date": "2026-10-14",
+        "d": 37,
+        "r": 56
+      },
+      {
+        "pollster": "Public Policy Polling",
         "date": "2026-05-30",
         "d": 18,
         "r": 43
@@ -666,6 +1058,96 @@
       }
     ],
     "48": [
+      {
+        "pollster": "Activote",
+        "date": "2026-10-21",
+        "d": 51,
+        "r": 49
+      },
+      {
+        "pollster": "Emerson College",
+        "date": "2026-10-19",
+        "d": 49,
+        "r": 48
+      },
+      {
+        "pollster": "On Point Polling",
+        "date": "2026-10-18",
+        "d": 50,
+        "r": 46
+      },
+      {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-10-19",
+        "d": 49,
+        "r": 49
+      },
+      {
+        "pollster": "University of Houston",
+        "date": "2026-10-14",
+        "d": 48,
+        "r": 46
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-16",
+        "d": 51,
+        "r": 49
+      },
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-11",
+        "d": 47,
+        "r": 45
+      },
+      {
+        "pollster": "Activote",
+        "date": "2026-10-14",
+        "d": 52,
+        "r": 48
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-08",
+        "d": 48,
+        "r": 44
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-05",
+        "d": 50,
+        "r": 44
+      },
+      {
+        "pollster": "University of Texas",
+        "date": "2026-10-05",
+        "d": 50,
+        "r": 47
+      },
+      {
+        "pollster": "Beacon + Shaw",
+        "date": "2026-09-28",
+        "d": 51,
+        "r": 49
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-09-30",
+        "d": 51,
+        "r": 45
+      },
+      {
+        "pollster": "University of Massachusetts",
+        "date": "2026-09-28",
+        "d": 45,
+        "r": 45
+      },
+      {
+        "pollster": "Texas Public Opinion Research",
+        "date": "2026-09-22",
+        "d": 49,
+        "r": 44
+      },
       {
         "pollster": "Marist College",
         "date": "2026-09-20",
@@ -769,12 +1251,6 @@
         "r": 47
       },
       {
-        "pollster": "SoCal Strategies",
-        "date": "2026-06-21",
-        "d": 47,
-        "r": 49
-      },
-      {
         "pollster": "University of Texas",
         "date": "2026-06-12",
         "d": 42,
@@ -793,19 +1269,13 @@
         "r": 46
       },
       {
-        "pollster": "Slingshot Strategies",
-        "date": "2026-05-28",
-        "d": 47,
-        "r": 44
-      },
-      {
         "pollster": "Texas Public Opinion Research",
         "date": "2026-05-28",
         "d": 47,
         "r": 44
       },
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-05-23",
         "d": 45,
         "r": 38
@@ -835,13 +1305,7 @@
         "r": 34
       },
       {
-        "pollster": "Impact Research",
-        "date": "2026-03-17",
-        "d": 44,
-        "r": 43
-      },
-      {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-03-05",
         "d": 47,
         "r": 45
@@ -876,6 +1340,24 @@
       }
     ],
     "02": [
+      {
+        "pollster": "Public Policy Polling",
+        "date": "2026-10-15",
+        "d": 48,
+        "r": 47
+      },
+      {
+        "pollster": "Alaska Survey Research",
+        "date": "2026-10-03",
+        "d": 51,
+        "r": 49
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-01",
+        "d": 50,
+        "r": 43
+      },
       {
         "pollster": "Alaska Survey Research",
         "date": "2026-09-12",
@@ -937,7 +1419,7 @@
         "r": 48
       },
       {
-        "pollster": "PPP",
+        "pollster": "Public Policy Polling",
         "date": "2026-01-17",
         "d": 49,
         "r": 47
@@ -950,6 +1432,12 @@
       }
     ],
     "05": [
+      {
+        "pollster": "Hendrix College",
+        "date": "2026-10-15",
+        "d": 41,
+        "r": 50
+      },
       {
         "pollster": "J.L.Partners",
         "date": "2026-08-18",

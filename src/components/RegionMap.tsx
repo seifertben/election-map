@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState,
+} from "react";
 import type {
   MouseEvent,
   MutableRefObject,
@@ -17,6 +19,7 @@ import { describeSummary } from "../lib/polling";
 import type { PollOverlay } from "../lib/polling";
 import { MAP_HEIGHT, MAP_WIDTH, projectFeatures } from "../lib/projection";
 import type { Assignment, RegionFeature } from "../types";
+import { PollDetails } from "./PollDetails";
 
 /** Diagonally striped pattern geometry, in user-space units. */
 const STRIPE_SIZE = 8;
@@ -119,6 +122,80 @@ export function RegionMap({
   const gRef = useRef<SVGGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [hover, setHover] = useState<HoverState | null>(null);
+  const tooltipAnchor = useRef({ x: 0, y: 0 });
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverPolls = useMemo(
+    () => hover ? poll?.pollsFor?.(hover.id) ?? [] : [],
+    [hover?.id, poll],
+  );
+  const interactiveTooltip = hoverPolls.length > 0;
+
+  const cancelHideTooltip = useCallback(() => {
+    if (hideTimer.current !== null) clearTimeout(hideTimer.current);
+    hideTimer.current = null;
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    cancelHideTooltip();
+    const focused = document.activeElement;
+    if (focused instanceof HTMLElement && tooltipRef.current?.contains(focused)) {
+      focused.blur();
+    }
+    setHover(null);
+  }, [cancelHideTooltip]);
+
+  const scheduleHideTooltip = () => {
+    cancelHideTooltip();
+    if (!interactiveTooltip) {
+      hideTooltip();
+    } else if (!tooltipRef.current?.contains(document.activeElement)) {
+      // Leave time to cross the small gap from the state to the popup.
+      hideTimer.current = setTimeout(hideTooltip, 250);
+    }
+  };
+
+  useEffect(() => cancelHideTooltip, [cancelHideTooltip]);
+
+  const positionPollTooltip = useCallback(() => {
+    const tip = tooltipRef.current;
+    if (!tip || !interactiveTooltip) return;
+    const rect = tip.getBoundingClientRect();
+    const padding = 12;
+    const left = Math.min(tooltipAnchor.current.x + padding, window.innerWidth - rect.width - padding);
+    const top = Math.min(tooltipAnchor.current.y + padding, window.innerHeight - rect.height - padding);
+    tip.style.left = `${Math.max(padding, left)}px`;
+    tip.style.top = `${Math.max(padding, top)}px`;
+  }, [interactiveTooltip]);
+
+  useLayoutEffect(positionPollTooltip, [positionPollTooltip, hover?.id, poll?.optionLabel]);
+
+  useEffect(() => {
+    if (!interactiveTooltip) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") hideTooltip();
+    };
+    const onScroll = (event: Event) => {
+      if (event.target instanceof Node && tooltipRef.current?.contains(event.target)) {
+        return;
+      }
+      hideTooltip();
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !tooltipRef.current?.contains(event.target)) {
+        hideTooltip();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("resize", positionPollTooltip);
+    window.addEventListener("scroll", onScroll, true);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("resize", positionPollTooltip);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [interactiveTooltip, hideTooltip, positionPollTooltip]);
   // Pan/zoom is applied imperatively to the <g> element (see applyView) so
   // dragging and wheel-zoom don't re-render hundreds of paths per frame.
   const viewRef = useRef<ViewTransform>(DEFAULT_VIEW);
@@ -355,6 +432,7 @@ export function RegionMap({
 
   const handlePointerDown = (event: ReactPointerEvent<SVGSVGElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
+    hideTooltip();
     movedPxRef.current = 0;
     if (!dragRef.current) {
       dragRef.current = { pointers: new Map(), pinchDist: 0, pinchMid: null };
@@ -413,20 +491,31 @@ export function RegionMap({
   const hoverInfo = hover ? describeRegion(hover.id) : null;
 
   const handlePointerMove = (event: MouseEvent<SVGSVGElement>) => {
-    const el = targetFromEvent(event);
-    if (!el) {
-      if (hover) setHover(null);
+    if (dragRef.current && movedPxRef.current > CLICK_TOLERANCE_PX) {
+      hideTooltip();
       return;
     }
+    const el = targetFromEvent(event);
+    if (!el) {
+      if (hover) scheduleHideTooltip();
+      return;
+    }
+    cancelHideTooltip();
     // Move the tooltip via the DOM so mousemove doesn't re-render the map;
     // React state only changes when the hovered region changes.
     const rect = wrapRef.current?.getBoundingClientRect();
     const tip = tooltipRef.current;
-    if (rect && tip) {
+    const nextInteractive = el.dataset.id === hover?.id
+      ? interactiveTooltip
+      : (poll?.pollsFor?.(el.dataset.id ?? "").length ?? 0) > 0;
+    // Poll popups stay anchored while moving within a state so their
+    // disclosure control can be reached without chasing the pointer.
+    if (rect && tip && !nextInteractive) {
       tip.style.left = `${event.clientX - rect.left}px`;
       tip.style.top = `${event.clientY - rect.top}px`;
     }
     if (el.dataset.id !== hover?.id) {
+      tooltipAnchor.current = { x: event.clientX, y: event.clientY };
       setHover({ id: el.dataset.id ?? "" });
     }
   };
@@ -459,7 +548,7 @@ export function RegionMap({
         aria-label="United States election map"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
-        onPointerLeave={() => setHover(null)}
+        onPointerLeave={scheduleHideTooltip}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
       >
@@ -524,15 +613,31 @@ export function RegionMap({
           hovered. Position is set imperatively in handlePointerMove. */}
       <div
         ref={tooltipRef}
-        className="tooltip"
+        className={interactiveTooltip ? "tooltip tooltip--interactive" : "tooltip"}
+        role={interactiveTooltip ? "dialog" : undefined}
+        aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} polling details` : undefined}
+        onPointerEnter={cancelHideTooltip}
+        onPointerLeave={scheduleHideTooltip}
+        onFocus={cancelHideTooltip}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) scheduleHideTooltip();
+        }}
         style={{
-          transform: `translate(-50%, -125%)`,
+          transform: interactiveTooltip ? "none" : "translate(-50%, -125%)",
           display: hover ? undefined : "none",
         }}
       >
         {hoverInfo?.label}
         {hoverInfo?.breakdown ? (
           <div className="tooltip__breakdown">{hoverInfo.breakdown}</div>
+        ) : null}
+        {interactiveTooltip && hover && poll ? (
+          <PollDetails
+            key={`${hover.id}:${poll.optionLabel}`}
+            polls={hoverPolls}
+            optionLabel={poll.optionLabel}
+            onToggle={positionPollTooltip}
+          />
         ) : null}
       </div>
     </div>

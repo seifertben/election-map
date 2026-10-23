@@ -12,6 +12,7 @@ import {
   pollScaleGradientCss,
   pollStrength,
   pollsterNames,
+  pollsForOption,
   projectedAssignments,
   summarizePolls,
   type PollOption,
@@ -49,6 +50,41 @@ const pollsterC: PollOption = {
   kind: "pollster",
   pollster: "C",
 };
+
+describe("pollsForOption", () => {
+  const polls: SenatePoll[] = Array.from({ length: 12 }, (_, i) => ({
+    pollster: i % 2 === 0 ? "A" : "B",
+    date: `2026-09-${String(i + 1).padStart(2, "0")}`,
+    d: 40 + i,
+    r: 50 - i,
+    sample: 600 + i,
+    population: "LV",
+  }));
+
+  it.each([
+    { window: 5, count: 5 },
+    { window: 10, count: 10 },
+    { window: null, count: 12 },
+  ])("returns every contributing poll for a $window-poll average", ({ window, count }) => {
+    const option: PollOption = { id: "average", label: "Average", kind: "average", window };
+    const chosen = pollsForOption(polls, option);
+    expect(chosen).toEqual([...polls].reverse().slice(0, count));
+    const summary = summarizePolls(polls, option)!;
+    expect(summary.polls).toBe(chosen.length);
+    expect(summary.d).toBe(chosen.reduce((sum, poll) => sum + poll.d, 0) / count);
+    expect(summary.r).toBe(chosen.reduce((sum, poll) => sum + poll.r, 0) / count);
+    // Selection retains the original sample metadata and input ordering.
+    expect(chosen[0].sample).toBe(611);
+    expect(chosen[0].population).toBe("LV");
+    expect(polls[0].date).toBe("2026-09-01");
+  });
+
+  it("returns only the selected pollster's latest poll, or none if absent", () => {
+    expect(pollsForOption(polls, pollsterA)).toEqual([polls[10]]);
+    expect(pollsForOption(polls, pollsterC)).toEqual([]);
+    expect(pollsForOption([], allPolls)).toEqual([]);
+  });
+});
 
 describe("summarizePolls", () => {
   it("averages only the most recent N polls, regardless of input order", () => {

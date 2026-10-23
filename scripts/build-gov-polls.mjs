@@ -90,8 +90,8 @@ const SOURCE_HEADER = [
   "",
   "Notes:",
   "  - Only states with at least one real poll are listed; the rest render",
-  "    grey. Alaska, Colorado, Hawaii, Minnesota, Oklahoma, South Dakota and",
-  "    Wyoming have no public 2026 general-election polling.",
+  "    grey. Alaska, Colorado, Hawaii, Minnesota and Wyoming have no public",
+  "    2026 general-election polling.",
   "  - Some Wikipedia pollster names carry a partisan (R)/(D) tag; it is",
   "    dropped so the pollster dropdown groups them.",
 ];
