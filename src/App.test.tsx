@@ -3,12 +3,12 @@ import { resolve } from "node:path";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { afterEach, describe, expect, it } from "vitest";
-import { RATING_COLOR } from "./data/parties";
+import { PARTY_COLOR, RATING_COLOR, UNASSIGNED_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
 import { SENATE_2026_FIPS, SENATE_2026_RATINGS } from "./data/senate2026";
 import { encodeShareHash } from "./state/encoding";
-import type { Assignment } from "./types";
+import type { Assignment, Party } from "./types";
 import { swingColor } from "./lib/houseSwing";
 import App from "./App";
 
@@ -141,6 +141,53 @@ describe("App social map links", () => {
 });
 
 describe("App polling integration", () => {
+  it.each(["polling", "market"])("keeps a full click cycle painted over the %s overlay", async (overlay) => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = fetchMock as typeof fetch;
+    window.location.hash = "";
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    try {
+      act(() => root.render(<App />));
+      await waitForStateFlush();
+      await waitForStateFlush();
+      const stripes = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      act(() => stripes.click());
+      const select = container.querySelector(
+        overlay === "polling" ? "#polling-option" : "#market-source",
+      ) as HTMLSelectElement;
+      setSelectValue(select, overlay === "polling" ? "avg-10" : "polymarket");
+      await waitForStateFlush();
+      const initialFill = container.querySelector('path[data-id="48"]')?.getAttribute("fill");
+
+      // Texas starts as Tossup in the ratings; Georgia starts Democratic.
+      // Both must keep manual colors when cycling back to that base value.
+      const cycles: Record<string, (Party | null)[]> = {
+        "48": [null, "D", "R", "TOSS", null, "D", "R", "TOSS"],
+        "13": ["R", "TOSS", null, "D", "R", "TOSS", null, "D"],
+      };
+      for (const [id, cycle] of Object.entries(cycles)) {
+        for (const assignment of cycle) {
+          const path = container.querySelector(`path[data-id="${id}"]`)!;
+          act(() => path.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+          expect(path.getAttribute("fill")).toBe(
+            assignment === null ? UNASSIGNED_COLOR : PARTY_COLOR[assignment],
+          );
+        }
+      }
+      const reapply = Array.from(container.querySelectorAll("button")).find((button) =>
+        button.textContent?.includes(overlay === "polling" ? "Re-apply poll" : "Re-apply market"),
+      )!;
+      act(() => reapply.click());
+      expect(container.querySelector('path[data-id="48"]')?.getAttribute("fill")).toBe(initialFill);
+      expect(container.contains(reapply)).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+      act(() => root.unmount());
+    }
+  });
+
   it("keeps the ratings and polling selects mutually exclusive", async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = fetchMock as typeof fetch;

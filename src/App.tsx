@@ -157,6 +157,16 @@ export default function App() {
   const [demographics, setDemographics] = useState<DemographicsData | null>(null);
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
   const [brush, setBrush] = useState<Brush>("CYCLE");
+  // A manual choice stays painted even when it matches the underlying rating.
+  const [paintedRegions, setPaintedRegions] = useState<Record<Mode, Set<string>>>({
+    president: new Set(),
+    senate: new Set(),
+    house: new Set(),
+    governor: new Set(),
+  });
+  const clearPaintedRegions = useCallback((mode: Mode) => {
+    setPaintedRegions((prev) => ({ ...prev, [mode]: new Set<string>() }));
+  }, []);
   const [hydrated, setHydrated] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -426,12 +436,13 @@ export default function App() {
   const pollOverlay = useMemo<PollOverlay | null>(() => {
     if (!raceMode || !pollData) return null;
     const config = RACE_CONFIG[raceMode];
-    // A region is "painted" when it no longer matches the ratings that loaded
-    // it; those keep their paint color and label instead of the poll shade.
+    // Manual choices keep their paint color and label, including choices that
+    // cycle back to the underlying rating. Also preserve differing assignments.
     const source =
       RATINGS_SOURCE_BY_ID[sourceByMode[raceMode]]?.[raceMode] ??
       config.defaultRatings;
     const isPainted = (id: string) =>
+      paintedRegions[raceMode].has(id) ||
       (state.assignments[raceMode][id] ?? null) !== (source[id] ?? null);
     const holder = raceMode === "senate" ? "senator" : "governor";
     return {
@@ -448,7 +459,7 @@ export default function App() {
         return { party, label: `no poll · ${name} ${holder}` };
       },
     };
-  }, [raceMode, pollData, sourceByMode, state.assignments]);
+  }, [raceMode, pollData, sourceByMode, state.assignments, paintedRegions]);
 
   // Live betting-market overlay, colored by implied win probability. Like the
   // poll overlay it covers the race map without touching assignments, and
@@ -465,6 +476,7 @@ export default function App() {
       RATINGS_SOURCE_BY_ID[sourceByMode[marketMode]]?.[marketMode] ??
       defaultRatingsFor(marketMode);
     const isPainted = (id: string) =>
+      paintedRegions[marketMode].has(id) ||
       (state.assignments[marketMode][id] ?? null) !== (source[id] ?? null);
     const label =
       MARKET_SOURCES_BY_MODE[marketMode].find(
@@ -477,6 +489,7 @@ export default function App() {
     marketSourceByMode,
     sourceByMode,
     state.assignments,
+    paintedRegions,
   ]);
 
   // The House map's 2024-presidential baseline, shifted by a uniform national
@@ -519,8 +532,9 @@ export default function App() {
       RATINGS_SOURCE_BY_ID[sourceByMode[raceMode]]?.[raceMode] ??
       config.defaultRatings;
     pollBaselineRef.current[raceMode] = source;
+    clearPaintedRegions(raceMode);
     dispatch({ type: "loadRatings", mode: raceMode, assignments: source });
-  }, [activePollId, raceMode]);
+  }, [activePollId, raceMode, clearPaintedRegions]);
 
   // Entering the market view (or switching market) also starts the race map
   // fresh from its ratings source; the clean map is the baseline paints are
@@ -531,8 +545,9 @@ export default function App() {
       RATINGS_SOURCE_BY_ID[sourceByMode[marketMode]]?.[marketMode] ??
       defaultRatingsFor(marketMode);
     marketBaselineRef.current[marketMode] = source;
+    clearPaintedRegions(marketMode);
     dispatch({ type: "loadRatings", mode: marketMode, assignments: source });
-  }, [activeMarketId, marketMode]);
+  }, [activeMarketId, marketMode, clearPaintedRegions]);
 
   // Fetch live odds while a market is selected, refreshing on an interval and
   // on demand. Aborts in-flight requests when the source changes or clears.
@@ -581,20 +596,26 @@ export default function App() {
     if (!raceMode) return;
     const baseline = pollBaselineRef.current[raceMode];
     if (!baseline) return;
+    clearPaintedRegions(raceMode);
     dispatch({ type: "loadRatings", mode: raceMode, assignments: baseline });
-  }, [raceMode]);
+  }, [raceMode, clearPaintedRegions]);
 
   const handleMarketReapply = useCallback(() => {
     if (!marketMode) return;
     const baseline = marketBaselineRef.current[marketMode];
     if (!baseline) return;
+    clearPaintedRegions(marketMode);
     dispatch({ type: "loadRatings", mode: marketMode, assignments: baseline });
-  }, [marketMode]);
+  }, [marketMode, clearPaintedRegions]);
 
   const handleRegionClick = useCallback(
     (id: string) => {
       // The 2024-swing view is a read-only projection of the baseline.
       if (state.mode === "house" && swingOn) return;
+      setPaintedRegions((prev) => ({
+        ...prev,
+        [state.mode]: new Set(prev[state.mode]).add(id),
+      }));
       if (brush === "CYCLE") {
         dispatch({ type: "cycle", mode: state.mode, id });
       } else if (brush === "CLEAR") {
@@ -813,12 +834,14 @@ export default function App() {
     pollingOn &&
     raceMode != null &&
     activePollBaseline !== null &&
-    state.assignments[raceMode] !== activePollBaseline;
+    (paintedRegions[raceMode].size > 0 ||
+      state.assignments[raceMode] !== activePollBaseline);
   const marketCustom =
     marketsOn &&
     marketMode != null &&
     activeMarketBaseline !== null &&
-    state.assignments[marketMode] !== activeMarketBaseline;
+    (paintedRegions[marketMode].size > 0 ||
+      state.assignments[marketMode] !== activeMarketBaseline);
 
   const loading = !states || !districts;
   const currentFeatures = state.mode === "house" ? districts : states;
