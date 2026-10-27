@@ -1,6 +1,30 @@
 {
   "12": [
     {
+      "pollster": "ActiVote",
+      "date": "2026-10-27",
+      "d": 47,
+      "r": 53,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "RedBox Research (D)",
+      "date": "2026-10-23",
+      "d": 43,
+      "r": 50,
+      "sample": 4832,
+      "population": "LV"
+    },
+    {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 43,
+      "r": 51,
+      "sample": 515,
+      "population": "LV"
+    },
+    {
       "pollster": "co/efficient (R)",
       "date": "2026-10-20",
       "d": 40,
@@ -162,6 +186,14 @@
     }
   ],
   "13": [
+    {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 55,
+      "r": 40,
+      "sample": 508,
+      "population": "LV"
+    },
     {
       "pollster": "ActiVote",
       "date": "2026-10-20",
@@ -333,6 +365,14 @@
   ],
   "16": [
     {
+      "pollster": "VoteNexus Research",
+      "date": "2026-10-22",
+      "d": 43,
+      "r": 49,
+      "sample": 700,
+      "population": "LV"
+    },
+    {
       "pollster": "Peak Insights (R)",
       "date": "2026-09-30",
       "d": 24,
@@ -400,6 +440,22 @@
     }
   ],
   "19": [
+    {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 45,
+      "r": 43,
+      "sample": 403,
+      "population": "LV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-22",
+      "d": 45,
+      "r": 47,
+      "sample": 1200,
+      "population": "LV"
+    },
     {
       "pollster": "co/efficient (R)",
       "date": "2026-10-19",
@@ -666,6 +722,14 @@
   ],
   "20": [
     {
+      "pollster": "RedBox Research (D)",
+      "date": "2026-10-23",
+      "d": 45,
+      "r": 46,
+      "sample": 1301,
+      "population": "LV"
+    },
+    {
       "pollster": "InsiderAdvantage (R)",
       "date": "2026-10-14",
       "d": 47,
@@ -807,6 +871,29 @@
     }
   ],
   "23": [
+    {
+      "pollster": "Marist University",
+      "date": "2026-10-25",
+      "d": 49,
+      "r": 47,
+      "population": "LV"
+    },
+    {
+      "pollster": "Trafalgar Group (R)",
+      "date": "2026-10-23",
+      "d": 47,
+      "r": 47,
+      "sample": 1077,
+      "population": "LV"
+    },
+    {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 51,
+      "r": 44,
+      "sample": 413,
+      "population": "LV"
+    },
     {
       "pollster": "Beacon Research (D)/Shaw & Co. Research (R)",
       "date": "2026-10-20",
@@ -1115,6 +1202,38 @@
     }
   ],
   "26": [
+    {
+      "pollster": "RedBox Research (D)",
+      "date": "2026-10-23",
+      "d": 49,
+      "r": 44,
+      "sample": 2696,
+      "population": "LV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-22",
+      "d": 47,
+      "r": 46,
+      "sample": 1200,
+      "population": "LV"
+    },
+    {
+      "pollster": "Glengariff Group",
+      "date": "2026-10-22",
+      "d": 51,
+      "r": 45,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
+      "pollster": "Michigan State University/YouGov",
+      "date": "2026-10-19",
+      "d": 48,
+      "r": 46,
+      "sample": 836,
+      "population": "LV"
+    },
     {
       "pollster": "Marist University",
       "date": "2026-10-18",
@@ -1525,6 +1644,14 @@
   ],
   "28": [
     {
+      "pollster": "Change Research (D)",
+      "date": "2026-10-22",
+      "d": 40,
+      "r": 43,
+      "sample": 842,
+      "population": "LV"
+    },
+    {
       "pollster": "Data for Progress (D)",
       "date": "2026-08-15",
       "d": 38,
@@ -1681,6 +1808,38 @@
   ],
   "31": [
     {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 46,
+      "r": 47,
+      "sample": 407,
+      "population": "LV"
+    },
+    {
+      "pollster": "GBAO (D)",
+      "date": "2026-10-22",
+      "d": 46,
+      "r": 45,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
+      "pollster": "Impact Research (D)",
+      "date": "2026-10-20",
+      "d": 47,
+      "r": 49,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
+      "pollster": "Concord Public Opinion Partners (D)",
+      "date": "2026-10-18",
+      "d": 48,
+      "r": 41,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "National Public Affairs (R)",
       "date": "2026-10-18",
       "d": 43,
@@ -1707,8 +1866,8 @@
     {
       "pollster": "co/efficient (R)",
       "date": "2026-09-30",
-      "d": 43,
-      "r": 48,
+      "d": 40,
+      "r": 45,
       "sample": 1113,
       "population": "LV"
     },
@@ -1791,6 +1950,14 @@
   ],
   "33": [
     {
+      "pollster": "Rasmussen Reports (R)",
+      "date": "2026-10-23",
+      "d": 50,
+      "r": 44,
+      "sample": 970,
+      "population": "LV"
+    },
+    {
       "pollster": "Saint Anselm College",
       "date": "2026-10-20",
       "d": 50,
@@ -1812,6 +1979,14 @@
       "d": 51,
       "r": 43,
       "sample": 1520,
+      "population": "LV"
+    },
+    {
+      "pollster": "Rasmussen Reports (R)",
+      "date": "2026-10-04",
+      "d": 49,
+      "r": 44,
+      "sample": 979,
       "population": "LV"
     },
     {
@@ -2043,6 +2218,22 @@
   ],
   "37": [
     {
+      "pollster": "Quantus Insights (R)",
+      "date": "2026-10-25",
+      "d": 51,
+      "r": 43,
+      "sample": 722,
+      "population": "LV"
+    },
+    {
+      "pollster": "Harper Polling (R)",
+      "date": "2026-10-20",
+      "d": 49,
+      "r": 39,
+      "sample": 600,
+      "population": "LV"
+    },
+    {
       "pollster": "ActiVote",
       "date": "2026-10-20",
       "d": 57,
@@ -2104,14 +2295,6 @@
       "d": 48,
       "r": 43,
       "sample": 686,
-      "population": "LV"
-    },
-    {
-      "pollster": "Harper Polling (R)",
-      "date": "2026-09-20",
-      "d": 49,
-      "r": 39,
-      "sample": 608,
       "population": "LV"
     },
     {
@@ -2412,6 +2595,30 @@
     }
   ],
   "39": [
+    {
+      "pollster": "RedBox Research (D)",
+      "date": "2026-10-23",
+      "d": 47,
+      "r": 44,
+      "sample": 2998,
+      "population": "LV"
+    },
+    {
+      "pollster": "Echelon Insights (R)",
+      "date": "2026-10-23",
+      "d": 47,
+      "r": 47,
+      "sample": 508,
+      "population": "LV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-22",
+      "d": 47,
+      "r": 44,
+      "sample": 1200,
+      "population": "LV"
+    },
     {
       "pollster": "Verasight/VoteHub",
       "date": "2026-10-20",
@@ -2778,6 +2985,14 @@
   ],
   "45": [
     {
+      "pollster": "Targoz Media Research",
+      "date": "2026-10-25",
+      "d": 46,
+      "r": 47,
+      "sample": 895,
+      "population": "LV"
+    },
+    {
       "pollster": "Impact Research (D)",
       "date": "2026-10-21",
       "d": 45,
@@ -2984,12 +3199,28 @@
   ],
   "48": [
     {
+      "pollster": "Rasmussen Reports",
+      "date": "2026-10-21",
+      "d": 45,
+      "r": 45,
+      "sample": 965,
+      "population": "LV"
+    },
+    {
       "pollster": "ActiVote",
       "date": "2026-10-21",
       "d": 51,
       "r": 49,
       "sample": 400,
       "population": "LV"
+    },
+    {
+      "pollster": "Univision/YouGov",
+      "date": "2026-10-21",
+      "d": 50,
+      "r": 45,
+      "sample": 1000,
+      "population": "RV"
     },
     {
       "pollster": "Verasight/VoteHub",
@@ -3014,6 +3245,22 @@
       "r": 49,
       "sample": 1398,
       "population": "LV"
+    },
+    {
+      "pollster": "Texas Public Opinion Research (D)",
+      "date": "2026-10-18",
+      "d": 51,
+      "r": 47,
+      "sample": 969,
+      "population": "LV"
+    },
+    {
+      "pollster": "Pollfinity Research",
+      "date": "2026-10-18",
+      "d": 48,
+      "r": 43,
+      "sample": 278,
+      "population": "RV"
     },
     {
       "pollster": "CBS News/YouGov",

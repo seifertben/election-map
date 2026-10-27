@@ -34,7 +34,7 @@ export interface GovernorPoll {
 }
 
 /** Date of the most recent poll in the committed snapshot. */
-export const GOVERNOR_POLLS_AS_OF = "2026-10-22";
+export const GOVERNOR_POLLS_AS_OF = "2026-10-25";
 
 export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
   "01": [
@@ -46,7 +46,6 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
   ],
   "04": [
     { pollster: "GrayHouse", date: "2026-10-20", d: 51, r: 45, sample: 550, population: "LV" },
-    { pollster: "HighGround, Inc.", date: "2026-10-08", d: 51, r: 34, sample: 400, population: "LV" },
     { pollster: "GrayHouse", date: "2026-10-08", d: 50, r: 44, sample: 550, population: "LV" },
     { pollster: "Wick", date: "2026-10-06", d: 49, r: 43, sample: 1513, population: "LV" },
     { pollster: "GQR", date: "2026-10-05", d: 49, r: 45, sample: 600, population: "LV" },
@@ -77,6 +76,8 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Hendrix College", date: "2026-08-12", d: 40, r: 45, sample: 1217, population: "LV" },
   ],
   "06": [
+    { pollster: "SurveyUSA", date: "2026-10-24", d: 54, r: 32, sample: 799, population: "LV" },
+    { pollster: "McLaughlin & Associates", date: "2026-10-20", d: 55, r: 39, sample: 800, population: "LV" },
     { pollster: "Emerson College", date: "2026-10-19", d: 60, r: 33, sample: 1000, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-16", d: 63, r: 37, sample: 400, population: "LV" },
     { pollster: "UC Berkeley Citrin Center/TrueDot/Politico", date: "2026-10-14", d: 55, r: 35, sample: 909, population: "LV" },
@@ -106,6 +107,8 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "University of New Hampshire", date: "2026-06-23", d: 49, r: 36, sample: 828, population: "LV" },
   ],
   "12": [
+    { pollster: "RedBox Research", date: "2026-10-23", d: 44, r: 49, sample: 4832, population: "LV" },
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 44, r: 50, sample: 515, population: "LV" },
     { pollster: "co/efficient", date: "2026-10-20", d: 40, r: 49, sample: 1014, population: "LV" },
     { pollster: "University of North Florida", date: "2026-10-19", d: 47, r: 49, sample: 1471, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-19", d: 48, r: 52, sample: 400, population: "LV" },
@@ -141,6 +144,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Victory Insights", date: "2025-06-10", d: 31, r: 37, sample: 600, population: "LV" },
   ],
   "13": [
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 49, r: 48, sample: 508, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-20", d: 48, r: 51, sample: 400, population: "LV" },
     { pollster: "Quantus Insights", date: "2026-10-17", d: 47, r: 48, sample: 755, population: "LV" },
     { pollster: "University of Georgia", date: "2026-10-15", d: 45, r: 46, sample: 1000, population: "LV" },
@@ -159,6 +163,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Echelon Insights", date: "2026-04-09", d: 49, r: 43, sample: 407, population: "LV" },
   ],
   "16": [
+    { pollster: "VoteNexus Research", date: "2026-10-22", d: 30, r: 49, sample: 700, population: "LV" },
     { pollster: "Advanced Targeting Research", date: "2026-09-16", d: 27, r: 37, sample: 700, population: "RV" },
     { pollster: "Change Research", date: "2026-07-30", d: 27, r: 48, sample: 1213, population: "LV" },
   ],
@@ -168,6 +173,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Victory Research", date: "2025-11-24", d: 54, r: 34, sample: 1208, population: "LV" },
   ],
   "19": [
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 50, r: 46, sample: 403, population: "LV" },
     { pollster: "co/efficient", date: "2026-10-19", d: 49, r: 45, sample: 678, population: "LV" },
     { pollster: "GS Strategy Group (R)/New River Strategies", date: "2026-10-13", d: 54, r: 43, sample: 602, population: "LV" },
     { pollster: "NPA Polling", date: "2026-10-12", d: 50, r: 45, sample: 678, population: "LV" },
@@ -190,6 +196,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Cygnal", date: "2026-06-19", d: 48, r: 43, sample: 600, population: "LV" },
   ],
   "20": [
+    { pollster: "Global Strategy Group", date: "2026-10-21", d: 47, r: 47, sample: 600, population: "LV" },
     { pollster: "YouGov", date: "2026-10-04", d: 44, r: 47, sample: 2255, population: "LV" },
     { pollster: "New York Times/Siena University", date: "2026-09-30", d: 44, r: 49, sample: 605, population: "LV" },
     { pollster: "Emerson College", date: "2026-09-16", d: 44, r: 51, sample: 750, population: "LV" },
@@ -198,6 +205,8 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Global Strategy Group", date: "2026-08-16", d: 47, r: 46, sample: 600, population: "LV" },
   ],
   "23": [
+    { pollster: "Marist University", date: "2026-10-25", d: 44, r: 44, population: "LV" },
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 51, r: 38, sample: 413, population: "LV" },
     { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-10-20", d: 49, r: 39, sample: 1514, population: "LV" },
     { pollster: "Suffolk University", date: "2026-10-11", d: 49, r: 38, sample: 500, population: "LV" },
     { pollster: "The Washington Post/SSPG", date: "2026-10-05", d: 49, r: 36, sample: 800, population: "LV" },
@@ -234,6 +243,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "UMass Amherst/YouGov", date: "2025-10-29", d: 51, r: 26, sample: 800, population: "A" },
   ],
   "26": [
+    { pollster: "Michigan State University/YouGov", date: "2026-10-19", d: 52, r: 40, sample: 836, population: "LV" },
     { pollster: "Marist University", date: "2026-10-18", d: 51, r: 45, population: "LV" },
     { pollster: "YouGov", date: "2026-10-04", d: 48, r: 45, sample: 3949, population: "LV" },
     { pollster: "Mitchell Research & Communications", date: "2026-10-01", d: 46, r: 39, sample: 682, population: "LV" },
@@ -264,7 +274,10 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Glengariff Group", date: "2026-01-06", d: 47, r: 45, sample: 600, population: "LV" },
   ],
   "31": [
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 40, r: 47, sample: 407, population: "LV" },
+    { pollster: "Concord Public Opinion Partners", date: "2026-10-18", d: 43, r: 40, sample: 500, population: "LV" },
     { pollster: "National Public Affairs", date: "2026-10-18", d: 41, r: 47, sample: 598, population: "LV" },
+    { pollster: "Global Strategy Group", date: "2026-10-18", d: 39, r: 40, sample: 800, population: "LV" },
     { pollster: "Public Policy Polling", date: "2026-10-14", d: 46, r: 48, sample: 571, population: "RV" },
     { pollster: "National Public Affairs", date: "2026-10-05", d: 40, r: 44, sample: 600, population: "LV" },
     { pollster: "YouGov", date: "2026-10-03", d: 43, r: 44, sample: 1809, population: "LV" },
@@ -278,7 +291,10 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Lake Research Partners", date: "2025-07-29", d: 39, r: 51, sample: 900, population: "LV" },
   ],
   "32": [
+    { pollster: "Hart Research", date: "2026-10-25", d: 49, r: 45, sample: 950, population: "LV" },
+    { pollster: "RedBox Research", date: "2026-10-23", d: 46, r: 43, sample: 1407, population: "LV" },
     { pollster: "Global Strategy Group", date: "2026-10-13", d: 47, r: 48, sample: 700, population: "LV" },
+    { pollster: "Concord Public Opinion Partners", date: "2026-09-30", d: 42, r: 43, sample: 565, population: "LV" },
     { pollster: "Noble Predictive Insights", date: "2026-09-26", d: 37, r: 38, sample: 800, population: "RV" },
     { pollster: "Emerson College", date: "2026-09-08", d: 44, r: 42, sample: 680, population: "LV" },
     { pollster: "Tarrance Group", date: "2026-07-29", d: 43, r: 50, population: "LV" },
@@ -315,6 +331,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "McLaughlin & Associates", date: "2026-07-15", d: 46, r: 45, sample: 400, population: "LV" },
   ],
   "36": [
+    { pollster: "ActiVote", date: "2026-10-23", d: 59, r: 41, sample: 400, population: "LV" },
     { pollster: "Quinnipiac University", date: "2026-10-19", d: 55, r: 41, sample: 1167, population: "LV" },
     { pollster: "OnMessage Inc.", date: "2026-10-06", d: 50, r: 46, sample: 1000, population: "LV" },
     { pollster: "Beacon Research", date: "2026-10-06", d: 53, r: 31, sample: 820, population: "RV" },
@@ -346,6 +363,8 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "GrayHouse", date: "2025-04-24", d: 44, r: 36, sample: 600, population: "RV" },
   ],
   "39": [
+    { pollster: "RedBox Research", date: "2026-10-23", d: 48, r: 44, sample: 2998, population: "LV" },
+    { pollster: "Echelon Insights", date: "2026-10-23", d: 45, r: 47, sample: 508, population: "LV" },
     { pollster: "Verasight/VoteHub", date: "2026-10-20", d: 46, r: 45, sample: 531, population: "LV" },
     { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-10-19", d: 51, r: 47, sample: 2005, population: "RV" },
     { pollster: "ActiVote", date: "2026-10-19", d: 49, r: 51, sample: 400, population: "LV" },
@@ -427,6 +446,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Opinion Diagnostics", date: "2026-04-16", d: 33, r: 16, sample: 802, population: "LV" },
   ],
   "45": [
+    { pollster: "Targoz Media Research", date: "2026-10-25", d: 41, r: 51, sample: 895, population: "LV" },
     { pollster: "Trafalgar Group", date: "2026-10-18", d: 37, r: 53, sample: 1095, population: "LV" },
     { pollster: "National Public Affairs", date: "2026-10-16", d: 41, r: 51, sample: 604, population: "LV" },
     { pollster: "Resonance Media", date: "2026-10-03", d: 35, r: 45, sample: 638, population: "RV" },
@@ -445,8 +465,12 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Quantus Insights", date: "2025-08-07", d: 28, r: 49, sample: 600, population: "RV" },
   ],
   "48": [
+    { pollster: "Univision/YouGov", date: "2026-10-21", d: 46, r: 48, sample: 1000, population: "RV" },
+    { pollster: "Verasight/VoteHub", date: "2026-10-20", d: 46, r: 48, sample: 509, population: "LV" },
     { pollster: "Emerson College", date: "2026-10-19", d: 45, r: 49, sample: 1000, population: "LV" },
     { pollster: "Beacon Research (D)/Shaw & Co. Research", date: "2026-10-19", d: 49, r: 50, sample: 2011, population: "RV" },
+    { pollster: "Texas Public Opinion Research", date: "2026-10-18", d: 48, r: 51, sample: 969, population: "LV" },
+    { pollster: "Pollfinity Research", date: "2026-10-18", d: 45, r: 46, sample: 278, population: "RV" },
     { pollster: "CBS News/YouGov", date: "2026-10-16", d: 48, r: 52, sample: 1492, population: "LV" },
     { pollster: "University of Houston", date: "2026-10-14", d: 46, r: 49, sample: 2000, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-14", d: 49, r: 51, sample: 400, population: "LV" },
@@ -498,6 +522,7 @@ export const GOVERNOR_2026_POLLS: Record<string, GovernorPoll[]> = {
     { pollster: "Emerson College", date: "2026-01-12", d: 42, r: 50, sample: 1165, population: "RV" },
   ],
   "50": [
+    { pollster: "State Navigate", date: "2026-10-25", d: 46, r: 49, sample: 1752, population: "LV" },
     { pollster: "State Navigate", date: "2026-10-04", d: 43, r: 46, sample: 948, population: "LV" },
     { pollster: "Braun Research/Vermont Public", date: "2026-09-21", d: 32, r: 42, sample: 817, population: "RV" },
     { pollster: "University of New Hampshire", date: "2026-09-21", d: 49, r: 43, sample: 829, population: "LV" },

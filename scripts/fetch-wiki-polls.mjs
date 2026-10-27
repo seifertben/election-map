@@ -342,6 +342,18 @@ async function fetchArticle(title) {
       },
     });
     if (res.status === 429) {
+      // Article HTML carries the same polling tables and can remain available
+      // when the parse API is rate limited.
+      const article = await fetch(
+        `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replaceAll(" ", "_"))}`,
+        { headers: { "User-Agent": "election-map/0.1 (build script; contact: dev@localhost)" } },
+      );
+      if (article.ok) {
+        const html = await article.text();
+        mkdirSync(CACHE, { recursive: true });
+        writeFileSync(cached, html);
+        return html;
+      }
       const wait = 2000 * 2 ** attempt;
       console.warn(`  rate limited on "${title}", retrying in ${wait}ms`);
       await sleep(wait);

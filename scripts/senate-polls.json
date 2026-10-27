@@ -1,6 +1,6 @@
 {
   "sources": [
-    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-10-23",
+    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-10-27",
     "Wikipedia general-election polling (Kentucky, Idaho, Oklahoma, Tennessee)"
   ],
   "notes": "The electoral-vote.com + supplement base. Wikipedia polls scraped across all 35 seats (scripts/senate-polls-wiki.json) are layered on top of this at build time. States with no public 2026 general-election polling are omitted. Nebraska's d column is the independent challenger Dan Osborn.",
@@ -446,6 +446,12 @@
       },
       {
         "pollster": "YouGov",
+        "date": "2026-10-19",
+        "d": 48,
+        "r": 46
+      },
+      {
+        "pollster": "YouGov",
         "date": "2026-10-05",
         "d": 49,
         "r": 48
@@ -638,6 +644,12 @@
       }
     ],
     "31": [
+      {
+        "pollster": "Concord POP",
+        "date": "2026-10-18",
+        "d": 48,
+        "r": 41
+      },
       {
         "pollster": "NPA Polling",
         "date": "2026-10-05",
@@ -1081,6 +1093,12 @@
         "date": "2026-10-19",
         "d": 49,
         "r": 49
+      },
+      {
+        "pollster": "Texas Public Opinion Research",
+        "date": "2026-10-18",
+        "d": 51,
+        "r": 47
       },
       {
         "pollster": "University of Houston",
