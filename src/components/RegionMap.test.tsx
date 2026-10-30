@@ -211,6 +211,34 @@ describe("RegionMap", () => {
     }
   });
 
+  it.each([false, true])("switches candidate cards immediately outside polling (market: %s)", (market) => {
+    const features = loadStates().filter(feature => ["06", "48"].includes(String(feature.properties.fips)));
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    const candidate = { name: "Test Candidate", party: "Democratic", partyCode: "D" as const, source: "https://en.wikipedia.org/wiki/Test" };
+    act(() => root.render(<RegionMap
+      features={features}
+      getId={feature => String(feature.properties.fips)}
+      getLabel={feature => String(feature.properties.name)}
+      isActive={() => true}
+      assignments={{}}
+      onRegionClick={() => {}}
+      candidates={{ "06": [candidate], "48": [candidate] }}
+      poll={market ? { fills: {}, summaryFor: () => null, describe: () => "Market estimate", optionLabel: "Polymarket", isPainted: () => false } : null}
+    />));
+    try {
+      const hover = (id: string) => act(() => container!.querySelector(`path[data-id="${id}"]`)!.dispatchEvent(new MouseEvent("pointermove", { bubbles: true, clientX: 150, clientY: 150 })));
+      hover("06");
+      expect(container.querySelector('.tooltip')?.textContent).toContain("California");
+      hover("48");
+      expect(container.querySelector('.tooltip')?.textContent).toContain("Texas");
+      expect(container.querySelector('.tooltip')?.textContent).not.toContain("California");
+    } finally {
+      act(() => root.unmount());
+    }
+  });
+
   it("renders one path per region and dispatches clicks by id", () => {
     const features = loadStates();
     const clicked: string[] = [];

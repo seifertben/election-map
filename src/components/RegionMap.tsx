@@ -542,7 +542,7 @@ export function RegionMap({
     }
     cancelHideTooltip();
     const id = el.dataset.id ?? "";
-    if (interactiveTooltip && id !== hover?.id) {
+    if (hoverPolls.length > 0 && id !== hover?.id) {
       if (pendingHover.current?.id === id) {
         // Movement within the next state updates its anchor without
         // restarting the short hover delay.
