@@ -118,7 +118,7 @@ describe("RegionMap", () => {
     }
   });
 
-  it("waits one second before switching polling states and cancels the switch when entering the popup", () => {
+  it("waits 350ms before switching polling states and cancels the switch when entering the popup", () => {
     vi.useFakeTimers();
     const features = loadStates().filter((feature) =>
       ["06", "10", "48"].includes(String(feature.properties.fips)),
@@ -160,9 +160,9 @@ describe("RegionMap", () => {
       expect(popup.textContent).toContain("California");
 
       hoverState("10", 250);
-      advance(700);
+      advance(200);
       hoverState("48", 350);
-      advance(700);
+      advance(200);
       expect(popup.textContent).toContain("California");
       expect({ left: popup.style.left, top: popup.style.top }).toEqual(anchor);
       // Reaching the popup cancels every pending neighboring-state update.
@@ -172,12 +172,12 @@ describe("RegionMap", () => {
       act(() => popup.querySelector("summary")!.click());
       expect(popup.querySelector("details")!.open).toBe(true);
 
-      // A continuous one-second hover deliberately changes the state, even
+      // A continuous 350ms hover deliberately changes the state, even
       // when the pointer keeps moving within it.
       hoverState("10", 250);
-      advance(600);
+      advance(200);
       hoverState("10", 270);
-      advance(399);
+      advance(149);
       expect(popup.textContent).toContain("California");
       advance(1);
       expect(popup.textContent).toContain("Delaware");
@@ -186,7 +186,7 @@ describe("RegionMap", () => {
 
       // Returning to the original state cancels a pending switch too.
       hoverState("48");
-      advance(500);
+      advance(200);
       hoverState("10");
       advance(1000);
       expect(popup.textContent).toContain("Delaware");

@@ -93,7 +93,7 @@ const DEFAULT_VIEW: ViewTransform = { k: 1, x: 0, y: 0 };
 /** Distance (px) the pointer may travel before a click counts as a drag. */
 const CLICK_TOLERANCE_PX = 5;
 /** Keep a polling popup steady while the pointer crosses neighboring states. */
-const POLL_HOVER_DELAY_MS = 1000;
+const POLL_HOVER_DELAY_MS = 350;
 
 function clampView(view: ViewTransform): ViewTransform {
   const k = Math.min(MAX_SCALE, Math.max(MIN_SCALE, view.k));
@@ -169,7 +169,7 @@ export function RegionMap({
       hideTooltip();
     } else if (!tooltipRef.current?.contains(document.activeElement)) {
       // The same grace period covers blank space on the way to the popup.
-      hideTimer.current = setTimeout(hideTooltip, POLL_HOVER_DELAY_MS);
+      hideTimer.current = setTimeout(hideTooltip, 1000);
     }
   };
 
@@ -538,7 +538,7 @@ export function RegionMap({
     if (interactiveTooltip && id !== hover?.id) {
       if (pendingHover.current?.id === id) {
         // Movement within the next state updates its anchor without
-        // restarting the one-second wait.
+        // restarting the short hover delay.
         pendingHover.current.x = event.clientX;
         pendingHover.current.y = event.clientY;
       } else {

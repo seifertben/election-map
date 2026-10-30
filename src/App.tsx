@@ -908,6 +908,9 @@ export default function App() {
             <div><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><h2>{MODE_LABEL[state.mode]} map</h2></div>
             <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
           </div>
+          {state.mode === "president" ? (
+            <p className="map-cycle-note">There is no presidential election in 2026. This map starts with the 2024 results; the next presidential election is in 2028.</p>
+          ) : null}
           <div className="map-stage">
           {loading || !currentFeatures ? (
             <div className="loading">Loading map…</div>

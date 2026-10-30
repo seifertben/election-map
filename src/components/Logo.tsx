@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 export interface LogoProps {
   size?: number;
 }
@@ -19,9 +21,9 @@ const STAR_POINTS = (() => {
   let remaining = STAR_COUNT;
   for (let r = 0; r < STAR_ROWS; r += 1) {
     const count = Math.min(rows[r], remaining);
-    const colW = CANTON_W / (count + 1);
-    for (let c = 1; c <= count; c += 1) {
-      pts.push({ x: colW * c, y: rowH * (r + 0.5) });
+    const colW = CANTON_W / 12;
+    for (let c = 0; c < count; c += 1) {
+      pts.push({ x: colW * (2 * c + (count === 6 ? 1 : 2)), y: rowH * (r + 0.5) });
       remaining -= 1;
     }
   }
@@ -44,9 +46,10 @@ function starPath(cx: number, cy: number, r: number) {
 }
 
 /**
- * App mark: an American flag whose right edge fades out into the title.
+ * A crisp flag badge with all 50 stars and 13 stripes.
  */
 export function Logo({ size = 40 }: LogoProps) {
+  const id = useId();
   const width = (size * FLAG_W) / FLAG_H;
   return (
     <svg
@@ -58,16 +61,17 @@ export function Logo({ size = 40 }: LogoProps) {
       aria-label="2026 Election Mapper logo"
     >
       <defs>
-        <linearGradient id="logo-fade" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="45%" stopColor="#ffffff" stopOpacity="1" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        <linearGradient id={`${id}-sheen`} x1="0" y1="0" x2="0.8" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.16" />
+          <stop offset="45%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="100%" stopColor="#122640" stopOpacity="0.12" />
         </linearGradient>
-        <mask id="logo-fade-mask">
-          <rect width={FLAG_W} height={FLAG_H} fill="url(#logo-fade)" />
-        </mask>
+        <clipPath id={`${id}-clip`}>
+          <rect x="0.5" y="0.5" width={FLAG_W - 1} height={FLAG_H - 1} rx="5" />
+        </clipPath>
       </defs>
-      <g mask="url(#logo-fade-mask)">
-        <rect width={FLAG_W} height={FLAG_H} rx="4" fill="#ffffff" />
+      <g clipPath={`url(#${id}-clip)`}>
+        <rect width={FLAG_W} height={FLAG_H} fill="#fffdf8" />
         {Array.from({ length: STRIPES }, (_, i) =>
           i % 2 === 0 ? (
             <rect
@@ -75,15 +79,17 @@ export function Logo({ size = 40 }: LogoProps) {
               y={i * STRIPE_H}
               width={FLAG_W}
               height={STRIPE_H}
-              fill="#b22234"
+              fill="#ba3041"
             />
           ) : null,
         )}
-        <rect width={CANTON_W} height={CANTON_H} fill="#3c3b6e" />
+        <rect width={CANTON_W} height={CANTON_H} fill="#203b62" />
         {STAR_POINTS.map((p, i) => (
           <path key={i} d={starPath(p.x, p.y, STAR_R)} fill="#ffffff" />
         ))}
+        <rect width={FLAG_W} height={FLAG_H} fill={`url(#${id}-sheen)`} />
       </g>
+      <rect x="0.5" y="0.5" width={FLAG_W - 1} height={FLAG_H - 1} rx="5" fill="none" stroke="#142b49" strokeOpacity="0.18" />
     </svg>
   );
 }

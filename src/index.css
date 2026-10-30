@@ -180,7 +180,7 @@ body {
 .logo {
   display: block;
   flex: none;
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.25));
+  filter: drop-shadow(0 2px 2px rgba(15, 23, 42, 0.12));
 }
 
 .header h1 {
@@ -258,6 +258,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .map-heading__source { text-align: right; font-size: 12px; font-weight: 650; line-height: 1.6; }
 .map-heading__source small { display: block; font-size: 11px; font-weight: 400; color: var(--ink-soft); }
 .map-stage { flex: 1; min-height: 0; padding: 12px; }
+.map-cycle-note { margin: 0; padding: 12px 20px; border-bottom: 1px solid #e2eaf4; background: #f2f6fc; color: #395474; font-size: 12px; line-height: 1.6; }
 .map-key { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 18px; border-top: 1px solid #e9edf3; background: #fbfcfe; font-size: 10px; color: var(--ink-soft); }
 .map-key__ratings { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .map-key__ratings span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
