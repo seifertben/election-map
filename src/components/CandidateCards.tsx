@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Candidate } from "../data/candidates";
 import type { PollSummary } from "../lib/polling";
+import type { Party } from "../types";
 
 function CandidatePortrait({ candidate }: { candidate: Candidate }) {
   const [failed, setFailed] = useState(false);
@@ -12,14 +13,35 @@ function CandidatePortrait({ candidate }: { candidate: Candidate }) {
   );
 }
 
-export function CandidateCards({ candidates, summary }: { candidates: Candidate[]; summary?: PollSummary | null }) {
+export function CandidateCards({ candidates, summary, projection, favoredParty }: {
+  candidates: Candidate[];
+  summary?: PollSummary | null;
+  /** Market/model estimates rank candidates without presenting them as polls. */
+  projection?: PollSummary | null;
+  favoredParty?: Party | null;
+}) {
   const hasDemocrat = candidates.some(candidate => candidate.partyCode === "D");
-  const sorted = [...candidates].sort((a, b) => ({ D: 0, I: 1, R: 2, O: 3 }[a.partyCode] - { D: 0, I: 1, R: 2, O: 3 }[b.partyCode]));
+  const side = (candidate: Candidate) => candidate.partyCode === "D" || (!hasDemocrat && candidate.partyCode === "I") ? "D" : candidate.partyCode === "R" ? "R" : null;
+  const shareFor = (candidate: Candidate, estimate?: PollSummary | null) => {
+    const party = side(candidate);
+    // A party aggregate cannot rank or assign shares to two same-party candidates.
+    if (!estimate || !party || candidates.filter(other => side(other) === party).length !== 1) return null;
+    return party === "D" ? estimate.d : estimate.r;
+  };
+  const estimate = summary ?? projection;
+  const sorted = [...candidates].sort((a, b) => {
+    const aShare = shareFor(a, estimate);
+    const bShare = shareFor(b, estimate);
+    if (aShare != null || bShare != null) return (bShare ?? -Infinity) - (aShare ?? -Infinity);
+    if (favoredParty === "D" || favoredParty === "R") return Number(side(b) === favoredParty) - Number(side(a) === favoredParty);
+    // Preserve source order for ties or races without candidate-level estimates.
+    return 0;
+  });
   return (
     <div className="candidates">
       <div className="candidates__eyebrow">Candidates</div>
       {sorted.map(candidate => {
-        const share = summary ? candidate.partyCode === "D" || (!hasDemocrat && candidate.partyCode === "I") ? summary.d : candidate.partyCode === "R" ? summary.r : null : null;
+        const share = shareFor(candidate, summary);
         return <div className={`candidate candidate--${candidate.partyCode.toLowerCase()}`} key={`${candidate.name}:${candidate.party}`}>
           <CandidatePortrait candidate={candidate} />
           <div className="candidate__info">

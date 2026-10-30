@@ -25,3 +25,46 @@ it("replaces a broken portrait with initials without losing the candidate's name
   expect(container.querySelector('.candidate__name')?.textContent).toBe("Dan Osborn");
   act(() => root.unmount());
 });
+
+it("ranks polling shares highest first and follows updated ratings when polls are absent", () => {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const candidates: Candidate[] = [
+    { ...candidate, name: "Democrat", party: "Democratic", partyCode: "D" },
+    { ...candidate, name: "Republican", party: "Republican", partyCode: "R" },
+  ];
+  const names = () => [...container.querySelectorAll('.candidate__name')].map(el => el.textContent);
+  act(() => root.render(<CandidateCards candidates={candidates} favoredParty="D" summary={{ d: 43, r: 51, margin: -8, leader: "R", polls: 5, latest: "2026-10-30" }} />));
+  expect(names()).toEqual(["Republican", "Democrat"]);
+  act(() => root.render(<CandidateCards candidates={candidates} favoredParty="R" />));
+  expect(names()).toEqual(["Republican", "Democrat"]);
+  act(() => root.render(<CandidateCards candidates={candidates} favoredParty="D" />));
+  expect(names()).toEqual(["Democrat", "Republican"]);
+  act(() => root.unmount());
+});
+
+it("ranks independent challengers by their polling share and keeps ties in source order", () => {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const candidates: Candidate[] = [{ ...candidate, name: "Republican", party: "Republican", partyCode: "R" }, candidate];
+  const names = () => [...container.querySelectorAll('.candidate__name')].map(el => el.textContent);
+  act(() => root.render(<CandidateCards candidates={candidates} summary={{ d: 51, r: 45, margin: 6, leader: "D", polls: 5, latest: "2026-10-30" }} />));
+  expect(names()).toEqual(["Dan Osborn", "Republican"]);
+  act(() => root.render(<CandidateCards candidates={candidates} favoredParty="D" summary={{ d: 48, r: 48, margin: 0, leader: "D", polls: 5, latest: "2026-10-30" }} />));
+  expect(names()).toEqual(["Republican", "Dan Osborn"]);
+  act(() => root.unmount());
+});
+
+it("uses market/model estimates for ordering and does not assign party shares to same-party candidates", () => {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const projection = { d: 30, r: 70, margin: -40, leader: "R" as const, polls: 0, latest: "" };
+  const candidates: Candidate[] = [{ ...candidate, name: "Democrat", party: "Democratic", partyCode: "D" }, { ...candidate, name: "Republican", party: "Republican", partyCode: "R" }];
+  act(() => root.render(<CandidateCards candidates={candidates} projection={projection} />));
+  expect(container.querySelector('.candidate__name')?.textContent).toBe("Republican");
+  expect(container.querySelector('.candidate__share')).toBeNull();
+  act(() => root.render(<CandidateCards candidates={[candidates[0], { ...candidates[0], name: "Other Democrat" }]} summary={projection} />));
+  expect(container.querySelector('.candidate__share')).toBeNull();
+  expect(container.querySelector('.candidate__name')?.textContent).toBe("Democrat");
+  act(() => root.unmount());
+});

@@ -9,6 +9,7 @@ import type {
 } from "react";
 import {
   ASSIGNMENT_LABEL,
+  baseParty,
   BORDER_COLOR,
   pickupStripe,
   pickupStripeFor,
@@ -695,7 +696,13 @@ export function RegionMap({
         {hoverInfo?.breakdown ? (
           <div className="tooltip__breakdown">{hoverInfo.breakdown}</div>
         ) : null}
-        {hoverCandidates.length > 0 ? <CandidateCards key={hover?.id} candidates={hoverCandidates} summary={hover && hoverPolls.length > 0 && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null} /> : null}
+        {hoverCandidates.length > 0 ? <CandidateCards
+          key={hover?.id}
+          candidates={hoverCandidates}
+          summary={hover && hoverPolls.length > 0 && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null}
+          projection={hover && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null}
+          favoredParty={hover ? baseParty(assignments[hover.id] ?? null) : null}
+        /> : null}
         {hoverPolls.length > 0 && hover && poll ? (
           <PollDetails
             key={`${hover.id}:${poll.optionLabel}`}
