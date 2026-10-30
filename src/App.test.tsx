@@ -7,6 +7,7 @@ import { PARTY_COLOR, RATING_COLOR, UNASSIGNED_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
 import { SENATE_2026_FIPS, SENATE_2026_RATINGS } from "./data/senate2026";
+import { SENATE_2026_POLLS } from "./data/polling/senate2026";
 import { encodeShareHash } from "./state/encoding";
 import type { Assignment, Party } from "./types";
 import { swingColor } from "./lib/houseSwing";
@@ -599,12 +600,16 @@ describe("App scoreboard projection", () => {
       true,
     );
 
-    // Every Senate seat is on the ballot and now called: the polled seats from
-    // their leader, the no-poll seats from their current holder's party.
+    // Polled seats follow their leader and no-poll seats follow their holder.
+    // An exactly tied polling average remains uncalled.
+    const ties = Object.values(SENATE_2026_POLLS).filter((polls) => {
+      const latest = [...polls].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 10);
+      return latest.reduce((sum, poll) => sum + poll.d - poll.r, 0) === 0;
+    }).length;
     const uncalled = Array.from(
       container.querySelectorAll(".scoreboard__legend li"),
     ).find((li) => li.textContent?.startsWith("Uncalled"));
-    expect(uncalled?.textContent).toBe("Uncalled0");
+    expect(uncalled?.textContent).toBe(`Uncalled${ties}`);
 
     globalThis.fetch = originalFetch;
     act(() => root.unmount());

@@ -1,11 +1,27 @@
 {
   "12": [
     {
+      "pollster": "St. Pete Polls",
+      "date": "2026-10-27",
+      "d": 45,
+      "r": 49,
+      "sample": 916,
+      "population": "LV"
+    },
+    {
       "pollster": "ActiVote",
       "date": "2026-10-27",
       "d": 47,
       "r": 53,
       "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-25",
+      "d": 44,
+      "r": 50,
+      "sample": 813,
       "population": "LV"
     },
     {
@@ -441,6 +457,14 @@
   ],
   "19": [
     {
+      "pollster": "co/efficient (R)",
+      "date": "2026-10-28",
+      "d": 46,
+      "r": 48,
+      "sample": 1020,
+      "population": "LV"
+    },
+    {
       "pollster": "Echelon Insights (R)",
       "date": "2026-10-23",
       "d": 45,
@@ -722,6 +746,30 @@
   ],
   "20": [
     {
+      "pollster": "Emerson College",
+      "date": "2026-10-28",
+      "d": 49,
+      "r": 45,
+      "sample": 800,
+      "population": "LV"
+    },
+    {
+      "pollster": "The Washington Post/SSPG",
+      "date": "2026-10-26",
+      "d": 52,
+      "r": 43,
+      "sample": 801,
+      "population": "LV"
+    },
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-26",
+      "d": 49,
+      "r": 45,
+      "sample": 838,
+      "population": "LV"
+    },
+    {
       "pollster": "RedBox Research (D)",
       "date": "2026-10-23",
       "d": 45,
@@ -871,6 +919,14 @@
     }
   ],
   "23": [
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-26",
+      "d": 49,
+      "r": 45,
+      "sample": 783,
+      "population": "LV"
+    },
     {
       "pollster": "Marist University",
       "date": "2026-10-25",
@@ -1203,11 +1259,43 @@
   ],
   "26": [
     {
+      "pollster": "Upswing Research (D)",
+      "date": "2026-10-28",
+      "d": 50,
+      "r": 45,
+      "sample": 505,
+      "population": "LV"
+    },
+    {
+      "pollster": "Mitchell Research & Communications",
+      "date": "2026-10-27",
+      "d": 51,
+      "r": 44,
+      "sample": 636,
+      "population": "LV"
+    },
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-27",
+      "d": 49,
+      "r": 42,
+      "sample": 768,
+      "population": "LV"
+    },
+    {
       "pollster": "RedBox Research (D)",
       "date": "2026-10-23",
       "d": 49,
       "r": 44,
       "sample": 2696,
+      "population": "LV"
+    },
+    {
+      "pollster": "Michigan State University/Verasight",
+      "date": "2026-10-23",
+      "d": 51,
+      "r": 43,
+      "sample": 1383,
       "population": "LV"
     },
     {
@@ -1678,10 +1766,18 @@
   ],
   "30": [
     {
+      "pollster": "Concord Public Opinion Partners (D)",
+      "date": "2026-10-23",
+      "d": 10,
+      "r": 38,
+      "sample": 410,
+      "population": "LV"
+    },
+    {
       "pollster": "Quantus Insights (R)",
       "date": "2026-10-18",
       "d": 21,
-      "r": 44,
+      "r": 46,
       "sample": 667,
       "population": "LV"
     },
@@ -1694,7 +1790,7 @@
       "population": "LV"
     },
     {
-      "pollster": "Concord Public Opinion Partners",
+      "pollster": "Concord Public Opinion Partners (D)",
       "date": "2026-10-08",
       "d": 13,
       "r": 35,
@@ -2242,6 +2338,14 @@
       "population": "LV"
     },
     {
+      "pollster": "High Point University/YouGov",
+      "date": "2026-10-20",
+      "d": 54,
+      "r": 40,
+      "sample": 620,
+      "population": "LV"
+    },
+    {
       "pollster": "SurveyUSA",
       "date": "2026-10-11",
       "d": 54,
@@ -2596,6 +2700,14 @@
   ],
   "39": [
     {
+      "pollster": "Suffolk University",
+      "date": "2026-10-26",
+      "d": 47,
+      "r": 44,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "RedBox Research (D)",
       "date": "2026-10-23",
       "d": 47,
@@ -2776,6 +2888,14 @@
       "d": 47,
       "r": 42,
       "sample": 1200,
+      "population": "LV"
+    },
+    {
+      "pollster": "Concord Public Opinion Partners (D)",
+      "date": "2026-08-31",
+      "d": 50,
+      "r": 40,
+      "sample": 504,
       "population": "LV"
     },
     {
@@ -2985,11 +3105,35 @@
   ],
   "45": [
     {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-26",
+      "d": 48,
+      "r": 48,
+      "sample": 707,
+      "population": "LV"
+    },
+    {
       "pollster": "Targoz Media Research",
       "date": "2026-10-25",
       "d": 46,
       "r": 47,
       "sample": 895,
+      "population": "LV"
+    },
+    {
+      "pollster": "The Citadel",
+      "date": "2026-10-25",
+      "d": 39,
+      "r": 43,
+      "sample": 890,
+      "population": "LV"
+    },
+    {
+      "pollster": "East Carolina University",
+      "date": "2026-10-24",
+      "d": 47,
+      "r": 51,
+      "sample": 955,
       "population": "LV"
     },
     {
@@ -3199,6 +3343,54 @@
   ],
   "48": [
     {
+      "pollster": "Quantus Insights",
+      "date": "2026-10-28",
+      "d": 48,
+      "r": 49,
+      "sample": 1221,
+      "population": "LV"
+    },
+    {
+      "pollster": "ActiVote",
+      "date": "2026-10-28",
+      "d": 52,
+      "r": 48,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "A2 Insights",
+      "date": "2026-10-27",
+      "d": 50,
+      "r": 47,
+      "sample": 631,
+      "population": "LV"
+    },
+    {
+      "pollster": "SSRS",
+      "date": "2026-10-27",
+      "d": 49,
+      "r": 43,
+      "sample": 923,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov Blue (D)",
+      "date": "2026-10-26",
+      "d": 51,
+      "r": 43,
+      "sample": 1000,
+      "population": "RV"
+    },
+    {
+      "pollster": "Texas Southern University",
+      "date": "2026-10-25",
+      "d": 49,
+      "r": 47,
+      "sample": 2000,
+      "population": "LV"
+    },
+    {
       "pollster": "Rasmussen Reports",
       "date": "2026-10-21",
       "d": 45,
@@ -3268,6 +3460,14 @@
       "d": 51,
       "r": 49,
       "sample": 1492,
+      "population": "LV"
+    },
+    {
+      "pollster": "Cor Strategies (R)",
+      "date": "2026-10-15",
+      "d": 44,
+      "r": 40,
+      "sample": 1409,
       "population": "LV"
     },
     {
@@ -3737,6 +3937,14 @@
     }
   ],
   "01": [
+    {
+      "pollster": "Chism Strategies (D)",
+      "date": "2026-10-24",
+      "d": 40,
+      "r": 48,
+      "sample": 695,
+      "population": "LV"
+    },
     {
       "pollster": "Cygnal (R)",
       "date": "2026-10-17",
