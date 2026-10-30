@@ -701,6 +701,7 @@ export function RegionMap({
           candidates={hoverCandidates}
           summary={hover && hoverPolls.length > 0 && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null}
           projection={hover && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null}
+          marketOdds={hover && !poll?.isPainted(hover.id) ? poll?.candidateOddsFor?.(hover.id) : undefined}
           favoredParty={hover ? baseParty(assignments[hover.id] ?? null) : null}
         /> : null}
         {hoverPolls.length > 0 && hover && poll ? (

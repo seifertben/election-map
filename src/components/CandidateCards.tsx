@@ -13,12 +13,13 @@ function CandidatePortrait({ candidate }: { candidate: Candidate }) {
   );
 }
 
-export function CandidateCards({ candidates, summary, projection, favoredParty }: {
+export function CandidateCards({ candidates, summary, projection, favoredParty, marketOdds }: {
   candidates: Candidate[];
   summary?: PollSummary | null;
   /** Market/model estimates rank candidates without presenting them as polls. */
   projection?: PollSummary | null;
   favoredParty?: Party | null;
+  marketOdds?: { name: string; party: string | null; price: number }[];
 }) {
   const hasDemocrat = candidates.some(candidate => candidate.partyCode === "D");
   const side = (candidate: Candidate) => candidate.partyCode === "D" || (!hasDemocrat && candidate.partyCode === "I") ? "D" : candidate.partyCode === "R" ? "R" : null;
@@ -29,9 +30,18 @@ export function CandidateCards({ candidates, summary, projection, favoredParty }
     return party === "D" ? estimate.d : estimate.r;
   };
   const estimate = summary ?? projection;
+  const normalizeName = (name: string) => name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s*\([^)]*\)\s*$/, "").replace(/^(?:sen\.?|rep\.?|gov\.?)\s+/i, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const marketShareFor = (candidate: Candidate) => {
+    const named = marketOdds?.find(odds => normalizeName(odds.name) === normalizeName(candidate.name));
+    if (named) return named.price * 100;
+    // Generic party markets can represent one nominee, never multiple same-party candidates.
+    const generic = marketOdds?.find(odds => odds.party === side(candidate) && /^(?:Democrat(?:ic)?|Republican|Independent)(?: Party)?$/i.test(odds.name));
+    return generic && candidates.filter(other => side(other) === side(candidate)).length === 1 ? generic.price * 100 : null;
+  };
+  const rankFor = (candidate: Candidate) => marketOdds ? marketShareFor(candidate) : shareFor(candidate, estimate);
   const sorted = [...candidates].sort((a, b) => {
-    const aShare = shareFor(a, estimate);
-    const bShare = shareFor(b, estimate);
+    const aShare = rankFor(a);
+    const bShare = rankFor(b);
     if (aShare != null || bShare != null) return (bShare ?? -Infinity) - (aShare ?? -Infinity);
     if (favoredParty === "D" || favoredParty === "R") return Number(side(b) === favoredParty) - Number(side(a) === favoredParty);
     // Preserve source order for ties or races without candidate-level estimates.
@@ -39,9 +49,9 @@ export function CandidateCards({ candidates, summary, projection, favoredParty }
   });
   return (
     <div className="candidates">
-      <div className="candidates__eyebrow">Candidates</div>
+      <div className="candidates__eyebrow">{marketOdds ? "Candidates · Polymarket win chance" : "Candidates"}</div>
       {sorted.map(candidate => {
-        const share = shareFor(candidate, summary);
+        const share = marketOdds ? marketShareFor(candidate) : shareFor(candidate, summary);
         return <div className={`candidate candidate--${candidate.partyCode.toLowerCase()}`} key={`${candidate.name}:${candidate.party}`}>
           <CandidatePortrait candidate={candidate} />
           <div className="candidate__info">

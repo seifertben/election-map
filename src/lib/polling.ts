@@ -130,6 +130,8 @@ export function describeSummary(
  * race rating or painted party.
  */
 export interface PollOverlay {
+  /** Individual candidate win probabilities (0..1) for a market overlay. */
+  candidateOddsFor?: (id: string) => { name: string; party: string | null; price: number }[] | undefined;
   /** Fill color per region id; regions absent here render unassigned. */
   fills: Record<string, string>;
   /** Poll summary for a region, or null when it has no matching polls. */

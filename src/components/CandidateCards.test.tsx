@@ -68,3 +68,31 @@ it("uses market/model estimates for ordering and does not assign party shares to
   expect(container.querySelector('.candidate__name')?.textContent).toBe("Democrat");
   act(() => root.unmount());
 });
+
+it("shows and ranks individual Polymarket odds even for same-party candidates", () => {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const candidates: Candidate[] = [
+    { ...candidate, name: "Ken Calvert", party: "Republican", partyCode: "R" },
+    { ...candidate, name: "Young Kim", party: "Republican", partyCode: "R" },
+  ];
+  act(() => root.render(<CandidateCards candidates={candidates} marketOdds={[
+    { name: "Ken Calvert (R)", party: "R", price: 0.24 },
+    { name: "Young Kim (R)", party: "R", price: 0.755 },
+  ]} />));
+  expect(container.querySelector('.candidates__eyebrow')?.textContent).toContain("Polymarket win chance");
+  expect([...container.querySelectorAll('.candidate__name')].map(el => el.textContent)).toEqual(["Young Kim", "Ken Calvert"]);
+  expect([...container.querySelectorAll('.candidate__share')].map(el => el.textContent)).toEqual(["75.5%", "24.0%"]);
+  act(() => root.unmount());
+});
+
+it("uses generic party prices only for unambiguous nominees and hides unmatched candidate odds", () => {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const republican: Candidate = { ...candidate, name: "Republican Nominee", party: "Republican", partyCode: "R" };
+  act(() => root.render(<CandidateCards candidates={[republican]} marketOdds={[{ name: "Republican Party", party: "R", price: 0.83 }]} />));
+  expect(container.querySelector('.candidate__share')?.textContent).toBe("83.0%");
+  act(() => root.render(<CandidateCards candidates={[republican]} marketOdds={[{ name: "Other Person (R)", party: "R", price: 0.83 }]} />));
+  expect(container.querySelector('.candidate__share')).toBeNull();
+  act(() => root.unmount());
+});

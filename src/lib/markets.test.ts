@@ -53,6 +53,11 @@ describe("parsePolymarketEvents", () => {
     expect(quote).toBeDefined();
     expect(quote.d).toBeCloseTo(0.945);
     expect(quote.r).toBeCloseTo(0.054);
+    expect(quote.candidates).toEqual([
+      { name: "Jon Ossoff (D)", party: "D", price: 0.945 },
+      { name: "Mike Collins (R)", party: "R", price: 0.054 },
+    ]);
+    expect(marketOverlayFor(snapshot.quotes, "Polymarket", () => false).candidateOddsFor?.("13")).toEqual(quote.candidates);
     expect(quote.favorite).toEqual({
       name: "Jon Ossoff (D)",
       party: "D",

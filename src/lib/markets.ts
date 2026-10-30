@@ -35,6 +35,8 @@ export interface MarketQuote {
   r: number;
   /** Top-priced candidate, for the tooltip. */
   favorite: MarketFavorite | null;
+  /** Individual outcomes retained for candidate hover cards. */
+  candidates?: MarketFavorite[];
   /** ISO timestamp of the market's last update. */
   updatedAt: string;
 }
@@ -301,12 +303,14 @@ function addPolymarketEvent(
   let d = 0;
   let r = 0;
   let favorite: MarketFavorite | null = null;
+  const candidates: MarketFavorite[] = [];
   for (const market of event.markets ?? []) {
     const price = yesPrice(market);
-    if (price === null || price <= 0) continue;
+    if (price === null || price < 0) continue;
     const name = (market.groupItemTitle ?? "").trim();
     if (!name) continue;
     const party = partyFromLabel(name) ?? partyFor?.(key, name) ?? null;
+    candidates.push({ name, party, price });
     if (party === "D") d += price;
     else if (party === "R") r += price;
     if (!favorite || price > favorite.price) favorite = { name, party, price };
@@ -317,7 +321,7 @@ function addPolymarketEvent(
   const existing = quotes[key];
   if (existing && existing.d + existing.r >= d + r) return null;
   const updatedAt = event.updatedAt ?? "";
-  quotes[key] = { fips: key, d, r, favorite, updatedAt };
+  quotes[key] = { fips: key, d, r, favorite, candidates, updatedAt };
   return updatedAt;
 }
 
@@ -525,6 +529,7 @@ export function marketOverlayFor(
   return {
     fills,
     summaryFor: (id) => (quotes[id] ? quoteSummary(quotes[id]) : null),
+    candidateOddsFor: (id) => quotes[id]?.candidates,
     optionLabel: sourceLabel,
     isPainted,
     describe: (id) => (quotes[id] ? describeQuote(quotes[id], sourceLabel) : null),
