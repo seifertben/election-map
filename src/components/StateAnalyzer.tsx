@@ -31,6 +31,7 @@ import type {
 } from "../lib/analyzer";
 import type { RegionFeature } from "../types";
 import { RegionMap } from "./RegionMap";
+import type { CandidateSnapshot } from "../data/candidates";
 
 export type AnalyzerElection = "senate" | "house" | "governor";
 
@@ -41,6 +42,7 @@ const ELECTION_LABEL: Record<AnalyzerElection, string> = {
 };
 
 export interface StateAnalyzerProps {
+  candidates?: CandidateSnapshot | null;
   states: RegionFeature[];
   districts: RegionFeature[];
   demographics: DemographicsData | null;
@@ -109,6 +111,7 @@ function pollCoversState(id: string, fips: string): boolean {
 }
 
 export function StateAnalyzer({
+  candidates,
   states,
   districts,
   demographics,
@@ -287,6 +290,7 @@ export function StateAnalyzer({
   return (
     <main className="layout">
       <StateAnalysis
+        candidates={candidates}
         key={stateFips}
         stateFeature={stateFeature}
         districts={districts}
@@ -320,6 +324,7 @@ export function StateAnalyzer({
 }
 
 interface StateAnalysisProps {
+  candidates?: CandidateSnapshot | null;
   stateFeature: RegionFeature;
   stateFeatures: RegionFeature[];
   districts: RegionFeature[];
@@ -349,6 +354,7 @@ interface StateAnalysisProps {
 }
 
 function StateAnalysis({
+  candidates,
   stateFeature,
   stateFeatures,
   districts,
@@ -633,6 +639,7 @@ function StateAnalysis({
     <>
       <section className="map-panel">
         <RegionMap
+          candidates={candidates?.[election]}
           key={`${stateFips}:${election}`}
           features={features}
           getId={election === "house" ? geoidOf : fipsOf}

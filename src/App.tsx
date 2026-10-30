@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { FlagRibbon } from "./components/FlagRibbon";
+import type { CandidateSnapshot } from "./data/candidates";
 import { MarketPanel } from "./components/MarketPanel";
 import type { MarketStatus } from "./components/MarketPanel";
 import { ModeTabs } from "./components/ModeTabs";
@@ -154,6 +155,20 @@ export default function App() {
     createInitialState(),
   );
   const [states, setStates] = useState<RegionFeature[] | null>(null);
+  const [candidates, setCandidates] = useState<CandidateSnapshot | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${import.meta.env.BASE_URL}data/candidates.json`, { signal: controller.signal })
+      .then(response => {
+        if (!response.ok) throw new Error("Candidate snapshot unavailable");
+        return response.json();
+      })
+      .then(snapshot => {
+        if (snapshot.senate && snapshot.governor && snapshot.house && snapshot.president) setCandidates(snapshot);
+      })
+      .catch(() => { /* Map controls remain available if the snapshot cannot load. */ });
+    return () => controller.abort();
+  }, []);
   const [districts, setDistricts] = useState<RegionFeature[] | null>(null);
   const [demographics, setDemographics] = useState<DemographicsData | null>(null);
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
@@ -894,6 +909,7 @@ export default function App() {
 
       {analyzerOpen && states && districts ? (
         <StateAnalyzer
+          candidates={candidates}
           states={states}
           districts={districts}
           demographics={demographics}
@@ -920,6 +936,7 @@ export default function App() {
               features={currentFeatures}
               getId={getId}
               getLabel={getLabel}
+              candidates={candidates?.[state.mode]}
               isActive={isActive}
               assignments={state.assignments[state.mode]}
               onRegionClick={handleRegionClick}

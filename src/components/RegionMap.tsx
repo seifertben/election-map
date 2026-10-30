@@ -20,6 +20,8 @@ import type { PollOverlay } from "../lib/polling";
 import { MAP_HEIGHT, MAP_WIDTH, projectFeatures } from "../lib/projection";
 import type { Assignment, RegionFeature } from "../types";
 import { PollDetails } from "./PollDetails";
+import { CandidateCards } from "./CandidateCards";
+import type { Candidate } from "../data/candidates";
 
 /** Diagonally striped pattern geometry, in user-space units. */
 const STRIPE_SIZE = 8;
@@ -68,6 +70,8 @@ export interface RegionMapProps {
    * the underlying map, so callers usually exit the overlay on a click.
    */
   poll?: PollOverlay | null;
+  /** General-election candidates, keyed by the same region id as the map. */
+  candidates?: Record<string, Candidate[]>;
 }
 
 interface HoverState {
@@ -118,6 +122,7 @@ export function RegionMap({
   stripePickups = false,
   getIncumbent,
   poll,
+  candidates,
 }: RegionMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerSvgRef = useRef<SVGSVGElement | null>(null);
@@ -136,7 +141,8 @@ export function RegionMap({
     () => hover ? poll?.pollsFor?.(hover.id) ?? [] : [],
     [hover?.id, poll],
   );
-  const interactiveTooltip = hoverPolls.length > 0;
+  const hoverCandidates = hover ? candidates?.[hover.id] ?? [] : [];
+  const interactiveTooltip = hoverPolls.length > 0 || hoverCandidates.length > 0;
 
   const cancelHideTooltip = useCallback(() => {
     if (hideTimer.current !== null) clearTimeout(hideTimer.current);
@@ -200,7 +206,7 @@ export function RegionMap({
         tip.style.top = `${tooltipAnchor.current.y - rect.top}px`;
       }
     }
-  }, [positionPollTooltip, hover?.id, poll?.optionLabel]);
+  }, [positionPollTooltip, hover?.id, poll?.optionLabel, hoverCandidates.length]);
 
   useEffect(() => {
     if (!interactiveTooltip) return;
@@ -565,7 +571,7 @@ export function RegionMap({
     const tip = tooltipRef.current;
     const nextInteractive = el.dataset.id === hover?.id
       ? interactiveTooltip
-      : (poll?.pollsFor?.(el.dataset.id ?? "").length ?? 0) > 0;
+      : (poll?.pollsFor?.(el.dataset.id ?? "").length ?? 0) > 0 || (candidates?.[el.dataset.id ?? ""]?.length ?? 0) > 0;
     // Poll popups stay anchored while moving within a state so their
     // disclosure control can be reached without chasing the pointer.
     if (rect && tip && !nextInteractive) {
@@ -671,9 +677,9 @@ export function RegionMap({
           hovered. Position is set imperatively in handlePointerMove. */}
       <div
         ref={tooltipRef}
-        className={interactiveTooltip ? "tooltip tooltip--interactive" : "tooltip"}
+        className={`tooltip${interactiveTooltip ? " tooltip--interactive" : ""}${hoverCandidates.length ? " tooltip--candidates" : ""}`}
         role={interactiveTooltip ? "dialog" : undefined}
-        aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} polling details` : undefined}
+        aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} ${hoverPolls.length ? "polling" : "candidate"} details` : undefined}
         onPointerEnter={keepTooltip}
         onPointerLeave={scheduleHideTooltip}
         onFocus={keepTooltip}
@@ -685,11 +691,12 @@ export function RegionMap({
           display: hover ? undefined : "none",
         }}
       >
-        {hoverInfo?.label}
+        <div className="tooltip__heading"><span>{hoverInfo?.label}</span>{interactiveTooltip ? <button type="button" className="tooltip__close" aria-label="Close race details" onClick={hideTooltip}>×</button> : null}</div>
         {hoverInfo?.breakdown ? (
           <div className="tooltip__breakdown">{hoverInfo.breakdown}</div>
         ) : null}
-        {interactiveTooltip && hover && poll ? (
+        {hoverCandidates.length > 0 ? <CandidateCards key={hover?.id} candidates={hoverCandidates} summary={hover && hoverPolls.length > 0 && !poll?.isPainted(hover.id) ? poll?.summaryFor(hover.id) : null} /> : null}
+        {hoverPolls.length > 0 && hover && poll ? (
           <PollDetails
             key={`${hover.id}:${poll.optionLabel}`}
             polls={hoverPolls}

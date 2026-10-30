@@ -348,14 +348,15 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   position: absolute;
   z-index: 5;
   pointer-events: none;
-  background: #111827;
-  color: #fff;
+  background: #ffffff;
+  color: var(--ink);
   font-size: 12px;
   font-weight: 600;
-  padding: 5px 9px;
-  border-radius: 6px;
+  padding: 10px 14px;
+  border: 1px solid #d9e2ef;
+  border-radius: 12px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 40px #142b4926, 0 2px 6px #142b4910;
 }
 
 .tooltip__breakdown {
@@ -363,7 +364,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   max-width: 260px;
   white-space: normal;
   font-weight: 500;
-  color: #d1d5db;
+  color: var(--ink-soft);
 }
 
 .tooltip--interactive {
@@ -380,17 +381,17 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 
 .poll-details {
   margin-top: 8px;
-  border-top: 1px solid #374151;
+  border-top: 1px solid var(--border);
   padding-top: 8px;
 }
 
 .poll-details summary {
   cursor: pointer;
-  color: #bfdbfe;
+  color: #355e8a;
 }
 
 .poll-details summary:hover {
-  color: #fff;
+  color: var(--ink);
 }
 
 .poll-details summary:focus-visible,
@@ -419,15 +420,15 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .poll-details th,
 .poll-details td {
   padding: 7px 8px;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
 
 .poll-details thead th {
   position: sticky;
   top: 0;
-  background: #111827;
-  color: #d1d5db;
+  background: #ffffff;
+  color: var(--ink-soft);
   white-space: nowrap;
 }
 
@@ -442,9 +443,32 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 
 .poll-details__population {
   display: block;
-  color: #9ca3af;
+  color: var(--ink-soft);
   font-size: 11px;
 }
+
+.tooltip__heading { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; font-weight: 700; line-height: 1.55; }
+.tooltip__heading > span { flex: 1; min-width: 0; }
+.tooltip__close { display: grid; place-items: center; flex: none; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 7px; background: #f0f4f9; color: #52647d; font-size: 21px; cursor: pointer; }
+.tooltip__close:hover { background: #e0e8f2; }
+.tooltip--candidates { width: min(420px, calc(100vw - 24px)); padding: 16px; }
+.candidates { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+.candidates__eyebrow { margin-bottom: 8px; color: #738298; text-transform: uppercase; letter-spacing: 0.12em; font-size: 9px; font-weight: 750; }
+.candidate { --candidate-color: #64748b; display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 7px; border: 1px solid #e5eaf2; border-left: 3px solid var(--candidate-color); border-radius: 10px; background: #fafbfd; }
+.candidate--d { --candidate-color: #2e5fa3; }
+.candidate--r { --candidate-color: #b9362d; }
+.candidate--i { --candidate-color: #7463a4; }
+.candidate__portrait { width: 52px; height: 60px; flex: none; overflow: hidden; border-radius: 7px; background: #e9eef5; }
+.candidate__portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.candidate__initials { display: grid; place-items: center; height: 100%; font-size: 18px; font-weight: 700; color: var(--candidate-color); }
+.candidate__info { min-width: 0; flex: 1; }
+.candidate__party { display: block; color: var(--candidate-color); font-size: 10px; font-weight: 700; }
+.candidate__name { display: block; font-size: 14px; line-height: 1.35; margin: 2px 0; overflow-wrap: anywhere; }
+.candidate__credit, .candidates__source { color: #63758c; font-size: 9px; text-decoration: none; font-weight: 400; }
+.candidate__credit:hover, .candidates__source:hover { text-decoration: underline; color: var(--accent); }
+.candidate__share { color: var(--candidate-color); font-size: 24px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.candidate__share small { font-size: 12px; }
+.poll-details tbody tr:hover { background: #f7f9fd; }
 
 .side {
   display: flex;

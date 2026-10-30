@@ -282,3 +282,18 @@ Re-run it when the Census publishes updated boundaries.
 `npm run build` produces a fully static `dist/`. Host it on any static host
 (Cloudflare Pages, Netlify, GitHub Pages, S3). If you deploy under a subpath,
 set Vite's `base` option accordingly.
+
+## Candidate hover cards
+
+All map views can show sourced candidate names, parties, and portraits in their
+hover cards. `npm run build:candidates` builds `public/data/candidates.json` from
+Wikipedia election infoboxes (and the California candidate overview and Louisiana
+declared-candidate lists). The President map uses the 2024 nominees. The generator
+checks coverage for all 435 House districts, 35 Senate races, and 36 governor races.
+Pass `--refresh` to bypass its cache in `/tmp/election-map-candidates`; set
+`WIKI_POLLS_CACHE` to reuse fresh election articles from the polling update.
+
+Portraits use the election infobox or the candidate's linked biography, with
+original file/credit links in each card. Candidates without a sourced portrait,
+and images that fail to load, use an initials avatar. Candidate names and source
+links are committed; image files load from Wikimedia only when a card is shown.
