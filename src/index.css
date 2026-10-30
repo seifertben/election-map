@@ -348,9 +348,9 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   position: absolute;
   z-index: 5;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   color: var(--ink);
   font-size: 12px;
   font-weight: 600;
@@ -456,7 +456,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .tooltip--candidates { width: min(420px, calc(100vw - 24px)); padding: 16px; }
 .candidates { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
 .candidates__eyebrow { margin-bottom: 8px; color: #738298; text-transform: uppercase; letter-spacing: 0.12em; font-size: 9px; font-weight: 750; }
-.candidate { --candidate-color: #64748b; display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 7px; border: 1px solid #e5eaf2; border-left: 3px solid var(--candidate-color); border-radius: 10px; background: #fafbfd; }
+.candidate { --candidate-color: #64748b; display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 7px; border: 1px solid #e5eaf2; border-left: 3px solid var(--candidate-color); border-radius: 10px; background: rgba(250, 251, 253, 0.25); }
 .candidate--d { --candidate-color: #2e5fa3; }
 .candidate--r { --candidate-color: #b9362d; }
 .candidate--i { --candidate-color: #7463a4; }
