@@ -54,7 +54,14 @@ body {
 .header { flex-shrink: 0; }
 .flag-ribbon { position: relative; height: 32px; margin-bottom: 18px; overflow: hidden; border-radius: 5px; background: repeating-linear-gradient(to bottom, #ba3041 0, #ba3041 calc(32px / 13), #fffdf8 calc(32px / 13), #fffdf8 calc(64px / 13)); box-shadow: 0 1px 3px #18283f12; }
 .flag-ribbon::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(110deg, #ffffff20, transparent 55%, #142b4910); box-shadow: inset 0 0 0 1px #18283f10; border-radius: inherit; }
-.flag-ribbon__stars { position: absolute; right: 0; top: 0; display: block; width: 64px; height: 32px; }
+.flag-ribbon__stars { position: absolute; left: 0; top: 0; display: block; width: 64px; height: 32px; }
+.election-countdown { position: absolute; right: 12px; top: 0; bottom: 0; z-index: 1; display: flex; align-items: center; gap: 14px; padding: 0 14px; color: #fffdf8; background: #203b62; box-shadow: 0 0 0 1px #ffffff30; font-size: 11px; }
+.election-countdown__label { font-weight: 700; white-space: nowrap; }
+.election-countdown__label > span { font-weight: 400; opacity: 0.8; }
+.election-countdown__digits { display: flex; gap: 9px; font-variant-numeric: tabular-nums; }
+.election-countdown__digits > span { display: flex; align-items: baseline; gap: 2px; }
+.election-countdown__digits strong { font-size: 14px; letter-spacing: 0.02em; }
+.election-countdown__digits small { font-size: 9px; opacity: 0.75; }
 
 .header__brand {
   display: flex;
@@ -1266,6 +1273,10 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
     font-size: clamp(16px, 4.9vw, 20px);
   }
   .flag-ribbon { margin-bottom: 14px; }
+  .election-countdown { right: 0; gap: 8px; padding: 0 8px; font-size: 10px; }
+  .election-countdown__label > span { display: none; }
+  .election-countdown__digits { gap: 5px; }
+  .election-countdown__digits strong { font-size: 12px; }
   .header__eyebrow { font-size: 8px; }
 
   .header__actions {
