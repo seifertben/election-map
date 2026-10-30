@@ -18,17 +18,23 @@ export function Scoreboard({ score, seats }: ScoreboardProps) {
         />
       ) : null}
       <div className="scoreboard__headline">
+        <div className="scoreboard__party">
+          <span className="scoreboard__party-label">Democrats</span>
         <div className="scoreboard__number scoreboard__number--d">
           {score.headline.D}
         </div>
+        </div>
         <div className="scoreboard__mid">
-          <span className="scoreboard__caption">{score.caption}</span>
+          <span className="scoreboard__caption">{score.caption.includes(" · ") ? score.caption.split(" · ")[0] : score.unit === "electoral votes" ? "Electoral college" : "House of Representatives"}</span>
           <span className="scoreboard__sub">
             {score.majority} {score.unit} to win
           </span>
         </div>
+        <div className="scoreboard__party scoreboard__party--r">
+          <span className="scoreboard__party-label">Republicans</span>
         <div className="scoreboard__number scoreboard__number--r">
           {score.headline.R}
+        </div>
         </div>
       </div>
 
@@ -39,6 +45,7 @@ export function Scoreboard({ score, seats }: ScoreboardProps) {
           .map((s) => `${s.label}: ${s.count}`)
           .join(", ")}
       >
+        <span className="scoreboard__majority" style={{ left: `${(score.majority / score.total) * 100}%` }} aria-hidden="true" />
         {score.segments
           .filter((s) => s.count > 0)
           .map((s) => (

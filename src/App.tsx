@@ -28,7 +28,7 @@ import {
 } from "./data/governor2026";
 import { HOUSE_2026_FIPS, HOUSE_2026_RATINGS } from "./data/house2026";
 import { HOUSE_2026_HOLDER } from "./data/house2026Holder";
-import { PARTY_COLOR } from "./data/parties";
+import { PARTY_COLOR, RATING_COLOR, RATING_LABEL, RATINGS } from "./data/parties";
 import { PRESIDENT_2024_RESULTS } from "./data/president2024";
 import {
   SENATE_2026_FIPS,
@@ -39,6 +39,7 @@ import { STATE_BY_FIPS } from "./data/states";
 import {
   DEFAULT_RATINGS_SOURCE,
   RATINGS_SOURCE_BY_ID,
+  sourceAsOf,
 } from "./data/ratingsSources";
 import type { DemographicsData } from "./lib/analyzer";
 import { exportSvgAsPng, renderSvgAsPng } from "./lib/exportPng";
@@ -156,6 +157,7 @@ export default function App() {
   const [districts, setDistricts] = useState<RegionFeature[] | null>(null);
   const [demographics, setDemographics] = useState<DemographicsData | null>(null);
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
+  const [controlsOpen, setControlsOpen] = useState(false);
   const [brush, setBrush] = useState<Brush>("CYCLE");
   // A manual choice stays painted even when it matches the underlying rating.
   const [paintedRegions, setPaintedRegions] = useState<Record<Mode, Set<string>>>({
@@ -847,6 +849,12 @@ export default function App() {
   const currentFeatures = state.mode === "house" ? districts : states;
   const senateFips = useMemo(() => new Set(SENATE_2026_FIPS), []);
   const governorFips = useMemo(() => new Set(GOVERNOR_2026_FIPS), []);
+  const activeSource = RATINGS_SOURCE_BY_ID[ratingsSelectId];
+  const viewLabel = marketsOn ? "Polymarket probabilities" : pollingOn ? "Polling averages & pollsters" : swingActive ? "2024 results + your swing" : activeSource ? activeSource.label : state.mode === "president" ? "2024 presidential results" : "Your custom prediction";
+  const freshness = pollingOn && raceMode
+    ? `Polls through ${new Date(`${POLL_DATASETS[raceMode].asOf}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
+    : marketsOn ? (activeMarket?.asOf ? `Updated ${new Date(activeMarket.asOf).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "Connecting to market…")
+    : activeSource && ratingMode ? `Updated ${sourceAsOf(activeSource, ratingMode)}` : "Build a scenario. Make it yours.";
 
   return (
     <div className="app">
@@ -854,17 +862,17 @@ export default function App() {
         <div className="header__top">
           <div className="header__brand">
             <Logo />
-            <h1>2026 Election Mapper</h1>
+            <div><p className="header__eyebrow">THE ROAD TO A MAJORITY</p><h1>2026 Election Mapper</h1></div>
           </div>
           <div className="header__actions">
             <button type="button" onClick={() => setShareOpen(true)} disabled={loading || analyzerOpen}>
               Share map
             </button>
             <button type="button" onClick={handleCopyLink} disabled={loading}>
-              {copied ? "✅ Link copied!" : "🔗 Copy link"}
+              {copied ? "Link copied!" : "Copy link"}
             </button>
             <button type="button" onClick={handleExport} disabled={loading}>
-              🖼️ Export PNG
+              Export PNG
             </button>
           </div>
         </div>
@@ -896,6 +904,11 @@ export default function App() {
       ) : (
       <main className="layout">
         <section className="map-panel">
+          <div className="map-heading">
+            <div><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><h2>{MODE_LABEL[state.mode]} map</h2></div>
+            <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
+          </div>
+          <div className="map-stage">
           {loading || !currentFeatures ? (
             <div className="loading">Loading map…</div>
           ) : (
@@ -913,13 +926,21 @@ export default function App() {
               poll={marketOverlay ?? pollOverlay ?? swingOverlay}
             />
           )}
+          </div>
+          <div className="map-key" aria-label="Map color legend">
+            {!pollingOn && !marketsOn && !swingActive && activeSource ? <div className="map-key__ratings">{RATINGS.map((rating) => <span key={rating} title={RATING_LABEL[rating]}><i style={{ backgroundColor: RATING_COLOR[rating] }} />{RATING_LABEL[rating].replace(" Democrat", " D").replace(" Republican", " R")}</span>)}</div> : <span>{marketsOn ? "Blue: Democratic probability · Red: Republican probability" : pollingOn || swingActive ? "Blue: Democratic lead · Red: Republican lead" : "Blue: Democrat · Red: Republican · Grey: Tossup / uncalled"}</span>}
+            <span className="map-key__hint">{stripePickups && ratingMode ? "Stripes indicate a pickup · " : ""}Scroll to zoom · Drag to pan</span>
+          </div>
         </section>
 
         <aside className="side">
-          <section className="panel">
+          <section className="panel panel--scoreboard">
             <h2 className="panel__title">Scoreboard</h2>
             <Scoreboard score={score} seats={seats} />
           </section>
+
+          <button type="button" className="controls-toggle" aria-expanded={controlsOpen} aria-controls="map-settings" onClick={() => setControlsOpen(!controlsOpen)}><span>Map controls <small>Sources, colors & tools</small></span><span>{controlsOpen ? "Close −" : "Customize +"}</span></button>
+          <div id="map-settings" className={`map-settings${controlsOpen ? " map-settings--open" : ""}`}>
 
           {ratingMode ? (
             <RatingsPanel
@@ -1000,6 +1021,7 @@ export default function App() {
           </section>
 
           <SiteAd />
+          </div>
         </aside>
       </main>
       )}
