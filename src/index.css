@@ -348,7 +348,9 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   position: absolute;
   z-index: 5;
   pointer-events: none;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: var(--ink);
   font-size: 12px;
   font-weight: 600;
