@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Logo } from "./components/Logo";
+import { FlagRibbon } from "./components/FlagRibbon";
 import { MarketPanel } from "./components/MarketPanel";
 import type { MarketStatus } from "./components/MarketPanel";
 import { ModeTabs } from "./components/ModeTabs";
@@ -859,9 +859,9 @@ export default function App() {
   return (
     <div className="app">
       <header className="header">
+        <FlagRibbon />
         <div className="header__top">
           <div className="header__brand">
-            <Logo />
             <div><p className="header__eyebrow">THE ROAD TO A MAJORITY</p><h1>2026 Election Mapper</h1></div>
           </div>
           <div className="header__actions">
