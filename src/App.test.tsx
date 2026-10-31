@@ -811,6 +811,19 @@ describe("App governor integration", () => {
     expect(ratingsSelect.value).toBe("cook");
     expect(path("06")).toBe(RATING_COLOR[GOVERNOR_2026_RATINGS["06"]]);
 
+    const hoveredSeal = () => container?.querySelector(".map-watermark--state")?.getAttribute("src");
+    expect(hoveredSeal()).toBeUndefined();
+    act(() => container?.querySelector('path[data-id="06"]')?.dispatchEvent(
+      new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true }),
+    ));
+    expect(hoveredSeal()).toContain("state-seals/06.png");
+    act(() => container?.querySelector('path[data-id="13"]')?.dispatchEvent(
+      new MouseEvent("pointermove", { clientX: 200, clientY: 150, bubbles: true }),
+    ));
+    expect(hoveredSeal()).toContain("state-seals/13.png");
+    act(() => container?.querySelector<HTMLButtonElement>('button[aria-label="Show map hover details"]')?.click());
+    expect(hoveredSeal()).toBeUndefined();
+
     // Selecting a poll deselects the ratings dropdown and overlays polling.
     setSelectValue(pollSelect, "avg-10");
     expect(pollSelect.value).toBe("avg-10");
@@ -823,7 +836,7 @@ describe("App governor integration", () => {
 });
 
 describe("State Analyzer integration", () => {
-  it("opens the analyzer, shows a state's districts, and switches elections", async () => {
+  it("opens the analyzer, shows a state's districts, and updates its seal", async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = fetchMock as typeof fetch;
     window.location.hash = "";
@@ -851,6 +864,8 @@ describe("State Analyzer integration", () => {
     expect(stateSelect).not.toBeNull();
     expect(stateSelect.value).toBe("06");
     expect(electionSelect.value).toBe("house");
+    expect(container.querySelector(".map-watermark--state")?.getAttribute("src"))
+      .toContain("state-seals/06.png");
     // California's 52 districts are drawn.
     expect(container.querySelectorAll("path.region")).toHaveLength(52);
 
@@ -861,6 +876,10 @@ describe("State Analyzer integration", () => {
     ).not.toContain("president");
     setSelectValue(electionSelect, "governor");
     expect(container.querySelectorAll("path.region")).toHaveLength(1);
+
+    setSelectValue(stateSelect, "48");
+    expect(container.querySelector(".map-watermark--state")?.getAttribute("src"))
+      .toContain("state-seals/48.png");
 
     globalThis.fetch = originalFetch;
     act(() => root.unmount());

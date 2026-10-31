@@ -276,7 +276,8 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 }
 .map-watermark--house { opacity: 0.62; }
 .map-watermark--senate { opacity: 0.54; }
-.map-watermark--president { width: clamp(240px, 28%, 330px); opacity: 0.86; }
+.map-watermark--president { width: clamp(180px, 23%, 250px); opacity: 0.86; }
+.map-watermark--state { width: clamp(124px, 17%, 180px); opacity: 0.62; filter: grayscale(1) sepia(1) saturate(3) hue-rotate(170deg); mix-blend-mode: multiply; }
 .map-cycle-note { margin: 0; padding: 12px 20px; border-bottom: 1px solid #e2eaf4; background: #f2f6fc; color: #395474; font-size: 12px; line-height: 1.6; }
 .map-key { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 18px; border-top: 1px solid #e9edf3; background: #fbfcfe; font-size: 10px; color: var(--ink-soft); }
 .map-key__ratings { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }

@@ -157,6 +157,10 @@ Re-run it when the Census publishes updated boundaries.
   and [Senate logo](https://commons.wikimedia.org/wiki/File:US-Senate-Logo.svg).
   The White House outline and Senate logo were recolored navy; the Senate
   logo's solid background was removed. All three marks are hidden on mobile.
+- The State Analyzer shows a navy-tinted seal for the selected state behind its
+  map. The Governor map shows the same seal while an active state is hovered.
+  The local thumbnails and their sources are listed in
+  [docs/state-seals.md](docs/state-seals.md); the marks are hidden on mobile.
 - The presidential map is state-level winner-take-all; the Maine and Nebraska
   congressional-district splits are not broken out.
 - DC is included for the presidency but is a non-voting delegate, so it is not

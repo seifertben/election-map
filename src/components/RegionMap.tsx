@@ -76,6 +76,8 @@ export interface RegionMapProps {
   /** Whether moving over a region opens its details. */
   hoverEnabled?: boolean;
   onHoverEnabledChange?: (enabled: boolean) => void;
+  /** Active hover region, for map artwork that follows the tooltip. */
+  onHoverRegionChange?: (id: string | null) => void;
 }
 
 interface HoverState {
@@ -129,6 +131,7 @@ export function RegionMap({
   candidates,
   hoverEnabled: controlledHoverEnabled,
   onHoverEnabledChange,
+  onHoverRegionChange,
 }: RegionMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerSvgRef = useRef<SVGSVGElement | null>(null);
@@ -179,6 +182,12 @@ export function RegionMap({
   useEffect(() => {
     if (!hoverEnabled) hideTooltip();
   }, [hoverEnabled, hideTooltip]);
+
+  useEffect(() => {
+    onHoverRegionChange?.(hoverEnabled ? hover?.id ?? null : null);
+  }, [hover?.id, hoverEnabled, onHoverRegionChange]);
+
+  useEffect(() => () => onHoverRegionChange?.(null), [onHoverRegionChange]);
 
   const toggleHover = () => {
     const next = !hoverEnabled;

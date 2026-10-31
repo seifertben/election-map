@@ -180,6 +180,7 @@ export default function App() {
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
   const [controlsOpen, setControlsOpen] = useState(false);
   const [hoverEnabled, setHoverEnabled] = useState(true);
+  const [hoveredGovernorFips, setHoveredGovernorFips] = useState<string | null>(null);
   const [brush, setBrush] = useState<Brush>("CYCLE");
   // A manual choice stays painted even when it matches the underlying rating.
   const [paintedRegions, setPaintedRegions] = useState<Record<Mode, Set<string>>>({
@@ -945,6 +946,15 @@ export default function App() {
               draggable={false}
             />
           ) : null}
+          {!loading && state.mode === "governor" && hoverEnabled && hoveredGovernorFips ? (
+            <img
+              className="map-watermark map-watermark--state"
+              src={`${import.meta.env.BASE_URL}assets/state-seals/${hoveredGovernorFips}.png`}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+            />
+          ) : null}
           {loading || !currentFeatures ? (
             <div className="loading">Loading map…</div>
           ) : (
@@ -963,6 +973,7 @@ export default function App() {
               poll={marketOverlay ?? pollOverlay ?? swingOverlay}
               hoverEnabled={hoverEnabled}
               onHoverEnabledChange={setHoverEnabled}
+              onHoverRegionChange={state.mode === "governor" ? setHoveredGovernorFips : undefined}
             />
           )}
           </div>

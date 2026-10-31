@@ -638,26 +638,35 @@ function StateAnalysis({
   return (
     <>
       <section className="map-panel">
-        <RegionMap
-          candidates={candidates?.[election]}
-          key={`${stateFips}:${election}`}
-          features={features}
-          getId={election === "house" ? geoidOf : fipsOf}
-          getLabel={
-            election === "house"
-              ? districtLabel
-              : () => `${stateName} · ${ELECTION_LABEL[election]}`
-          }
-          isActive={() => true}
-          assignments={{}}
-          onRegionClick={(id) => {
-            if (election === "house") setSelectedRegion(id);
-          }}
-          svgRef={svgRef}
-          stripePickups={showFlips}
-          getIncumbent={getIncumbent}
-          poll={overlay}
-        />
+        <div className="map-stage">
+          <img
+            className="map-watermark map-watermark--state"
+            src={`${import.meta.env.BASE_URL}assets/state-seals/${stateFips}.png`}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+          />
+          <RegionMap
+            candidates={candidates?.[election]}
+            key={`${stateFips}:${election}`}
+            features={features}
+            getId={election === "house" ? geoidOf : fipsOf}
+            getLabel={
+              election === "house"
+                ? districtLabel
+                : () => `${stateName} · ${ELECTION_LABEL[election]}`
+            }
+            isActive={() => true}
+            assignments={{}}
+            onRegionClick={(id) => {
+              if (election === "house") setSelectedRegion(id);
+            }}
+            svgRef={svgRef}
+            stripePickups={showFlips}
+            getIncumbent={getIncumbent}
+            poll={overlay}
+          />
+        </div>
       </section>
 
       <aside className="side">
