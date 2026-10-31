@@ -151,11 +151,12 @@ Re-run it when the Census publishes updated boundaries.
 
 ## Notes & limitations
 
-- The translucent House emblem and Senate logo behind the map are local SVGs from
-  [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:United_States_House_of_Representatives_seal.svg)
-  and [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:US-Senate-Logo.svg),
-  respectively. The Senate logo was recolored navy and its solid background
-  removed to work as a watermark.
+- The translucent President, House, and Senate marks behind their maps are
+  local SVGs from Wikimedia Commons: the [White House outline](https://commons.wikimedia.org/wiki/File:Wh-outline-white.svg),
+  [House emblem](https://commons.wikimedia.org/wiki/File:United_States_House_of_Representatives_seal.svg),
+  and [Senate logo](https://commons.wikimedia.org/wiki/File:US-Senate-Logo.svg).
+  The White House outline and Senate logo were recolored navy; the Senate
+  logo's solid background was removed. All three marks are hidden on mobile.
 - The presidential map is state-level winner-take-all; the Maine and Nebraska
   congressional-district splits are not broken out.
 - DC is included for the presidency but is a non-voting delegate, so it is not

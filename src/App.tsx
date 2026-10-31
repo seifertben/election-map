@@ -137,6 +137,12 @@ const MODE_LABEL: Record<Mode, string> = {
   house: "House",
 };
 
+const MAP_WATERMARK_FILE: Partial<Record<Mode, string>> = {
+  president: "president-white-house.svg",
+  senate: "senate-logo.svg",
+  house: "house-emblem.svg",
+};
+
 function featureId(feature: RegionFeature, key: "fips" | "geoid"): string {
   const value = feature.properties[key];
   return String(value ?? feature.id ?? "");
@@ -863,6 +869,7 @@ export default function App() {
 
   const loading = !states || !districts;
   const currentFeatures = state.mode === "house" ? districts : states;
+  const watermarkFile = MAP_WATERMARK_FILE[state.mode];
   const senateFips = useMemo(() => new Set(SENATE_2026_FIPS), []);
   const governorFips = useMemo(() => new Set(GOVERNOR_2026_FIPS), []);
   const activeSource = RATINGS_SOURCE_BY_ID[ratingsSelectId];
@@ -929,10 +936,10 @@ export default function App() {
             <p className="map-cycle-note">There is no presidential election in 2026. This map starts with the 2024 results; the next presidential election is in 2028.</p>
           ) : null}
           <div className="map-stage">
-          {!loading && (state.mode === "house" || state.mode === "senate") ? (
+          {!loading && watermarkFile ? (
             <img
               className={`map-watermark map-watermark--${state.mode}`}
-              src={`${import.meta.env.BASE_URL}assets/${state.mode === "house" ? "house-emblem.svg" : "senate-logo.svg"}`}
+              src={`${import.meta.env.BASE_URL}assets/${watermarkFile}`}
               alt=""
               aria-hidden="true"
               draggable={false}
