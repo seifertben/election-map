@@ -74,7 +74,8 @@ describe("governorScore", () => {
   it("includes the 14 governorships not up in 2026", () => {
     const score = governorScore({});
     expect(score.total).toBe(50);
-    expect(score.majority).toBe(26);
+    expect(score.majority).toBeNull();
+    expect(score.caption).toBe("36 of 50 governorships up in 2026");
     expect(score.headline.D).toBe(6);
     expect(score.headline.R).toBe(8);
     expect(score.headline.other).toBe(36);

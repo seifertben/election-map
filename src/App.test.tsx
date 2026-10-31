@@ -789,6 +789,11 @@ describe("App governor integration", () => {
     await waitForStateFlush();
     await waitForStateFlush();
 
+    expect(container.querySelector(".header__eyebrow")?.textContent).toBe("THE 2026 GOVERNOR RACES");
+    expect(container.querySelector(".scoreboard__caption")?.textContent).toBe("36 of 50 governorships up in 2026");
+    expect(container.querySelector(".scoreboard__sub")).toBeNull();
+    expect(container.querySelector(".scoreboard__majority")).toBeNull();
+
     const path = (id: string) =>
       container?.querySelector(`path[data-id="${id}"]`)?.getAttribute("fill") ??
       null;

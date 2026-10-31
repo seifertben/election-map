@@ -878,7 +878,7 @@ export default function App() {
         <FlagRibbon />
         <div className="header__top">
           <div className="header__brand">
-            <div><p className="header__eyebrow">THE ROAD TO A MAJORITY</p><h1>2026 Election Mapper</h1></div>
+            <div><p className="header__eyebrow">{state.mode === "governor" ? "THE 2026 GOVERNOR RACES" : "THE ROAD TO A MAJORITY"}</p><h1>2026 Election Mapper</h1></div>
           </div>
           <div className="header__actions">
             <button type="button" onClick={() => setShareOpen(true)} disabled={loading || analyzerOpen}>

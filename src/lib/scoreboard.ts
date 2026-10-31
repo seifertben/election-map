@@ -28,7 +28,8 @@ export interface Seat {
 export interface ScoreModel {
   segments: Segment[];
   total: number;
-  majority: number;
+  /** Winning threshold for chamber and Electoral College views, if applicable. */
+  majority: number | null;
   caption: string;
   /** Headline counts: D, R, and everything else (tossup + uncalled). */
   headline: { D: number; R: number; other: number };
@@ -174,8 +175,8 @@ export function governorScore(
       segment("none", UNASSIGNED_LABEL, uncalled, UNASSIGNED_COLOR),
     ],
     total: 50,
-    majority: 26,
-    caption: `${GOVERNOR_SEATS_UP} of 50 governorships up in 2026 · 26 for a majority`,
+    majority: null,
+    caption: `${GOVERNOR_SEATS_UP} of 50 governorships up in 2026`,
     headline: {
       D: dTotal,
       R: rTotal,
