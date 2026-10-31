@@ -817,11 +817,20 @@ describe("App governor integration", () => {
       new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true }),
     ));
     expect(hoveredSeal()).toContain("state-seals/06.png");
-    act(() => container?.querySelector('path[data-id="13"]')?.dispatchEvent(
+    // Delaware has no 2026 governor race, but the cursor still selects its seal.
+    act(() => container?.querySelector('path[data-id="10"]')?.dispatchEvent(
       new MouseEvent("pointermove", { clientX: 200, clientY: 150, bubbles: true }),
     ));
-    expect(hoveredSeal()).toContain("state-seals/13.png");
+    expect(hoveredSeal()).toContain("state-seals/10.png");
     act(() => container?.querySelector<HTMLButtonElement>('button[aria-label="Show map hover details"]')?.click());
+    expect(hoveredSeal()).toContain("state-seals/10.png");
+    act(() => container?.querySelector('path[data-id="13"]')?.dispatchEvent(
+      new MouseEvent("pointermove", { clientX: 250, clientY: 150, bubbles: true }),
+    ));
+    expect(hoveredSeal()).toContain("state-seals/13.png");
+    act(() => container?.querySelector("svg.map-svg")?.dispatchEvent(
+      new MouseEvent("pointerout", { bubbles: true }),
+    ));
     expect(hoveredSeal()).toBeUndefined();
 
     // Selecting a poll deselects the ratings dropdown and overlays polling.

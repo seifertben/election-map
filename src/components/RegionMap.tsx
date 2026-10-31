@@ -76,8 +76,8 @@ export interface RegionMapProps {
   /** Whether moving over a region opens its details. */
   hoverEnabled?: boolean;
   onHoverEnabledChange?: (enabled: boolean) => void;
-  /** Active hover region, for map artwork that follows the tooltip. */
-  onHoverRegionChange?: (id: string | null) => void;
+  /** Region directly under the pointer, including inactive regions. */
+  onPointerRegionChange?: (id: string | null) => void;
 }
 
 interface HoverState {
@@ -131,13 +131,14 @@ export function RegionMap({
   candidates,
   hoverEnabled: controlledHoverEnabled,
   onHoverEnabledChange,
-  onHoverRegionChange,
+  onPointerRegionChange,
 }: RegionMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerSvgRef = useRef<SVGSVGElement | null>(null);
   const gRef = useRef<SVGGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [hover, setHover] = useState<HoverState | null>(null);
+  const pointerRegion = useRef<string | null>(null);
   const [localHoverEnabled, setLocalHoverEnabled] = useState(true);
   const hoverEnabled = controlledHoverEnabled ?? localHoverEnabled;
   const tooltipAnchor = useRef({ x: 0, y: 0 });
@@ -183,11 +184,7 @@ export function RegionMap({
     if (!hoverEnabled) hideTooltip();
   }, [hoverEnabled, hideTooltip]);
 
-  useEffect(() => {
-    onHoverRegionChange?.(hoverEnabled ? hover?.id ?? null : null);
-  }, [hover?.id, hoverEnabled, onHoverRegionChange]);
-
-  useEffect(() => () => onHoverRegionChange?.(null), [onHoverRegionChange]);
+  useEffect(() => () => onPointerRegionChange?.(null), [onPointerRegionChange]);
 
   const toggleHover = () => {
     const next = !hoverEnabled;
@@ -516,11 +513,21 @@ export function RegionMap({
     }
   };
 
-  const targetFromEvent = (event: MouseEvent) => {
+  const regionFromEvent = (event: MouseEvent) => {
     const el = event.target as SVGElement;
     if (!el || !("dataset" in el) || !el.dataset.id) return null;
-    if (el.dataset.active !== "1") return null;
     return el;
+  };
+
+  const targetFromEvent = (event: MouseEvent) => {
+    const el = regionFromEvent(event);
+    return el?.dataset.active === "1" ? el : null;
+  };
+
+  const updatePointerRegion = (id: string | null) => {
+    if (pointerRegion.current === id) return;
+    pointerRegion.current = id;
+    onPointerRegionChange?.(id);
   };
 
   // Build the tooltip text for a region at render time so it stays in step
@@ -558,6 +565,7 @@ export function RegionMap({
   const hoverInfo = hover ? describeRegion(hover.id) : null;
 
   const handlePointerMove = (event: MouseEvent<SVGSVGElement>) => {
+    updatePointerRegion(regionFromEvent(event)?.dataset.id ?? null);
     if (!hoverEnabled) return;
     if (dragRef.current && movedPxRef.current > CLICK_TOLERANCE_PX) {
       hideTooltip();
@@ -613,6 +621,11 @@ export function RegionMap({
     }
   };
 
+  const handlePointerLeave = () => {
+    updatePointerRegion(null);
+    scheduleHideTooltip();
+  };
+
   const handleClick = (event: MouseEvent<SVGSVGElement>) => {
     if (movedPxRef.current > CLICK_TOLERANCE_PX) {
       movedPxRef.current = 0;
@@ -636,7 +649,7 @@ export function RegionMap({
         aria-label="United States election map"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
-        onPointerLeave={scheduleHideTooltip}
+        onPointerLeave={handlePointerLeave}
         onClick={handleClick}
       >
         <defs>

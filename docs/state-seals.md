@@ -1,6 +1,6 @@
 # State seal image sources
 
-The State Analyzer uses local 330 px thumbnails of these state and District of Columbia seals from Wikimedia Commons. Their file metadata lists each image as public domain. The app applies a navy tint in CSS.
+The State Analyzer and Governor map use local 330 px thumbnails of these state and District of Columbia seals from Wikimedia Commons. Their file metadata lists each image as public domain. The app slightly mutes the original colors in CSS so the seal details stay visible.
 
 | State | Source |
 | --- | --- |
