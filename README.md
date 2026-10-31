@@ -158,8 +158,7 @@ Re-run it when the Census publishes updated boundaries.
   The White House outline and Senate logo were recolored navy; the Senate
   logo's solid background was removed. All three marks are hidden on mobile.
 - The State Analyzer shows a muted-color seal for the selected state behind its
-  map. The Governor map shows the same seal while the pointer is over any state,
-  even when hover details are turned off.
+  map. The Governor map shows the same seal while an active state is hovered.
   The local thumbnails and their sources are listed in
   [docs/state-seals.md](docs/state-seals.md); the marks are hidden on mobile.
 - The presidential map is state-level winner-take-all; the Maine and Nebraska
