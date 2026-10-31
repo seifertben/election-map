@@ -305,7 +305,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   cursor: pointer;
 }
 
-.region--active:hover {
+.map-svg:not(.map-svg--hover-off) .region--active:hover {
   stroke: #111827;
   stroke-width: 1.1;
   filter: brightness(0.94);

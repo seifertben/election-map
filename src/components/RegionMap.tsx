@@ -73,6 +73,9 @@ export interface RegionMapProps {
   poll?: PollOverlay | null;
   /** General-election candidates, keyed by the same region id as the map. */
   candidates?: Record<string, Candidate[]>;
+  /** Whether moving over a region opens its details. */
+  hoverEnabled?: boolean;
+  onHoverEnabledChange?: (enabled: boolean) => void;
 }
 
 interface HoverState {
@@ -124,12 +127,16 @@ export function RegionMap({
   getIncumbent,
   poll,
   candidates,
+  hoverEnabled: controlledHoverEnabled,
+  onHoverEnabledChange,
 }: RegionMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerSvgRef = useRef<SVGSVGElement | null>(null);
   const gRef = useRef<SVGGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [hover, setHover] = useState<HoverState | null>(null);
+  const [localHoverEnabled, setLocalHoverEnabled] = useState(true);
+  const hoverEnabled = controlledHoverEnabled ?? localHoverEnabled;
   const tooltipAnchor = useRef({ x: 0, y: 0 });
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingHover = useRef<{
@@ -168,6 +175,17 @@ export function RegionMap({
     }
     setHover(null);
   }, [keepTooltip]);
+
+  useEffect(() => {
+    if (!hoverEnabled) hideTooltip();
+  }, [hoverEnabled, hideTooltip]);
+
+  const toggleHover = () => {
+    const next = !hoverEnabled;
+    if (!next) hideTooltip();
+    if (onHoverEnabledChange) onHoverEnabledChange(next);
+    else setLocalHoverEnabled(next);
+  };
 
   const scheduleHideTooltip = () => {
     cancelHideTooltip();
@@ -531,6 +549,7 @@ export function RegionMap({
   const hoverInfo = hover ? describeRegion(hover.id) : null;
 
   const handlePointerMove = (event: MouseEvent<SVGSVGElement>) => {
+    if (!hoverEnabled) return;
     if (dragRef.current && movedPxRef.current > CLICK_TOLERANCE_PX) {
       hideTooltip();
       return;
@@ -594,11 +613,6 @@ export function RegionMap({
     if (el?.dataset.id) onRegionClick(el.dataset.id);
   };
 
-  const handleDoubleClick = (event: MouseEvent<SVGSVGElement>) => {
-    const point = toMapCoords(event.clientX, event.clientY);
-    zoomAt(point.x, point.y, event.shiftKey ? 1 / 1.6 : 1.6);
-  };
-
   const zoomAtCenter = (factor: number) =>
     zoomAt(MAP_WIDTH / 2, MAP_HEIGHT / 2, factor);
 
@@ -606,7 +620,7 @@ export function RegionMap({
     <div className="map-wrap" ref={wrapRef}>
       <svg
         ref={setSvgRefs}
-        className={dragging ? "map-svg map-svg--panning" : "map-svg"}
+        className={`map-svg${dragging ? " map-svg--panning" : ""}${hoverEnabled ? "" : " map-svg--hover-off"}`}
         viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
@@ -615,7 +629,6 @@ export function RegionMap({
         onPointerMove={handlePointerMove}
         onPointerLeave={scheduleHideTooltip}
         onClick={handleClick}
-        onDoubleClick={handleDoubleClick}
       >
         <defs>
           {[...stripeDefs.values()].map((stripe) => (
@@ -672,6 +685,14 @@ export function RegionMap({
           disabled={atDefaultView}
         >
           Reset
+        </button>
+        <button
+          type="button"
+          aria-label="Show map hover details"
+          aria-pressed={hoverEnabled}
+          onClick={toggleHover}
+        >
+          Hovers {hoverEnabled ? "on" : "off"}
         </button>
       </div>
       {/* Always mounted so the ref is stable; hidden when nothing is

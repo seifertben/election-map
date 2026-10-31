@@ -173,6 +173,7 @@ export default function App() {
   const [demographics, setDemographics] = useState<DemographicsData | null>(null);
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
   const [controlsOpen, setControlsOpen] = useState(false);
+  const [hoverEnabled, setHoverEnabled] = useState(true);
   const [brush, setBrush] = useState<Brush>("CYCLE");
   // A manual choice stays painted even when it matches the underlying rating.
   const [paintedRegions, setPaintedRegions] = useState<Record<Mode, Set<string>>>({
@@ -944,6 +945,8 @@ export default function App() {
               stripePickups={stripePickups}
               getIncumbent={getIncumbent}
               poll={marketOverlay ?? pollOverlay ?? swingOverlay}
+              hoverEnabled={hoverEnabled}
+              onHoverEnabledChange={setHoverEnabled}
             />
           )}
           </div>

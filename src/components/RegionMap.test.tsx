@@ -36,6 +36,48 @@ afterEach(() => {
 });
 
 describe("RegionMap", () => {
+  it("turns hover details off while leaving region painting available", () => {
+    const features = loadStates().filter((feature) => String(feature.properties.fips) === "06");
+    const clicked = vi.fn();
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    act(() => root.render(
+      <RegionMap
+        features={features}
+        getId={(feature) => String(feature.properties.fips)}
+        getLabel={(feature) => String(feature.properties.name)}
+        isActive={() => true}
+        assignments={{}}
+        onRegionClick={clicked}
+      />,
+    ));
+
+    const state = container.querySelector('path[data-id="06"]')!;
+    const toggle = container.querySelector<HTMLButtonElement>('button[aria-label="Show map hover details"]')!;
+    const tooltip = container.querySelector<HTMLDivElement>(".tooltip")!;
+    const hover = () => act(() => state.dispatchEvent(
+      new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true }),
+    ));
+
+    hover();
+    expect(tooltip.style.display).not.toBe("none");
+    act(() => toggle.click());
+    expect(toggle.getAttribute("aria-pressed")).toBe("false");
+    expect(tooltip.style.display).toBe("none");
+    expect(container.querySelector("svg")?.classList.contains("map-svg--hover-off")).toBe(true);
+    hover();
+    expect(tooltip.style.display).toBe("none");
+    act(() => state.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(clicked).toHaveBeenCalledWith("06");
+
+    act(() => toggle.click());
+    hover();
+    expect(toggle.getAttribute("aria-pressed")).toBe("true");
+    expect(tooltip.style.display).not.toBe("none");
+    act(() => root.unmount());
+  });
+
   it("keeps the polling popup reachable, expands every included poll, and resets on state or option changes", () => {
     vi.useFakeTimers();
     const features = loadStates().filter((feature) => ["06", "10"].includes(String(feature.properties.fips)));
@@ -388,6 +430,15 @@ describe("RegionMap", () => {
     act(() => {
       reset.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
+    expect(transformOf()).toBe("translate(0 0) scale(1)");
+
+    // Double-clicking paints twice without changing the map view.
+    act(() => {
+      california?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      california?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      california?.dispatchEvent(new MouseEvent("dblclick", { bubbles: true, clientX: 400, clientY: 300 }));
+    });
+    expect(clicked).toEqual(["06", "06", "06"]);
     expect(transformOf()).toBe("translate(0 0) scale(1)");
 
     act(() => root.unmount());
