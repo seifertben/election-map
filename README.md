@@ -151,7 +151,7 @@ Re-run it when the Census publishes updated boundaries.
 
 ## Notes & limitations
 
-- The faded House emblem and Senate logo in the map corner are local SVGs from
+- The translucent House emblem and Senate logo behind the map are local SVGs from
   [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:United_States_House_of_Representatives_seal.svg)
   and [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:US-Senate-Logo.svg),
   respectively. The Senate logo was recolored navy and its solid background

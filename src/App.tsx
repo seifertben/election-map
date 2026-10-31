@@ -929,6 +929,15 @@ export default function App() {
             <p className="map-cycle-note">There is no presidential election in 2026. This map starts with the 2024 results; the next presidential election is in 2028.</p>
           ) : null}
           <div className="map-stage">
+          {!loading && (state.mode === "house" || state.mode === "senate") ? (
+            <img
+              className={`map-watermark map-watermark--${state.mode}`}
+              src={`${import.meta.env.BASE_URL}assets/${state.mode === "house" ? "house-emblem.svg" : "senate-logo.svg"}`}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+            />
+          ) : null}
           {loading || !currentFeatures ? (
             <div className="loading">Loading map…</div>
           ) : (
@@ -949,15 +958,6 @@ export default function App() {
               onHoverEnabledChange={setHoverEnabled}
             />
           )}
-          {!loading && (state.mode === "house" || state.mode === "senate") ? (
-            <img
-              className={`map-watermark map-watermark--${state.mode}`}
-              src={`${import.meta.env.BASE_URL}assets/${state.mode === "house" ? "house-emblem.svg" : "senate-logo.svg"}`}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-            />
-          ) : null}
           </div>
           <div className="map-key" aria-label="Map color legend">
             {!pollingOn && !marketsOn && !swingActive && activeSource ? <div className="map-key__ratings">{RATINGS.map((rating) => <span key={rating} title={RATING_LABEL[rating]}><i style={{ backgroundColor: RATING_COLOR[rating] }} />{RATING_LABEL[rating].replace(" Democrat", " D").replace(" Republican", " R")}</span>)}</div> : <span>{marketsOn ? "Blue: Democratic probability · Red: Republican probability" : pollingOn || swingActive ? "Blue: Democratic lead · Red: Republican lead" : "Blue: Democrat · Red: Republican · Grey: Tossup / uncalled"}</span>}
