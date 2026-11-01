@@ -69,9 +69,9 @@ export function presidentScore(
   return {
     segments: [
       segment("D", "Democrat", d, PARTY_COLOR.D),
-      segment("R", "Republican", r, PARTY_COLOR.R),
       segment("TOSS", TOSS_LABEL, toss, PARTY_COLOR.TOSS),
       segment("none", UNASSIGNED_LABEL, uncalled, UNASSIGNED_COLOR),
+      segment("R", "Republican", r, PARTY_COLOR.R),
     ],
     total,
     majority: 270,
@@ -97,9 +97,9 @@ export function houseScore(
   return {
     segments: [
       segment("D", "Democrat", d, PARTY_COLOR.D),
-      segment("R", "Republican", r, PARTY_COLOR.R),
       segment("TOSS", TOSS_LABEL, toss, PARTY_COLOR.TOSS),
       segment("none", UNASSIGNED_LABEL, Math.max(0, uncalled), UNASSIGNED_COLOR),
+      segment("R", "Republican", r, PARTY_COLOR.R),
     ],
     total: HOUSE_TOTAL,
     majority: HOUSE_MAJORITY,
@@ -133,10 +133,10 @@ export function senateScore(
   return {
     segments: [
       segment("D", "Democrat", dTotal, PARTY_COLOR.D),
-      segment("R", "Republican", rTotal, PARTY_COLOR.R),
-      segment("I", "Independent", SENATE_NOT_UP_I, INDEPENDENT_COLOR),
+      segment("I", "Independents (caucus with Democrats)", SENATE_NOT_UP_I, INDEPENDENT_COLOR),
       segment("TOSS", TOSS_LABEL, toss, PARTY_COLOR.TOSS),
       segment("none", UNASSIGNED_LABEL, uncalled, UNASSIGNED_COLOR),
+      segment("R", "Republican", rTotal, PARTY_COLOR.R),
     ],
     total: 100,
     majority: 51,
@@ -169,10 +169,10 @@ export function governorScore(
   return {
     segments: [
       segment("D", "Democrat", dTotal, PARTY_COLOR.D),
-      segment("R", "Republican", rTotal, PARTY_COLOR.R),
       segment("I", "Independent", GOVERNOR_NOT_UP_I, INDEPENDENT_COLOR),
       segment("TOSS", TOSS_LABEL, toss, PARTY_COLOR.TOSS),
       segment("none", UNASSIGNED_LABEL, uncalled, UNASSIGNED_COLOR),
+      segment("R", "Republican", rTotal, PARTY_COLOR.R),
     ],
     total: 50,
     majority: null,

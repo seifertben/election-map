@@ -22,6 +22,10 @@ describe("presidentScore", () => {
     const score = presidentScore({ "06": "D" });
     expect(score.headline.other).toBe(538 - 54);
   });
+
+  it("places tossup and uncalled votes between the parties", () => {
+    expect(presidentScore({}).segments.map((s) => s.key)).toEqual(["D", "TOSS", "none", "R"]);
+  });
 });
 
 describe("houseScore", () => {
@@ -58,6 +62,8 @@ describe("senateScore", () => {
     expect(score.headline.D).toBe(32);
     expect(score.headline.R).toBe(31);
     expect(score.headline.other).toBe(37);
+    expect(score.segments.map((s) => s.key)).toEqual(["D", "I", "TOSS", "none", "R"]);
+    expect(score.segments.find((s) => s.key === "I")?.label).toBe("Independents (caucus with Democrats)");
   });
 
   it("adds called seats to the existing caucus counts", () => {
