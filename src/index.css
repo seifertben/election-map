@@ -303,6 +303,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .map-key__ratings span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 .map-key__ratings i { width: 12px; height: 8px; border-radius: 2px; }
 .map-key__hint { color: #748094; font-size: 10px; text-align: center; }
+.map-key__touch-hint { display: none; }
 .map-settings { display: flex; flex-direction: column; gap: 12px; }
 .controls-toggle { display: none; }
 
@@ -1341,11 +1342,15 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 
   .header__actions {
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .header__actions button {
-    flex: 1;
+    flex: 1 1 90px;
+    min-width: 0;
+    min-height: 44px;
     padding: 10px 8px;
+    overflow-wrap: anywhere;
   }
 
   .tabs {
@@ -1357,6 +1362,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 
   .tab {
     flex: 1 1 auto;
+    min-height: 44px;
     padding: 9px 10px;
     font-size: 13px;
   }
@@ -1379,22 +1385,30 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   .scoreboard__number {
     font-size: 42px;
   }
-  .map-heading { padding: 14px; align-items: flex-start; gap: 10px; }
+  .map-heading { padding: 14px; flex-direction: column; align-items: stretch; gap: 8px; }
   .map-heading h2 { font-size: 20px; }
   .map-heading__eyebrow { font-size: 8px; }
   .map-heading__name { gap: 6px; }
-  .election-info__trigger { width: 34px; min-width: 34px; height: 34px; padding: 0; }
+  .election-info__trigger { width: 44px; min-width: 44px; height: 44px; padding: 0; }
+  .election-info__close { width: 44px; height: 44px; }
   .election-info__label { display: none; }
-  .map-heading__source { max-width: 55%; font-size: 10px; }
-  .map-heading__source small { font-size: 9px; }
+  .map-heading__source { text-align: left; font-size: 12px; }
+  .map-heading__source small { font-size: 11px; }
   .map-stage { padding: 4px; }
   .map-watermark { display: none; }
-  .map-key { padding: 10px; gap: 8px; }
-  .map-key__ratings { gap: 7px; font-size: 9px; }
+  .map-key { padding: 10px; gap: 8px; font-size: 11px; }
+  .map-key__ratings { gap: 7px; font-size: 11px; }
+  .map-key__hint { font-size: 11px; }
+  .map-key__desktop-hint { display: none; }
+  .map-key__touch-hint { display: inline; }
   .map-settings--open { grid-template-columns: 1fr; }
+  .controls-toggle { min-height: 44px; }
+  .language-switcher { gap: 4px; padding-right: 0; padding-left: 0; }
+  .language-switcher a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 6px; }
 
   /* Keep form controls at 16px so iOS Safari does not zoom on focus. */
   .ratings__select,
+  .share-map__link input,
   .analyzer__row input[type="range"]:not(.analyzer__split-knob) {
     font-size: 16px;
   }

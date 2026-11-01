@@ -983,7 +983,7 @@ export default function App() {
           </div>
           <div className="map-key" aria-label="Map color legend">
             {!pollingOn && !marketsOn && !swingActive && activeSource ? <div className="map-key__ratings">{RATINGS.map((rating) => <span key={rating} title={RATING_LABEL[rating]}><i style={{ backgroundColor: RATING_COLOR[rating] }} />{RATING_LABEL[rating].replace(" Democrat", " D").replace(" Republican", " R")}</span>)}</div> : <span>{marketsOn ? "Blue: Democratic probability · Red: Republican probability" : pollingOn || swingActive ? "Blue: Democratic lead · Red: Republican lead" : "Blue: Democrat · Red: Republican · Grey: Tossup / uncalled"}</span>}
-            <span className="map-key__hint">{stripePickups && ratingMode ? "Stripes indicate a pickup · " : ""}Scroll to zoom · Drag to pan</span>
+            <span className="map-key__hint">{stripePickups && ratingMode ? "Stripes indicate a pickup · " : ""}<span className="map-key__desktop-hint">Scroll to zoom · Drag to pan</span><span className="map-key__touch-hint">Pinch to zoom · Drag to pan</span></span>
           </div>
         </section>
 

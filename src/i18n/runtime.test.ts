@@ -14,6 +14,9 @@ describe('localized interface', () => {
     expect(translateText('Pickups', 'pt-BR')).toBe('Cadeiras conquistadas');
     expect(translateText('House', 'de')).toBe('Repräsentantenhaus');
     expect(translateText('Tossup', 'de')).toBe('Offen');
+    expect(translateText('Reset shares', 'es')).toBe('Restablecer proporciones');
+    expect(translateText('Shares are', 'de')).toBe('Die Anteile sind');
+    expect(translateText('Pinch to zoom · Drag to pan', 'pt-BR')).toContain('dois dedos');
     expect(translateText('35 of 100 seats up in 2026 · 51 for a majority', 'de')).toBe('35 von 100 Sitzen stehen 2026 zur Wahl · 51 für die Mehrheit');
   });
 
