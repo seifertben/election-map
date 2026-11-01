@@ -18,7 +18,7 @@
  *     not mix candidate matchups: Wikipedia where it has polls, otherwise
  *     electoral-vote.com plus the supplement.
  *   - Only states with at least one real poll are listed; the rest render
- *     grey. Colorado, Delaware, New Jersey, Oregon, West Virginia and Wyoming
+ *     grey. Delaware, New Jersey, Oregon, West Virginia and Wyoming
  *     have no public 2026 general-election polling.
  *   - Nebraska's d column is the independent challenger Dan Osborn; the
  *     state has no Democratic nominee, so its d share is Osborn's.
@@ -43,7 +43,7 @@ export interface SenatePoll {
 }
 
 /** Date of the most recent poll in the committed snapshot. */
-export const SENATE_POLLS_AS_OF = "2026-10-30";
+export const SENATE_POLLS_AS_OF = "2026-10-31";
 
 export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
   "01": [
@@ -78,6 +78,9 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Hendrix College", date: "2026-08-12", d: 47, r: 44, sample: 1217, population: "LV" },
     { pollster: "2040 Strategy Group", date: "2026-07-25", d: 43, r: 46, sample: 586, population: "LV" },
     { pollster: "GrayHouse", date: "2026-02-09", d: 36, r: 58, sample: 550, population: "LV" },
+  ],
+  "08": [
+    { pollster: "Lake Research Partners", date: "2026-09-30", d: 52, r: 38, sample: 600, population: "RV" },
   ],
   "12": [
     { pollster: "Big Data Poll", date: "2026-10-30", d: 45, r: 52, sample: 1067, population: "LV" },
@@ -150,6 +153,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Public Policy Polling", date: "2026-10-01", d: 49, r: 36, sample: 569, population: "LV" },
   ],
   "19": [
+    { pollster: "YouGov", date: "2026-10-29", d: 50, r: 49, sample: 2020, population: "LV" },
     { pollster: "co/efficient", date: "2026-10-28", d: 46, r: 48, sample: 1020, population: "LV" },
     { pollster: "Echelon Insights", date: "2026-10-23", d: 45, r: 43, sample: 403, population: "LV" },
     { pollster: "InsiderAdvantage", date: "2026-10-22", d: 45, r: 47, sample: 1200, population: "LV" },
@@ -188,6 +192,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Change Research", date: "2026-01-11", d: 41, r: 44, sample: 1108, population: "LV" },
   ],
   "20": [
+    { pollster: "YouGov", date: "2026-10-29", d: 50, r: 49, sample: 2092, population: "LV" },
     { pollster: "Emerson College", date: "2026-10-28", d: 50, r: 47, sample: 800, population: "LV" },
     { pollster: "The Washington Post/SSPG", date: "2026-10-26", d: 52, r: 43, sample: 801, population: "LV" },
     { pollster: "SSRS", date: "2026-10-26", d: 49, r: 45, sample: 838, population: "LV" },
@@ -216,6 +221,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Public Policy Polling", date: "2026-07-22", d: 37, r: 41, sample: 518, population: "RV" },
   ],
   "23": [
+    { pollster: "YouGov", date: "2026-10-29", d: 52, r: 47, sample: 1503, population: "LV" },
     { pollster: "Data for Progress", date: "2026-10-27", d: 50, r: 45, sample: 652, population: "LV" },
     { pollster: "SSRS", date: "2026-10-26", d: 49, r: 45, sample: 783, population: "LV" },
     { pollster: "Marist University", date: "2026-10-25", d: 49, r: 47, population: "LV" },
@@ -264,6 +270,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
   ],
   "26": [
     { pollster: "Rasmussen Reports", date: "2026-10-29", d: 49, r: 44, sample: 745, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-29", d: 51, r: 47, sample: 2093, population: "LV" },
     { pollster: "Upswing Research", date: "2026-10-28", d: 50, r: 45, sample: 505, population: "LV" },
     { pollster: "Mitchell Research & Communications", date: "2026-10-27", d: 51, r: 44, sample: 636, population: "LV" },
     { pollster: "SSRS", date: "2026-10-27", d: 49, r: 42, sample: 768, population: "LV" },
@@ -362,6 +369,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Public Opinion Strategies", date: "2026-06-11", d: 25, r: 44, sample: 500, population: "LV" },
   ],
   "31": [
+    { pollster: "YouGov", date: "2026-10-29", d: 49, r: 49, sample: 1979, population: "LV" },
     { pollster: "New York Times/Siena University", date: "2026-10-29", d: 43, r: 49, sample: 809, population: "LV" },
     { pollster: "Echelon Insights", date: "2026-10-23", d: 46, r: 47, sample: 407, population: "LV" },
     { pollster: "GBAO", date: "2026-10-22", d: 46, r: 45, sample: 800, population: "LV" },
@@ -420,7 +428,9 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Research and Polling", date: "2026-08-28", d: 53, r: 38, sample: 516, population: "LV" },
   ],
   "37": [
+    { pollster: "YouGov", date: "2026-10-29", d: 55, r: 44, sample: 2130, population: "LV" },
     { pollster: "Quantus Insights", date: "2026-10-25", d: 51, r: 43, sample: 722, population: "LV" },
+    { pollster: "RedBox Research", date: "2026-10-23", d: 50, r: 43, sample: 3292, population: "LV" },
     { pollster: "Harper Polling", date: "2026-10-20", d: 49, r: 39, sample: 600, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-20", d: 57, r: 43, sample: 400, population: "LV" },
     { pollster: "High Point University/YouGov", date: "2026-10-20", d: 54, r: 40, sample: 620, population: "LV" },
@@ -470,6 +480,9 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
     { pollster: "Victory Insights", date: "2025-07-30", d: 43, r: 40, sample: 600, population: "LV" },
   ],
   "39": [
+    { pollster: "ActiVote", date: "2026-10-31", d: 50, r: 50, sample: 400, population: "LV" },
+    { pollster: "InsiderAdvantage", date: "2026-10-30", d: 49, r: 47, sample: 1200, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-29", d: 50, r: 48, sample: 2090, population: "LV" },
     { pollster: "Suffolk University", date: "2026-10-26", d: 47, r: 44, sample: 500, population: "LV" },
     { pollster: "RedBox Research", date: "2026-10-23", d: 47, r: 44, sample: 2998, population: "LV" },
     { pollster: "Echelon Insights", date: "2026-10-23", d: 47, r: 47, sample: 508, population: "LV" },
@@ -564,6 +577,7 @@ export const SENATE_2026_POLLS: Record<string, SenatePoll[]> = {
   ],
   "48": [
     { pollster: "Kreate Strategies", date: "2026-10-30", d: 48, r: 45, sample: 900, population: "LV" },
+    { pollster: "YouGov", date: "2026-10-29", d: 51, r: 47, sample: 2141, population: "LV" },
     { pollster: "Quantus Insights", date: "2026-10-28", d: 48, r: 49, sample: 1221, population: "LV" },
     { pollster: "ActiVote", date: "2026-10-28", d: 52, r: 48, sample: 400, population: "LV" },
     { pollster: "A2 Insights", date: "2026-10-27", d: 50, r: 47, sample: 631, population: "LV" },

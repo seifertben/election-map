@@ -1,5 +1,5 @@
 import { ASSIGNMENT_COLOR, UNASSIGNED_COLOR } from "../data/parties";
-import { HOUSE_TOTAL, type Seat } from "../lib/scoreboard";
+import { HOUSE_TOTAL, SENATE_INDEPENDENT_COLOR, type Seat } from "../lib/scoreboard";
 import type { Party } from "../types";
 
 export interface SeatArcProps {
@@ -39,16 +39,18 @@ const VIEW_W = CENTER_X * 2;
 const OUTER_R = INNER_R + (neededRows(HOUSE_TOTAL) - 1) * ROW_GAP;
 
 /** Democrats fill from the left, Republicans from the right, others middle. */
-const SORT_ORDER: Record<Party | "none", number> = {
+const SORT_ORDER: Record<Party | "I" | "none", number> = {
   D: 0,
-  TOSS: 1,
-  none: 1,
-  R: 2,
+  I: 1,
+  TOSS: 2,
+  none: 2,
+  R: 3,
 };
 
 /** Party color for a seat, or grey when the seat is still unassigned. */
 function seatColor(seat: Seat): string {
   if (!seat.party) return UNASSIGNED_COLOR;
+  if (seat.party === "I") return SENATE_INDEPENDENT_COLOR;
   return ASSIGNMENT_COLOR[seat.party];
 }
 
@@ -175,7 +177,7 @@ export function SeatArc({ seats, counts, label }: SeatArcProps) {
       point: { x: slot.x, y: slot.y },
       color: seatColor(seat),
       title: seat.state
-        ? `${seat.state}: ${seat.party ?? "Uncalled"}`
+        ? `${seat.state}: ${seat.party === "I" ? "Independent (caucuses with Democrats)" : seat.party ?? "Uncalled"}`
         : "Independent",
     };
   });

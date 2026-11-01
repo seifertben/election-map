@@ -505,6 +505,14 @@
   ],
   "19": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 50,
+      "r": 49,
+      "sample": 2020,
+      "population": "LV"
+    },
+    {
       "pollster": "co/efficient (R)",
       "date": "2026-10-28",
       "d": 46,
@@ -794,6 +802,14 @@
   ],
   "20": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 50,
+      "r": 49,
+      "sample": 2092,
+      "population": "LV"
+    },
+    {
       "pollster": "Emerson College",
       "date": "2026-10-28",
       "d": 50,
@@ -975,6 +991,14 @@
     }
   ],
   "23": [
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 52,
+      "r": 47,
+      "sample": 1503,
+      "population": "LV"
+    },
     {
       "pollster": "Data for Progress (D)",
       "date": "2026-10-27",
@@ -1328,6 +1352,14 @@
       "d": 49,
       "r": 44,
       "sample": 745,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 51,
+      "r": 47,
+      "sample": 2093,
       "population": "LV"
     },
     {
@@ -1992,6 +2024,14 @@
   ],
   "31": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 49,
+      "r": 49,
+      "sample": 1979,
+      "population": "LV"
+    },
+    {
       "pollster": "New York Times/Siena University",
       "date": "2026-10-29",
       "d": 43,
@@ -2410,11 +2450,27 @@
   ],
   "37": [
     {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 55,
+      "r": 44,
+      "sample": 2130,
+      "population": "LV"
+    },
+    {
       "pollster": "Quantus Insights (R)",
       "date": "2026-10-25",
       "d": 51,
       "r": 43,
       "sample": 722,
+      "population": "LV"
+    },
+    {
+      "pollster": "RedBox Research (D)",
+      "date": "2026-10-23",
+      "d": 50,
+      "r": 43,
+      "sample": 3292,
       "population": "LV"
     },
     {
@@ -2795,6 +2851,30 @@
     }
   ],
   "39": [
+    {
+      "pollster": "ActiVote",
+      "date": "2026-10-31",
+      "d": 50,
+      "r": 50,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-30",
+      "d": 49,
+      "r": 47,
+      "sample": 1200,
+      "population": "LV"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 50,
+      "r": 48,
+      "sample": 2090,
+      "population": "LV"
+    },
     {
       "pollster": "Suffolk University",
       "date": "2026-10-26",
@@ -3463,7 +3543,15 @@
       "population": "LV"
     },
     {
-      "pollster": "Quantus Insights",
+      "pollster": "YouGov",
+      "date": "2026-10-29",
+      "d": 51,
+      "r": 47,
+      "sample": 2141,
+      "population": "LV"
+    },
+    {
+      "pollster": "Quantus Insights (R)",
       "date": "2026-10-28",
       "d": 48,
       "r": 49,
@@ -3631,7 +3719,7 @@
       "population": "LV"
     },
     {
-      "pollster": "Quantus Insights",
+      "pollster": "Quantus Insights (R)",
       "date": "2026-10-11",
       "d": 47,
       "r": 47,
@@ -3934,7 +4022,7 @@
       "population": "RV"
     },
     {
-      "pollster": "Quantus Insights",
+      "pollster": "Quantus Insights (R)",
       "date": "2026-06-04",
       "d": 43,
       "r": 45,
@@ -4154,6 +4242,16 @@
       "r": 58,
       "sample": 550,
       "population": "LV"
+    }
+  ],
+  "08": [
+    {
+      "pollster": "Lake Research Partners (D)",
+      "date": "2026-09-30",
+      "d": 52,
+      "r": 38,
+      "sample": 600,
+      "population": "RV"
     }
   ]
 }

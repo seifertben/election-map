@@ -22,7 +22,7 @@ export interface Segment {
 export interface Seat {
   id: string;
   state: string;
-  party: Party | null;
+  party: Party | "I" | null;
 }
 
 export interface ScoreModel {
@@ -39,6 +39,7 @@ export interface ScoreModel {
 const TOSS_LABEL = "Tossup";
 const UNASSIGNED_LABEL = "Uncalled";
 const INDEPENDENT_COLOR = "#6b7280";
+export const SENATE_INDEPENDENT_COLOR = "#8abce8";
 
 function segment(
   key: string,
@@ -133,7 +134,7 @@ export function senateScore(
   return {
     segments: [
       segment("D", "Democrat", dTotal, PARTY_COLOR.D),
-      segment("I", "Independents (caucus with Democrats)", SENATE_NOT_UP_I, INDEPENDENT_COLOR),
+      segment("I", "Independents (caucus with Democrats)", SENATE_NOT_UP_I, SENATE_INDEPENDENT_COLOR),
       segment("TOSS", TOSS_LABEL, toss, PARTY_COLOR.TOSS),
       segment("none", UNASSIGNED_LABEL, uncalled, UNASSIGNED_COLOR),
       segment("R", "Republican", rTotal, PARTY_COLOR.R),
@@ -240,9 +241,9 @@ export function chamberSeats(
     let r = SENATE_NOT_UP_R;
     let i = SENATE_NOT_UP_I;
     for (const fips of notUpFips) {
-      let party: Party;
+      let party: Party | "I";
       if (i > 0 && lean(fips) === 1) {
-        party = "TOSS";
+        party = "I";
         i -= 1;
       } else if (r > 0) {
         party = "R";

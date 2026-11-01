@@ -4,10 +4,10 @@ import type { RaceRating } from "../../types";
  * 2026 race ratings from Decision Desk HQ
  * Source: https://elections2026.decisiondeskhq.com/
  *
- * - Senate ratings as of October 31, 2026 (35 seats on the 2026 ballot),
+ * - Senate ratings as of November 1, 2026 (35 seats on the 2026 ballot),
  *   compiled from the Wikipedia "2026 United States Senate elections"
  *   predictions table.
- * - House ratings as of October 31, 2026 (all 435 districts), compiled from
+ * - House ratings as of November 1, 2026 (all 435 districts), compiled from
  *   the Wikipedia "2026 United States House of Representatives election
  *   ratings" page. Districts not listed as competitive there are rated
  *   Safe/Solid, so this file shades them Solid for the party currently
@@ -31,7 +31,7 @@ export const DDHQ_SENATE_RATINGS: Record<string, RaceRating> = {
   "17": "SOLID_D",
   "19": "TOSS",
   "20": "TOSS",
-  "21": "LIKELY_R",
+  "21": "SOLID_R",
   "22": "LIKELY_R",
   "23": "LEAN_D",
   "25": "SOLID_D",
@@ -39,7 +39,7 @@ export const DDHQ_SENATE_RATINGS: Record<string, RaceRating> = {
   "27": "LIKELY_D",
   "28": "LIKELY_R",
   "30": "LIKELY_R",
-  "31": "LIKELY_R",
+  "31": "LEAN_R",
   "33": "LIKELY_D",
   "34": "SOLID_D",
   "35": "SOLID_D",
@@ -206,7 +206,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "1713": "SOLID_D",
   "1714": "SOLID_D",
   "1715": "SOLID_R",
-  "1716": "LIKELY_R",
+  "1716": "SOLID_R",
   "1717": "SOLID_D",
   "1801": "SOLID_D",
   "1802": "SOLID_R",
@@ -415,7 +415,7 @@ export const DDHQ_HOUSE_RATINGS: Record<string, RaceRating> = {
   "4704": "SOLID_R",
   "4705": "SOLID_R",
   "4706": "SOLID_R",
-  "4707": "SOLID_R",
+  "4707": "LIKELY_R",
   "4708": "SOLID_R",
   "4709": "LIKELY_R",
   "4801": "SOLID_R",

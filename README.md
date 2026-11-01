@@ -189,7 +189,7 @@ Re-run it when the Census publishes updated boundaries.
   Wikipedia rows for Kentucky, Idaho, Oklahoma and Tennessee, fills the seats
   Wikipedia has no general-election polls for — Alaska and Minnesota. Each seat
   is taken from a single source so the head-to-head is never blended across
-  candidate matchups. States with no public polling (CO, DE, NJ, OR, WV,
+  candidate matchups. States with no public polling (DE, NJ, OR, WV,
   WY) are omitted from the snapshot; the polling view defaults them to their
   current senator's party so they still count as called. Nebraska's `d` column
   is the independent challenger Dan Osborn — the state has no Democratic
@@ -205,10 +205,10 @@ Re-run it when the Census publishes updated boundaries.
   general-election polling table of the actual nominee matchup
   (`node scripts/fetch-wiki-polls.mjs --governor` →
   `scripts/governor-polls-wiki.json`), then `npm run build:gov-polls` compiles
-  it. Alaska, Colorado, Hawaii, Minnesota and Wyoming
+  it. Alaska, Hawaii, Minnesota and Wyoming
   have no public 2026 general-election polling and are omitted from the
   snapshot; the polling view defaults them to their current governor's party so
-  they still count as called. The other 31 states are shaded.
+  they still count as called. The other 32 states are shaded.
 - The Governor ratings in `src/data/ratings/*.ts` come from the Wikipedia
   «2026 United States gubernatorial elections» predictions table for Cook,
   Inside Elections, Sabato, Decision Desk HQ and Fox News (as of the dates noted

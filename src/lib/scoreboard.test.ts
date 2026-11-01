@@ -64,6 +64,7 @@ describe("senateScore", () => {
     expect(score.headline.other).toBe(37);
     expect(score.segments.map((s) => s.key)).toEqual(["D", "I", "TOSS", "none", "R"]);
     expect(score.segments.find((s) => s.key === "I")?.label).toBe("Independents (caucus with Democrats)");
+    expect(score.segments.find((s) => s.key === "I")?.color).toBe("#8abce8");
   });
 
   it("adds called seats to the existing caucus counts", () => {
@@ -120,7 +121,7 @@ describe("chamberSeats", () => {
     // 35 up (all forced R) + 31 not-up R = 66; 32 not-up D and 2 I.
     expect(seats.filter((s) => s.party === "R")).toHaveLength(66);
     expect(seats.filter((s) => s.party === "D")).toHaveLength(32);
-    expect(seats.filter((s) => s.party === "TOSS")).toHaveLength(2);
+    expect(seats.filter((s) => s.party === "I")).toHaveLength(2);
   });
 
   it("returns no seats for non-chamber modes", () => {

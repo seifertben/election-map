@@ -23,7 +23,6 @@ describe("GOVERNOR_2026_POLLS", () => {
     const unpolled = GOVERNOR_2026_FIPS.filter((f) => !GOVERNOR_2026_POLLS[f]);
     expect(unpolled.sort()).toEqual([
       "02",
-      "08",
       "15",
       "27",
       "56",
