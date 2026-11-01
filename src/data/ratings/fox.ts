@@ -4,7 +4,7 @@ import type { RaceRating } from "../../types";
  * 2026 race ratings from Fox News Power Rankings
  * Source: https://www.foxnews.com/elections/
  *
- * - Senate ratings as of October 29, 2026 (35 seats on the 2026 ballot),
+ * - Senate ratings as of November 1, 2026 (35 seats on the 2026 ballot),
  *   compiled from the Wikipedia "2026 United States Senate elections"
  *   predictions table.
  * - House ratings as of October 27, 2026 (all 435 districts), compiled from
@@ -30,7 +30,7 @@ export const FOX_SENATE_RATINGS: Record<string, RaceRating> = {
   "16": "SOLID_R",
   "17": "SOLID_D",
   "19": "TOSS",
-  "20": "LEAN_R",
+  "20": "TOSS",
   "21": "SOLID_R",
   "22": "SOLID_R",
   "23": "TOSS",
@@ -39,7 +39,7 @@ export const FOX_SENATE_RATINGS: Record<string, RaceRating> = {
   "27": "LEAN_D",
   "28": "LIKELY_R",
   "30": "SOLID_R",
-  "31": "LIKELY_R",
+  "31": "LEAN_R",
   "33": "LEAN_D",
   "34": "SOLID_D",
   "35": "SOLID_D",

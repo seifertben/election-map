@@ -1,6 +1,38 @@
 {
   "12": [
     {
+      "pollster": "Big Data Poll",
+      "date": "2026-10-30",
+      "d": 45,
+      "r": 52,
+      "sample": 1067,
+      "population": "LV"
+    },
+    {
+      "pollster": "Stetson University",
+      "date": "2026-10-30",
+      "d": 45,
+      "r": 49,
+      "sample": 852,
+      "population": "RV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-29",
+      "d": 43,
+      "r": 49,
+      "sample": 1200,
+      "population": "LV"
+    },
+    {
+      "pollster": "Political Matrix/The Listener Group",
+      "date": "2026-10-28",
+      "d": 36,
+      "r": 42,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "St. Pete Polls",
       "date": "2026-10-27",
       "d": 45,
@@ -38,6 +70,14 @@
       "d": 43,
       "r": 51,
       "sample": 515,
+      "population": "LV"
+    },
+    {
+      "pollster": "Workbench Strategy (D)",
+      "date": "2026-10-22",
+      "d": 47,
+      "r": 49,
+      "sample": 800,
       "population": "LV"
     },
     {
@@ -440,6 +480,14 @@
   "17": [
     {
       "pollster": "ActiVote",
+      "date": "2026-10-30",
+      "d": 56,
+      "r": 44,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "ActiVote",
       "date": "2026-10-20",
       "d": 58,
       "r": 41,
@@ -748,8 +796,8 @@
     {
       "pollster": "Emerson College",
       "date": "2026-10-28",
-      "d": 49,
-      "r": 45,
+      "d": 50,
+      "r": 47,
       "sample": 800,
       "population": "LV"
     },
@@ -903,6 +951,14 @@
   "22": [
     {
       "pollster": "Hart Research Associates (D)",
+      "date": "2026-10-29",
+      "d": 45,
+      "r": 45,
+      "sample": 502,
+      "population": "LV"
+    },
+    {
+      "pollster": "Hart Research Associates (D)",
       "date": "2026-09-19",
       "d": 44,
       "r": 48,
@@ -919,6 +975,14 @@
     }
   ],
   "23": [
+    {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-27",
+      "d": 50,
+      "r": 45,
+      "sample": 652,
+      "population": "LV"
+    },
     {
       "pollster": "SSRS",
       "date": "2026-10-26",
@@ -1259,6 +1323,14 @@
   ],
   "26": [
     {
+      "pollster": "Rasmussen Reports (R)",
+      "date": "2026-10-29",
+      "d": 49,
+      "r": 44,
+      "sample": 745,
+      "population": "LV"
+    },
+    {
       "pollster": "Upswing Research (D)",
       "date": "2026-10-28",
       "d": 50,
@@ -1280,6 +1352,14 @@
       "d": 49,
       "r": 42,
       "sample": 768,
+      "population": "LV"
+    },
+    {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-25",
+      "d": 50,
+      "r": 46,
+      "sample": 622,
       "population": "LV"
     },
     {
@@ -1774,6 +1854,14 @@
       "population": "LV"
     },
     {
+      "pollster": "Montana State University Billings",
+      "date": "2026-10-21",
+      "d": 21,
+      "r": 30,
+      "sample": 720,
+      "population": "A"
+    },
+    {
       "pollster": "Quantus Insights (R)",
       "date": "2026-10-18",
       "d": 21,
@@ -1903,6 +1991,14 @@
     }
   ],
   "31": [
+    {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-29",
+      "d": 43,
+      "r": 49,
+      "sample": 809,
+      "population": "LV"
+    },
     {
       "pollster": "Echelon Insights (R)",
       "date": "2026-10-23",
@@ -3105,6 +3201,14 @@
   ],
   "45": [
     {
+      "pollster": "Patinkin Research Strategies (D)",
+      "date": "2026-10-29",
+      "d": 48,
+      "r": 43,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "New York Times/Siena University",
       "date": "2026-10-26",
       "d": 48,
@@ -3218,6 +3322,14 @@
     }
   ],
   "46": [
+    {
+      "pollster": "Concord Public Opinion Partners (D)",
+      "date": "2026-10-26",
+      "d": 43,
+      "r": 41,
+      "sample": 448,
+      "population": "LV"
+    },
     {
       "pollster": "Emerson College",
       "date": "2026-10-20",
@@ -3343,6 +3455,14 @@
   ],
   "48": [
     {
+      "pollster": "Kreate Strategies",
+      "date": "2026-10-30",
+      "d": 48,
+      "r": 45,
+      "sample": 900,
+      "population": "LV"
+    },
+    {
       "pollster": "Quantus Insights",
       "date": "2026-10-28",
       "d": 48,
@@ -3372,6 +3492,14 @@
       "d": 49,
       "r": 43,
       "sample": 923,
+      "population": "LV"
+    },
+    {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-26",
+      "d": 49,
+      "r": 45,
+      "sample": 712,
       "population": "LV"
     },
     {

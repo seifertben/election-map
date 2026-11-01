@@ -64,7 +64,7 @@ export const GOVERNOR_MAJORITY = 26;
 /**
  * 2026 gubernatorial race ratings for the 36 states on the ballot, from the
  * Cook Political Report as listed on the Wikipedia "2026 United States
- * gubernatorial elections" predictions table (Cook, October 27, 2026). Each
+ * gubernatorial elections" predictions table (Cook, October 29, 2026). Each
  * Solid/Likely/Lean tone is kept so the map can shade the state accordingly.
  *
  * Keyed by the two-digit state FIPS code used by states.json.
@@ -72,7 +72,7 @@ export const GOVERNOR_MAJORITY = 26;
 export const GOVERNOR_2026_RATINGS: Record<string, RaceRating> = {
   "01": "SOLID_R",
   "02": "LEAN_D",
-  "04": "LEAN_D",
+  "04": "LIKELY_D",
   "05": "SOLID_R",
   "06": "SOLID_D",
   "08": "SOLID_D",
@@ -104,7 +104,7 @@ export const GOVERNOR_2026_RATINGS: Record<string, RaceRating> = {
   "47": "SOLID_R",
   "48": "LEAN_R",
   "50": "LIKELY_R",
-  "55": "TOSS",
+  "55": "LEAN_D",
   "56": "SOLID_R",
 };
 

@@ -1,6 +1,46 @@
 {
   "12": [
     {
+      "pollster": "ActiVote",
+      "date": "2026-10-31",
+      "d": 48,
+      "r": 52,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "Big Data Poll",
+      "date": "2026-10-30",
+      "d": 44,
+      "r": 47,
+      "sample": 1067,
+      "population": "LV"
+    },
+    {
+      "pollster": "Stetson University",
+      "date": "2026-10-30",
+      "d": 45,
+      "r": 51,
+      "sample": 852,
+      "population": "RV"
+    },
+    {
+      "pollster": "InsiderAdvantage (R)",
+      "date": "2026-10-29",
+      "d": 45,
+      "r": 49,
+      "sample": 1200,
+      "population": "LV"
+    },
+    {
+      "pollster": "Political Matrix/The Listener Group",
+      "date": "2026-10-28",
+      "d": 39,
+      "r": 40,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
       "pollster": "St. Pete Polls",
       "date": "2026-10-27",
       "d": 46,
@@ -30,6 +70,14 @@
       "d": 44,
       "r": 50,
       "sample": 515,
+      "population": "LV"
+    },
+    {
+      "pollster": "Workbench Strategy (D)",
+      "date": "2026-10-22",
+      "d": 48,
+      "r": 46,
+      "sample": 800,
       "population": "LV"
     },
     {
@@ -472,6 +520,14 @@
   "17": [
     {
       "pollster": "ActiVote",
+      "date": "2026-10-31",
+      "d": 59,
+      "r": 41,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "ActiVote",
       "date": "2026-10-22",
       "d": 59,
       "r": 41,
@@ -674,14 +730,6 @@
   ],
   "20": [
     {
-      "pollster": "Emerson College",
-      "date": "2026-10-28",
-      "d": 46,
-      "r": 50,
-      "sample": 800,
-      "population": "LV"
-    },
-    {
       "pollster": "The Washington Post/SSPG",
       "date": "2026-10-26",
       "d": 51,
@@ -755,6 +803,14 @@
     }
   ],
   "23": [
+    {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-27",
+      "d": 49,
+      "r": 37,
+      "sample": 652,
+      "population": "LV"
+    },
     {
       "pollster": "SSRS",
       "date": "2026-10-26",
@@ -1041,6 +1097,22 @@
       "population": "LV"
     },
     {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-25",
+      "d": 50,
+      "r": 46,
+      "sample": 622,
+      "population": "LV"
+    },
+    {
+      "pollster": "Michigan State University/Verasight",
+      "date": "2026-10-23",
+      "d": 51,
+      "r": 42,
+      "sample": 1383,
+      "population": "LV"
+    },
+    {
       "pollster": "Glengariff Group",
       "date": "2026-10-22",
       "d": 51,
@@ -1281,6 +1353,14 @@
   ],
   "31": [
     {
+      "pollster": "New York Times/Siena University",
+      "date": "2026-10-29",
+      "d": 40,
+      "r": 53,
+      "sample": 809,
+      "population": "LV"
+    },
+    {
       "pollster": "Echelon Insights (R)",
       "date": "2026-10-23",
       "d": 40,
@@ -1401,6 +1481,14 @@
     }
   ],
   "32": [
+    {
+      "pollster": "Noble Predictive Insights",
+      "date": "2026-10-28",
+      "d": 47,
+      "r": 47,
+      "sample": 487,
+      "population": "LV"
+    },
     {
       "pollster": "Hart Research (D)",
       "date": "2026-10-25",
@@ -2700,6 +2788,14 @@
   ],
   "48": [
     {
+      "pollster": "Kreate Strategies",
+      "date": "2026-10-30",
+      "d": 47,
+      "r": 49,
+      "sample": 900,
+      "population": "LV"
+    },
+    {
       "pollster": "Quantus Insights (R)",
       "date": "2026-10-28",
       "d": 46,
@@ -2716,6 +2812,14 @@
       "population": "LV"
     },
     {
+      "pollster": "Data for Progress (D)",
+      "date": "2026-10-26",
+      "d": 47,
+      "r": 48,
+      "sample": 712,
+      "population": "LV"
+    },
+    {
       "pollster": "YouGov Blue (D)",
       "date": "2026-10-26",
       "d": 49,
@@ -2729,6 +2833,14 @@
       "d": 47,
       "r": 50,
       "sample": 2000,
+      "population": "LV"
+    },
+    {
+      "pollster": "ActiVote",
+      "date": "2026-10-21",
+      "d": 48,
+      "r": 52,
+      "sample": 400,
       "population": "LV"
     },
     {
@@ -3363,6 +3475,22 @@
   ],
   "04": [
     {
+      "pollster": "GrayHouse (R)",
+      "date": "2026-10-29",
+      "d": 50,
+      "r": 45,
+      "sample": 500,
+      "population": "LV"
+    },
+    {
+      "pollster": "Noble Predictive Insights",
+      "date": "2026-10-28",
+      "d": 51,
+      "r": 45,
+      "sample": 511,
+      "population": "LV"
+    },
+    {
       "pollster": "HighGround, Inc.",
       "date": "2026-10-25",
       "d": 52,
@@ -3606,6 +3734,22 @@
     }
   ],
   "06": [
+    {
+      "pollster": "ActiVote",
+      "date": "2026-10-31",
+      "d": 63,
+      "r": 37,
+      "sample": 400,
+      "population": "LV"
+    },
+    {
+      "pollster": "Berkeley IGS",
+      "date": "2026-10-25",
+      "d": 61,
+      "r": 34,
+      "sample": 1477,
+      "population": "LV"
+    },
     {
       "pollster": "SurveyUSA",
       "date": "2026-10-24",

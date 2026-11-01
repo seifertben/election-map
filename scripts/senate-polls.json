@@ -1,11 +1,35 @@
 {
   "sources": [
-    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-10-27",
+    "electoral-vote.com Senate polls (senate_polls.csv), fetched 2026-11-01",
     "Wikipedia general-election polling (Kentucky, Idaho, Oklahoma, Tennessee)"
   ],
   "notes": "The electoral-vote.com + supplement base. Wikipedia polls scraped across all 35 seats (scripts/senate-polls-wiki.json) are layered on top of this at build time. States with no public 2026 general-election polling are omitted. Nebraska's d column is the independent challenger Dan Osborn.",
   "polls": {
     "12": [
+      {
+        "pollster": "Stetson University",
+        "date": "2026-10-30",
+        "d": 45,
+        "r": 49
+      },
+      {
+        "pollster": "St. Pete Polls",
+        "date": "2026-10-27",
+        "d": 45,
+        "r": 49
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-26",
+        "d": 44,
+        "r": 50
+      },
+      {
+        "pollster": "Activote",
+        "date": "2026-10-27",
+        "d": 47,
+        "r": 53
+      },
       {
         "pollster": "University of North Florida",
         "date": "2026-10-19",
@@ -140,6 +164,12 @@
     "17": [
       {
         "pollster": "Activote",
+        "date": "2026-10-30",
+        "d": 56,
+        "r": 44
+      },
+      {
+        "pollster": "Activote",
         "date": "2026-10-20",
         "d": 58,
         "r": 41
@@ -257,6 +287,24 @@
     ],
     "20": [
       {
+        "pollster": "Emerson College",
+        "date": "2026-10-28",
+        "d": 50,
+        "r": 47
+      },
+      {
+        "pollster": "Washington Post",
+        "date": "2026-10-26",
+        "d": 54,
+        "r": 44
+      },
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-26",
+        "d": 49,
+        "r": 45
+      },
+      {
         "pollster": "YouGov",
         "date": "2026-10-04",
         "d": 48,
@@ -302,6 +350,18 @@
       }
     ],
     "23": [
+      {
+        "pollster": "Marist College",
+        "date": "2026-10-25",
+        "d": 49,
+        "r": 47
+      },
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-26",
+        "d": 49,
+        "r": 45
+      },
       {
         "pollster": "Beacon + Shaw",
         "date": "2026-10-20",
@@ -402,6 +462,12 @@
       },
       {
         "pollster": "University of Massachusetts",
+        "date": "2026-10-18",
+        "d": 55,
+        "r": 26
+      },
+      {
+        "pollster": "University of Massachusetts",
         "date": "2026-10-12",
         "d": 56,
         "r": 29
@@ -438,6 +504,18 @@
       }
     ],
     "26": [
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-27",
+        "d": 49,
+        "r": 42
+      },
+      {
+        "pollster": "Glengariff Group",
+        "date": "2026-10-22",
+        "d": 51,
+        "r": 45
+      },
       {
         "pollster": "Marist College",
         "date": "2026-10-18",
@@ -574,6 +652,18 @@
     "27": [
       {
         "pollster": "SurveyUSA",
+        "date": "2026-10-28",
+        "d": 48,
+        "r": 41
+      },
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-26",
+        "d": 54,
+        "r": 40
+      },
+      {
+        "pollster": "SurveyUSA",
         "date": "2026-10-12",
         "d": 45,
         "r": 42
@@ -619,6 +709,12 @@
     ],
     "30": [
       {
+        "pollster": "Montana State University",
+        "date": "2026-10-21",
+        "d": 21,
+        "r": 30
+      },
+      {
         "pollster": "Concord POP",
         "date": "2026-10-08",
         "d": 13,
@@ -644,6 +740,12 @@
       }
     ],
     "31": [
+      {
+        "pollster": "Siena College",
+        "date": "2026-10-29",
+        "d": 43,
+        "r": 49
+      },
       {
         "pollster": "Concord POP",
         "date": "2026-10-18",
@@ -675,6 +777,12 @@
         "date": "2026-10-20",
         "d": 50,
         "r": 43
+      },
+      {
+        "pollster": "University of Massachusetts",
+        "date": "2026-10-19",
+        "d": 48,
+        "r": 41
       },
       {
         "pollster": "NPA Polling",
@@ -763,6 +871,12 @@
         "date": "2026-10-20",
         "d": 57,
         "r": 43
+      },
+      {
+        "pollster": "High Point University",
+        "date": "2026-10-20",
+        "d": 54,
+        "r": 40
       },
       {
         "pollster": "SurveyUSA",
@@ -880,6 +994,18 @@
       }
     ],
     "39": [
+      {
+        "pollster": "Activote",
+        "date": "2026-10-31",
+        "d": 50,
+        "r": 50
+      },
+      {
+        "pollster": "Suffolk University",
+        "date": "2026-10-26",
+        "d": 47,
+        "r": 44
+      },
       {
         "pollster": "Beacon + Shaw",
         "date": "2026-10-19",
@@ -1033,6 +1159,18 @@
     ],
     "45": [
       {
+        "pollster": "Siena College",
+        "date": "2026-10-26",
+        "d": 48,
+        "r": 48
+      },
+      {
+        "pollster": "East Carolina University",
+        "date": "2026-10-24",
+        "d": 47,
+        "r": 51
+      },
+      {
         "pollster": "Abacus Data",
         "date": "2026-08-28",
         "d": 38,
@@ -1040,6 +1178,12 @@
       }
     ],
     "46": [
+      {
+        "pollster": "Concord POP",
+        "date": "2026-10-26",
+        "d": 43,
+        "r": 41
+      },
       {
         "pollster": "Emerson College",
         "date": "2026-10-20",
@@ -1072,6 +1216,24 @@
     "48": [
       {
         "pollster": "Activote",
+        "date": "2026-10-28",
+        "d": 52,
+        "r": 48
+      },
+      {
+        "pollster": "SSRS for CNN",
+        "date": "2026-10-27",
+        "d": 49,
+        "r": 43
+      },
+      {
+        "pollster": "Texas Southern University",
+        "date": "2026-10-25",
+        "d": 49,
+        "r": 47
+      },
+      {
+        "pollster": "Activote",
         "date": "2026-10-21",
         "d": 51,
         "r": 49
@@ -1093,6 +1255,12 @@
         "date": "2026-10-19",
         "d": 49,
         "r": 49
+      },
+      {
+        "pollster": "YouGov",
+        "date": "2026-10-21",
+        "d": 50,
+        "r": 45
       },
       {
         "pollster": "Texas Public Opinion Research",
@@ -1358,6 +1526,12 @@
       }
     ],
     "02": [
+      {
+        "pollster": "Alaska Survey Research",
+        "date": "2026-10-29",
+        "d": 51,
+        "r": 49
+      },
       {
         "pollster": "Public Policy Polling",
         "date": "2026-10-15",
