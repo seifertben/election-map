@@ -12,6 +12,16 @@ const choices: { locale: Locale; label: string }[] = [
 export function LanguageSwitcher() {
   const active = currentLocale();
   return <nav className="language-switcher" aria-label="Language">
-    {choices.map(({ locale, label }) => <a key={locale} href={languageUrl(locale)} hrefLang={locale} lang={locale} aria-current={active === locale ? 'page' : undefined} onClick={event => { event.currentTarget.href = languageUrl(locale); }}>{label}</a>)}
+    <div className="language-switcher__links">
+      {choices.map(({ locale, label }) => <a key={locale} href={languageUrl(locale)} hrefLang={locale} lang={locale} aria-current={active === locale ? 'page' : undefined} onClick={event => { event.currentTarget.href = languageUrl(locale); }}>{label}</a>)}
+    </div>
+    <select
+      className="language-switcher__select"
+      aria-label="Language"
+      value={active}
+      onChange={event => { window.location.href = languageUrl(event.target.value as Locale); }}
+    >
+      {choices.map(({ locale, label }) => <option key={locale} value={locale} lang={locale}>{label}</option>)}
+    </select>
   </nav>;
 }
