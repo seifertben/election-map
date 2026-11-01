@@ -5,12 +5,12 @@ import type { Mode } from '../types';
 
 type Info = { title: string; role: string; facts: string[] };
 
-const UI: Record<Locale, { button: string; close: string; sources: string }> = {
-  en: { button: 'How this election works', close: 'Close election information', sources: 'Sources' },
-  es: { button: 'Cómo funciona esta elección', close: 'Cerrar información electoral', sources: 'Fuentes' },
-  fr: { button: 'Comment fonctionne cette élection', close: 'Fermer les informations électorales', sources: 'Sources' },
-  de: { button: 'So funktioniert diese Wahl', close: 'Wahlinformationen schließen', sources: 'Quellen' },
-  'pt-BR': { button: 'Como funciona esta eleição', close: 'Fechar informações eleitorais', sources: 'Fontes' },
+const UI: Record<Locale, { button: string; short: string; close: string; sources: string }> = {
+  en: { button: 'How this election works', short: 'How it works', close: 'Close election information', sources: 'Sources' },
+  es: { button: 'Cómo funciona esta elección', short: 'Cómo funciona', close: 'Cerrar información electoral', sources: 'Fuentes' },
+  fr: { button: 'Comment fonctionne cette élection', short: 'Comment ça marche', close: 'Fermer les informations électorales', sources: 'Sources' },
+  de: { button: 'So funktioniert diese Wahl', short: 'So funktioniert’s', close: 'Wahlinformationen schließen', sources: 'Quellen' },
+  'pt-BR': { button: 'Como funciona esta eleição', short: 'Como funciona', close: 'Fechar informações eleitorais', sources: 'Fontes' },
 };
 
 const INFO: Record<Locale, Record<Mode, Info>> = {
@@ -225,7 +225,14 @@ export function ElectionInfo({ mode }: { mode: Mode }) {
   const ui = UI[locale];
   const info = INFO[locale][mode];
   return <>
-    <button type="button" className="election-info__trigger" aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(true)}>{ui.button} <span aria-hidden="true">ⓘ</span></button>
+    <button type="button" className="election-info__trigger" aria-label={ui.button} aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(true)}>
+      <svg className="election-info__icon" viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M12 11v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="12" cy="8" r="1.1" fill="currentColor" />
+      </svg>
+      <span className="election-info__label">{ui.short}</span>
+    </button>
     {open ? <ElectionInfoDialog key={mode} info={info} ui={ui} sources={SOURCES[mode]} onClose={() => setOpen(false)} /> : null}
   </>;
 }

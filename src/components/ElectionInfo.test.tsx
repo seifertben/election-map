@@ -34,6 +34,8 @@ describe('ElectionInfo', () => {
   ] as const)('explains the %s election and closes accessibly', (mode, count, electionCount, role) => {
     const { container, trigger, dialog } = render(mode);
     expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
+    expect(trigger.getAttribute('aria-label')).toBe('How this election works');
+    expect(trigger.querySelector('svg[aria-hidden="true"]')).not.toBeNull();
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
     expect(dialog.hasAttribute('open')).toBe(true);
     expect(dialog.getAttribute('aria-labelledby')).toBe('election-info-title');
@@ -46,13 +48,14 @@ describe('ElectionInfo', () => {
   });
 
   it.each([
-    ['es', 'Cómo funciona esta elección', 'Elecciones al Senado'],
-    ['fr', 'Comment fonctionne cette élection', 'Élections au Sénat'],
-    ['de', 'So funktioniert diese Wahl', 'Wahlen zum US-Senat'],
-    ['pt-BR', 'Como funciona esta eleição', 'Eleições para o Senado'],
-  ])('shows localized information in %s', (lang, button, title) => {
+    ['es', 'Cómo funciona', 'Cómo funciona esta elección', 'Elecciones al Senado'],
+    ['fr', 'Comment ça marche', 'Comment fonctionne cette élection', 'Élections au Sénat'],
+    ['de', 'So funktioniert’s', 'So funktioniert diese Wahl', 'Wahlen zum US-Senat'],
+    ['pt-BR', 'Como funciona', 'Como funciona esta eleição', 'Eleições para o Senado'],
+  ])('shows localized information in %s', (lang, button, label, title) => {
     const { trigger, dialog } = render('senate', lang);
     expect(trigger.textContent).toContain(button);
+    expect(trigger.getAttribute('aria-label')).toBe(label);
     expect(dialog.querySelector('h2')?.textContent).toContain(title);
     expect(dialog.querySelectorAll('li')).toHaveLength(3);
   });
