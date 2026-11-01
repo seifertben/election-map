@@ -293,6 +293,26 @@ Re-run it when the Census publishes updated boundaries.
 (Cloudflare Pages, Netlify, GitHub Pages, S3). If you deploy under a subpath,
 set Vite's `base` option accordingly.
 
+### Languages and international search
+
+The English homepage lives at `/`; Spanish, French, and Brazilian Portuguese
+live at `/es/`, `/fr/`, and `/pt-br/`. `npm run build` generates each localized
+HTML entry and a sitemap with reciprocal `hreflang` references. Every entry has
+its own language, title, description, canonical URL, social metadata, and
+searchable introductory text. Update `scripts/build-locale-pages.mjs` and the
+HTML alternates in `index.html` together when adding a language. The canonical
+URLs assume `https://www.mapelection.com`.
+
+The app uses `src/i18n/*.json` for interface translations and
+`src/i18n/overrides.ts` for reviewed election terminology. To find new English
+interface strings, run `node scripts/extract-ui-text.mjs`; add their translations
+to each catalog before publishing. The runtime also translates text added by
+React after data loads. Language links carry the current map query and hash to
+the selected version. Dates and displayed numbers use the selected locale.
+
+The first catalogs were generated from machine translation and should be
+reviewed by fluent speakers, especially the detailed State Analyzer guidance.
+
 ## Candidate hover cards
 
 All map views can show sourced candidate names, parties, and portraits in their

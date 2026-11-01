@@ -1,6 +1,7 @@
 import { HOUSE_2024_MARGIN } from "../data/house2024";
 import { colorForStrength, formatMargin, POLL_MARGIN_CAP } from "./polling";
 import type { PollOverlay, PollSummary } from "./polling";
+import { formatNumber } from '../i18n/runtime';
 
 /** Swing slider bounds, in points toward the Democrats (negative is R). */
 export const HOUSE_SWING_MIN = -20;
@@ -16,7 +17,7 @@ export function house2024Margin(geoid: string): number | null {
 export function formatSwing(points: number): string {
   const rounded = Math.round(Math.abs(points) * 10) / 10;
   if (rounded === 0) return "Even swing";
-  return `${points > 0 ? "D" : "R"} +${rounded.toFixed(1)} swing`;
+  return `${points > 0 ? "D" : "R"} +${formatNumber(rounded, 1)} swing`;
 }
 
 /** Apply a uniform swing to a district's 2024 margin. Null when unmodeled. */

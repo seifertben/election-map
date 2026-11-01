@@ -4,6 +4,7 @@ import {
 } from "../data/polling/governor2026";
 import { SENATE_2026_POLLS, SENATE_POLLS_AS_OF } from "../data/polling/senate2026";
 import type { Assignment } from "../types";
+import { formatNumber } from '../i18n/runtime';
 
 /** Polling for a single race mode: the polls, the window they cover, and the
  * aggregation options the dropdown offers. */
@@ -108,7 +109,7 @@ export function summarizePolls(
 export function formatMargin(margin: number): string {
   const rounded = Math.round(Math.abs(margin) * 10) / 10;
   if (rounded === 0) return "Even";
-  return `${margin > 0 ? "D" : "R"} +${rounded.toFixed(1)}`;
+  return `${margin > 0 ? "D" : "R"} +${formatNumber(rounded, 1)}`;
 }
 
 /** One-line description of a summary for a tooltip. */
@@ -120,7 +121,7 @@ export function describeSummary(
   // A single poll (e.g. a chosen pollster's latest, or an average that matched
   // only one poll) shows its date so the hover isn't ambiguous.
   const dated = summary.polls === 1 ? `, ${summary.latest}` : "";
-  const raw = `D ${summary.d.toFixed(1)} / R ${summary.r.toFixed(1)}`;
+  const raw = `D ${formatNumber(summary.d, 1)} / R ${formatNumber(summary.r, 1)}`;
   return `${formatMargin(summary.margin)} (${raw}) · ${optionLabel} (${summary.polls} ${noun}${dated})`;
 }
 

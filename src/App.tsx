@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 import { FlagRibbon } from "./components/FlagRibbon";
+import { LanguageSwitcher } from './components/LanguageSwitcher';
+import { currentLocale, formatSourceDate, localizedMapTitle, translateText } from './i18n/runtime';
 import type { CandidateSnapshot } from "./data/candidates";
 import { MarketPanel } from "./components/MarketPanel";
 import type { MarketStatus } from "./components/MarketPanel";
@@ -676,9 +678,9 @@ export default function App() {
       svgRef.current,
       `election-map-${state.mode}.png`,
       "#ffffff",
-      `My 2026 Election Mapper ${MODE_LABEL[state.mode]} Map`,
+      localizedMapTitle(state.mode),
       score.segments.map((s) => ({
-        label: s.label,
+        label: translateText(s.label),
         value: s.count,
         color: s.color,
       })),
@@ -700,7 +702,7 @@ export default function App() {
 
   const share = useMemo(() => regionIds ? {
     url: `${window.location.origin}${window.location.pathname}?${encodeShareHash(projected, regionIds, state.mode).slice(1)}`,
-    title: `My ${state.mode === "president" ? "2024" : "2026"} ${MODE_LABEL[state.mode]} election map`,
+    title: localizedMapTitle(state.mode),
   } : null, [regionIds, projected, state.mode]);
 
   const prepareShareImage = useCallback(async () => {
@@ -708,8 +710,8 @@ export default function App() {
     const blob = await renderSvgAsPng(
       svgRef.current,
       "#ffffff",
-      `My ${state.mode === "president" ? "2024" : "2026"} Election Mapper ${MODE_LABEL[state.mode]} Map`,
-      score.segments.map((segment) => ({ label: segment.label, value: segment.count, color: segment.color })),
+      localizedMapTitle(state.mode),
+      score.segments.map((segment) => ({ label: translateText(segment.label), value: segment.count, color: segment.color })),
     );
     return new File([blob], `election-map-${state.mode}.png`, { type: "image/png" });
   }, [state.mode, score]);
@@ -876,9 +878,9 @@ export default function App() {
   const activeSource = RATINGS_SOURCE_BY_ID[ratingsSelectId];
   const viewLabel = marketsOn ? "Polymarket probabilities" : pollingOn ? "Polling averages & pollsters" : swingActive ? "2024 results + your swing" : activeSource ? activeSource.label : state.mode === "president" ? "2024 presidential results" : "Your custom prediction";
   const freshness = pollingOn && raceMode
-    ? `Polls through ${new Date(`${POLL_DATASETS[raceMode].asOf}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
-    : marketsOn ? (activeMarket?.asOf ? `Updated ${new Date(activeMarket.asOf).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "Connecting to market…")
-    : activeSource && ratingMode ? `Updated ${sourceAsOf(activeSource, ratingMode)}` : "Build a scenario. Make it yours.";
+    ? `Polls through ${new Date(`${POLL_DATASETS[raceMode].asOf}T12:00:00`).toLocaleDateString(currentLocale(), { month: "short", day: "numeric", year: "numeric" })}`
+    : marketsOn ? (activeMarket?.asOf ? `Updated ${new Date(activeMarket.asOf).toLocaleTimeString(currentLocale(), { hour: "numeric", minute: "2-digit" })}` : "Connecting to market…")
+    : activeSource && ratingMode ? `Updated ${formatSourceDate(sourceAsOf(activeSource, ratingMode))}` : "Build a scenario. Make it yours.";
 
   return (
     <div className="app">
@@ -900,6 +902,7 @@ export default function App() {
             </button>
           </div>
         </div>
+        <LanguageSwitcher />
       </header>
 
       {shareOpen && share ? (

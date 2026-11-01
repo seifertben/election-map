@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Candidate } from "../data/candidates";
 import type { PollSummary } from "../lib/polling";
 import type { Party } from "../types";
+import { formatNumber } from '../i18n/runtime';
 
 function CandidatePortrait({ candidate }: { candidate: Candidate }) {
   const [failed, setFailed] = useState(false);
@@ -59,7 +60,7 @@ export function CandidateCards({ candidates, summary, projection, favoredParty, 
             <strong className="candidate__name">{candidate.name}</strong>
             {candidate.photo && candidate.photoSource ? <a className="candidate__credit" href={candidate.photoSource} target="_blank" rel="noopener noreferrer">Photo & credits ↗</a> : null}
           </div>
-          {share != null ? <span className="candidate__share">{share.toFixed(1)}<small>%</small></span> : null}
+          {share != null ? <span className="candidate__share">{formatNumber(share, 1)}<small>%</small></span> : null}
         </div>;
       })}
       {candidates[0]?.source ? <a className="candidates__source" href={candidates[0].source} target="_blank" rel="noopener noreferrer">Candidate information · Wikipedia ↗</a> : null}

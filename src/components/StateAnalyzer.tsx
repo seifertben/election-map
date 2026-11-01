@@ -32,6 +32,7 @@ import type {
 import type { RegionFeature } from "../types";
 import { RegionMap } from "./RegionMap";
 import type { CandidateSnapshot } from "../data/candidates";
+import { formatNumber } from '../i18n/runtime';
 
 export type AnalyzerElection = "senate" | "house" | "governor";
 
@@ -550,8 +551,8 @@ function StateAnalysis({
       describe: (id) => {
         const result = regionResults.get(id);
         if (!result) return null;
-        const other = result.o > 0.05 ? ` / O ${result.o.toFixed(1)}` : "";
-        return `D ${result.d.toFixed(1)} / R ${result.r.toFixed(1)}${other} · ${formatMargin(
+        const other = result.o > 0.05 ? ` / O ${formatNumber(result.o, 1)}` : "";
+        return `D ${formatNumber(result.d, 1)} / R ${formatNumber(result.r, 1)}${other} · ${formatMargin(
           result.margin,
         )}`;
       },
@@ -774,8 +775,8 @@ function StateAnalysis({
               Selected {districtLabel(
                 features.find((f) => geoidOf(f) === selectedRegion) as RegionFeature,
               )}
-              : D {selectedResult.d.toFixed(1)} / R{" "}
-              {selectedResult.r.toFixed(1)} ({formatMargin(selectedResult.margin)}
+              : D {formatNumber(selectedResult.d, 1)} / R{" "}
+              {formatNumber(selectedResult.r, 1)} ({formatMargin(selectedResult.margin)}
               ).
             </p>
           ) : null}
@@ -843,7 +844,7 @@ function StateAnalysis({
                   : "analyzer__total-value analyzer__total-value--off"
               }
             >
-              {shareTotalPct.toFixed(0)}%
+              {formatNumber(shareTotalPct, 0)}%
             </span>
           </div>
           <p className="analyzer__hint">
@@ -876,7 +877,7 @@ function StateAnalysis({
                   <div className="analyzer__row-head">
                     <span>{category.label}</span>
                     <span className="analyzer__pct">
-                      {(share * 100).toFixed(0)}% of electorate
+                      {formatNumber(share * 100, 0)}% of electorate
                     </span>
                   </div>
                   <input
@@ -895,8 +896,8 @@ function StateAnalysis({
                   />
                   <div className="analyzer__row-head">
                     <span className="analyzer__splitlabel">
-                      D {split.d.toFixed(0)} / R {split.r.toFixed(0)}
-                      {split.o > 0.05 ? ` / O ${split.o.toFixed(0)}` : ""}
+                      D {formatNumber(split.d, 0)} / R {formatNumber(split.r, 0)}
+                      {split.o > 0.05 ? ` / O ${formatNumber(split.o, 0)}` : ""}
                     </span>
                     <span className="analyzer__pct">vote split</span>
                   </div>
@@ -1198,12 +1199,12 @@ function ResultSummary({ result, tally, regionCount }: ResultSummaryProps) {
   return (
     <div className="analyzer__result">
       <div className="analyzer__result-headline">
-        <span className="analyzer__result-d">{result.d.toFixed(1)}%</span>
+        <span className="analyzer__result-d">{formatNumber(result.d, 1)}%</span>
         <span className="analyzer__result-mid">
           <strong>{winnerLabel}</strong>
           <span>{formatMargin(result.margin)}</span>
         </span>
-        <span className="analyzer__result-r">{result.r.toFixed(1)}%</span>
+        <span className="analyzer__result-r">{formatNumber(result.r, 1)}%</span>
       </div>
       <div className="analyzer__result-bar" role="img" aria-label="Vote split">
         <div
@@ -1220,7 +1221,7 @@ function ResultSummary({ result, tally, regionCount }: ResultSummaryProps) {
         />
       </div>
       {result.o > 0.05 ? (
-        <div className="analyzer__tally">Other {result.o.toFixed(1)}%</div>
+        <div className="analyzer__tally">Other {formatNumber(result.o, 1)}%</div>
       ) : null}
       {tally ? (
         <div className="analyzer__tally">

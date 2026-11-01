@@ -1,5 +1,6 @@
 import { formatMargin } from "../lib/polling";
 import type { RacePoll } from "../lib/polling";
+import { currentLocale, formatNumber } from '../i18n/runtime';
 
 const POPULATION_LABELS = {
   LV: "likely voters",
@@ -43,13 +44,13 @@ export function PollDetails({
               <tr key={`${poll.pollster}:${poll.date}:${index}`}>
                 <th scope="row">{poll.pollster}</th>
                 <td>
-                  <time dateTime={poll.date}>{poll.date}</time>
+                  <time dateTime={poll.date}>{currentLocale() === 'en' ? poll.date : new Date(`${poll.date}T12:00:00Z`).toLocaleDateString(currentLocale(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}</time>
                 </td>
-                <td>{poll.d}%</td>
-                <td>{poll.r}%</td>
+                <td>{formatNumber(poll.d)}%</td>
+                <td>{formatNumber(poll.r)}%</td>
                 <td>{formatMargin(poll.d - poll.r)}</td>
                 <td>
-                  {poll.sample?.toLocaleString("en-US") ?? "—"}
+                  {poll.sample?.toLocaleString(currentLocale()) ?? "—"}
                   {poll.population ? (
                     <span className="poll-details__population">
                       {POPULATION_LABELS[poll.population]}

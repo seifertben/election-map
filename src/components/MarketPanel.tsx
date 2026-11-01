@@ -1,6 +1,7 @@
 import type { MarketSource } from "../lib/markets";
 import { MARKET_NONE_ID } from "../lib/markets";
 import { pollScaleGradientCss } from "../lib/polling";
+import { currentLocale } from '../i18n/runtime';
 
 export type MarketStatus = "idle" | "loading" | "live" | "error";
 
@@ -34,7 +35,7 @@ export interface MarketPanelProps {
 function formatAsOf(asOf: string): string {
   const date = new Date(asOf);
   if (Number.isNaN(date.getTime())) return asOf;
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return date.toLocaleTimeString(currentLocale(), { hour: "2-digit", minute: "2-digit" });
 }
 
 export function MarketPanel({
