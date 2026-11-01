@@ -263,6 +263,21 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .map-heading h2 { margin: 4px 0 0; font-size: 23px; letter-spacing: -0.035em; }
 .map-heading__source { text-align: right; font-size: 12px; font-weight: 650; line-height: 1.6; }
 .map-heading__source small { display: block; font-size: 11px; font-weight: 400; color: var(--ink-soft); }
+.map-heading__title { min-width: 0; }
+.election-info__trigger { display: inline-flex; align-items: center; gap: 5px; min-height: 34px; margin-top: 4px; padding: 4px 0; border: 0; background: none; color: var(--accent); font: inherit; font-size: 11px; font-weight: 700; text-align: left; cursor: pointer; }
+.election-info__trigger:hover { text-decoration: underline; text-underline-offset: 3px; }
+.election-info { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); color: var(--ink); box-shadow: 0 24px 64px rgba(15, 23, 42, .25); overflow-y: auto; }
+.election-info::backdrop { background: rgba(15, 23, 42, .5); }
+.election-info__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.election-info h2 { margin: 2px 0 12px; font-size: 22px; line-height: 1.2; }
+.election-info p, .election-info li { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+.election-info p { margin: 0 0 16px; }
+.election-info ul { margin: 0 0 18px; padding-left: 20px; }
+.election-info li + li { margin-top: 8px; }
+.election-info__close { flex: none; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--ink); font-size: 22px; cursor: pointer; }
+.election-info__close:hover { background: #f3f4f6; }
+.election-info__sources { padding-top: 12px; border-top: 1px solid var(--border); color: var(--ink-soft); font-size: 12px; line-height: 1.5; }
+.election-info__sources a { color: var(--accent); }
 .map-stage { position: relative; flex: 1; min-height: 0; padding: 12px; }
 .map-watermark {
   position: absolute;

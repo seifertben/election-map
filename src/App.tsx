@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { FlagRibbon } from "./components/FlagRibbon";
+import { ElectionInfo } from './components/ElectionInfo';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { currentLocale, formatSourceDate, localizedMapTitle, translateText } from './i18n/runtime';
 import type { CandidateSnapshot } from "./data/candidates";
@@ -933,7 +934,7 @@ export default function App() {
       <main className="layout">
         <section className="map-panel">
           <div className="map-heading">
-            <div><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><h2>{MODE_LABEL[state.mode]} map</h2></div>
+            <div className="map-heading__title"><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><h2>{MODE_LABEL[state.mode]} map</h2><ElectionInfo key={state.mode} mode={state.mode} /></div>
             <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
           </div>
           {state.mode === "president" ? (
