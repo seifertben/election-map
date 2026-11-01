@@ -182,6 +182,20 @@ export default function App() {
   const [demographics, setDemographics] = useState<DemographicsData | null>(null);
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
   const [controlsOpen, setControlsOpen] = useState(false);
+  const mapPanelRef = useRef<HTMLElement>(null);
+  const [mapFullscreen, setMapFullscreen] = useState(false);
+  useEffect(() => {
+    const syncFullscreen = () => setMapFullscreen(document.fullscreenElement === mapPanelRef.current);
+    document.addEventListener("fullscreenchange", syncFullscreen);
+    return () => document.removeEventListener("fullscreenchange", syncFullscreen);
+  }, []);
+  const toggleMapFullscreen = () => {
+    if (document.fullscreenElement === mapPanelRef.current) {
+      void document.exitFullscreen();
+    } else {
+      void mapPanelRef.current?.requestFullscreen();
+    }
+  };
   const [hoverEnabled, setHoverEnabled] = useState(true);
   const [hoveredGovernorFips, setHoveredGovernorFips] = useState<string | null>(null);
   const [brush, setBrush] = useState<Brush>("CYCLE");
@@ -932,10 +946,15 @@ export default function App() {
         />
       ) : (
       <main className="layout">
-        <section className="map-panel">
+        <section className="map-panel" ref={mapPanelRef}>
           <div className="map-heading">
             <div className="map-heading__title"><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><div className="map-heading__name"><h2>{MODE_LABEL[state.mode]} map</h2><ElectionInfo key={state.mode} mode={state.mode} /></div></div>
-            <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
+            <div className="map-heading__actions">
+              <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
+              <button type="button" className="map-fullscreen" onClick={toggleMapFullscreen} aria-label={mapFullscreen ? "Exit map fullscreen" : "Expand map to fullscreen"} title={mapFullscreen ? "Exit fullscreen" : "Fullscreen map"}>
+                {mapFullscreen ? "Exit fullscreen" : "Fullscreen"}
+              </button>
+            </div>
           </div>
           {state.mode === "president" ? (
             <p className="map-cycle-note">There is no presidential election in 2026. This map starts with the 2024 results; the next presidential election is in 2028.</p>
