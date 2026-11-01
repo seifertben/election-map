@@ -1,18 +1,19 @@
 import es from './es.json';
 import fr from './fr.json';
+import de from './de.json';
 import pt from './pt.json';
 import { overrides } from './overrides';
 import type { Mode } from '../types';
 
-export type Locale = 'en' | 'es' | 'fr' | 'pt-BR';
+export type Locale = 'en' | 'es' | 'fr' | 'de' | 'pt-BR';
 const catalogs: Record<Exclude<Locale, 'en'>, Record<string, string>> = {
-  es: { ...es, ...overrides.es }, fr: { ...fr, ...overrides.fr }, 'pt-BR': { ...pt, ...overrides['pt-BR'] },
+  es: { ...es, ...overrides.es }, fr: { ...fr, ...overrides.fr }, de: { ...de, ...overrides.de }, 'pt-BR': { ...pt, ...overrides['pt-BR'] },
 };
 
 export function currentLocale(): Locale {
   if (typeof document === 'undefined') return 'en';
   const lang = document.documentElement.lang;
-  return lang === 'es' || lang === 'fr' || lang === 'pt-BR' ? lang : 'en';
+  return lang === 'es' || lang === 'fr' || lang === 'de' || lang === 'pt-BR' ? lang : 'en';
 }
 
 export function localePath(locale: Locale): string {
@@ -31,10 +32,12 @@ export function localizedMapTitle(mode: Mode): string {
     en: { president: 'presidential', senate: 'Senate', governor: 'governor', house: 'House' },
     es: { president: 'presidenciales', senate: 'Senado', governor: 'gobernaciones', house: 'Cámara de Representantes' },
     fr: { president: 'présidentielles', senate: 'Sénat', governor: 'gouverneurs', house: 'Chambre des représentants' },
+    de: { president: 'Präsidentschaft', senate: 'Senat', governor: 'Gouverneursämter', house: 'Repräsentantenhaus' },
     'pt-BR': { president: 'presidenciais', senate: 'Senado', governor: 'governos estaduais', house: 'Câmara dos Representantes' },
   };
   if (locale === 'es') return `Mi mapa de las elecciones de ${year} para ${names.es[mode]}`;
   if (locale === 'fr') return `Ma carte des élections de ${year} pour ${names.fr[mode]}`;
+  if (locale === 'de') return `Meine Wahlkarte ${year}: ${names.de[mode]}`;
   if (locale === 'pt-BR') return `Meu mapa das eleições de ${year} para ${names['pt-BR'][mode]}`;
   return `My ${year} ${names.en[mode]} election map`;
 }
@@ -59,12 +62,13 @@ export function translateText(input: string, locale = currentLocale()): string {
     const [, up, total, year, majority] = senateCaption;
     if (locale === 'es') return `${up} de ${total} escaños en juego en ${year} · ${majority} para la mayoría`;
     if (locale === 'fr') return `${up} sièges sur ${total} en jeu en ${year} · ${majority} pour la majorité`;
+    if (locale === 'de') return `${up} von ${total} Sitzen stehen ${year} zur Wahl · ${majority} für die Mehrheit`;
     return `${up} de ${total} cadeiras em disputa em ${year} · ${majority} para a maioria`;
   }
   const majorityCaption = input.match(/^(\d+) seats for a majority$/);
-  if (majorityCaption) return locale === 'es' ? `${majorityCaption[1]} escaños para la mayoría` : locale === 'fr' ? `${majorityCaption[1]} sièges pour la majorité` : `${majorityCaption[1]} cadeiras para a maioria`;
+  if (majorityCaption) return locale === 'es' ? `${majorityCaption[1]} escaños para la mayoría` : locale === 'fr' ? `${majorityCaption[1]} sièges pour la majorité` : locale === 'de' ? `${majorityCaption[1]} Sitze für die Mehrheit` : `${majorityCaption[1]} cadeiras para a maioria`;
   const electoralCaption = input.match(/^(\d+) electoral votes to win$/);
-  if (electoralCaption) return locale === 'es' ? `${electoralCaption[1]} votos electorales para ganar` : locale === 'fr' ? `${electoralCaption[1]} grands électeurs pour gagner` : `${electoralCaption[1]} votos no colégio eleitoral para vencer`;
+  if (electoralCaption) return locale === 'es' ? `${electoralCaption[1]} votos electorales para ganar` : locale === 'fr' ? `${electoralCaption[1]} grands électeurs pour gagner` : locale === 'de' ? `${electoralCaption[1]} Wahlleute für den Sieg` : `${electoralCaption[1]} votos no colégio eleitoral para vencer`;
   const dictionary = catalogs[locale];
   const trimmed = input.trim();
   if (!trimmed) return input;

@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [react()],
     build: {
         rollupOptions: {
-            input: ['index.html', 'es/index.html', 'fr/index.html', 'pt-br/index.html'].map(path => resolve(import.meta.dirname ?? '.', path)),
+            input: ['index.html', 'es/index.html', 'fr/index.html', 'de/index.html', 'pt-br/index.html'].map(path => resolve(import.meta.dirname ?? '.', path)),
         },
     },
     test: {

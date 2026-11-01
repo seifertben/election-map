@@ -12,6 +12,9 @@ describe('localized interface', () => {
     expect(translateText('House', 'es')).toBe('Cámara');
     expect(translateText('Tossup', 'fr')).toBe('Indécis');
     expect(translateText('Pickups', 'pt-BR')).toBe('Cadeiras conquistadas');
+    expect(translateText('House', 'de')).toBe('Repräsentantenhaus');
+    expect(translateText('Tossup', 'de')).toBe('Offen');
+    expect(translateText('35 of 100 seats up in 2026 · 51 for a majority', 'de')).toBe('35 von 100 Sitzen stehen 2026 zur Wahl · 51 für die Mehrheit');
   });
 
   it('translates newly rendered text and accessibility labels', async () => {
@@ -37,5 +40,13 @@ describe('localized interface', () => {
     expect(currentLocale()).toBe('fr');
     expect(languageUrl('pt-BR')).toBe('/pt-br/?m=senate&c=abc#map');
     expect(localizedMapTitle('senate')).toContain('Sénat');
+    expect(languageUrl('de')).toBe('/de/?m=senate&c=abc#map');
+  });
+
+  it('uses the German locale for translated UI and share titles', () => {
+    document.documentElement.lang = 'de';
+    expect(currentLocale()).toBe('de');
+    expect(translateText('Close sharing')).toBe('Teilen schließen');
+    expect(localizedMapTitle('house')).toContain('Repräsentantenhaus');
   });
 });

@@ -5,6 +5,7 @@ const choices: { locale: Locale; label: string }[] = [
   { locale: 'en', label: 'English' },
   { locale: 'es', label: 'Español' },
   { locale: 'fr', label: 'Français' },
+  { locale: 'de', label: 'Deutsch' },
   { locale: 'pt-BR', label: 'Português (Brasil)' },
 ];
 

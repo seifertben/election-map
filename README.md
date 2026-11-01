@@ -295,8 +295,8 @@ set Vite's `base` option accordingly.
 
 ### Languages and international search
 
-The English homepage lives at `/`; Spanish, French, and Brazilian Portuguese
-live at `/es/`, `/fr/`, and `/pt-br/`. `npm run build` generates each localized
+The English homepage lives at `/`; Spanish, French, German, and Brazilian Portuguese
+live at `/es/`, `/fr/`, `/de/`, and `/pt-br/`. `npm run build` generates each localized
 HTML entry and a sitemap with reciprocal `hreflang` references. Every entry has
 its own language, title, description, canonical URL, social metadata, and
 searchable introductory text. Update `scripts/build-locale-pages.mjs` and the
