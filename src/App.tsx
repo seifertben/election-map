@@ -417,9 +417,9 @@ export default function App() {
 
   const getLabel = useCallback(
     (feature: RegionFeature) => {
-      const result = state.mode === "president" ? null : RESULTS_BY_MODE[state.mode][featureId(feature, state.mode === "house" ? "geoid" : "fips")];
+      const result = RESULTS_BY_MODE[state.mode][featureId(feature, state.mode === "house" ? "geoid" : "fips")];
       const resultLabel = resultsByMode[state.mode] && result
-        ? ` · ${result.status === "called" ? "Called" : "Counting"}: ${result.candidate}${result.party ? ` (${result.party})` : ""} · ${result.reporting}% reporting`
+        ? ` · ${result.status === "called" ? "Called" : "Counting"}: ${result.candidate}${result.party ? ` (${result.party})` : ""} ${result.candidates[0]?.percent.toFixed(2)}% · ${result.reporting}% reporting`
         : "";
       if (state.mode === "house") {
         const abbr =
@@ -434,7 +434,7 @@ export default function App() {
       const info = STATE_BY_FIPS[fips];
       const name = info?.name ?? String(feature.properties.name);
       if (state.mode === "president") {
-        return `${name} · ${info?.electoralVotes ?? 0} electoral votes`;
+        return `${name} · ${info?.electoralVotes ?? 0} electoral votes${resultLabel}`;
       }
       if (state.mode === "governor") {
         return GOVERNOR_RACE_BY_FIPS[fips]
@@ -1028,7 +1028,8 @@ export default function App() {
               features={currentFeatures}
               getId={getId}
               getLabel={getLabel}
-              candidates={candidates?.[state.mode]}
+              candidates={resultsOn ? undefined : candidates?.[state.mode]}
+              results={resultsOn ? RESULTS_BY_MODE[state.mode] : undefined}
               isActive={isActive}
               assignments={state.assignments[state.mode]}
               onRegionClick={handleRegionClick}

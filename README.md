@@ -21,7 +21,9 @@ PNG.
 - Every map opens on **results**. The 2026 Senate, Governor, and House results
   come from Polling Desk's civicAPI feed. Called winners are colored by party;
   races still counting stay grey. The Results panel shows the snapshot time and
-  lets you restore the result map after exploring forecasts or painting.
+  lets you restore the result map after exploring forecasts or painting. Hover
+  a race to see candidate vote percentages and the share of votes reported.
+  The President map uses official 2024 presidential vote totals from the FEC.
 - The **Ratings** panel offers Cook Political Report 2026 race ratings and five
   other sources, drawn as Solid / Likely / Lean shades of blue and red.
 - A **Polling** panel on the Senate and Governor maps colors the contested
@@ -105,6 +107,8 @@ To update the checked-in election results, download
 `python3 scripts/build-results.py results.csv house-districts.csv ISO_UTC`.
 Use the CSV response's `Last-Modified` time for `ISO_UTC`. The script checks
 that all 35 Senate, 36 governor, and 435 House races are present.
+The 2024 presidential percentages can be rebuilt from the FEC workbook with
+`python3 scripts/build-president-results.py 2024presgeresults.xlsx`.
 
 The Wikipedia scraper takes `--governor` to fetch the 36 governor races instead
 of the 35 Senate seats:

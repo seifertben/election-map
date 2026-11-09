@@ -492,6 +492,13 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
 .tooltip__heading > span { flex: 1; min-width: 0; }
 .tooltip__close { display: grid; place-items: center; flex: none; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 7px; background: #f0f4f9; color: #52647d; font-size: 21px; cursor: pointer; }
 .tooltip__close:hover { background: #e0e8f2; }
+.tooltip__results { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; white-space: normal; }
+.tooltip__results-status { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+.tooltip__results ul { list-style: none; padding: 0; margin: 8px 0; }
+.tooltip__results li { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; border-bottom: 1px solid #edf0f4; }
+.tooltip__results li span { min-width: 0; }
+.tooltip__results li strong { flex: none; font-variant-numeric: tabular-nums; }
+.tooltip__results a { color: var(--accent); font-size: 11px; }
 .tooltip--candidates { width: min(420px, calc(100vw - 24px)); padding: 16px; }
 .candidates { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
 .candidates__eyebrow { margin-bottom: 8px; color: #738298; text-transform: uppercase; letter-spacing: 0.12em; font-size: 9px; font-weight: 750; }

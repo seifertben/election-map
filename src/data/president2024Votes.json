@@ -1,0 +1,1022 @@
+{
+  "01": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 64.57
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 34.1
+      }
+    ],
+    "otherPercent": 1.33,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "02": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 54.54
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 41.41
+      }
+    ],
+    "otherPercent": 4.05,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "04": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 52.22
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 46.69
+      }
+    ],
+    "otherPercent": 1.09,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "05": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 64.2
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 33.56
+      }
+    ],
+    "otherPercent": 2.24,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "06": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 58.47
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 38.33
+      }
+    ],
+    "otherPercent": 3.2,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "08": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 54.13
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 43.14
+      }
+    ],
+    "otherPercent": 2.73,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "09": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 56.4
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 41.89
+      }
+    ],
+    "otherPercent": 1.71,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "10": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 56.49
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 41.79
+      }
+    ],
+    "otherPercent": 1.72,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "11": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 90.28
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 6.47
+      }
+    ],
+    "otherPercent": 3.26,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "12": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 56.09
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 42.99
+      }
+    ],
+    "otherPercent": 0.92,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "13": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 50.72
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 48.53
+      }
+    ],
+    "otherPercent": 0.76,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "15": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 60.59
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 37.48
+      }
+    ],
+    "otherPercent": 1.93,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "16": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 66.87
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 30.38
+      }
+    ],
+    "otherPercent": 2.74,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "17": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 54.37
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 43.47
+      }
+    ],
+    "otherPercent": 2.15,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "18": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 58.58
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 39.62
+      }
+    ],
+    "otherPercent": 1.8,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "19": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 55.73
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 42.52
+      }
+    ],
+    "otherPercent": 1.76,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "20": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 57.16
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 41.04
+      }
+    ],
+    "otherPercent": 1.8,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "21": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 64.47
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 33.94
+      }
+    ],
+    "otherPercent": 1.59,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "22": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 60.22
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 38.21
+      }
+    ],
+    "otherPercent": 1.57,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "23": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 52.4
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 45.46
+      }
+    ],
+    "otherPercent": 2.13,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "24": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 62.62
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 34.08
+      }
+    ],
+    "otherPercent": 3.3,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "25": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 61.22
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 36.02
+      }
+    ],
+    "otherPercent": 2.76,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "26": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 49.73
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 48.31
+      }
+    ],
+    "otherPercent": 1.96,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "27": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 50.92
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 46.68
+      }
+    ],
+    "otherPercent": 2.39,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "28": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 60.89
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 38.0
+      }
+    ],
+    "otherPercent": 1.11,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "29": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 58.49
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 40.08
+      }
+    ],
+    "otherPercent": 1.43,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "30": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 58.39
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 38.46
+      }
+    ],
+    "otherPercent": 3.15,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "31": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 59.32
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 38.86
+      }
+    ],
+    "otherPercent": 1.82,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "32": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 50.59
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 47.49
+      }
+    ],
+    "otherPercent": 1.92,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "33": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 50.65
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 47.87
+      }
+    ],
+    "otherPercent": 1.47,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "34": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 51.97
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 46.06
+      }
+    ],
+    "otherPercent": 1.96,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "35": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 51.85
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 45.85
+      }
+    ],
+    "otherPercent": 2.3,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "36": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 55.91
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 43.31
+      }
+    ],
+    "otherPercent": 0.78,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "37": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 50.86
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 47.65
+      }
+    ],
+    "otherPercent": 1.5,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "38": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 66.96
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 30.51
+      }
+    ],
+    "otherPercent": 2.53,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "39": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 55.14
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 43.93
+      }
+    ],
+    "otherPercent": 0.94,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "40": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 66.16
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 31.9
+      }
+    ],
+    "otherPercent": 1.94,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "41": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 55.27
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 40.97
+      }
+    ],
+    "otherPercent": 3.76,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "42": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 50.2
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 48.49
+      }
+    ],
+    "otherPercent": 1.31,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "44": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 55.54
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 41.76
+      }
+    ],
+    "otherPercent": 2.69,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "45": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 58.23
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 40.36
+      }
+    ],
+    "otherPercent": 1.41,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "46": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 63.43
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 34.24
+      }
+    ],
+    "otherPercent": 2.33,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "47": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 64.19
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 34.47
+      }
+    ],
+    "otherPercent": 1.33,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "48": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 56.14
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 42.46
+      }
+    ],
+    "otherPercent": 1.4,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "49": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 59.38
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 37.79
+      }
+    ],
+    "otherPercent": 2.83,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "50": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 63.83
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 32.32
+      }
+    ],
+    "otherPercent": 3.85,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "51": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 51.82
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 46.06
+      }
+    ],
+    "otherPercent": 2.12,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "53": {
+    "status": "called",
+    "party": "D",
+    "candidate": "Kamala Harris",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 57.23
+      },
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 39.01
+      }
+    ],
+    "otherPercent": 3.76,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "54": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 69.97
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 28.1
+      }
+    ],
+    "otherPercent": 1.93,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "55": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 49.6
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 48.74
+      }
+    ],
+    "otherPercent": 1.67,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  },
+  "56": {
+    "status": "called",
+    "party": "R",
+    "candidate": "Donald Trump",
+    "reporting": 100,
+    "candidates": [
+      {
+        "candidate": "Donald Trump",
+        "party": "R",
+        "percent": 71.6
+      },
+      {
+        "candidate": "Kamala Harris",
+        "party": "D",
+        "percent": 25.84
+      }
+    ],
+    "otherPercent": 2.56,
+    "url": "https://www.fec.gov/resources/cms-content/documents/2024presgeresults.pdf"
+  }
+}

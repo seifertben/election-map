@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { afterEach, describe, expect, it } from "vitest";
 import { PARTY_COLOR, RATING_COLOR, UNASSIGNED_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
-import { RESULT_ASSIGNMENTS } from "./data/results2026";
+import { RESULT_ASSIGNMENTS, RESULTS_BY_MODE } from "./data/results2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
 import { SENATE_2026_FIPS, SENATE_2026_RATINGS } from "./data/senate2026";
 import { SENATE_2026_POLLS } from "./data/polling/senate2026";
@@ -118,11 +118,19 @@ describe("App social map links", () => {
       expect(container.querySelector(".map-heading__source")?.textContent).toContain("2026 election results");
       expect(fill("02")).toBe(UNASSIGNED_COLOR);
       expect(fill("13")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.senate["13"] as Party]);
+      act(() => container!.querySelector('path[data-id="13"]')!.dispatchEvent(new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true })));
+      expect(container.querySelector(".tooltip__results")?.textContent).toContain(`${RESULTS_BY_MODE.senate["13"].candidates[0].percent.toFixed(2)}%`);
       const houseTab = Array.from(container!.querySelectorAll("button")).find((button) => button.textContent === "House")!;
       act(() => houseTab.click());
       expect(fill("0200")).toBe(UNASSIGNED_COLOR);
       expect(fill("0102")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.house["0102"] as Party]);
       expect(container.querySelector(".results-panel")?.textContent).toContain("416 of 435 races called");
+      act(() => container!.querySelector('path[data-id="0102"]')!.dispatchEvent(new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true })));
+      expect(container.querySelector(".tooltip__results")?.textContent).toContain(`${RESULTS_BY_MODE.house["0102"].candidates[0].percent.toFixed(2)}%`);
+      const presidentTab = Array.from(container!.querySelectorAll("button")).find((button) => button.textContent === "President")!;
+      act(() => presidentTab.click());
+      act(() => container!.querySelector('path[data-id="55"]')!.dispatchEvent(new MouseEvent("pointermove", { clientX: 150, clientY: 150, bubbles: true })));
+      expect(container.querySelector(".tooltip__results")?.textContent).toContain("49.60%");
     } finally {
       globalThis.fetch = originalFetch;
       window.history.replaceState(null, "", originalUrl);

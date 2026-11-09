@@ -23,6 +23,8 @@ import type { Assignment, RegionFeature } from "../types";
 import { PollDetails } from "./PollDetails";
 import { CandidateCards } from "./CandidateCards";
 import type { Candidate } from "../data/candidates";
+import type { ElectionResult } from "../data/results2026";
+import { formatNumber } from "../i18n/runtime";
 
 /** Diagonally striped pattern geometry, in user-space units. */
 const STRIPE_SIZE = 8;
@@ -73,6 +75,8 @@ export interface RegionMapProps {
   poll?: PollOverlay | null;
   /** General-election candidates, keyed by the same region id as the map. */
   candidates?: Record<string, Candidate[]>;
+  /** Reported vote shares for the results view. */
+  results?: Record<string, ElectionResult>;
   /** Whether moving over a region opens its details. */
   hoverEnabled?: boolean;
   onHoverEnabledChange?: (enabled: boolean) => void;
@@ -129,6 +133,7 @@ export function RegionMap({
   getIncumbent,
   poll,
   candidates,
+  results,
   hoverEnabled: controlledHoverEnabled,
   onHoverEnabledChange,
   onHoverRegionChange,
@@ -153,7 +158,8 @@ export function RegionMap({
     [hover?.id, poll],
   );
   const hoverCandidates = hover ? candidates?.[hover.id] ?? [] : [];
-  const interactiveTooltip = hoverPolls.length > 0 || hoverCandidates.length > 0;
+  const hoverResult = hover ? results?.[hover.id] ?? null : null;
+  const interactiveTooltip = hoverPolls.length > 0 || hoverCandidates.length > 0 || hoverResult !== null;
 
   const cancelHideTooltip = useCallback(() => {
     if (hideTimer.current !== null) clearTimeout(hideTimer.current);
@@ -710,7 +716,7 @@ export function RegionMap({
         ref={tooltipRef}
         className={`tooltip${interactiveTooltip ? " tooltip--interactive" : ""}${hoverCandidates.length ? " tooltip--candidates" : ""}`}
         role={interactiveTooltip ? "dialog" : undefined}
-        aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} ${hoverPolls.length ? "polling" : "candidate"} details` : undefined}
+        aria-label={interactiveTooltip ? `${shapes.find((shape) => shape.id === hover?.id)?.label} ${hoverResult ? "results" : hoverPolls.length ? "polling" : "candidate"} details` : undefined}
         onPointerEnter={keepTooltip}
         onPointerLeave={scheduleHideTooltip}
         onFocus={keepTooltip}
@@ -725,6 +731,21 @@ export function RegionMap({
         <div className="tooltip__heading"><span>{hoverInfo?.label}</span>{interactiveTooltip ? <button type="button" className="tooltip__close" aria-label="Close race details" onClick={hideTooltip}>×</button> : null}</div>
         {hoverInfo?.breakdown ? (
           <div className="tooltip__breakdown">{hoverInfo.breakdown}</div>
+        ) : null}
+        {hoverResult ? (
+          <div className="tooltip__results">
+            <div className="tooltip__results-status">{hoverResult.status === "called" ? "Called result" : "Counting"} · {hoverResult.reporting}% reporting</div>
+            <ul>
+              {hoverResult.candidates.map((candidate) => (
+                <li key={`${candidate.candidate}:${candidate.party}`}>
+                  <span>{candidate.candidate}{candidate.party ? ` (${candidate.party})` : ""}</span>
+                  <strong>{formatNumber(candidate.percent, 2)}%</strong>
+                </li>
+              ))}
+              {hoverResult.otherPercent > 0.01 ? <li><span>Other candidates</span><strong>{formatNumber(hoverResult.otherPercent, 2)}%</strong></li> : null}
+            </ul>
+            <a href={hoverResult.url} target="_blank" rel="noopener noreferrer">Full results ↗</a>
+          </div>
         ) : null}
         {hoverCandidates.length > 0 ? <CandidateCards
           key={hover?.id}
