@@ -18,9 +18,12 @@ PNG.
 - **House** — the 435 voting districts using the Census Bureau's **120th
   Congressional District** boundaries, i.e. the 2026 election cycle lines
   (including the ten states that redrew mid-decade).
-- The Senate, Governor, and House maps load the **Cook Political Report**
-  2026 race ratings by default, drawn as Solid / Likely / Lean shades of blue
-  and red (plus Toss Up). Hover a region to see its rating.
+- Every map opens on **results**. The 2026 Senate, Governor, and House results
+  come from Polling Desk's civicAPI feed. Called winners are colored by party;
+  races still counting stay grey. The Results panel shows the snapshot time and
+  lets you restore the result map after exploring forecasts or painting.
+- The **Ratings** panel offers Cook Political Report 2026 race ratings and five
+  other sources, drawn as Solid / Likely / Lean shades of blue and red.
 - A **Polling** panel on the Senate and Governor maps colors the contested
   states by 2026 polling margin on a diverging blue-to-red scale. Pick a single
   pollster or a rolling average (last 5, last 10, or all polls); a state with
@@ -95,6 +98,13 @@ npm run build:gov-polls  # regenerate the committed 2026 Governor polling snapsh
 npm run build:ratings  # recompile the committed 2026 race ratings from Wikipedia
 npm run fetch:polls  # re-scrape the Wikipedia polling tables (scripts/*-polls-wiki.json)
 ```
+
+To update the checked-in election results, download
+`https://polling-desk.com/results.csv` and
+`https://polling-desk.com/house-districts.csv`, then run
+`python3 scripts/build-results.py results.csv house-districts.csv ISO_UTC`.
+Use the CSV response's `Last-Modified` time for `ISO_UTC`. The script checks
+that all 35 Senate, 36 governor, and 435 House races are present.
 
 The Wikipedia scraper takes `--governor` to fetch the 36 governor races instead
 of the 35 Senate seats:

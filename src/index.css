@@ -790,6 +790,19 @@ button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visib
   cursor: pointer;
 }
 
+.results-panel__button {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid #b9c9dd;
+  border-radius: 7px;
+  background: #f2f6fc;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.results-panel__button:hover { background: #e8f0fa; }
+
 .swing__control {
   margin-top: 14px;
 }

@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import { afterEach, describe, expect, it } from "vitest";
 import { PARTY_COLOR, RATING_COLOR, UNASSIGNED_COLOR } from "./data/parties";
 import { GOVERNOR_2026_RATINGS } from "./data/governor2026";
+import { RESULT_ASSIGNMENTS } from "./data/results2026";
 import { SABATO_SENATE_RATINGS } from "./data/ratings/sabato";
 import { SENATE_2026_FIPS, SENATE_2026_RATINGS } from "./data/senate2026";
 import { SENATE_2026_POLLS } from "./data/polling/senate2026";
@@ -101,6 +102,34 @@ async function waitForStateFlush() {
 }
 
 describe("App social map links", () => {
+  it("opens Senate and House on called results and keeps uncalled races gray", async () => {
+    const originalFetch = globalThis.fetch;
+    const originalUrl = window.location.href;
+    globalThis.fetch = fetchMock as typeof fetch;
+    window.history.replaceState(null, "", "/");
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    try {
+      act(() => root.render(<App />));
+      await waitForStateFlush();
+      await waitForStateFlush();
+      const fill = (id: string) => container!.querySelector(`path[data-id="${id}"]`)?.getAttribute("fill");
+      expect(container.querySelector(".map-heading__source")?.textContent).toContain("2026 election results");
+      expect(fill("02")).toBe(UNASSIGNED_COLOR);
+      expect(fill("13")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.senate["13"] as Party]);
+      const houseTab = Array.from(container!.querySelectorAll("button")).find((button) => button.textContent === "House")!;
+      act(() => houseTab.click());
+      expect(fill("0200")).toBe(UNASSIGNED_COLOR);
+      expect(fill("0102")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.house["0102"] as Party]);
+      expect(container.querySelector(".results-panel")?.textContent).toContain("416 of 435 races called");
+    } finally {
+      globalThis.fetch = originalFetch;
+      window.history.replaceState(null, "", originalUrl);
+      act(() => root.unmount());
+    }
+  });
+
   it.each([false, true])("reopens the shared race and preserves cleared seats (fully cleared: %s)", async (cleared) => {
     const originalFetch = globalThis.fetch;
     const originalUrl = window.location.href;
@@ -212,9 +241,10 @@ describe("App polling integration", () => {
     expect(pollSelect).not.toBeNull();
     expect(ratingsSelect).not.toBeNull();
 
-    // Cook ratings are selected on load, polling is off.
-    expect(ratingsSelect.value).toBe("cook");
+    // Called results are selected on load, polling is off.
+    expect(ratingsSelect.value).toBe("");
     expect(pollSelect.value).toBe("");
+    expect(container.querySelector(".results-panel")?.classList.contains("panel--active")).toBe(true);
 
     // Choosing a poll deselects the ratings dropdown.
     setSelectValue(pollSelect, "avg-10");
@@ -474,13 +504,15 @@ describe("App polling integration", () => {
     const active = (title: string) =>
       panel(title)?.classList.contains("panel--active") ?? false;
 
-    // Ratings control the map on load, so that panel is highlighted.
-    expect(active("Ratings")).toBe(true);
+    // Results control the map on load, so that panel is highlighted.
+    expect(active("Results")).toBe(true);
+    expect(active("Ratings")).toBe(false);
     expect(active("Polling")).toBe(false);
 
     // Choosing a poll moves the highlight to the polling panel.
     const pollSelect = container.querySelector("#polling-option") as HTMLSelectElement;
     setSelectValue(pollSelect, "avg-10");
+    expect(active("Results")).toBe(false);
     expect(active("Ratings")).toBe(false);
     expect(active("Polling")).toBe(true);
 
@@ -807,9 +839,10 @@ describe("App governor integration", () => {
     expect(ratingsSelect).not.toBeNull();
     expect(pollSelect).not.toBeNull();
 
-    // The governor map loads Cook's governor ratings (not the Senate ones).
-    expect(ratingsSelect.value).toBe("cook");
-    expect(path("06")).toBe(RATING_COLOR[GOVERNOR_2026_RATINGS["06"]]);
+    // The governor map loads called results, leaving Alaska uncalled.
+    expect(ratingsSelect.value).toBe("");
+    expect(path("06")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.governor["06"] as Party]);
+    expect(path("02")).toBe(UNASSIGNED_COLOR);
 
     const hoveredSeal = () => container?.querySelector(".map-watermark--state")?.getAttribute("src");
     expect(hoveredSeal()).toBeUndefined();
@@ -833,6 +866,17 @@ describe("App governor integration", () => {
     expect(pollSelect.value).toBe("avg-10");
     expect(ratingsSelect.value).toBe("");
     expect(path("13")).not.toBe(RATING_COLOR[GOVERNOR_2026_RATINGS["13"]]);
+
+    const showResults = container.querySelector(".results-panel__button") as HTMLButtonElement;
+    act(() => showResults.click());
+    expect(pollSelect.value).toBe("");
+    expect(path("02")).toBe(UNASSIGNED_COLOR);
+    expect(path("06")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.governor["06"] as Party]);
+
+    setSelectValue(ratingsSelect, "cook");
+    expect(path("06")).toBe(RATING_COLOR[GOVERNOR_2026_RATINGS["06"]]);
+    act(() => showResults.click());
+    expect(path("06")).toBe(PARTY_COLOR[RESULT_ASSIGNMENTS.governor["06"] as Party]);
 
     globalThis.fetch = originalFetch;
     act(() => root.unmount());

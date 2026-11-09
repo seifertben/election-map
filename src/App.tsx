@@ -19,6 +19,7 @@ import type { Brush } from "./components/PartyPalette";
 import { PickupPanel } from "./components/PickupPanel";
 import { PollingPanel } from "./components/PollingPanel";
 import { RatingsPanel } from "./components/RatingsPanel";
+import { ResultsPanel } from "./components/ResultsPanel";
 import { RegionMap } from "./components/RegionMap";
 import { Scoreboard } from "./components/Scoreboard";
 import { ShareMap } from "./components/ShareMap";
@@ -33,7 +34,7 @@ import {
 import { HOUSE_2026_FIPS, HOUSE_2026_RATINGS } from "./data/house2026";
 import { HOUSE_2026_HOLDER } from "./data/house2026Holder";
 import { PARTY_COLOR, RATING_COLOR, RATING_LABEL, RATINGS } from "./data/parties";
-import { PRESIDENT_2024_RESULTS } from "./data/president2024";
+import { RESULT_ASSIGNMENTS, RESULTS_AS_OF, RESULTS_BY_MODE, sameAssignments } from "./data/results2026";
 import {
   SENATE_2026_FIPS,
   SENATE_2026_RATINGS,
@@ -217,6 +218,9 @@ export default function App() {
     governor: DEFAULT_RATINGS_SOURCE,
     house: DEFAULT_RATINGS_SOURCE,
   });
+  const [resultsByMode, setResultsByMode] = useState<Record<Mode, boolean>>({
+    president: true, senate: true, governor: true, house: true,
+  });
   const [stripePickups, setStripePickups] = useState(true);
   // The House map's optional 2024-baseline / uniform-swing view.
   const [swingOn, setSwingOn] = useState(false);
@@ -309,21 +313,22 @@ export default function App() {
       const search = incoming.toString();
       window.history.replaceState(null, "", `${window.location.pathname}${search ? `?${search}` : ""}${window.location.hash}`);
     }
-    // Default the President map to the 2024 results (there is no presidential
-    // election in 2026) and the race maps to the Cook 2026 ratings whenever no
-    // assignments for them were decoded from the URL.
+    // A shared map keeps its encoded assignments; an unshared map opens on
+    // called results. Explicit nulls in a shared map remain uncalled.
     const president = Object.keys(decoded.assignments.president).length
-      ? decoded.assignments.president
-      : PRESIDENT_2024_RESULTS;
+      ? decoded.assignments.president : RESULT_ASSIGNMENTS.president;
     const senate = Object.keys(decoded.assignments.senate).length
-      ? decoded.assignments.senate
-      : SENATE_2026_RATINGS;
+      ? decoded.assignments.senate : RESULT_ASSIGNMENTS.senate;
     const governor = Object.keys(decoded.assignments.governor).length
-      ? decoded.assignments.governor
-      : GOVERNOR_2026_RATINGS;
+      ? decoded.assignments.governor : RESULT_ASSIGNMENTS.governor;
     const house = Object.keys(decoded.assignments.house).length
-      ? decoded.assignments.house
-      : HOUSE_2026_RATINGS;
+      ? decoded.assignments.house : RESULT_ASSIGNMENTS.house;
+    setResultsByMode({
+      president: sameAssignments(president, RESULT_ASSIGNMENTS.president),
+      senate: sameAssignments(senate, RESULT_ASSIGNMENTS.senate),
+      governor: sameAssignments(governor, RESULT_ASSIGNMENTS.governor),
+      house: sameAssignments(house, RESULT_ASSIGNMENTS.house),
+    });
     dispatch({
       type: "hydrate",
       mode: decoded.mode ?? undefined,
@@ -335,6 +340,14 @@ export default function App() {
   // Keep the URL in sync with the current map.
   useEffect(() => {
     if (!regionIds || !hydrated) return;
+    const defaultResults = (Object.keys(RESULT_ASSIGNMENTS) as Mode[]).every((mode) =>
+      sameAssignments(state.assignments[mode], RESULT_ASSIGNMENTS[mode]),
+    );
+    if (defaultResults) {
+      const modeHash = state.mode === "senate" ? "" : `#m=${state.mode}`;
+      window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${modeHash}`);
+      return;
+    }
     const assigned =
       Object.keys(state.assignments.president).length +
       Object.keys(state.assignments.senate).length +
@@ -404,14 +417,18 @@ export default function App() {
 
   const getLabel = useCallback(
     (feature: RegionFeature) => {
+      const result = state.mode === "president" ? null : RESULTS_BY_MODE[state.mode][featureId(feature, state.mode === "house" ? "geoid" : "fips")];
+      const resultLabel = resultsByMode[state.mode] && result
+        ? ` · ${result.status === "called" ? "Called" : "Counting"}: ${result.candidate}${result.party ? ` (${result.party})` : ""} · ${result.reporting}% reporting`
+        : "";
       if (state.mode === "house") {
         const abbr =
           STATE_BY_FIPS[String(feature.properties.state)]?.abbr ?? "??";
         const code = String(feature.properties.district);
         const isAtLarge = code === "00" || code === "98";
-        return isAtLarge
+        return (isAtLarge
           ? `${abbr} (at-large)`
-          : `${abbr}-${Number.parseInt(code, 10)}`;
+          : `${abbr}-${Number.parseInt(code, 10)}`) + resultLabel;
       }
       const fips = String(feature.properties.fips);
       const info = STATE_BY_FIPS[fips];
@@ -421,15 +438,15 @@ export default function App() {
       }
       if (state.mode === "governor") {
         return GOVERNOR_RACE_BY_FIPS[fips]
-          ? `${name} · Governor`
+          ? `${name} · Governor${resultLabel}`
           : `${name} · no 2026 election`;
       }
       const race = SENATE_RACE_BY_FIPS[fips];
       return race
-        ? `${name} · ${race.seatClass === "3s" ? "special election" : "Class 2"}`
+        ? `${name} · ${race.seatClass === "3s" ? "special election" : "Class 2"}${resultLabel}`
         : `${name} · no 2026 election`;
     },
-    [state.mode],
+    [state.mode, resultsByMode],
   );
 
   // Polling overlay colors a race map by polling margin without touching the
@@ -751,6 +768,7 @@ export default function App() {
         marketBaselineRef.current[mode] = null;
       }
       if (mode === "house") setSwingOn(false);
+      setResultsByMode((prev) => ({ ...prev, [mode]: false }));
       setSourceByMode((prev) => ({ ...prev, [mode]: sourceId }));
       dispatch({ type: "loadRatings", mode, assignments: ratings });
     },
@@ -761,6 +779,7 @@ export default function App() {
   const handlePollChange = useCallback(
     (optionId: string) => {
       if (!raceMode) return;
+      if (optionId !== POLL_NONE_OPTION_ID) setResultsByMode((prev) => ({ ...prev, [raceMode]: false }));
       setPollOptionByMode((prev) => ({ ...prev, [raceMode]: optionId }));
       if (optionId !== POLL_NONE_OPTION_ID) {
         setMarketSourceByMode((prev) => ({
@@ -776,6 +795,7 @@ export default function App() {
   const handleMarketChange = useCallback(
     (sourceId: string) => {
       if (!marketMode) return;
+      if (sourceId !== MARKET_NONE_ID) setResultsByMode((prev) => ({ ...prev, [marketMode]: false }));
       // A market and the 2024-swing view are mutually exclusive House overlays.
       if (marketMode === "house" && sourceId !== MARKET_NONE_ID) {
         setSwingOn(false);
@@ -801,6 +821,7 @@ export default function App() {
     (on: boolean) => {
       setSwingOn(on);
       if (on && state.mode === "house") {
+        setResultsByMode((prev) => ({ ...prev, house: false }));
         setMarketSourceByMode((prev) => ({ ...prev, house: MARKET_NONE_ID }));
         marketBaselineRef.current.house = null;
       }
@@ -813,6 +834,7 @@ export default function App() {
   // matches the map. Clear the mode's selections and the baselines that would
   // re-apply them.
   const clearSelections = useCallback((mode: Mode) => {
+    setResultsByMode((prev) => ({ ...prev, [mode]: false }));
     if (isRaceMode(mode)) {
       setPollOptionByMode((prev) => ({ ...prev, [mode]: POLL_NONE_OPTION_ID }));
       pollBaselineRef.current[mode] = null;
@@ -837,6 +859,22 @@ export default function App() {
     dispatch({ type: "reset", mode: state.mode });
   }, [clearSelections, state.mode]);
 
+  const handleShowResults = useCallback(() => {
+    const mode = state.mode;
+    if (isRaceMode(mode)) {
+      setPollOptionByMode((prev) => ({ ...prev, [mode]: POLL_NONE_OPTION_ID }));
+      pollBaselineRef.current[mode] = null;
+    }
+    if (isMarketMode(mode)) {
+      setMarketSourceByMode((prev) => ({ ...prev, [mode]: MARKET_NONE_ID }));
+      marketBaselineRef.current[mode] = null;
+    }
+    if (mode === "house") setSwingOn(false);
+    clearPaintedRegions(mode);
+    setResultsByMode((prev) => ({ ...prev, [mode]: true }));
+    dispatch({ type: "loadRatings", mode, assignments: RESULT_ASSIGNMENTS[mode] });
+  }, [state.mode, clearPaintedRegions]);
+
   // The dropdown only applies to the rating-based modes. "Custom" means the
   // user has edited this mode's map so it no longer matches the source that
   // populated it (edit actions always write a fresh region map).
@@ -853,12 +891,15 @@ export default function App() {
   const marketsOn =
     marketMode != null && marketSourceByMode[marketMode] !== MARKET_NONE_ID;
   const swingActive = state.mode === "house" && swingOn;
+  const resultsOn = resultsByMode[state.mode] && !pollingOn && !marketsOn && !swingActive;
+  const resultsCustom = resultsOn && !sameAssignments(state.assignments[state.mode], RESULT_ASSIGNMENTS[state.mode]);
   const ratingsSelectId =
-    pollingOn || marketsOn || swingActive ? "" : selectedSourceId;
+    resultsOn || pollingOn || marketsOn || swingActive ? "" : selectedSourceId;
   const selectedSourceRatings = ratingMode
     ? RATINGS_SOURCE_BY_ID[selectedSourceId]?.[ratingMode]
     : undefined;
   const ratingsCustom =
+    !resultsOn &&
     !pollingOn &&
     !marketsOn &&
     !swingActive &&
@@ -891,11 +932,12 @@ export default function App() {
   const senateFips = useMemo(() => new Set(SENATE_2026_FIPS), []);
   const governorFips = useMemo(() => new Set(GOVERNOR_2026_FIPS), []);
   const activeSource = RATINGS_SOURCE_BY_ID[ratingsSelectId];
-  const viewLabel = marketsOn ? "Polymarket probabilities" : pollingOn ? "Polling averages & pollsters" : swingActive ? "2024 results + your swing" : activeSource ? activeSource.label : state.mode === "president" ? "2024 presidential results" : "Your custom prediction";
+  const viewLabel = resultsOn ? (state.mode === "president" ? "2024 presidential results" : "2026 election results") : marketsOn ? "Polymarket probabilities" : pollingOn ? "Polling averages & pollsters" : swingActive ? "2024 results + your swing" : activeSource ? activeSource.label : state.mode === "president" ? "Your custom map" : "Your custom prediction";
   const freshness = pollingOn && raceMode
     ? `Polls through ${new Date(`${POLL_DATASETS[raceMode].asOf}T12:00:00`).toLocaleDateString(currentLocale(), { month: "short", day: "numeric", year: "numeric" })}`
     : marketsOn ? (activeMarket?.asOf ? `Updated ${new Date(activeMarket.asOf).toLocaleTimeString(currentLocale(), { hour: "numeric", minute: "2-digit" })}` : "Connecting to market…")
-    : activeSource && ratingMode ? `Updated ${formatSourceDate(sourceAsOf(activeSource, ratingMode))}` : "Build a scenario. Make it yours.";
+    : resultsOn && state.mode !== "president" ? `As of ${new Date(RESULTS_AS_OF).toLocaleString(currentLocale(), { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "America/New_York", timeZoneName: "short" })}`
+    : resultsOn ? "November 5, 2024" : activeSource && ratingMode ? `Updated ${formatSourceDate(sourceAsOf(activeSource, ratingMode))}` : "Build a scenario. Make it yours.";
 
   return (
     <div className="app">
@@ -948,9 +990,9 @@ export default function App() {
       <main className="layout">
         <section className="map-panel" ref={mapPanelRef}>
           <div className="map-heading">
-            <div className="map-heading__title"><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : "2026 ELECTION OUTLOOK"}</span><div className="map-heading__name"><h2>{MODE_LABEL[state.mode]} map</h2><ElectionInfo key={state.mode} mode={state.mode} /></div></div>
+            <div className="map-heading__title"><span className="map-heading__eyebrow">{state.mode === "president" ? "2024 RESULTS" : resultsOn ? "2026 RESULTS" : "2026 ELECTION OUTLOOK"}</span><div className="map-heading__name"><h2>{MODE_LABEL[state.mode]} map</h2><ElectionInfo key={state.mode} mode={state.mode} /></div></div>
             <div className="map-heading__actions">
-              <div className="map-heading__source"><span>{viewLabel}{ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
+              <div className="map-heading__source"><span>{viewLabel}{resultsCustom || ratingsCustom || pollCustom || marketCustom ? " · Customized" : ""}</span><small>{freshness}</small></div>
               <button type="button" className="map-fullscreen" onClick={toggleMapFullscreen} aria-label={mapFullscreen ? "Exit map fullscreen" : "Expand map to fullscreen"} title={mapFullscreen ? "Exit fullscreen" : "Fullscreen map"}>
                 {mapFullscreen ? "Exit fullscreen" : "Fullscreen"}
               </button>
@@ -1001,7 +1043,7 @@ export default function App() {
           )}
           </div>
           <div className="map-key" aria-label="Map color legend">
-            {!pollingOn && !marketsOn && !swingActive && activeSource ? <div className="map-key__ratings">{RATINGS.map((rating) => <span key={rating} title={RATING_LABEL[rating]}><i style={{ backgroundColor: RATING_COLOR[rating] }} />{RATING_LABEL[rating].replace(" Democrat", " D").replace(" Republican", " R")}</span>)}</div> : <span>{marketsOn ? "Blue: Democratic probability · Red: Republican probability" : pollingOn || swingActive ? "Blue: Democratic lead · Red: Republican lead" : "Blue: Democrat · Red: Republican · Grey: Tossup / uncalled"}</span>}
+            {!resultsOn && !pollingOn && !marketsOn && !swingActive && activeSource ? <div className="map-key__ratings">{RATINGS.map((rating) => <span key={rating} title={RATING_LABEL[rating]}><i style={{ backgroundColor: RATING_COLOR[rating] }} />{RATING_LABEL[rating].replace(" Democrat", " D").replace(" Republican", " R")}</span>)}</div> : <span>{marketsOn ? "Blue: Democratic probability · Red: Republican probability" : pollingOn || swingActive ? "Blue: Democratic lead · Red: Republican lead" : "Blue: Democrat · Red: Republican · Grey: uncalled"}</span>}
             <span className="map-key__hint">{stripePickups && ratingMode ? "Stripes indicate a pickup · " : ""}<span className="map-key__desktop-hint">Scroll to zoom · Drag to pan</span><span className="map-key__touch-hint">Pinch to zoom · Drag to pan</span></span>
           </div>
         </section>
@@ -1014,6 +1056,8 @@ export default function App() {
 
           <button type="button" className="controls-toggle" aria-expanded={controlsOpen} aria-controls="map-settings" onClick={() => setControlsOpen(!controlsOpen)}><span>Map controls <small>Sources, colors & tools</small></span><span>{controlsOpen ? "Close −" : "Customize +"}</span></button>
           <div id="map-settings" className={`map-settings${controlsOpen ? " map-settings--open" : ""}`}>
+
+          <ResultsPanel mode={state.mode} active={resultsOn} custom={resultsCustom} onShow={handleShowResults} />
 
           {ratingMode ? (
             <RatingsPanel

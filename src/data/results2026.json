@@ -1,0 +1,4060 @@
+{
+  "asOf": "2026-11-09T22:03:04Z",
+  "source": "Polling Desk / civicAPI",
+  "races": {
+    "senate": {
+      "02": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Mary Peltola",
+        "votes": 103171,
+        "reporting": 74,
+        "url": "https://polling-desk.com/races/2026/senate/ak"
+      },
+      "01": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Barry Moore",
+        "votes": 917347,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/senate/al"
+      },
+      "05": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tom Cotton",
+        "votes": 480812,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/senate/ar"
+      },
+      "08": {
+        "status": "called",
+        "party": "D",
+        "candidate": "John Hickenlooper",
+        "votes": 1609163,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/senate/co"
+      },
+      "10": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chris Coons",
+        "votes": 240347,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/senate/de"
+      },
+      "12": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Ashley Moody",
+        "votes": 4211455,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/senate/fl"
+      },
+      "13": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jon Ossoff",
+        "votes": 2468647,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/senate/ga"
+      },
+      "19": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Turek",
+        "votes": 686486,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/senate/ia"
+      },
+      "16": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Risch",
+        "votes": 401751,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/senate/id"
+      },
+      "17": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Juliana Stratton",
+        "votes": 2501456,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/senate/il"
+      },
+      "20": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adam Hamilton",
+        "votes": 561143,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/senate/ks"
+      },
+      "21": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Andy Barr",
+        "votes": 784000,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/senate/ky"
+      },
+      "22": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Julia Letlow",
+        "votes": 746000,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/senate/la"
+      },
+      "25": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Edward J. Markey",
+        "votes": 1651129,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/senate/ma"
+      },
+      "23": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Troy Jackson",
+        "votes": 376070,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/senate/me"
+      },
+      "26": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Abdul El-Sayed",
+        "votes": 2506953,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/senate/mi"
+      },
+      "27": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Peggy Flanagan",
+        "votes": 1520908,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/senate/mn"
+      },
+      "28": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Scott Colom",
+        "votes": 468063,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/senate/ms"
+      },
+      "30": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Kurt Alme",
+        "votes": 232916,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/senate/mt"
+      },
+      "37": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Roy Cooper",
+        "votes": 2467962,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/senate/nc"
+      },
+      "31": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Pete  Ricketts",
+        "votes": 378244,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/senate/ne"
+      },
+      "33": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chris Pappas",
+        "votes": 355898,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/senate/nh"
+      },
+      "34": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Cory Booker",
+        "votes": 1824607,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/senate/nj"
+      },
+      "35": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ben Ray Luj\u00e1n",
+        "votes": 458756,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/senate/nm"
+      },
+      "39": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sherrod Brown",
+        "votes": 2301042,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/senate/oh"
+      },
+      "40": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Kevin Hern",
+        "votes": 639510,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/senate/ok"
+      },
+      "41": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jeff Merkley",
+        "votes": 1084210,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/senate/or"
+      },
+      "44": {
+        "status": "called",
+        "party": "D",
+        "candidate": "John F. Reed",
+        "votes": 240568,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/senate/ri"
+      },
+      "45": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Annie Andrews",
+        "votes": 1043744,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/senate/sc"
+      },
+      "46": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Rounds",
+        "votes": 184589,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/senate/sd"
+      },
+      "47": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Bill Hagerty",
+        "votes": 1138457,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/senate/tn"
+      },
+      "48": {
+        "status": "called",
+        "party": "D",
+        "candidate": "James Talarico",
+        "votes": 5447050,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/senate/tx"
+      },
+      "51": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mark Warner",
+        "votes": 2207002,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/senate/va"
+      },
+      "54": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Shelley Moore Capito",
+        "votes": 266575,
+        "reporting": 75,
+        "url": "https://polling-desk.com/races/2026/senate/wv"
+      },
+      "56": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Harriet Hageman",
+        "votes": 122157,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/senate/wy"
+      }
+    },
+    "governor": {
+      "02": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Jonathan S. \"JKT\" Kreiss-Tomkins",
+        "votes": 104046,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/governor/ak"
+      },
+      "01": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tommy Tuberville",
+        "votes": 873339,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/governor/al"
+      },
+      "05": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Sarah Huckabee Sanders",
+        "votes": 477311,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/governor/ar"
+      },
+      "04": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Katie Hobbs",
+        "votes": 1418028,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/governor/az"
+      },
+      "06": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Xavier Becerra",
+        "votes": 6878756,
+        "reporting": 78,
+        "url": "https://polling-desk.com/races/2026/governor/ca"
+      },
+      "08": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Phil Weiser",
+        "votes": 1618777,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/governor/co"
+      },
+      "09": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ned Lamont",
+        "votes": 772551,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/governor/ct"
+      },
+      "12": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Byron Donalds",
+        "votes": 4135701,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/governor/fl"
+      },
+      "13": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Keisha Lance Bottoms",
+        "votes": 2273546,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/governor/ga"
+      },
+      "15": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Green",
+        "votes": 278652,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/governor/hi"
+      },
+      "19": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rob Sand",
+        "votes": 757326,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/governor/ia"
+      },
+      "16": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brad Little",
+        "votes": 407222,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/governor/id"
+      },
+      "17": {
+        "status": "called",
+        "party": "D",
+        "candidate": "JB Pritzker",
+        "votes": 2458101,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/governor/il"
+      },
+      "20": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Cindy Holscher",
+        "votes": 551243,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/governor/ks"
+      },
+      "25": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Maura Healey",
+        "votes": 1625849,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/governor/ma"
+      },
+      "24": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Wes Moore",
+        "votes": 1313924,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/governor/md"
+      },
+      "23": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Hannah Pingree",
+        "votes": 386970,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/governor/me"
+      },
+      "26": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jocelyn Benson",
+        "votes": 2599963,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/governor/mi"
+      },
+      "27": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Amy Klobuchar",
+        "votes": 1569756,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/governor/mn"
+      },
+      "31": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Pillen",
+        "votes": 381335,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/governor/ne"
+      },
+      "33": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Kelly Ayotte",
+        "votes": 324846,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/governor/nh"
+      },
+      "35": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Deb Haaland",
+        "votes": 416176,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/governor/nm"
+      },
+      "32": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Aaron Ford",
+        "votes": 562422,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/governor/nv"
+      },
+      "36": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kathy Hochul",
+        "votes": 3614565,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/governor/ny"
+      },
+      "39": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Amy Acton",
+        "votes": 2404178,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/governor/oh"
+      },
+      "40": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Mazzei",
+        "votes": 581706,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/governor/ok"
+      },
+      "41": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Tina Kotek",
+        "votes": 1002254,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/governor/or"
+      },
+      "42": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Shapiro",
+        "votes": 3016345,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/governor/pa"
+      },
+      "44": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Helena Buonanno Foulkes",
+        "votes": 207473,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/governor/ri"
+      },
+      "45": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Alan Wilson",
+        "votes": 1051143,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/governor/sc"
+      },
+      "46": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Larry Rhoden",
+        "votes": 193334,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/governor/sd"
+      },
+      "47": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Marsha Blackburn",
+        "votes": 955298,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/governor/tn"
+      },
+      "48": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gina Hinojosa",
+        "votes": 5232659,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/governor/tx"
+      },
+      "50": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Phil Scott",
+        "votes": 162048,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/governor/vt"
+      },
+      "55": {
+        "status": "called",
+        "party": "D",
+        "candidate": "David Crowley",
+        "votes": 1440993,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/governor/wi"
+      },
+      "56": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Eric Barlow",
+        "votes": 128480,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/governor/wy"
+      }
+    },
+    "house": {
+      "0200": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Nick Begich III",
+        "votes": 213522,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/house/ak-01"
+      },
+      "0101": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jerry Carl",
+        "votes": 231965,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/al-01"
+      },
+      "0102": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Shomari Figures",
+        "votes": 231471,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/al-02"
+      },
+      "0103": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Rogers",
+        "votes": 221726,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/al-03"
+      },
+      "0104": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Robert Aderholt",
+        "votes": 213641,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/al-04"
+      },
+      "0105": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Dale Strong",
+        "votes": 266843,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/al-05"
+      },
+      "0106": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Gary Palmer",
+        "votes": 260878,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/al-06"
+      },
+      "0107": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Terri Sewell",
+        "votes": 251908,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/al-07"
+      },
+      "0501": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Rick Crawford",
+        "votes": 194244,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/ar-01"
+      },
+      "0502": {
+        "status": "called",
+        "party": "R",
+        "candidate": "French Hill",
+        "votes": 250548,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ar-02"
+      },
+      "0503": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Steve Womack",
+        "votes": 231938,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ar-03"
+      },
+      "0504": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Bruce Westerman",
+        "votes": 200483,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/ar-04"
+      },
+      "0401": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Amish Shah",
+        "votes": 352696,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-01"
+      },
+      "0402": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Eli Crane",
+        "votes": 327854,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-02"
+      },
+      "0403": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Yassamin Ansari",
+        "votes": 149292,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-03"
+      },
+      "0404": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Greg Stanton",
+        "votes": 253819,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-04"
+      },
+      "0405": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Lamb",
+        "votes": 323569,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-05"
+      },
+      "0406": {
+        "status": "called",
+        "party": "D",
+        "candidate": "JoAnna Mendoza",
+        "votes": 355984,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/az-06"
+      },
+      "0407": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adelita Grijalva",
+        "votes": 198542,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-07"
+      },
+      "0408": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Abraham Hamadeh",
+        "votes": 286141,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/az-08"
+      },
+      "0409": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Paul Gosar",
+        "votes": 283445,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/house/az-09"
+      },
+      "0601": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mike McGuire",
+        "votes": 176146,
+        "reporting": 58,
+        "url": "https://polling-desk.com/races/2026/house/ca-01"
+      },
+      "0602": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jared Huffman",
+        "votes": 182334,
+        "reporting": 53,
+        "url": "https://polling-desk.com/races/2026/house/ca-02"
+      },
+      "0603": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ami Bera",
+        "votes": 207168,
+        "reporting": 63,
+        "url": "https://polling-desk.com/races/2026/house/ca-03"
+      },
+      "0604": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Eric Jones",
+        "votes": 149811,
+        "reporting": 53,
+        "url": "https://polling-desk.com/races/2026/house/ca-04"
+      },
+      "0605": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tom McClintock",
+        "votes": 217533,
+        "reporting": 70,
+        "url": "https://polling-desk.com/races/2026/house/ca-05"
+      },
+      "0606": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Richard Pan",
+        "votes": 184378,
+        "reporting": 62,
+        "url": "https://polling-desk.com/races/2026/house/ca-06"
+      },
+      "0607": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Doris Matsui",
+        "votes": 175659,
+        "reporting": 61,
+        "url": "https://polling-desk.com/races/2026/house/ca-07"
+      },
+      "0608": {
+        "status": "called",
+        "party": "D",
+        "candidate": "John Garamendi",
+        "votes": 224070,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ca-08"
+      },
+      "0609": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Harder",
+        "votes": 167062,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/house/ca-09"
+      },
+      "0610": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mark DeSaulnier",
+        "votes": 255811,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/ca-10"
+      },
+      "0611": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Scott Wiener",
+        "votes": 293829,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ca-11"
+      },
+      "0612": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lateefah Simon",
+        "votes": 196652,
+        "reporting": 66,
+        "url": "https://polling-desk.com/races/2026/house/ca-12"
+      },
+      "0613": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adam Gray",
+        "votes": 113824,
+        "reporting": 66,
+        "url": "https://polling-desk.com/races/2026/house/ca-13"
+      },
+      "0614": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Aisha Wahab",
+        "votes": 159728,
+        "reporting": 66,
+        "url": "https://polling-desk.com/races/2026/house/ca-14"
+      },
+      "0615": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kevin Mullin",
+        "votes": 165423,
+        "reporting": 64,
+        "url": "https://polling-desk.com/races/2026/house/ca-15"
+      },
+      "0616": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sam Liccardo",
+        "votes": 209285,
+        "reporting": 68,
+        "url": "https://polling-desk.com/races/2026/house/ca-16"
+      },
+      "0617": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ro Khanna",
+        "votes": 160535,
+        "reporting": 71,
+        "url": "https://polling-desk.com/races/2026/house/ca-17"
+      },
+      "0618": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Zoe Lofgren",
+        "votes": 144236,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/house/ca-18"
+      },
+      "0619": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jimmy Panetta",
+        "votes": 253790,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/ca-19"
+      },
+      "0620": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Vince Fong",
+        "votes": 168648,
+        "reporting": 65,
+        "url": "https://polling-desk.com/races/2026/house/ca-20"
+      },
+      "0621": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jim Costa",
+        "votes": 99931,
+        "reporting": 60,
+        "url": "https://polling-desk.com/races/2026/house/ca-21"
+      },
+      "0622": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Randy Villegas",
+        "votes": 93372,
+        "reporting": 62,
+        "url": "https://polling-desk.com/races/2026/house/ca-22"
+      },
+      "0623": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Jay Obernolte",
+        "votes": 190836,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ca-23"
+      },
+      "0624": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Salud Carbajal",
+        "votes": 189609,
+        "reporting": 62,
+        "url": "https://polling-desk.com/races/2026/house/ca-24"
+      },
+      "0625": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Raul Ruiz",
+        "votes": 147500,
+        "reporting": 60,
+        "url": "https://polling-desk.com/races/2026/house/ca-25"
+      },
+      "0626": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jacqui Irwin",
+        "votes": 213256,
+        "reporting": 73,
+        "url": "https://polling-desk.com/races/2026/house/ca-26"
+      },
+      "0627": {
+        "status": "called",
+        "party": "D",
+        "candidate": "George Whitesides",
+        "votes": 228808,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ca-27"
+      },
+      "0628": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Judy Chu",
+        "votes": 252375,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ca-28"
+      },
+      "0629": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Luz Rivas",
+        "votes": 171678,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ca-29"
+      },
+      "0630": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Laura Friedman",
+        "votes": 255385,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/ca-30"
+      },
+      "0631": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gil Cisneros",
+        "votes": 230535,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/ca-31"
+      },
+      "0632": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brad Sherman",
+        "votes": 254812,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/ca-32"
+      },
+      "0633": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Pete Aguilar",
+        "votes": 178600,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ca-33"
+      },
+      "0634": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Angela Gonzales-Torres",
+        "votes": 170293,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ca-34"
+      },
+      "0635": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Norma Torres",
+        "votes": 173372,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ca-35"
+      },
+      "0636": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ted Lieu",
+        "votes": 300677,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ca-36"
+      },
+      "0637": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sydney Kamlager-Dove",
+        "votes": 178986,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/ca-37"
+      },
+      "0638": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Hilda Solis",
+        "votes": 206163,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ca-38"
+      },
+      "0639": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mark Takano",
+        "votes": 112701,
+        "reporting": 59,
+        "url": "https://polling-desk.com/races/2026/house/ca-39"
+      },
+      "0640": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Ken Calvert",
+        "votes": 174655,
+        "reporting": 68,
+        "url": "https://polling-desk.com/races/2026/house/ca-40"
+      },
+      "0641": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Linda S\u00e1nchez",
+        "votes": 241749,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ca-41"
+      },
+      "0642": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Robert Garcia",
+        "votes": 258971,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/ca-42"
+      },
+      "0643": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Maxine Waters",
+        "votes": 184418,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ca-43"
+      },
+      "0644": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Nanette Barrag\u00e1n",
+        "votes": 178285,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ca-44"
+      },
+      "0645": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Derek Tran",
+        "votes": 218956,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ca-45"
+      },
+      "0646": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lou Correa",
+        "votes": 161881,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ca-46"
+      },
+      "0647": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Dave Min",
+        "votes": 249011,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ca-47"
+      },
+      "0648": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Marni von Wilpert",
+        "votes": 192797,
+        "reporting": 63,
+        "url": "https://polling-desk.com/races/2026/house/ca-48"
+      },
+      "0649": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mike Levin",
+        "votes": 241733,
+        "reporting": 71,
+        "url": "https://polling-desk.com/races/2026/house/ca-49"
+      },
+      "0650": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Scott Peters",
+        "votes": 222706,
+        "reporting": 69,
+        "url": "https://polling-desk.com/races/2026/house/ca-50"
+      },
+      "0651": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sara Jacobs",
+        "votes": 202615,
+        "reporting": 69,
+        "url": "https://polling-desk.com/races/2026/house/ca-51"
+      },
+      "0652": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Juan Vargas",
+        "votes": 152827,
+        "reporting": 69,
+        "url": "https://polling-desk.com/races/2026/house/ca-52"
+      },
+      "0801": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Melat Kiros",
+        "votes": 303828,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/co-01"
+      },
+      "0802": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Joe Neguse",
+        "votes": 366709,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/co-02"
+      },
+      "0803": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jeff Hurd",
+        "votes": 332044,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/co-03"
+      },
+      "0804": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Eileen Laubacher",
+        "votes": 381214,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/co-04"
+      },
+      "0805": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jessica Killin",
+        "votes": 307995,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/co-05"
+      },
+      "0806": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jason Crow",
+        "votes": 290542,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/co-06"
+      },
+      "0807": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brittany Pettersen",
+        "votes": 376024,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/co-07"
+      },
+      "0808": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Manny Rutinel",
+        "votes": 286502,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/co-08"
+      },
+      "0901": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Luke Bronin",
+        "votes": 253388,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/ct-01"
+      },
+      "0902": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Joe Courtney",
+        "votes": 291936,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ct-02"
+      },
+      "0903": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rosa DeLauro",
+        "votes": 247131,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ct-03"
+      },
+      "0904": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jim Himes",
+        "votes": 240138,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ct-04"
+      },
+      "0905": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jahana Hayes",
+        "votes": 253066,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ct-05"
+      },
+      "1000": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sarah McBride",
+        "votes": 378433,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/de-01"
+      },
+      "1201": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jimmy Patronis",
+        "votes": 291010,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/fl-01"
+      },
+      "1202": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Austin Rogers",
+        "votes": 309440,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/fl-02"
+      },
+      "1203": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Kat Cammack",
+        "votes": 300422,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/fl-03"
+      },
+      "1204": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Aaron Bean",
+        "votes": 301127,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/fl-04"
+      },
+      "1205": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John Rutherford",
+        "votes": 334055,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/fl-05"
+      },
+      "1206": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Randy Fine",
+        "votes": 331812,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/fl-06"
+      },
+      "1207": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Ryan Elijah",
+        "votes": 324454,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/fl-07"
+      },
+      "1208": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Haridopolos",
+        "votes": 319595,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/house/fl-08"
+      },
+      "1209": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Darren Soto",
+        "votes": 285122,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/fl-09"
+      },
+      "1210": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Maxwell Frost",
+        "votes": 0,
+        "reporting": 0,
+        "url": "https://polling-desk.com/races/2026/house/fl-10"
+      },
+      "1211": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Joe Strada",
+        "votes": 365755,
+        "reporting": 70,
+        "url": "https://polling-desk.com/races/2026/house/fl-11"
+      },
+      "1212": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Gus Bilirakis",
+        "votes": 286094,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/fl-12"
+      },
+      "1213": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Anna Paulina Luna",
+        "votes": 313669,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/fl-13"
+      },
+      "1214": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kathy Castor",
+        "votes": 300545,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-14"
+      },
+      "1215": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Laurel Lee",
+        "votes": 301357,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-15"
+      },
+      "1216": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Sydney Gruters",
+        "votes": 343045,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/fl-16"
+      },
+      "1217": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Greg Steube",
+        "votes": 357875,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/fl-17"
+      },
+      "1218": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Scott Franklin",
+        "votes": 273579,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/fl-18"
+      },
+      "1219": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Schwartzel",
+        "votes": 325240,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/fl-19"
+      },
+      "1220": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Debbie Wasserman Schultz",
+        "votes": 245706,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/fl-20"
+      },
+      "1221": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brian Mast",
+        "votes": 342181,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/fl-21"
+      },
+      "1222": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Pia Dandiya",
+        "votes": 295116,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-22"
+      },
+      "1223": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lois Frankel",
+        "votes": 258967,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/fl-23"
+      },
+      "1224": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Oliver Gilbert",
+        "votes": 204854,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-24"
+      },
+      "1225": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jared Moskowitz",
+        "votes": 280895,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-25"
+      },
+      "1226": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Mario Diaz-Balart",
+        "votes": 229804,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-26"
+      },
+      "1227": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Maria Elvira Salazar",
+        "votes": 247966,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/fl-27"
+      },
+      "1228": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Carlos Gim\u00e9nez",
+        "votes": 236376,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/fl-28"
+      },
+      "1301": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Kingston",
+        "votes": 272866,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/ga-01"
+      },
+      "1302": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sanford Bishop",
+        "votes": 243916,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ga-02"
+      },
+      "1303": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brian Jack",
+        "votes": 321867,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ga-03"
+      },
+      "1304": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Hank Johnson",
+        "votes": 262984,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ga-04"
+      },
+      "1305": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Nikema Williams",
+        "votes": 304764,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ga-05"
+      },
+      "1306": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lucy McBath",
+        "votes": 326403,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ga-06"
+      },
+      "1307": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Rich McCormick",
+        "votes": 341081,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ga-07"
+      },
+      "1308": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Austin Scott",
+        "votes": 265051,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/ga-08"
+      },
+      "1309": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Andrew Clyde",
+        "votes": 308631,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ga-09"
+      },
+      "1310": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Houston Gaines",
+        "votes": 325933,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ga-10"
+      },
+      "1311": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John Cowan",
+        "votes": 329197,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/ga-11"
+      },
+      "1312": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Rick Allen",
+        "votes": 270517,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/ga-12"
+      },
+      "1313": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jasmine Clark",
+        "votes": 310685,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ga-13"
+      },
+      "1314": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Clay Fuller",
+        "votes": 287276,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ga-14"
+      },
+      "1501": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ed Case",
+        "votes": 175575,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/hi-01"
+      },
+      "1502": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jill Tokuda",
+        "votes": 194717,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/hi-02"
+      },
+      "1901": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Christina Bohannan",
+        "votes": 345826,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ia-01"
+      },
+      "1902": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lindsay James",
+        "votes": 346401,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ia-02"
+      },
+      "1903": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sarah Trone Garriott",
+        "votes": 353527,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ia-03"
+      },
+      "1904": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chris McGowan",
+        "votes": 303137,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ia-04"
+      },
+      "1601": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Russ Fulcher",
+        "votes": 379049,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/id-01"
+      },
+      "1602": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Simpson",
+        "votes": 330352,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/id-02"
+      },
+      "1701": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jonathan Jackson",
+        "votes": 231193,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/il-01"
+      },
+      "1702": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Donna Miller",
+        "votes": 212750,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/il-02"
+      },
+      "1703": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Delia Ramirez",
+        "votes": 192427,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/il-03"
+      },
+      "1704": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Patty Garcia",
+        "votes": 157386,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/il-04"
+      },
+      "1705": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mike Quigley",
+        "votes": 254154,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/il-05"
+      },
+      "1706": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sean Casten",
+        "votes": 259448,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/il-06"
+      },
+      "1707": {
+        "status": "called",
+        "party": "D",
+        "candidate": "La Shawn Ford",
+        "votes": 191651,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/il-07"
+      },
+      "1708": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Melissa Bean",
+        "votes": 213273,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/il-08"
+      },
+      "1709": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Daniel K. Biss",
+        "votes": 250211,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/il-09"
+      },
+      "1710": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brad Schneider",
+        "votes": 233638,
+        "reporting": 71,
+        "url": "https://polling-desk.com/races/2026/house/il-10"
+      },
+      "1711": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bill Foster",
+        "votes": 265901,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/il-11"
+      },
+      "1712": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Bost",
+        "votes": 279419,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/il-12"
+      },
+      "1713": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Nikki Budzinski",
+        "votes": 251178,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/il-13"
+      },
+      "1714": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lauren Underwood",
+        "votes": 245166,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/il-14"
+      },
+      "1715": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mary Miller",
+        "votes": 288061,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/il-15"
+      },
+      "1716": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Darin LaHood",
+        "votes": 294611,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/il-16"
+      },
+      "1717": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Eric Sorensen",
+        "votes": 236027,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/il-17"
+      },
+      "1801": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Frank Mrvan",
+        "votes": 223232,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-01"
+      },
+      "1802": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Rudy Yakym",
+        "votes": 192747,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-02"
+      },
+      "1803": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Marlin Stutzman",
+        "votes": 200013,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-03"
+      },
+      "1804": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Baird",
+        "votes": 212399,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-04"
+      },
+      "1805": {
+        "status": "called",
+        "party": "D",
+        "candidate": "J. D. Ford",
+        "votes": 260319,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-05"
+      },
+      "1806": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jefferson Shreve",
+        "votes": 201646,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-06"
+      },
+      "1807": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Andr\u00e9 Carson",
+        "votes": 206871,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-07"
+      },
+      "1808": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Messmer",
+        "votes": 212534,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-08"
+      },
+      "1809": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Erin Houchin",
+        "votes": 224790,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/in-09"
+      },
+      "2001": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tracey Mann",
+        "votes": 253318,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ks-01"
+      },
+      "2002": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Derek Schmidt",
+        "votes": 245721,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ks-02"
+      },
+      "2003": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sharice Davids",
+        "votes": 337509,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ks-03"
+      },
+      "2004": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Ron Estes",
+        "votes": 259910,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/ks-04"
+      },
+      "2101": {
+        "status": "called",
+        "party": "R",
+        "candidate": "James Comer",
+        "votes": 227902,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ky-01"
+      },
+      "2102": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brett Guthrie",
+        "votes": 231057,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/ky-02"
+      },
+      "2103": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Morgan McGarvey",
+        "votes": 248492,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/ky-03"
+      },
+      "2104": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Ed Gallrein",
+        "votes": 253820,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ky-04"
+      },
+      "2105": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Hal Rogers",
+        "votes": 196506,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/house/ky-05"
+      },
+      "2106": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Zach Dembo",
+        "votes": 263353,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ky-06"
+      },
+      "2201": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Steve Scalise",
+        "votes": 263375,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/la-01"
+      },
+      "2202": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Troy Carter",
+        "votes": 240582,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/la-02"
+      },
+      "2203": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Clay Higgins",
+        "votes": 234995,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/la-03"
+      },
+      "2204": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Johnson",
+        "votes": 230358,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/la-04"
+      },
+      "2205": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Patricia \"Pat\" Moore",
+        "votes": 227921,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/la-05"
+      },
+      "2206": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Chauna Banks",
+        "votes": 261953,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/la-06"
+      },
+      "2501": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Richard E. Neal",
+        "votes": 271339,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ma-01"
+      },
+      "2502": {
+        "status": "called",
+        "party": "D",
+        "candidate": "James P. McGovern",
+        "votes": 198782,
+        "reporting": 74,
+        "url": "https://polling-desk.com/races/2026/house/ma-02"
+      },
+      "2503": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lori Loureiro Trahan",
+        "votes": 258068,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/ma-03"
+      },
+      "2504": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jake Auchincloss",
+        "votes": 290389,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/ma-04"
+      },
+      "2505": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Katherine M. Clark",
+        "votes": 206925,
+        "reporting": 75,
+        "url": "https://polling-desk.com/races/2026/house/ma-05"
+      },
+      "2506": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Dan Koh",
+        "votes": 325368,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/ma-06"
+      },
+      "2507": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ayanna S. Pressley",
+        "votes": 158384,
+        "reporting": 72,
+        "url": "https://polling-desk.com/races/2026/house/ma-07"
+      },
+      "2508": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Stephen F. Lynch",
+        "votes": 281804,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ma-08"
+      },
+      "2509": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bill Keating",
+        "votes": 350869,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ma-09"
+      },
+      "2401": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Andy Harris",
+        "votes": 299059,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/md-01"
+      },
+      "2402": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Johnny Olszewski",
+        "votes": 260417,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/md-02"
+      },
+      "2403": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sarah Elfreth",
+        "votes": 297183,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/md-03"
+      },
+      "2404": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Glenn Ivey",
+        "votes": 179238,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/md-04"
+      },
+      "2405": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adrian Boafo",
+        "votes": 300434,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/md-05"
+      },
+      "2406": {
+        "status": "called",
+        "party": "D",
+        "candidate": "April McClain Delaney",
+        "votes": 263669,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/md-06"
+      },
+      "2407": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kweisi Mfume",
+        "votes": 189567,
+        "reporting": 72,
+        "url": "https://polling-desk.com/races/2026/house/md-07"
+      },
+      "2408": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jamie Raskin",
+        "votes": 259936,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/md-08"
+      },
+      "2301": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chellie Pingree",
+        "votes": 375045,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/me-01"
+      },
+      "2302": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Paul LePage",
+        "votes": 335380,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/me-02"
+      },
+      "2601": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jack Bergman",
+        "votes": 403862,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/mi-01"
+      },
+      "2602": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John Moolenaar",
+        "votes": 358635,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/mi-02"
+      },
+      "2603": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Hillary Scholten",
+        "votes": 369844,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mi-03"
+      },
+      "2604": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sean McCann",
+        "votes": 371687,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/mi-04"
+      },
+      "2605": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tim Walberg",
+        "votes": 337583,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/mi-05"
+      },
+      "2606": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Debbie Dingell",
+        "votes": 390217,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mi-06"
+      },
+      "2607": {
+        "status": "called",
+        "party": "D",
+        "candidate": "William Lawrence",
+        "votes": 397376,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/mi-07"
+      },
+      "2608": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kristen McDonald Rivet",
+        "votes": 352889,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/mi-08"
+      },
+      "2609": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Lisa McClain",
+        "votes": 395796,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/mi-09"
+      },
+      "2610": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Christina Hines",
+        "votes": 359167,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/mi-10"
+      },
+      "2611": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jeremy Moss",
+        "votes": 392301,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/mi-11"
+      },
+      "2612": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rashida Tlaib",
+        "votes": 325927,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/mi-12"
+      },
+      "2613": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Donavan McKinney",
+        "votes": 275192,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/mi-13"
+      },
+      "2701": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Jake Johnson",
+        "votes": 326179,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/mn-01"
+      },
+      "2702": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Matt Little",
+        "votes": 375241,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mn-02"
+      },
+      "2703": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kelly Morrison",
+        "votes": 377996,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mn-03"
+      },
+      "2704": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Betty McCollum",
+        "votes": 336243,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mn-04"
+      },
+      "2705": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ilhan Omar",
+        "votes": 343507,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mn-05"
+      },
+      "2706": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tom Emmer",
+        "votes": 367342,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mn-06"
+      },
+      "2707": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Michelle Fischbach",
+        "votes": 330858,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/mn-07"
+      },
+      "2708": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Pete Stauber",
+        "votes": 359454,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/mn-08"
+      },
+      "2901": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Wesley Bell",
+        "votes": 232150,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-01"
+      },
+      "2902": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Fred Wellman",
+        "votes": 331391,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-02"
+      },
+      "2903": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Bob Onder",
+        "votes": 282254,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-03"
+      },
+      "2904": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Alford",
+        "votes": 250742,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-04"
+      },
+      "2905": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Emanuel Cleaver",
+        "votes": 257956,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-05"
+      },
+      "2906": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chris Stigall",
+        "votes": 257864,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-06"
+      },
+      "2907": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Eric Burlison",
+        "votes": 254740,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-07"
+      },
+      "2908": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jason Smith",
+        "votes": 225434,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/mo-08"
+      },
+      "2801": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Trent Kelly",
+        "votes": 239607,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ms-01"
+      },
+      "2802": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bennie Thompson",
+        "votes": 244403,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/ms-02"
+      },
+      "2803": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Michael Guest",
+        "votes": 251707,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ms-03"
+      },
+      "2804": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Ezell",
+        "votes": 214808,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/ms-04"
+      },
+      "3001": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sam Forstag",
+        "votes": 262219,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/mt-01"
+      },
+      "3002": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Troy Downing",
+        "votes": 218860,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/mt-02"
+      },
+      "3701": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Don Davis",
+        "votes": 312740,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/nc-01"
+      },
+      "3702": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Deborah Ross",
+        "votes": 326962,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/nc-02"
+      },
+      "3703": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Greg Murphy",
+        "votes": 237904,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/nc-03"
+      },
+      "3704": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Valerie Foushee",
+        "votes": 358015,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/nc-04"
+      },
+      "3705": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Chuck Hubbard",
+        "votes": 285498,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/nc-05"
+      },
+      "3706": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Cyril Jefferson",
+        "votes": 273738,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/nc-06"
+      },
+      "3707": {
+        "status": "counting",
+        "party": null,
+        "candidate": "David Rouzer",
+        "votes": 320680,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/nc-07"
+      },
+      "3708": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Harris",
+        "votes": 291899,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/nc-08"
+      },
+      "3709": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Richard Ojeda",
+        "votes": 271399,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/nc-09"
+      },
+      "3710": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Pat Harrigan",
+        "votes": 293976,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/nc-10"
+      },
+      "3711": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jamie Ager",
+        "votes": 342379,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/nc-11"
+      },
+      "3712": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Alma Adams",
+        "votes": 270536,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/nc-12"
+      },
+      "3713": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Paul Barringer",
+        "votes": 316789,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/nc-13"
+      },
+      "3714": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lakesha Womack",
+        "votes": 288361,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/nc-14"
+      },
+      "3800": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Julie Fedorchak",
+        "votes": 234595,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/nd-01"
+      },
+      "3101": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike  Flood",
+        "votes": 254139,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ne-01"
+      },
+      "3102": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Denise  Powell",
+        "votes": 253836,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ne-02"
+      },
+      "3103": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Adrian  Smith",
+        "votes": 245023,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ne-03"
+      },
+      "3301": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Stefany Shaheen",
+        "votes": 317232,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/nh-01"
+      },
+      "3302": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Maggie Goodlander",
+        "votes": 318014,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/nh-02"
+      },
+      "3401": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Donald Norcross",
+        "votes": 257755,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/nj-01"
+      },
+      "3402": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Zack Mullock",
+        "votes": 270326,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/nj-02"
+      },
+      "3403": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Herb Conaway",
+        "votes": 275967,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/nj-03"
+      },
+      "3404": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chris Smith",
+        "votes": 265690,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/nj-04"
+      },
+      "3405": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Gottheimer",
+        "votes": 270025,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/nj-05"
+      },
+      "3406": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Frank Pallone",
+        "votes": 212868,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/nj-06"
+      },
+      "3407": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rebecca Bennett",
+        "votes": 331680,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/nj-07"
+      },
+      "3408": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rob Menendez",
+        "votes": 124067,
+        "reporting": 65,
+        "url": "https://polling-desk.com/races/2026/house/nj-08"
+      },
+      "3409": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Nellie Pou",
+        "votes": 184767,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/nj-09"
+      },
+      "3410": {
+        "status": "called",
+        "party": "D",
+        "candidate": "LaMonica McIver",
+        "votes": 179935,
+        "reporting": 75,
+        "url": "https://polling-desk.com/races/2026/house/nj-10"
+      },
+      "3411": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Analilia Mejia",
+        "votes": 280321,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/nj-11"
+      },
+      "3412": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adam Hamawy",
+        "votes": 236291,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/nj-12"
+      },
+      "3501": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Melanie Stansbury",
+        "votes": 282547,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/nm-01"
+      },
+      "3502": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gabe Vasquez",
+        "votes": 210597,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/nm-02"
+      },
+      "3503": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Teresa Leger Fernandez",
+        "votes": 229247,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/nm-03"
+      },
+      "3201": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Dina Titus",
+        "votes": 238045,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/nv-01"
+      },
+      "3202": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Teresa Benitez-Thompson",
+        "votes": 320782,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/nv-02"
+      },
+      "3203": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Susie Lee",
+        "votes": 270960,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/nv-03"
+      },
+      "3204": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Steven Horsford",
+        "votes": 251601,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/nv-04"
+      },
+      "3601": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Nick LaLota",
+        "votes": 298585,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ny-01"
+      },
+      "3602": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Andrew Garbarino",
+        "votes": 243152,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ny-02"
+      },
+      "3603": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Tom Suozzi",
+        "votes": 257896,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-03"
+      },
+      "3604": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Laura Gillen",
+        "votes": 259504,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-04"
+      },
+      "3605": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gregory Meeks",
+        "votes": 161418,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ny-05"
+      },
+      "3606": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Grace Meng",
+        "votes": 134749,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ny-06"
+      },
+      "3607": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Claire Valdez",
+        "votes": 162218,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-07"
+      },
+      "3608": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Hakeem Jeffries",
+        "votes": 162404,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-08"
+      },
+      "3609": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Yvette Clarke",
+        "votes": 178465,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-09"
+      },
+      "3610": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brad Lander",
+        "votes": 201120,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-10"
+      },
+      "3611": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Nicole Malliotakis",
+        "votes": 181316,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/ny-11"
+      },
+      "3612": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Micah Lasher",
+        "votes": 250781,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/ny-12"
+      },
+      "3613": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Darializa Avila Chevalier",
+        "votes": 161117,
+        "reporting": 82,
+        "url": "https://polling-desk.com/races/2026/house/ny-13"
+      },
+      "3614": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Alexandria Ocasio-Cortez",
+        "votes": 136956,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/ny-14"
+      },
+      "3615": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ritchie Torres",
+        "votes": 122169,
+        "reporting": 78,
+        "url": "https://polling-desk.com/races/2026/house/ny-15"
+      },
+      "3616": {
+        "status": "called",
+        "party": "D",
+        "candidate": "George Latimer",
+        "votes": 223506,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/ny-16"
+      },
+      "3617": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Cait Conley",
+        "votes": 310150,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ny-17"
+      },
+      "3618": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Pat Ryan",
+        "votes": 268816,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/ny-18"
+      },
+      "3619": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Josh Riley",
+        "votes": 291812,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ny-19"
+      },
+      "3620": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Paul Tonko",
+        "votes": 285914,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ny-20"
+      },
+      "3621": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Anthony Constantino",
+        "votes": 276615,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ny-21"
+      },
+      "3622": {
+        "status": "called",
+        "party": "D",
+        "candidate": "John Mannion",
+        "votes": 273507,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ny-22"
+      },
+      "3623": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Nick Langworthy",
+        "votes": 302569,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ny-23"
+      },
+      "3624": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Claudia Tenney",
+        "votes": 283863,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ny-24"
+      },
+      "3625": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Joseph Morelle",
+        "votes": 280606,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/ny-25"
+      },
+      "3626": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Tim Kennedy",
+        "votes": 249104,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/ny-26"
+      },
+      "3901": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Greg Landsman",
+        "votes": 324471,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/oh-01"
+      },
+      "3902": {
+        "status": "called",
+        "party": "R",
+        "candidate": "David J. Taylor",
+        "votes": 273049,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/oh-02"
+      },
+      "3903": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Joyce Beatty",
+        "votes": 300332,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/oh-03"
+      },
+      "3904": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jim Jordan",
+        "votes": 305586,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/oh-04"
+      },
+      "3905": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Bob Latta",
+        "votes": 301101,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/oh-05"
+      },
+      "3906": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Michael A. Rulli",
+        "votes": 270985,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/oh-06"
+      },
+      "3907": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brian Poindexter",
+        "votes": 329033,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/oh-07"
+      },
+      "3908": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Warren Davidson",
+        "votes": 323517,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/oh-08"
+      },
+      "3909": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Marcy Kaptur",
+        "votes": 302311,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/oh-09"
+      },
+      "3910": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kristina Knickerbocker",
+        "votes": 302016,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/oh-10"
+      },
+      "3911": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Shontel M. Brown",
+        "votes": 263344,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/oh-11"
+      },
+      "3912": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Troy Balderson",
+        "votes": 323137,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/oh-12"
+      },
+      "3913": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Emilia Sykes",
+        "votes": 317775,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/oh-13"
+      },
+      "3914": {
+        "status": "called",
+        "party": "R",
+        "candidate": "David P. Joyce",
+        "votes": 326118,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/oh-14"
+      },
+      "3915": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Don Leonard",
+        "votes": 287756,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/oh-15"
+      },
+      "4001": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Tedford",
+        "votes": 231781,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/ok-01"
+      },
+      "4002": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Josh Brecheen",
+        "votes": 211874,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/house/ok-02"
+      },
+      "4003": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Frank Lucas",
+        "votes": 190925,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ok-03"
+      },
+      "4004": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tom Cole",
+        "votes": 218008,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ok-04"
+      },
+      "4005": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Stephanie Bice",
+        "votes": 264647,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/ok-05"
+      },
+      "4101": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Suzanne Bonamici",
+        "votes": 306927,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/or-01"
+      },
+      "4102": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Cliff Bentz",
+        "votes": 303369,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/or-02"
+      },
+      "4103": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Maxine Dexter",
+        "votes": 302005,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/or-03"
+      },
+      "4104": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Val Hoyle",
+        "votes": 334424,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/or-04"
+      },
+      "4105": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Janelle Bynum",
+        "votes": 346746,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/or-05"
+      },
+      "4106": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Andrea Salinas",
+        "votes": 257662,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/or-06"
+      },
+      "4201": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bob Harvie",
+        "votes": 356618,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/pa-01"
+      },
+      "4202": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Brendan Boyle",
+        "votes": 184401,
+        "reporting": 75,
+        "url": "https://polling-desk.com/races/2026/house/pa-02"
+      },
+      "4203": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chris Rabb",
+        "votes": 272529,
+        "reporting": 75,
+        "url": "https://polling-desk.com/races/2026/house/pa-03"
+      },
+      "4204": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Madeleine Dean",
+        "votes": 344889,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/pa-04"
+      },
+      "4205": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mary Gay Scanlon",
+        "votes": 296248,
+        "reporting": 83,
+        "url": "https://polling-desk.com/races/2026/house/pa-05"
+      },
+      "4206": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chrissy Houlahan",
+        "votes": 310600,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/pa-06"
+      },
+      "4207": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bob Brooks",
+        "votes": 293281,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/pa-07"
+      },
+      "4208": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Paige Cognetti",
+        "votes": 282732,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/pa-08"
+      },
+      "4209": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Dan Meuser",
+        "votes": 269308,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/house/pa-09"
+      },
+      "4210": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Janelle Stelson",
+        "votes": 315708,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/pa-10"
+      },
+      "4211": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Lloyd Smucker",
+        "votes": 302205,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/pa-11"
+      },
+      "4212": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Summer Lee",
+        "votes": 296776,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/pa-12"
+      },
+      "4213": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John Joyce",
+        "votes": 281365,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/pa-13"
+      },
+      "4214": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Guy Reschenthaler",
+        "votes": 276791,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/pa-14"
+      },
+      "4215": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Glenn Thompson",
+        "votes": 268195,
+        "reporting": 78,
+        "url": "https://polling-desk.com/races/2026/house/pa-15"
+      },
+      "4216": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Kelly",
+        "votes": 286605,
+        "reporting": 80,
+        "url": "https://polling-desk.com/races/2026/house/pa-16"
+      },
+      "4217": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Chris Deluzio",
+        "votes": 330630,
+        "reporting": 81,
+        "url": "https://polling-desk.com/races/2026/house/pa-17"
+      },
+      "4401": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gabriel Amo",
+        "votes": 163367,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/ri-01"
+      },
+      "4402": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Seth Magaziner",
+        "votes": 195361,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/ri-02"
+      },
+      "4501": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Nancy Lacore",
+        "votes": 326423,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-01"
+      },
+      "4502": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Joe Wilson",
+        "votes": 296664,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-02"
+      },
+      "4503": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Sheri Biggs",
+        "votes": 273192,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/sc-03"
+      },
+      "4504": {
+        "status": "called",
+        "party": "R",
+        "candidate": "William Timmons",
+        "votes": 284193,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-04"
+      },
+      "4505": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Wes Climer",
+        "votes": 287000,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-05"
+      },
+      "4506": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jim Clyburn",
+        "votes": 260742,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-06"
+      },
+      "4507": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Russell Fry",
+        "votes": 304088,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/sc-07"
+      },
+      "4600": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Marty Jackley",
+        "votes": 305585,
+        "reporting": 79,
+        "url": "https://polling-desk.com/races/2026/house/sd-01"
+      },
+      "4701": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Diana Harshbarger",
+        "votes": 209355,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/tn-01"
+      },
+      "4702": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tim Burchett",
+        "votes": 250980,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/tn-02"
+      },
+      "4703": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chuck Fleischmann",
+        "votes": 236358,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/tn-03"
+      },
+      "4704": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Victoria Broderick",
+        "votes": 195576,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/tn-04"
+      },
+      "4705": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Charlie Hatcher",
+        "votes": 213705,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/tn-05"
+      },
+      "4706": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Johnny Garrett",
+        "votes": 238224,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/tn-06"
+      },
+      "4707": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Matt Van Epps",
+        "votes": 240886,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/tn-07"
+      },
+      "4708": {
+        "status": "called",
+        "party": "R",
+        "candidate": "David Kustoff",
+        "votes": 220906,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/tn-08"
+      },
+      "4709": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brent Taylor",
+        "votes": 225614,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/tn-09"
+      },
+      "4801": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Nathaniel Moran",
+        "votes": 263585,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/tx-01"
+      },
+      "4802": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Steve Toth",
+        "votes": 283915,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-02"
+      },
+      "4803": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Keith Self",
+        "votes": 320910,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-03"
+      },
+      "4804": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Pat Fallon",
+        "votes": 306394,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-04"
+      },
+      "4805": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Lance Gooden",
+        "votes": 253133,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-05"
+      },
+      "4806": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jake Ellzey",
+        "votes": 268408,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-06"
+      },
+      "4807": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Lizzie Fletcher",
+        "votes": 226493,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-07"
+      },
+      "4808": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jessica Steinmann",
+        "votes": 266466,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-08"
+      },
+      "4809": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Leticia Gutierrez",
+        "votes": 170419,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-09"
+      },
+      "4810": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chris Gober",
+        "votes": 300257,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/tx-10"
+      },
+      "4811": {
+        "status": "called",
+        "party": "R",
+        "candidate": "August Pfluger",
+        "votes": 232980,
+        "reporting": 91,
+        "url": "https://polling-desk.com/races/2026/house/tx-11"
+      },
+      "4812": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Craig Goldman",
+        "votes": 271894,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-12"
+      },
+      "4813": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Ronny Jackson",
+        "votes": 242521,
+        "reporting": 92,
+        "url": "https://polling-desk.com/races/2026/house/tx-13"
+      },
+      "4814": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Randy Weber",
+        "votes": 282553,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-14"
+      },
+      "4815": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bobby Pulido",
+        "votes": 202509,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-15"
+      },
+      "4816": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Veronica Escobar",
+        "votes": 197117,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/tx-16"
+      },
+      "4817": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Pete Sessions",
+        "votes": 267957,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/tx-17"
+      },
+      "4818": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Christian Menefee",
+        "votes": 224483,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-18"
+      },
+      "4819": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tom Sell",
+        "votes": 221753,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/tx-19"
+      },
+      "4820": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Joaquin Castro",
+        "votes": 192494,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/tx-20"
+      },
+      "4821": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mark Teixeira",
+        "votes": 356390,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-21"
+      },
+      "4822": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Trever Nehls",
+        "votes": 289777,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-22"
+      },
+      "4823": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Katy Padilla Stout",
+        "votes": 272553,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/tx-23"
+      },
+      "4824": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Beth Van Duyne",
+        "votes": 321448,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-24"
+      },
+      "4825": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Roger Williams",
+        "votes": 265575,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-25"
+      },
+      "4826": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brandon Gill",
+        "votes": 335798,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-26"
+      },
+      "4827": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Michael Cloud",
+        "votes": 282509,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-27"
+      },
+      "4828": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Henry Cuellar",
+        "votes": 172312,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-28"
+      },
+      "4829": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Sylvia Garcia",
+        "votes": 167608,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-29"
+      },
+      "4830": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Frederick Haynes III",
+        "votes": 226118,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-30"
+      },
+      "4831": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John Carter",
+        "votes": 304973,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/tx-31"
+      },
+      "4832": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jace Yarbrough",
+        "votes": 277669,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-32"
+      },
+      "4833": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Colin Allred",
+        "votes": 192448,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/tx-33"
+      },
+      "4834": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Vicente Gonzalez",
+        "votes": 202645,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/tx-34"
+      },
+      "4835": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Johnny Garcia",
+        "votes": 252558,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/tx-35"
+      },
+      "4836": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Brian Babin",
+        "votes": 257689,
+        "reporting": 96,
+        "url": "https://polling-desk.com/races/2026/house/tx-36"
+      },
+      "4837": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Greg Casar",
+        "votes": 304426,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/tx-37"
+      },
+      "4838": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Jon Bonck",
+        "votes": 305101,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/tx-38"
+      },
+      "4901": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Ben McAdams",
+        "votes": 249134,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ut-01"
+      },
+      "4902": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Blake Moore",
+        "votes": 253386,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ut-02"
+      },
+      "4903": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Celeste Maloy",
+        "votes": 252425,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/ut-03"
+      },
+      "4904": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Mike Kennedy",
+        "votes": 264912,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/ut-04"
+      },
+      "5101": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Shannon Taylor",
+        "votes": 409505,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-01"
+      },
+      "5102": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Elaine Luria",
+        "votes": 340024,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-02"
+      },
+      "5103": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Bobby Scott",
+        "votes": 249055,
+        "reporting": 86,
+        "url": "https://polling-desk.com/races/2026/house/va-03"
+      },
+      "5104": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Jennifer McClellan",
+        "votes": 310061,
+        "reporting": 97,
+        "url": "https://polling-desk.com/races/2026/house/va-04"
+      },
+      "5105": {
+        "status": "called",
+        "party": "R",
+        "candidate": "John McGuire",
+        "votes": 362677,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-05"
+      },
+      "5106": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Ben Cline",
+        "votes": 317940,
+        "reporting": 94,
+        "url": "https://polling-desk.com/races/2026/house/va-06"
+      },
+      "5107": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Eugene Vindman",
+        "votes": 323458,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-07"
+      },
+      "5108": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Don Beyer",
+        "votes": 319399,
+        "reporting": 98,
+        "url": "https://polling-desk.com/races/2026/house/va-08"
+      },
+      "5109": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Morgan Griffith",
+        "votes": 294951,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/va-09"
+      },
+      "5110": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Suhas Subramanyam",
+        "votes": 332146,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-10"
+      },
+      "5111": {
+        "status": "called",
+        "party": "D",
+        "candidate": "James Walkinshaw",
+        "votes": 339447,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/va-11"
+      },
+      "5000": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Becca Balint",
+        "votes": 304675,
+        "reporting": 93,
+        "url": "https://polling-desk.com/races/2026/house/vt-01"
+      },
+      "5301": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Suzan DelBene",
+        "votes": 281694,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-01"
+      },
+      "5302": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rick Larsen",
+        "votes": 327295,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-02"
+      },
+      "5303": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Marie Gluesenkamp Perez",
+        "votes": 349381,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-03"
+      },
+      "5304": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Amanda McKinney",
+        "votes": 229838,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-04"
+      },
+      "5305": {
+        "status": "counting",
+        "party": null,
+        "candidate": "Michael Baumgartner",
+        "votes": 271604,
+        "reporting": 95,
+        "url": "https://polling-desk.com/races/2026/house/wa-05"
+      },
+      "5306": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Emily Randall",
+        "votes": 316708,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-06"
+      },
+      "5307": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Pramila Jayapal",
+        "votes": 347899,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-07"
+      },
+      "5308": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Kim Schrier",
+        "votes": 328856,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-08"
+      },
+      "5309": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Adam Smith",
+        "votes": 233801,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-09"
+      },
+      "5310": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Marilyn Strickland",
+        "votes": 260449,
+        "reporting": 99,
+        "url": "https://polling-desk.com/races/2026/house/wa-10"
+      },
+      "5501": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mitchell Berman",
+        "votes": 305724,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/wi-01"
+      },
+      "5502": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Mark Pocan",
+        "votes": 317125,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/wi-02"
+      },
+      "5503": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Rebecca Cooke",
+        "votes": 329464,
+        "reporting": 90,
+        "url": "https://polling-desk.com/races/2026/house/wi-03"
+      },
+      "5504": {
+        "status": "called",
+        "party": "D",
+        "candidate": "Gwen Moore",
+        "votes": 264932,
+        "reporting": 85,
+        "url": "https://polling-desk.com/races/2026/house/wi-04"
+      },
+      "5505": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Scott Fitzgerald",
+        "votes": 374269,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/wi-05"
+      },
+      "5506": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Glenn Grothman",
+        "votes": 326159,
+        "reporting": 87,
+        "url": "https://polling-desk.com/races/2026/house/wi-06"
+      },
+      "5507": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Michael Alfonso",
+        "votes": 340803,
+        "reporting": 89,
+        "url": "https://polling-desk.com/races/2026/house/wi-07"
+      },
+      "5508": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Tony Wied",
+        "votes": 328729,
+        "reporting": 88,
+        "url": "https://polling-desk.com/races/2026/house/wi-08"
+      },
+      "5401": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Carol Miller",
+        "votes": 208622,
+        "reporting": 71,
+        "url": "https://polling-desk.com/races/2026/house/wv-01"
+      },
+      "5402": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Riley Moore",
+        "votes": 242380,
+        "reporting": 77,
+        "url": "https://polling-desk.com/races/2026/house/wv-02"
+      },
+      "5600": {
+        "status": "called",
+        "party": "R",
+        "candidate": "Chuck Gray",
+        "votes": 183200,
+        "reporting": 84,
+        "url": "https://polling-desk.com/races/2026/house/wy-01"
+      }
+    }
+  }
+}

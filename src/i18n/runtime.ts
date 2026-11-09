@@ -57,6 +57,14 @@ export function formatNumber(value: number, digits?: number): string {
 
 export function translateText(input: string, locale = currentLocale()): string {
   if (locale === 'en') return input;
+  const called = input.match(/^(\d+) of (\d+) races called$/);
+  if (called) {
+    const [, count, total] = called;
+    if (locale === 'es') return `${count} de ${total} elecciones adjudicadas`;
+    if (locale === 'fr') return `${count} élections attribuées sur ${total}`;
+    if (locale === 'de') return `${count} von ${total} Wahlen entschieden`;
+    return `${count} de ${total} eleições definidas`;
+  }
   const senateCaption = input.match(/^(\d+) of (\d+) seats up in (\d+) · (\d+) for a majority$/);
   if (senateCaption) {
     const [, up, total, year, majority] = senateCaption;

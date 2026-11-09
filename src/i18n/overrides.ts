@@ -2,6 +2,10 @@
 // meaning is ambiguous without the surrounding interface.
 export const overrides = {
   es: {
+    'Results': 'Resultados electorales', '2026 election results': 'Resultados electorales de 2026',
+    '2024 presidential results': 'Resultados presidenciales de 2024',
+    'Show results': 'Mostrar resultados', 'Restore results': 'Restaurar resultados', 'Reapply results': 'Volver a aplicar resultados',
+    'Uncalled races are gray. Results are unofficial until certified.': 'Las elecciones sin adjudicar aparecen en gris. Los resultados son provisionales hasta su certificación.',
     'House': 'Cámara', 'House (2026)': 'Cámara (2026)', 'House races': 'Elecciones a la Cámara',
     'Tossup': 'Indeciso', 'Toss Up': 'Indeciso', 'Uncalled': 'Sin adjudicar',
     'Lean Democrat': 'Ventaja demócrata leve', 'Lean Republican': 'Ventaja republicana leve',
@@ -36,6 +40,10 @@ export const overrides = {
     'States with no public poll default to their current senator/governor\'s party (flat color); a state with no poll from the selected pollster stays grey. A state whose poll leader differs from the incumbent is striped as a pickup (toggle it in Pickups). Selecting or changing a poll wipes your paints; so does choosing a ratings source.': 'Los estados sin encuestas públicas muestran el partido del senador o gobernador en funciones (color sólido); los estados sin encuestas de la firma seleccionada quedan en gris. Si el partido que encabeza la encuesta es distinto del que ocupa el cargo, el estado aparece rayado para indicar un posible cambio de partido (se puede desactivar en Escaños ganados). Seleccionar o cambiar una encuesta, o elegir una fuente de pronósticos, borra los colores que hayas aplicado.',
   },
   fr: {
+    'Results': 'Résultats électoraux', '2026 election results': 'Résultats des élections de 2026',
+    '2024 presidential results': 'Résultats de la présidentielle de 2024',
+    'Show results': 'Afficher les résultats', 'Restore results': 'Rétablir les résultats', 'Reapply results': 'Réappliquer les résultats',
+    'Uncalled races are gray. Results are unofficial until certified.': 'Les élections non attribuées sont grisées. Les résultats restent provisoires jusqu’à leur certification.',
     'House': 'Chambre', 'House (2026)': 'Chambre (2026)', 'House races': 'Élections à la Chambre',
     'Tossup': 'Indécis', 'Toss Up': 'Indécis', 'Uncalled': 'Non attribué',
     'Lean Democrat': 'Léger avantage démocrate', 'Lean Republican': 'Léger avantage républicain',
@@ -68,6 +76,10 @@ export const overrides = {
     'States with no public poll default to their current senator/governor\'s party (flat color); a state with no poll from the selected pollster stays grey. A state whose poll leader differs from the incumbent is striped as a pickup (toggle it in Pickups). Selecting or changing a poll wipes your paints; so does choosing a ratings source.': 'Les États sans sondage public affichent le parti du sénateur ou du gouverneur sortant (couleur unie) ; ceux sans sondage de l’institut choisi restent gris. Si le parti en tête du sondage diffère de celui du titulaire, des hachures signalent un possible changement de parti (réglable dans Sièges gagnés). Choisir ou modifier un sondage, ou choisir une source de prévisions, efface les couleurs que vous avez appliquées.',
   },
   de: {
+    'Results': 'Wahlergebnisse', '2026 election results': 'Wahlergebnisse 2026',
+    '2024 presidential results': 'Präsidentschaftsergebnisse 2024',
+    'Show results': 'Ergebnisse anzeigen', 'Restore results': 'Ergebnisse wiederherstellen', 'Reapply results': 'Ergebnisse erneut anwenden',
+    'Uncalled races are gray. Results are unofficial until certified.': 'Noch nicht entschiedene Wahlen sind grau. Die Ergebnisse sind bis zur Bestätigung vorläufig.',
     '2026 Election Mapper': 'US-Wahlkarte 2026',
     'House': 'Repräsentantenhaus', 'House (2026)': 'Repräsentantenhaus (2026)', 'House races': 'Wahlen zum Repräsentantenhaus',
     'House of Representatives': 'Repräsentantenhaus',
@@ -108,6 +120,10 @@ export const overrides = {
     'States with no public poll default to their current senator/governor\'s party (flat color); a state with no poll from the selected pollster stays grey. A state whose poll leader differs from the incumbent is striped as a pickup (toggle it in Pickups). Selecting or changing a poll wipes your paints; so does choosing a ratings source.': 'Bundesstaaten ohne öffentliche Umfrage zeigen die Partei des amtierenden Senators oder Gouverneurs (einfarbig); ohne Umfrage des gewählten Instituts bleiben sie grau. Führt in der Umfrage eine andere Partei als die des Amtsinhabers, kennzeichnet eine Schraffur einen möglichen Sitzgewinn (unter Sitzgewinne einstellbar). Das Auswählen oder Ändern einer Umfrage oder Prognosequelle entfernt Ihre eigenen Markierungen.',
   },
   'pt-BR': {
+    'Results': 'Resultados eleitorais', '2026 election results': 'Resultados das eleições de 2026',
+    '2024 presidential results': 'Resultados presidenciais de 2024',
+    'Show results': 'Mostrar resultados', 'Restore results': 'Restaurar resultados', 'Reapply results': 'Reaplicar resultados',
+    'Uncalled races are gray. Results are unofficial until certified.': 'As eleições ainda não definidas aparecem em cinza. Os resultados são provisórios até a certificação.',
     'House': 'Câmara', 'House (2026)': 'Câmara (2026)', 'House races': 'Eleições para a Câmara',
     'Tossup': 'Indefinido', 'Toss Up': 'Indefinido', 'Uncalled': 'Não definido',
     'Lean Democrat': 'Leve vantagem democrata', 'Lean Republican': 'Leve vantagem republicana',
